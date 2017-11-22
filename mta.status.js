@@ -25,10 +25,8 @@ function parseDelayStatus(line, text) {
 	text = text.trim();
 
 	let status = {
-		lines: [],
-		otherLines: [],
-		direction: [],
-		messages: [],
+		lines: {},
+		otherLines: {},
 		text: text,
 	};
 
@@ -46,10 +44,10 @@ function parseDelayStatus(line, text) {
 		const linePattern = /\[[ABCDEFGLMNQRSW1234567]\]/g;
 		let lines = text.match(linePattern);
 
-		status.lines.push(getTrainsInLine(line, lines));
+		status.lines = getTrainsInLine(line, lines);
 
 		// Look for other affected lines
-		status.otherLines.push(getTrainsNotInLine(line, lines));
+		status.otherLines = getTrainsNotInLine(line, lines);
 
 		// Look for direction
 		// southbound, northbound, brooklyn-bound, queens-bound, manhattan-bound, in both directions
@@ -65,10 +63,10 @@ function findTrainsInText (text) {
 	const linePattern = /\[[ABCDEFGLMNQRSW1234567]\]/g;
 	let lines = text.match(linePattern);
 
-	status.lines.push(getTrainsInLine(line, lines));
+	status.lines = getTrainsInLine(line, lines);
 
 	// Look for other affected lines
-	status.otherLines.push(getTrainsNotInLine(line, lines));
+	status.otherLines = getTrainsNotInLine(line, lines);
 
 }
 
@@ -130,9 +128,15 @@ function formatStatusText(text) {
 
 	for (t in text) {
 		if (getStatusTypes().indexOf(text[t]) === -1) {
+			if (typeof text[t] === 'string') {
 
-			// Convert each status into an array.
-			result.push(formatSingleStatusEvent(text[t]));
+				let e = formatSingleStatusEvent(text[t]);
+
+				// Convert each status into an object.
+				if (e !== null) {
+					result.push(e);
+				}
+			}
 		}
 	}
 
@@ -153,15 +157,16 @@ function formatSingleStatusEvent(event) {
 
 	event = event.trim();
 
-	let e = {
-		type: null,
-		type_detail: null,
-		time: null,
-		durration: null,
-		message: null,
-	};
+	let  e = null;
 
 	if (event) {
+		e = {
+			type: null,
+			type_detail: null,
+			time: null,
+			durration: null,
+			message: null,
+		};
 
 		// Determine the event type. 
 		// note: adding /g breaks this regex!

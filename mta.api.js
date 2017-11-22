@@ -4,6 +4,47 @@ const axios = require('axios');
 // Require FileStream library for read/write.
 const fs = require('fs');
 
+// MTA Status endpoint.
+const url = "http://web.mta.info/status/serviceStatus.txt";
+
+
+/**
+ * Get the latest, return it, and store it in a local file.
+ * 
+ * @param  {string} mta_status_file
+ *   A filename where we should store (cache) our request.
+ * @param  {int} cacheMinutes
+ *   How many minutes old can we use this data for before refreshing?
+ *   
+ * @return {object}
+ *   The Subway status in a data object. Not cleaned or restructured!
+ */
+function getSubwayStatus (mta_status_file, cacheMinutes) {
+
+	return new Promise ( (resolve, reject) => {
+		
+		loadStatusFromFile(mta_status_file + '.json', 'json')
+
+			// Make sure data is fresh.
+			.then((results) => (checkFreshnessDate(results.service.timestamp[0], cacheMinutes) === true)
+				? Promise.resolve(results)
+				: Promise.reject('Refresh data, please.'))
+
+			// If we couldn't get it, load from mta.info's API.
+			.catch(err => getLocation(url, mta_status_file))
+
+			// Catch an errors from API load or 
+			.catch(err => console.error('Problem after loading API data. ', err))
+
+			// Resolve with the parsed data.
+			.then (data => resolve(data))
+
+			// Reject if there were MTA API errors.
+			.catch (err => reject(err));
+	});
+}
+
+
 /**
  * Given a url, fetch the data, load, prepare and save it. Finally, return it.
  * 
@@ -124,9 +165,5 @@ function makeJson(data) {
 
 
 module.exports = {
-	getLocation,
-	checkFreshnessDate,
-	makeJson,
-	loadStatusFromFile,
-	saveStatusToFile,
+	getSubwayStatus
 };
