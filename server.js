@@ -7,7 +7,7 @@ const mtaApi = require('./mta.api');
 const mtaStatus = require('./mta.status');
 
 // File where we'll store things. No extension, please.
-const mta_status_file = "mta_status";
+const mta_status_file = './data/mta_status';
 
 // How long before we refresh the feeds?
 const cacheMinutes = 15;

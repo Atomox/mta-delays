@@ -139,9 +139,14 @@ function loadStatusFromFile(filename, type) {
 				reject("File has no contents.");
 			}
 
+			// Contents were stringified, and must be rebuilt into a true object.
 			if (type == 'json') {
-				// Contens were stringified, and must be rebuilt into a true object.
-				contents = JSON.parse(contents);
+				try {					
+					contents = JSON.parse(contents);
+				}
+				catch (err) {
+					reject(err);
+				}
 			}
 
 			resolve(contents);
