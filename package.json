@@ -1,0 +1,16 @@
+{
+  "name": "mta-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ben Helmer <Atomox@gmail.com> (http://www.benhelmer.com)",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "striptags": "^3.1.0",
+    "xml2js": "^0.4.19"
+  }
+}
