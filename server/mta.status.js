@@ -86,6 +86,7 @@ function cleanStatusText(text) {
 	text = text.replace(/(?:\r\n|\r|\n)/g, '');
 	text = text.trim();
 	text = text.replace(/\&nbsp;/g, ' ');
+	text = text.replace(/\&bull;/g, " -- ");
 	text = unescape(text);
 
 	// Strip tags (minus strong and spans)
@@ -185,14 +186,72 @@ function formatSingleStatusEvent(event) {
 		e.type_detail = getMessageAction(event);
 
 
-
 		// If delay, pull up report time.
 		if (['Delay', 'ServiceChange'].indexOf(e.type) >= 0) {
-			let DatePattern = /(?=<span\s*class="DateStyle"\s*>(.*)<\/span>)/gi;
-			let dateResults = event.split(DatePattern);
-
-			e.time = (dateResults[1]) ? dateResults[1].trim() : null;
+			e.time = getMessageDateTime(event);
 		}
+
+		// Planned Work will have dates.
+		if (['PlannedWork'].indexOf(e.type) >= 0) {
+			e.durration = getMessagePlannedWorkDate(event);
+		}
+
+
+		// TUNNEL RECONSTRUCTION Weekend [2] [3] 
+		// 
+		// station closures and route changes
+		// 
+		// Until Summer 2018
+		// 
+		// No service at Park Place, Wall St, Clark St and Hoyt St; use nearby [4] [5] stations No [2] [3] service between Manhattan and Brooklyn; take the [4] or [5] instead. Weekend service map for Lower Manhattan and Downtown Brooklyn New timetables with Weekend Route Changes | [2] pdf | [3] pdf | [4] pdf | [5] pdf
+
+
+		// TRACK REPLACEMENT [C] 168 St-bound trains skip
+		// 
+		// Spring St, 23 St and 50 St
+		// 
+		// Weekend , Saturday and Sunday, Nov 25 - 26
+		// 
+		// For service to Spring St, take the [C] to W 4 St and transfer to a Euclid Av-bound [C]. For service from this station, take the [C] to Canal St and transfer to a 168 St-bound [C]. For service to 23 and 50 Sts, transfer to the [E] at 14 St or 42 St/Port Authority. For service from 23 or 50 Sts, take the [E] to 42 St/Port Authority and transfer to a 168 St-bound [C].
+
+
+		// TRACK REPLACEMENT [A] No trains between
+		// 
+		// Broad Channel and Mott Av
+		// 
+		// [SB] Free shuttle buses provide alternate service
+		// 
+		// Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4
+		// 
+		// [A] service operates between 207 St and Broad Channel , and replace the [S] to/from Beach 116 St .
+		// 
+		// [SB] Buses make stops at Beach 90 , Beach 67 , Beach 60 , Beach 44 , Beach 36 , Beach 25 Sts and Mott Av .
+		// 
+		// &bull; Transfer between [A] trains and [SB] buses at Beach 90 St . Show Shuttle Bus Stops Station Shuttle Bus Stop Bus Mott Av Beach 22 St at Station Entrance &mdash; Beach 25 St Beach Channel Dr at Beach 25 St &mdash; Beach 36 St Beach Channel Dr at Beach 35 St (to Mott Av) Q22 Beach Channel Dr at 36 St (to Beach 90 St) Q22 Beach 44 St Beach Channel Dr at Beach 44 St Q22 Beach 60 St Beach Channel Dr at Beach 59 St Q22 Beach 67 St Beach Channel Dr at Beach 67 St Q22 Beach 90 St [A] Rockaway Beach Blvd at Beach 88 St Q22 Note: Service to/from Lefferts Blvd is not affected.
+		// 
+		// [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.
+
+
+		// TRACK MAINTENANCE [R] Forest Hills-bound trains skip 
+		// 
+		// 36 St, Steinway St, 46 St, Northern Blvd and 65 St 
+		// 
+		// Weekend , Saturday and Sunday , Nov 25 - 26
+		// 
+		// For service to these stations, take the [R] to Roosevelt Av and transfer to a Bay Ridge-bound [R]. For service from these stations, take the [R] to Queens Plaza and transfer to a Forest Hills-bound [R].
+
+		// [type] [line] [direction] [action] [stations]
+
+
+		// TRACK REPLACEMENT [R] Bay Ridge-bound trains skip
+		// 
+		// 67 Av, 63 Dr, Woodhaven Blvd, Grand Av and Elmhurst Av
+		// 
+		// Weekend , Saturday and Sunday, Nov 25 - 26
+		// 
+		// For service to these stations, take the [R] to Roosevelt Av and transfer to a Forest Hills-bound [R]. For service from these stations, take the [R] to 71 Av and transfer to a Bay Ridge-bound [R].
+
+
 
 
 		// Pull out the message.
@@ -212,6 +271,60 @@ function formatSingleStatusEvent(event) {
 	}
 
 	return e;
+}
+
+
+function getMessageDateTime(text) {
+	let DatePattern = /(?=<span\s*class="DateStyle"\s*>(.*)<\/span>)/gi;
+	let dateResults = text.split(DatePattern);
+
+	if (dateResults[1]) {
+
+	}
+	else {
+		console.log('Could not find datetime:');
+	}
+
+	return (dateResults[1]) ? dateResults[1].trim() : null;
+}
+
+
+function getMessagePlannedWorkDate(text) {
+			
+/**
+	(Weekend|Weekends|Late Nights|Days|Late Evenings|All times)\s*,(\s*([0-9]{0,2}:?[0-9]{0,2}\s*[APM]{0,2}\s*)(Saturday|Sunday|and|Mon|Fri|Sat|Sun|to|\s)*){02}, ((Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec)\s*[0-9]{0,2}\s*-\s*[0-9]{0,2}\s*(\,|&bull\;)?\s*)*
+
+	(Weekend|Weekends|Late Nights|Days|Late Evenings|All times)\s*,(\s*([0-9]{0,2}:?[0-9]{0,2}\s*[APM]{0,2}\s*)*(Saturday|Sunday|and|Mon|Fri|Sat|Sun|to|\s|,)*)*, ((Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|-|\s)\s*[0-9]{0,2}\s*-?\s*[0-9]{0,2}\s*(\,|&bull\;)?\s*)*
+*/
+	// Weekend, 9:45 PM Fri to 5 AM Mon, Nov 24 - 27
+	// Weekend, 10 PM Fri to 5 AM Mon, Nov 24 - 27
+	// Weekend, 3:45 AM Sat to 10 PM Sun, Nov 25 - 26
+	// Weekend , Saturday and Sunday, Nov 25 - 26
+	// Weekend , Saturday and Sunday , Nov 25 - 26
+	// Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4
+	// Weekend, 7:30 AM to 7 PM, Saturday, Nov 25 9:30 AM to 7 PM, Sunday, Nov 26
+
+
+	// 11:15 PM Fri to 5 AM Mon
+
+	// Time to Time, Day
+	// 7:30 AM to 7 PM, Saturday
+
+	// Date Time to Time
+	// Nov 25 9:30 AM to 7 PM, Sunday, Nov 26
+
+
+	let workDatePattern = /(Weekend|Weekends|Late Nights|Days|Late Evenings|All times)\s*,(\s*([0-9]{0,2}:?[0-9]{0,2}\s*[APM]{0,2}\s*)(Saturday|Sunday|and|Mon|Fri|Sat|Sun|to|\s)*){02}, ((Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec)\s*[0-9]{0,2}\s*-\s*[0-9]{0,2}\s*(\,|&bull\;)?\s*)*/i;
+	let dateResults = text.match(workDatePattern);
+
+	if (dateResults && dateResults[0]) {
+		return dateResults[0].trim();
+	}
+	else {
+		console.log('Can\'t find event dates.');
+	}
+
+	return null;
 }
 
 
@@ -240,13 +353,21 @@ function getMessageAction(text) {
 		],
 
 		// Diversions.
-		'skip_stations': ['trains skip'],
+		'skip_stations': [
+			'trains skip',
+			'station closures',
+			],
 		'service_ends_early': ['end early'],
 		'running_local': [
 			'trains are running local',
 			'running local',
 		],
+		'route_change': ['route changes'],
+		'no_trains': ['No trains between'],
+		'running_express': ['running express'],
 		'running_slow': ['running with slower speeds'],
+
+
 
 		// Construction
 		'station_improvements': [
@@ -258,6 +379,7 @@ function getMessageAction(text) {
 			'TRACK MAINTENANCE',
 			'TRACK REPLACEMENT',
 		],
+		'tunnel_maintenance': ['TUNNEL RECONSTRUCTION'],
 	};
 
 	let my_status = [];
@@ -273,6 +395,48 @@ function getMessageAction(text) {
 	}
 
 	return (my_status.length > 0) ? my_status : null;
+}
+
+
+function getAffectedStations(text, actionList, line) {
+
+// TRACK MAINTENANCE [R] Forest Hills-bound trains skip 
+// 
+// 36 St, Steinway St, 46 St, Northern Blvd and 65 St 
+// 
+// Weekend , Saturday and Sunday , Nov 25 - 26
+// 
+// For service to these stations, take the [R] to Roosevelt Av and transfer to a Bay Ridge-bound [R]. For service from these stations, take the [R] to Queens Plaza and transfer to a Forest Hills-bound [R].
+
+// [type] [line] [direction] [action] [stations]
+
+
+// TRACK REPLACEMENT [R] Bay Ridge-bound trains skip
+// 
+// 67 Av, 63 Dr, Woodhaven Blvd, Grand Av and Elmhurst Av
+// 
+// Weekend , Saturday and Sunday, Nov 25 - 26
+// 
+// For service to these stations, take the [R] to Roosevelt Av and transfer to a Forest Hills-bound [R]. For service from these stations, take the [R] to 71 Av and transfer to a Bay Ridge-bound [R].
+
+	if (line == 'R') {
+
+		const directions = {
+			'southbound': [
+				'Bay Ridge-bound',
+				'Brooklyn-bound',
+			],
+			'northbound': [
+				'Forest Hills-bound',
+				'Queens-bound',
+			],
+			'mixed': [
+				'Manhattan-bound',
+			],
+		};
+	}
+
+
 }
 
 
@@ -357,5 +521,7 @@ function getTrainLine(train) {
 }
 
 module.exports = {
-	parseLineStatus
+	parseLineStatus,
+	getMessagePlannedWorkDate,
+	getMessageDateTime,
 }

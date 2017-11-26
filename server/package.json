@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Ben Helmer <Atomox@gmail.com> (http://www.benhelmer.com)",
   "license": "ISC",
@@ -13,5 +13,8 @@
     "express": "^4.16.2",
     "striptags": "^3.1.0",
     "xml2js": "^0.4.19"
+  },
+  "devDependencies": {
+    "mocha": "^3.5.3"
   }
 }
