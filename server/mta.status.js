@@ -359,6 +359,7 @@ function getMessageAction(text) {
 			],
 		'service_ends_early': ['end early'],
 		'running_local': [
+			'trains run local',
 			'trains are running local',
 			'running local',
 		],
