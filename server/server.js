@@ -4,7 +4,7 @@ var server = require('http').createServer(app);
 var status_debug = require('./mta.debug').debug;
 
 const mtaApi = require('./mta.api');
-const mtaStatus = require('./mta.status');
+const mtaStatus = require('./mta.status.xml');
 
 // File where we'll store things. No extension, please.
 const mta_status_file = './data/mta_status';

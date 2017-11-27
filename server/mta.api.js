@@ -5,8 +5,8 @@ const axios = require('axios');
 const fs = require('fs');
 
 // MTA Status endpoint.
-const url = "http://web.mta.info/status/serviceStatus.txt";
-
+// const url = "http://web.mta.info/status/serviceStatus.txt";
+const url = "http://web.mta.info/status/ServiceStatusSubway.xml";
 
 /**
  * Get the latest, return it, and store it in a local file.
@@ -25,8 +25,11 @@ function getSubwayStatus (mta_status_file, cacheMinutes) {
 		
 		loadStatusFromFile(mta_status_file + '.json', 'json')
 
+
+			// results.Siri.ServiceDelivery[0].ResponseTimestamp[0]
+
 			// Make sure data is fresh.
-			.then((results) => (checkFreshnessDate(results.service.timestamp[0], cacheMinutes) === true)
+			.then((results) => (checkFreshnessDate(results.Siri.ServiceDelivery[0].ResponseTimestamp[0], cacheMinutes) === true)
 				? Promise.resolve(results)
 				: Promise.reject('Refresh data, please.'))
 

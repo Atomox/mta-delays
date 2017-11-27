@@ -1,3 +1,15 @@
+/**
+ * Parse status from the MTA txt status feed.
+ *
+ * There are two feeds. This one is for the raw .txt endpoint from the MTA, 
+ * at: 
+ * 
+ * http://web.mta.info/status/serviceStatus.txt
+ *
+ * This is a very dirty API, which requires a lot of regex parsing and cleanup.
+ * This was the first one we began working with, and so this file is mostly for legacy purposes.
+ */
+
 const striptags = require('striptags');
 
 

@@ -1,5 +1,5 @@
 const mtaApi = require('./mta.api');
-const mtaStatus = require('./mta.status');
+const mtaStatus = require('./mta.status.xml');
 
 // const mode = 'full';
 const mode = 'type';
@@ -20,43 +20,50 @@ function debug(mta_status_file, cacheMinutes, testLines) {
 		let stats = new Object;
 		stats.ok = [];
 
-		for (let o in data.service.subway[0]) {
-			for (let line in data.service.subway[0].line) {
-				let l = data.service.subway[0].line;
 
-				if (testLines && testLines.indexOf(l[line].name[0]) === -1) {
-					console.log(' <!> --- Bypassing Line: ', l[line].name[0]);
-					continue;
-				} 
 
-				let text = mtaStatus.parseLineStatus(l[line].name[0], l[line].status[0], l[line].text);
+//		console.log(data.Siri.ServiceDelivery[0].SituationExchangeDelivery[0].Situations[0].PtSituationElement);
+//		return;
 
-				if (!text || l[line].status[0] == 'GOOD SERVICE') {
-					stats.ok[l[line].name[0]] = l[line].name[0];
-				}
-				else {
-					console.log("\n\n", l[line].name[0], ' ... ', l[line].status[0], ' -- ');
-					
-					if (mode == 'type' && text['text']) {
-						for (let i in text['text']) {
-							if (typeof text['text'][i].type == 'undefined') {
-								console.warn("\t -- [", t, ' -> ', i, ']', text['text'][i]);
-							}
+		const t = data.Siri.ServiceDelivery[0].SituationExchangeDelivery[0].Situations[0].PtSituationElement;
 
-							if (['ServiceChange', 'Delay'].indexOf(text['text'][i].type) !== -1) {
-								console.warn("\t -- ", text['text'][i].type, '|', text['text'][i].type_detail, '--', text['text'][i].message);	
-							}
-							else {
-								console.log("\t -- ", text['text'][i].type);
-							}
-						}
+
+		let text = mtaStatus.parseStatusFeed(t);	
+
+		return;
+
+		for (let o in t) {
+
+			console.log(t[o].CreationTime[0], ' -- #', t[o].SituationNumber[0].trim());
+			console.log('PublicationWindow', t[o].PublicationWindow[0]);
+			console.log('Summary', t[o].Summary[0]);
+			console.log('Description', t[o].Description[0]);
+			console.log('Source', t[o].Source[0]);
+			console.log('Affects', t[o].Affects[0].VehicleJourneys[0].AffectedVehicleJourney);
+			console.log('Consequences', t[o].Consequences[0]);
+			console.log('--------------------------------');
+
+
+			console.log("\n\n", l[line].name[0], ' ... ', l[line].status[0], ' -- ');
+			
+			if (mode == 'type' && text['text']) {
+				for (let i in text['text']) {
+					if (typeof text['text'][i].type == 'undefined') {
+						console.warn("\t -- [", t, ' -> ', i, ']', text['text'][i]);
+					}
+
+					if (['ServiceChange', 'Delay'].indexOf(text['text'][i].type) !== -1) {
+						console.warn("\t -- ", text['text'][i].type, '|', text['text'][i].type_detail, '--', text['text'][i].message);	
 					}
 					else {
-						for (let t in text) {						
-							console.log("\t -- ", text[t]);	
-						}	
+						console.log("\t -- ", text['text'][i].type);
 					}
 				}
+			}
+			else {
+				for (let t in text) {						
+					console.log("\t -- ", text[t]);	
+				}	
 			}
 		}
 
