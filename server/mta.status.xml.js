@@ -14,19 +14,78 @@ const striptags = require('striptags');
 
 function parseStatusFeed(feedObject) {
 
-	let my_status = {};
+	let my_status = [];
 
 	let t = feedObject;
 
 	for (let o in t) {
+		my_status.push(parseSingleEvent(t[o])); 
+	}
 
-		// Date
-		// ID
-		// Date range
-		// Summary / Description
-		// Line: Ref / Direction
-		// Consequences
-		// 
+	console.log(my_status);
+
+	return my_status;
+
+	if (text[0]) {
+		text[0] = cleanStatusText(text[0]);
+	}
+
+	if (['DELAYS', 'PLANNED WORK'].indexOf(status) >= 0) {
+		my_status = parseDelayStatus(line, text[0]);
+		my_status.text = formatStatusText(my_status.text);
+	}
+	else {
+		my_status.text = formatStatusText(text[0]);
+	}
+
+	return my_status;	
+}
+
+
+function parseSingleEvent(event) {
+
+	let e = {
+		
+		id: null,
+		type: null,
+		planned: false,
+		date: {
+			fetched: null,
+			start: null,
+			end: null,
+		},
+		summary: null,
+		detail: null,
+		line: [],
+		effects: null,
+		severity: null,
+		source: null,
+	};
+
+	e.id = event.SituationNumber[0].trim();
+	e.type = event.ReasonName[0].trim();
+	e.planned = (event.Planned[0] === 'true') ? true : false;
+	e.summary = event.Summary[0]._;
+	e.detail = cleanStatusText(event.LongDescription[0]);
+	e.type_detail = event.Consequences[0].Consequence[0].Condition[0];
+	e.severity = event.Consequences[0].Consequence[0].Severity[0];
+
+	e.date.fetched = event.CreationTime[0];
+	e.date.start = event.PublicationWindow[0].StartTime[0];
+	e.date.end = (event.PublicationWindow[0].EndTime) ? event.PublicationWindow[0].EndTime[0] : null;
+
+	// Parse out lines.
+	let k = event.Affects[0].VehicleJourneys[0].AffectedVehicleJourney;
+	for (let j in k) {
+		e.line.push({ line: k[j].LineRef[0].trim(), dir: k[j].DirectionRef[0].trim()});
+	}
+
+	if (event.Source[0].SourceType[0] != 'directReport') {
+		e.source = event.Source[0].SourceType[0];
+		console.warn('NEW SOURCE TYPE:', event.Source[0].SourceType[0]);
+	}
+
+	return e;
 
 		/**
 		 	2017-07-08T00:00:00-04:00  -- # MTA NYCT_162679
@@ -76,11 +135,7 @@ function parseStatusFeed(feedObject) {
 		    Affects: [ [Object] ],
 		    Consequences: [ [Object] ] 
 		},
-		*/
 
-		if(t[o].Planned[0] == 'true') {
-//			continue;
-		}
 
 		console.log("\n", '--------------------------------');
 
@@ -102,34 +157,12 @@ function parseStatusFeed(feedObject) {
 		console.log('Description', t[o].Description[0]._);
 //		console.log('Long Desc', t[o].LongDescription[0]);
 
-		if (t[o].Source[0].SourceType[0] != 'directReport') {
-			console.warn('NEW SOURCE TYPE:', t[o].Source[0].SourceType[0]);
-		}
-		
 		console.log('--------------------------------');
 
-		
+		*/
 
-
-
-	}
-
-	return;
-
-	if (text[0]) {
-		text[0] = cleanStatusText(text[0]);
-	}
-
-	if (['DELAYS', 'PLANNED WORK'].indexOf(status) >= 0) {
-		my_status = parseDelayStatus(line, text[0]);
-		my_status.text = formatStatusText(my_status.text);
-	}
-	else {
-		my_status.text = formatStatusText(text[0]);
-	}
-
-	return my_status;	
 }
+
 
 
 function parseLineStatus(line, status, text) {
