@@ -10,6 +10,7 @@
  */
 
 const striptags = require('striptags');
+const decode = require('unescape');
 
 
 function parseStatusFeed(feedObject) {
@@ -25,20 +26,6 @@ function parseStatusFeed(feedObject) {
 	console.log(my_status);
 
 	return my_status;
-
-	if (text[0]) {
-		text[0] = cleanStatusText(text[0]);
-	}
-
-	if (['DELAYS', 'PLANNED WORK'].indexOf(status) >= 0) {
-		my_status = parseDelayStatus(line, text[0]);
-		my_status.text = formatStatusText(my_status.text);
-	}
-	else {
-		my_status.text = formatStatusText(text[0]);
-	}
-
-	return my_status;	
 }
 
 
@@ -84,6 +71,9 @@ function parseSingleEvent(event) {
 		e.source = event.Source[0].SourceType[0];
 		console.warn('NEW SOURCE TYPE:', event.Source[0].SourceType[0]);
 	}
+
+
+	e.detail = parseDetailMessage(e.detail, e.summary);
 
 	return e;
 
@@ -164,36 +154,18 @@ function parseSingleEvent(event) {
 }
 
 
+function parseDetailMessage(status, short_msg) {
 
-function parseLineStatus(line, status, text) {
-
-	let my_status = {};
-
-	if (text[0]) {
-		text[0] = cleanStatusText(text[0]);
-	}
-
-	if (['DELAYS', 'PLANNED WORK'].indexOf(status) >= 0) {
-		my_status = parseDelayStatus(line, text[0]);
-		my_status.text = formatStatusText(my_status.text);
-	}
-	else {
-		my_status.text = formatStatusText(text[0]);
-	}
-
-	return my_status;	
-}
+	// Clean it up.
+	status = cleanStatusText(decode(status));
 
 
-function findTrainsInText (text) {
-	// Look for line
-	const linePattern = /\[[ABCDEFGLMNQRSW1234567]\]/g;
-	let lines = text.match(linePattern);
+	status = formatSingleStatusEvent(status);
 
-	status.lines = getTrainsInLine(line, lines);
+	// Pull the original message out of there.
+	status.message = status.message.replace(short_msg, '[- - -]');
 
-	// Look for other affected lines
-	status.otherLines = getTrainsNotInLine(line, lines);
+	return status;
 }
 
 
@@ -228,41 +200,6 @@ function cleanStatusText(text) {
 
 
 /**
- * Break status into multiple messages, and pull out related data for each message.
- * 
- * @param  {string} text
- *   A full status for a line, which we will try to split inot multiple messages.
- *   
- * @return {array}
- *   An array of status message objects.
- */
-function formatStatusText(text) {
-
-	// Explode on each span with a class of TitleDelay or TitlePlannedWork
-	let spanPattern = /<\/\w*span\w*>/gi;
-	let positiveSpanPattern = /(?=<span\s*class="(TitleDelay|TitlePlannedWork|TitleServiceChange)"\s*>)/gi;
-	text = text.split(positiveSpanPattern);
-	let result = [];
-
-	for (t in text) {
-		if (getStatusTypes().indexOf(text[t]) === -1) {
-			if (typeof text[t] === 'string') {
-
-				let e = formatSingleStatusEvent(text[t]);
-
-				// Convert each status into an object.
-				if (e !== null) {
-					result.push(e);
-				}
-			}
-		}
-	}
-
-	return result;
-}
-
-
-/**
  * Gather info on a single status event.
  * 
  * @param  {string} event
@@ -286,33 +223,17 @@ function formatSingleStatusEvent(event) {
 			message: null,
 		};
 
-		// Determine the event type. 
-		// note: adding /g breaks this regex!
-		let spanEventPattern = /(?=<span\s*class="Title(Delay|PlannedWork|ServiceChange)"\s*>(.*)<\/span>)/i;
-		let results = event.match(spanEventPattern);
-
-		if (results && results[1]) {
-			e.type = results[1].trim();
-		}
-		else {
-			console.warn('  <!> Cannot determine event type using current pattern. Parsing message:', results);
-		}
-
+		// Store the original message.
+		e.message = event;
 
 		// Determine if the event type has more detail.
 		e.type_detail = getMessageAction(event);
 
+		// Get an interruption time
+		e.time = getMessageDateTime(event);
 
-		// If delay, pull up report time.
-		if (['Delay', 'ServiceChange'].indexOf(e.type) >= 0) {
-			e.time = getMessageDateTime(event);
-		}
-
-		// Planned Work will have dates.
-		if (['PlannedWork'].indexOf(e.type) >= 0) {
-			e.durration = getMessagePlannedWorkDate(event);
-		}
-
+		// Get a scheduled time.
+		e.durration = getMessagePlannedWorkDate(event);	
 
 		// TUNNEL RECONSTRUCTION Weekend [2] [3] 
 		// 
@@ -367,24 +288,6 @@ function formatSingleStatusEvent(event) {
 		// Weekend , Saturday and Sunday, Nov 25 - 26
 		// 
 		// For service to these stations, take the [R] to Roosevelt Av and transfer to a Forest Hills-bound [R]. For service from these stations, take the [R] to 71 Av and transfer to a Bay Ridge-bound [R].
-
-
-
-
-		// Pull out the message.
-		let MessageSplitPattern = /<\/span>/gi;
-		let messageResults = event.split(MessageSplitPattern);	
-		e.message = (messageResults) ? messageResults[messageResults.length-1].trim() : null;
-
-		// if planned work, the durration
-		/*
-		  
-		  @todo
-
-		 */
-
-
-		// pull out affected lines
 	}
 
 	return e;
@@ -452,7 +355,8 @@ function getMessageAction(text) {
 	// Northbound [6] trains will end at <STRONG>Westchester Square-East Tremont Av</STRONG> because of a loss of power between <STRONG>Buhre Av</STRONG> and <STRONG>Pelham Bay Park</STRONG>.
 
 	// Some northbound [E] trains are running local from <STRONG>Queens Plaza</STRONG> to <STRONG>Jackson Hts-Roosevelt Av</STRONG>.  Some northbound [E] trains are stopping long the [C] line from <STRONG>50 St</STRONG> to <STRONG>168 St</STRONG>.   Some northbound [F] trains are running local from <STRONG>21 St-Queensbridge</STRONG> to <STRONG>Jackson Hts-Roosevelt Av</STRONG>.  [M] trains no service between <STRONG>Essex St</STRONG> and <STRONG>Forest Hills-71 Av.</STRONG>   These service changes are because of signal problems at <STRONG>36 St (Queens).</STRONG>  Expect delays on [E], [F], [M] and [R] trains.
-	
+	// SIGNAL MAINTENANCE  [S] Rockaway Park Shuttle - No trains running[A] trains and [SB] free shuttle buses provide alternate service  Days, 9:30 AM to 4 PM, Mon  and  Tue, Nov 27 - 28     [SB] Buses operate between  Beach 67 St [A]  and  Beach 116 St , stopping at Beach 90,  Beach 98 and Beach 105 Sts.   Transfer between [A] trains and [SB] buses at Beach 67 St.     Show Shuttle Bus Stops        Station   Shuttle Bus Stop
+	// SCHEDULED MAINTENANCE  [SIR] Trains board at the Tottenville-bound platform from Arthur Kill to Prince\'s Bay Stations Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1   Boarding change includes  Arthur Kill ,  Richmond Valley ,  Pleasant Plains  and     Prince\'s Bay Stations .
 	const incident_types = {
 		// Incidents
 		'service_resumed': [
@@ -471,7 +375,12 @@ function getMessageAction(text) {
 		],
 		'rail_condition': ['rail condition'],
 
+
 		// Diversions.
+		'shuttle_bus': [
+			'[SB]',
+			'Shuttle Bus',
+		],
 		'skip_stations': [
 			'trains skip',
 			'station closures',
@@ -483,13 +392,17 @@ function getMessageAction(text) {
 			'running local',
 		],
 		'route_change': ['route changes'],
-		'no_trains': ['No trains between'],
+		'no_trains': [
+			'No trains between',
+			'No trains running'
+		],
 		'running_express': ['running express'],
 		'running_slow': ['running with slower speeds'],
 
 
 
 		// Construction
+		'general_maintenance': ['SCHEDULED MAINTENANCE'],
 		'station_improvements': [
 			'STATION IMPROVEMENTS',
 			'STATION ENHANCEMENTS',
@@ -555,6 +468,19 @@ function getAffectedStations(text, actionList, line) {
 			],
 		};
 	}
+}
+
+
+
+function findTrainsInText (text) {
+	// Look for line
+	const linePattern = /\[[ABCDEFGLMNQRSW1234567]\]/g;
+	let lines = text.match(linePattern);
+
+	status.lines = getTrainsInLine(line, lines);
+
+	// Look for other affected lines
+	status.otherLines = getTrainsNotInLine(line, lines);
 }
 
 

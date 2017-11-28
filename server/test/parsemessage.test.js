@@ -1,6 +1,6 @@
 var assert = require('assert');
 
-var mtaStatus = mtaStatus || require('../mta.status');
+var mtaStatus = mtaStatus || require('../mta.status.xml');
 
 describe('Parse Service Messages', function() {
 
@@ -33,6 +33,7 @@ describe('Parse Service Messages', function() {
 		'<span class="TitleDelay">Delays</span> <span class="DateStyle">Posted: 11/25/2017 7:12PM</span> Some northbound [N] trains are stopping on the [Q] line from <STRONG>57 St-7 Av</STRONG> and end at <STRONG>96 St.</STRONG> Some northbound [R] trains are stopping on the [Q] line from <B>57 St-7 Av</B> to <B>Lexington Av-63 St</B>, then over the [F] line from <B>Lexington Av-63 St</B> to <B>Jackson Heights-Roosevelt Av.</B> This service change is because of a train with mechanical problems at <B>5 Av-59 St.</B> Expect delays in [F][N][Q][R] train service.',
 		'<span class="TitleDelay">Delays</span> <span class="DateStyle"> Posted: 11/15/2017 12:22PM  </span> [2], [3], [4] and [5] trains are running with delays in both directions because of signal maintenance at <STRONG>Eastern Pkwy-Brooklyn Museum.</STRONG>',
 		'<b>TUNNEL RECONSTRUCTION</b> Weekend [2] [3] station closures and route changes Until Summer 2018 -- No service at Park Place, Wall St, Clark St and Hoyt St; use nearby [4] [5] stations No [2] [3] service between Manhattan and Brooklyn; take the [4] or [5] instead. Weekend service map for Lower Manhattan and Downtown Brooklyn New timetables with Weekend Route Changes | [2] pdf | [3] pdf | [4] pdf | [5] pdf',
+		'SCHEDULED MAINTENANCE  [SIR] Trains board at the Tottenville-bound platform from Arthur Kill to Prince\'s Bay Stations Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1   Boarding change includes  Arthur Kill ,  Richmond Valley ,  Pleasant Plains  and     Prince\'s Bay Stations .',
 	];
 
 
@@ -43,10 +44,7 @@ describe('Parse Service Messages', function() {
 			for (let x in interupt_msg) {
 				if (x === 0) { coninue; }
 
-				console.log(x, ': ', interupt_msg[x]);
 				let result = mtaStatus.getMessageDateTime(interupt_msg[x]);
-
-				console.log(result);
 
 				assert.equal(myObj[x].time, result);
 			}
@@ -72,7 +70,9 @@ describe('Parse Service Messages', function() {
 				],
 			},
 			weekdays: {
-				simple: [],
+				simple: [
+					'Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1',
+				],
 				multiweek: [],
 				complex: [],
 			},
@@ -81,14 +81,22 @@ describe('Parse Service Messages', function() {
 			}
 		};
 
-		it ('Should Parse basic weekend planned work dates.', function() {
+
+		it ('Should Parse basic [weekdays] planned work dates.', function() {
+			for (let x in status_dates.weekdays.simple) {
+				let result = mtaStatus.getMessagePlannedWorkDate(status_dates.weekdays.simple[x]); 
+				assert.equal(status_dates.weekdays.simple[x], result);
+			}
+		});
+
+		it ('Should Parse basic [weekend] planned work dates.', function() {
 			for (let x in status_dates.weekend.simple) {
 				let result = mtaStatus.getMessagePlannedWorkDate(status_dates.weekend.simple[x]); 
 				assert.equal(status_dates.weekend.simple[x], result);
 			}
 		});
 
-		it ('Should Parse multi-weekend planned work dates.', function() {
+		it ('Should Parse [multi-weekend] planned work dates.', function() {
 			for (let x in status_dates.weekend.multiweekend) {
 				let result = mtaStatus.getMessagePlannedWorkDate(status_dates.weekend.multiweekend[x]); 
 				assert.equal(status_dates.weekend.multiweekend[x], result);
