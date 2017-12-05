@@ -12,6 +12,8 @@ const mta_status_file = './data/mta_status';
 // How long before we refresh the feeds?
 const cacheMinutes = 15;
 
+const port = 8383;
+
 // Which lines are worth our time?
 const testLines = [
  'ACE',
@@ -39,7 +41,29 @@ app.use(function(req, res, next) {
 });
 
 
+
 app.get('/subway/status', function(req, resp, next) {
+
+	// Load the data.
+	// Check the filesystem first.
+	mtaApi.getSubwayStatus(mta_status_file, cacheMinutes)
+
+		// Now we play with the data.
+		.then((data) => {
+
+			if (!data || data.length <= 0) {
+				return Promise.reject('No data loaded from file or endpoint.');
+			}
+
+			const t = data.Siri.ServiceDelivery[0].SituationExchangeDelivery[0].Situations[0].PtSituationElement;
+			let statusArray = mtaStatus.parseStatusFeed(t);
+			
+			resp.json(statusArray);	
+		});
+});
+
+/**
+app.get('/subway/status/*', function(req, resp, next) {
 
 	// Load the data.
 	// Check the filesystem first.
@@ -81,5 +105,6 @@ app.get('/subway/status', function(req, resp, next) {
 			resp.json(stats);
 		});
 });
+*/
 
-server.listen('8383');
+server.listen(port);

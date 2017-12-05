@@ -411,6 +411,9 @@ function getMessageAction(text) {
 		'track_maintenance': [
 			'TRACK MAINTENANCE',
 			'TRACK REPLACEMENT',
+			'TRACK PLATE INSTALLATION',
+			'TRACK INSTALLATION',
+			'REPLACEMENT OF POWER & COMMUNICATION CABLES',
 		],
 		'tunnel_maintenance': ['TUNNEL RECONSTRUCTION'],
 	};
@@ -428,6 +431,31 @@ function getMessageAction(text) {
 	}
 
 	return (my_status.length > 0) ? my_status : null;
+}
+
+
+function getStations(text) {
+
+	/*
+	  @TODO
+	    Get all sations here:
+
+	    http://web.mta.info/developers/data/nyct/subway/Stations.csv
+	 */
+	const stations = {
+		'Euclid Av.',
+		'Fulton St.',
+		'5 Av/53 St.',
+
+
+		// SIR
+		'Arthur Kill',
+		'Prince\'s Bay Stations',
+	};
+
+	const tunnels = {
+		'Clark St Tunnel',
+	};
 }
 
 
