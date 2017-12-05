@@ -442,7 +442,7 @@ function getStations(text) {
 
 	    http://web.mta.info/developers/data/nyct/subway/Stations.csv
 	 */
-	const stations = {
+	const stations = [
 		'Euclid Av.',
 		'Fulton St.',
 		'5 Av/53 St.',
@@ -451,11 +451,11 @@ function getStations(text) {
 		// SIR
 		'Arthur Kill',
 		'Prince\'s Bay Stations',
-	};
+	];
 
-	const tunnels = {
+	const tunnels = [
 		'Clark St Tunnel',
-	};
+	];
 }
 
 
