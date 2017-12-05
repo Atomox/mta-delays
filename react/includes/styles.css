@@ -1,0 +1,13 @@
+
+.bad {
+	color: red;
+}
+
+.good {
+	color: green;
+}
+
+h2 {
+	display: inline-block;
+	width: 16rem;
+}
