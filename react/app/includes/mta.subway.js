@@ -45,8 +45,18 @@ let mtaSubway = (() => {
 			case 'MTA NYCT_M':
 				return 'M';
 
+			case 'MTA NYCT_G':
+				return 'G';
+			case 'MTA NYCT_L':
+				return 'L';
+
+			case 'MTA NYCT_J':
+				return 'J';
+			case 'MTA NYCT_Z':
+				return 'Z';
 
 			case 'MTA NYCT_H':
+			case 'MTA NYCT_GS':
 				return 'S';
 			
 			case 'MTA NYCT_SI':
@@ -60,6 +70,7 @@ let mtaSubway = (() => {
 	function getlineDirectionByID(id) {
 		return (id == 0) ? 'northbound' : 'southbound';
 	}
+
 
 	return({
 		getlineById: getlineById,

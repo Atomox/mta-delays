@@ -11,3 +11,42 @@ h2 {
 	display: inline-block;
 	width: 16rem;
 }
+
+.line strong {
+   background: #999; 
+   color: #fff;
+   -moz-border-radius: 50%; 
+   -webkit-border-radius: 50%; 
+   border-radius: 50%;;
+
+   width: 2em;
+   height: 2em;
+   margin: 0 .25em;
+   padding: .1em;
+}
+
+
+/**
+ *
+ *   FIGURE OUT CIRCLE Subway div.
+ *
+ * 
+div.line {
+  background:red;
+  margin:auto;
+  text-align:center;
+  border-radius:50%;
+}
+#test{
+  width: 20%;
+}
+#test:before{
+  content:'';
+  padding:50% 0;
+  display:inline-block;
+  vertical-align:middle;
+}
+span {
+  display:inline-block;
+}
+*/

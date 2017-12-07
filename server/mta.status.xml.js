@@ -363,8 +363,19 @@ function getMessageAction(text) {
 			'service has resumed',
 			'following an earlier incident',
 			'resumed service',
+			'service resumed',
 		],
-		'illness': ['sick passenger'],
+		'delays': [
+			'delays',
+			'running with delays',
+		],
+		'illness': [
+			'sick passenger',
+		],
+		'injury': [
+			'person struck by a train',
+			'customer injury',
+		],
 		'signal_problems': ['signal problems'],
 		'power_loss': ['loss of power'],
 		'unautherized_person': [
@@ -374,6 +385,8 @@ function getMessageAction(text) {
 			'mechanical problems',
 		],
 		'rail_condition': ['rail condition'],
+
+		
 
 
 		// Diversions.
@@ -385,24 +398,47 @@ function getMessageAction(text) {
 			'trains skip',
 			'station closures',
 			],
-		'service_ends_early': ['end early'],
+		'service_ends_early': [
+			'end early',
+			'Service ends early',
+		],
 		'running_local': [
 			'trains run local',
 			'trains are running local',
+			'trains make local stops',
+			'local stops',
 			'running local',
+			'run local',
 		],
 		'route_change': ['route changes'],
 		'no_trains': [
 			'No trains between',
 			'No trains running'
 		],
-		'running_express': ['running express'],
-		'running_slow': ['running with slower speeds'],
+		'no_trains_partial': [
+			'No trains between',
+			'No trains running between',
+		],
+		'running_express': [
+			'running express',
+			'trains run express',
+		],
+		'running_slow': [
+			'running with slower speeds',
+			'run at reduced speed',
+			'run with reduced speed',
+		],
 
 
 
 		// Construction
-		'general_maintenance': ['SCHEDULED MAINTENANCE'],
+		'general_maintenance': [
+			'PRIORITY REPAIRS',
+			'SCHEDULED MAINTENANCE',
+			'PREVENTIVE MAINTENANCE',
+			'STRUCTURAL IMPROVEMENTS',
+		],
+		'signal_maintenance':['SIGNAL MAINTENANCE'],
 		'station_improvements': [
 			'STATION IMPROVEMENTS',
 			'STATION ENHANCEMENTS',
@@ -443,9 +479,28 @@ function getStations(text) {
 	    http://web.mta.info/developers/data/nyct/subway/Stations.csv
 	 */
 	const stations = [
+		// Queens
+		'Roosevelt Av',
+		'71 Av',
+		
+		// Queens -- 7 Train
+		'61 St-Woodside',
+		'74 St-Broadway',
+		'Queensboro Plaza',
+
+		// Brooklyn
 		'Euclid Av.',
 		'Fulton St.',
+		'Atlantic Av-Barclays Ctr.',
+		
+		// Manhattan
 		'5 Av/53 St.',
+		'125 St.',
+		'66 St', 
+		'59 St', 
+		'50 St',
+
+		// The Bronx
 
 
 		// SIR

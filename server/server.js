@@ -10,7 +10,7 @@ const mtaStatus = require('./mta.status.xml');
 const mta_status_file = './data/mta_status';
 
 // How long before we refresh the feeds?
-const cacheMinutes = 15;
+const cacheMinutes = 1;
 
 const port = 8383;
 

@@ -21,19 +21,31 @@ class EventList extends React.Component {
 						let line = mta.getlineById(e.line[key].line);
 						let dir = mta.getlineDirectionByID(e.line[key].dir);
 
-						return (
-							<span className="line">
-								<strong>{line}</strong> {dir}
-							</span>);
+						return <TrainLine line={line} dir={dir} />;
 					})
 				} &nbsp;
 			     | {(e.detail.type_detail) 
 					? e.detail.type_detail.join(', ') : ''}
 				</h4>
 			    <p>{e.summary}</p>
+			    <small>
+			    	{(e.planned === true) 
+			    		? e.detail.durration
+			    		: new Date(e.date.start).toString()
+			    	}</small>
 			  </div>
 			</div>
 		);
+	}
+}
+
+
+class TrainLine extends React.Component {
+
+	render() {
+		return (<span className="line">
+			<strong>{this.props.line}</strong> {this.props.dir}
+		</span>);
 	}
 }
 
