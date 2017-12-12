@@ -23,6 +23,13 @@ describe('Parse Service Messages', function() {
 			type: 'PlannedWork',
 			type_detail: null,
 			time: '',
+			durration: 'All times, Monday to Friday, Dec 4 - 8 Dec 11 - 15',
+			message: 'TRACK & TRACK PLATE INSTALLATION, REPLACEMENT OF POWER & COMMUNICATION CABLES [2] [3] Trains run at reduced speed through the Clark St Tunnel between Manhattan and Brooklyn All times, Monday to Friday, Dec 4 - 8 Dec 11 - 15 The slower speed will keep everyone safe as our crews make critical repairs to the tunnel. Please allow additional travel time.',
+		},
+		{
+			type: 'PlannedWork',
+			type_detail: null,
+			time: '',
 			durration: 'Weekend Until Summer 2018',
 			message: 'Weekend [2] [3] station closures and route changes Until Summer 2018 -- No service at Park Place, Wall St, Clark St and Hoyt St; use nearby [4] [5] stations No [2] [3] service between Manhattan and Brooklyn; take the [4] or [5] instead.',
 		},
@@ -40,7 +47,7 @@ describe('Parse Service Messages', function() {
 
 	describe('Parse Interruption Dates', () => {
 
-		it ('Should Parse basic Posted: dates from service interruptions.', () => {
+		it ('Should Parse basic Posted dates from service interruptions.', () => {
 			for (let x in interupt_msg) {
 				if (x === 0) { coninue; }
 
@@ -64,6 +71,7 @@ describe('Parse Service Messages', function() {
 				],
 				multiweekend: [
 					'Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4',
+					'All Times Until Summer 2018',
 				],
 				complex: [
 					'Weekend, 7:30 AM to 7 PM, Saturday, Nov 25 9:30 AM to 7 PM, Sunday, Nov 26',
@@ -84,7 +92,7 @@ describe('Parse Service Messages', function() {
 
 		it ('Should Parse basic [weekdays] planned work dates.', function() {
 			for (let x in status_dates.weekdays.simple) {
-				let result = mtaStatus.getMessagePlannedWorkDate(status_dates.weekdays.simple[x]); 
+				let result = mtaStatus.getMessagePlannedWorkDate(status_dates.weekdays.simple[x]);
 				assert.equal(status_dates.weekdays.simple[x], result);
 			}
 		});
