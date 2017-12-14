@@ -297,63 +297,24 @@ function formatSingleStatusEvent(event) {
 function getMessageDateTime(text) {
 	let DatePattern = /(?=<span\s*class="DateStyle"\s*>(.*)<\/span>)/gi;
 	let dateResults = text.split(DatePattern);
-
-	if (dateResults[1]) {
-
-	}
-	else {
-		console.log('Could not find datetime:', text);
-	}
-
 	return (dateResults[1]) ? dateResults[1].trim() : null;
 }
 
 
 function getMessagePlannedWorkDate(text) {
-			
-/**
-	(Weekend|Weekends|Late Nights|Days|Late Evenings|All times)\s*,(\s*([0-9]{0,2}:?[0-9]{0,2}\s*[APM]{0,2}\s*)(Saturday|Sunday|and|Mon|Fri|Sat|Sun|to|\s)*){02}, ((Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec)\s*[0-9]{0,2}\s*-\s*[0-9]{0,2}\s*(\,|&bull\;)?\s*)*
-
-	(Weekend|Weekends|Late Nights|Days|Late Evenings|All times)\s*,(\s*([0-9]{0,2}:?[0-9]{0,2}\s*[APM]{0,2}\s*)*(Saturday|Sunday|and|Mon|Fri|Sat|Sun|to|\s|,)*)*, ((Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|-|\s)\s*[0-9]{0,2}\s*-?\s*[0-9]{0,2}\s*(\,|&bull\;)?\s*)*
-*/
-	// Weekend, 9:45 PM Fri to 5 AM Mon, Nov 24 - 27
-	// Weekend, 10 PM Fri to 5 AM Mon, Nov 24 - 27
-	// Weekend, 3:45 AM Sat to 10 PM Sun, Nov 25 - 26
-	// Weekend , Saturday and Sunday, Nov 25 - 26
-	// Weekend , Saturday and Sunday , Nov 25 - 26
-	// Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4
-	// Weekend, 7:30 AM to 7 PM, Saturday, Nov 25 9:30 AM to 7 PM, Sunday, Nov 26
-	// Until Summer 2018
-	// Days, 9 AM to 3 PM, Mon, Thu and Fri, Dec 4, 7 and 8 
-	// Days, 9 AM to 3 PM, Mon to Fri, Dec 11 - 15
-	// All times, Monday to Friday, Dec 4 - 8 Dec 11 - 15
-
-
-	// 11:15 PM Fri to 5 AM Mon
-
-	// Time to Time, Day
-	// 7:30 AM to 7 PM, Saturday
-
-	// Date Time to Time
-	// Nov 25 9:30 AM to 7 PM, Sunday, Nov 26
-
-
-	// let workDatePattern = /(Weekend|Weekends|Late Nights|Days|Late Evenings|All times|Until)\s*,(\s*([0-9]{0,2}:?[0-9]{0,2}\s*[APM]{0,2}\s*)(Saturday|Sunday|and|Mon|Fri|Sat|Sun|to|until|\s)*){02}, ((Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter)\s*[0-9]{0,2}\s*-\s*[0-9]{0,2}\s*(\,|&bull\;)?\s*)*/i;
 
 	// let workDatePattern = /((Weekend|Weekends|Late Nights|Days|Late Evenings|All times|Until)\s*,?(\s*([0-9]{0,2}:?[0-9]{0,2}\s*[APM]{0,2}\s*)(Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Mon|Tue|Wed|Thur|Thu|Fri|Sat|Sun|to|until|and|\s)*,?){09},?\s((Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter)\s*[0-9]{0,2}\s*-?\s*[0-9]{0,2}\s*(20[0-9]{2})?\s*(\,|&bull\;)?\s*)*)+/i;
 
 	// In Progress -- Reduction
-	let workDatePattern = /((Weekends|Weekend|Late Nights|Days|Late Evenings|All times|Until)\s*,?(\s*((([0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(AM|PM)\s*)|([0-9]{1,2}\s*(-\s*[0-9]{1,2})?\s*(20[0-9]{2})?)?|(20[0-9]{2}))?\s*[,-]?\s*((Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|and)|(Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter))?\s*(\,|&bull\;)?\s*)*\s*)+/i;
+	let workDatePattern = /((Weekends|Weekend|Late Nights|Nights|Days|Late Evenings|Evenings|All times|Until)\s*,?(\s*((([0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(AM|PM)\s*)|([0-9]{1,2}\s*(-\s*[0-9]{1,2})?\s*(20[0-9]{2})?)?|(20[0-9]{2}))?\s*[,-]?\s*((Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|beginning(\sat)?|further\snotice|and)|(Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter))?\s*(\,|&bull\;)?\s*)*\s*)+/i;
 
 	let dateResults = text.match(workDatePattern);
 
 	if (dateResults && dateResults[0]) {
 		return dateResults[0].trim();
 	}
-	else {
-		console.log('Can\'t find event dates.');
-	}
 
+	console.warn('Can\'t find event dates.');
 	return null;
 }
 
@@ -408,7 +369,8 @@ function getMessageAction(text) {
 		'skip_stations': [
 			'trains skip',
 			'station closures',
-			],
+			'trains are bypassing',
+		],
 		'service_ends_early': [
 			'end early',
 			'Service ends early',
