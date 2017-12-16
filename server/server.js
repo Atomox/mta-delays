@@ -12,7 +12,7 @@ const mta_status_file = './data/mta_status';
 // How long before we refresh the feeds?
 const cacheMinutes = 1;
 
-const port = 8383;
+const port = 8100;
 
 // Which lines are worth our time?
 const testLines = [
