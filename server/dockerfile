@@ -7,10 +7,12 @@ FROM node:9.1.0
 RUN npm install forever -g
 
 # Create a source directory
-WORKDIR /usr/src/server
+RUN mkdir /usr/src/server/
+WORKDIR /usr/src/server/
 
 # Install dependencies
 COPY package.json .
+
 RUN npm install
 
 # Run app from docker-compose.xml
