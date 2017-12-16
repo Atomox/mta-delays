@@ -10,6 +10,8 @@ RUN npm install forever -g
 RUN mkdir /usr/src/server/
 WORKDIR /usr/src/server/
 
+RUN mkdir data
+
 # Install dependencies
 COPY package.json .
 
