@@ -15,5 +15,7 @@ COPY package.json .
 
 RUN npm install
 
+EXPOSE 8100
+
 # Run app from docker-compose.xml
 # CMD ["forever", "start server.js"]
