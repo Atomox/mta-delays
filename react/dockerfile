@@ -5,7 +5,7 @@ FROM node:9.1.0
 
 
 # Copy Package.json FIRST, so we can cache the install step.
-COPY .package.json package.json
+COPY ./package.json package.json
 RUN npm install
 
 # Now, bring over the code.
