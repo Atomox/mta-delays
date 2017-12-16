@@ -21,4 +21,4 @@ COPY . .
 EXPOSE 8100
 
 # Run app from docker-compose.xml
-CMD ["forever", "start server.js"]
+CMD ["forever", "server.js"]
