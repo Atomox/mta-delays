@@ -11,6 +11,8 @@ RUN mkdir /usr/src/server/
 WORKDIR /usr/src/server/
 
 RUN mkdir data
+RUN touch data/mta_status.xml
+RUN touch data/mta_status.json`
 
 # Install dependencies
 COPY package.json .
