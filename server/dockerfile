@@ -7,12 +7,10 @@ FROM node:9.1.0
 RUN npm install forever -g
 
 # Create a source directory
-RUN mkdir /usr/src/server/
-WORKDIR /usr/src/server/
+RUN mkdir -p /usr/src/server
+WORKDIR /usr/src/server
 
-RUN mkdir data
-RUN touch data/mta_status.xml
-RUN touch data/mta_status.json
+RUN mkdir data && touch data/mta_status.xml && touch data/mta_status.json
 
 # Install dependencies
 COPY package.json .
