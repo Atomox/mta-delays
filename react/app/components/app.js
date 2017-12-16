@@ -24,7 +24,7 @@ class App extends React.Component {
 
   getStatus = () => {
 
-    let url = "http://mtastatus/api/subway/status";
+    let url = "http://nyc.bhelmer.com/api/subway/status";
 
     return new Promise((resolve, reject) => {
       fetch(url)
