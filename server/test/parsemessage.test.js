@@ -166,4 +166,85 @@ describe('Parse Service Messages', function() {
 		});
 
 	});
+
+	describe('Parse Event Messages', () => {
+
+		it ('Should Parse simple unplanned event messages.', function() {
+//			assert.equal(status_dates.longterm.simple[x], result);
+		});
+
+		it ('Should Parse complex unplanned event messages.', function() {
+//			assert.equal(status_dates.longterm.simple[x], result);
+		});
+
+		it ('Should Parse service change event messages.', function() {
+//			assert.equal(status_dates.longterm.simple[x], result);
+		});
+
+	});
+
+
+	describe('Parse Event Messages', () => {
+
+		it ('Should Parse simple planned event messages.', function() {
+//			assert.equal(status_dates.longterm.simple[x], result);
+		});
+
+		it ('Should Parse complex planned event messages.', function() {
+//			assert.equal(status_dates.longterm.simple[x], result);
+		});
+
+		it ('Should Parse service change event messages.', function() {
+//			assert.equal(status_dates.longterm.simple[x], result);
+		});
+
+	});
+
+	let status_msg = {
+		unplanned: {
+			simple: [
+				// Police Activity
+				'Southbound [1] trains are running express from 96 St to 42 St because of NYPD activity 86 St.',
+
+				// Running Local // Signal Problems
+				'Southbound [E] and [F] trains are running local from Forest Hills-71 Av to Jackson Hts-Roosevelt Av because of signal problems at Forest Hills-71 Av.',
+				'[R] trains are running with delays in both directions because of signal problems between 86 St and Bay Ridge-95 St.',
+
+				'There is limited [A] train service between 168 St and Inwood-207 St in both directions because of a rail condition at 190 St.',
+
+				// Terrorism / Incident
+				'[1] [2] [3] [N] [R] [Q] [W] and [7] trains are bypassing Times Sq-42 St in both directions, [A] [C] and [E] trains are bypassing 42 St/Port Authotiy.',
+			],
+			complex: [
+				'Some southbound [2] and [3] trains end at Chambers St or Wall St. Some southbound [2] and [3] trains are stopping along the [1] line from Chambers St to South Ferry then end. Southbound [4] and [5] trains end at Bowling Green or Brooklyn Bridge-City Hall. These service changes are because of a person struck by a train at Atlantic Av-Barclays Ctr.',
+				"Some 34 St bound [7] trains are running express from 74 St-Broadway to Queensboro Plaza because of signal problems at 61 St-Woodside. Our crews are on site trying to fix it ASAP and we'll follow up soon. Stay tuned for updates.",
+			],
+		},
+
+		planned: {
+			simple: [
+				'SIGNAL MAINTENANCE [A] Trains make local stops in both directions at 23 St and 50 St',
+
+				// Skip Stations
+				'TRACK REPLACEMENT [1] South Ferry-bound trains skip 66 St, 59 St and 50 St',
+				'TRACK MAINTENANCE [A] Ozone Park/Far Rockaway-bound trains skip 163, 155, 135, 116, 110, 103, 96, 86, 81 and 72 Sts',
+				'TRACK MAINTENANCE [D] Norwood-bound trains skip 170 St, 174-175 Sts and 182-183 Sts',
+
+				// Service Ends Early
+				'TRACK MAINTENANCE [5] Service ends early between E 180 St and Bowling Green [2] [4] trains provide alternate service',
+
+				// Rerouted
+				'SIGNAL MAINTENANCE [A] Trains run via the [F] in both directions between W 4 St and Jay St-MetroTech [E] and [J] trains provide alternate service',
+				'SIGNAL MAINTENANCE [C] Trains run via the [F] in both directions between W 4 St and Jay St-MetroTech [E] and [J] trains provide alternate service',
+
+				// No Service Parital
+				'TRACK MAINTENANCE [G] No trains between Bedford-Nostrand Avs and Church Av [F] trains and [SB] free shuttle buses provide alternate service',
+				'FASTRACK PROGRAM [N] No trains in Manhattan [Q] Trains are rerouted in Manhattan [R] Service ends early in Manhattan and Queens',
+				'TRACK MAINTENANCE [R] No trains running [4] [E] [M] [N] trains and [SB] free shuttle buses provide alternate service',
+
+				// Special
+				'TRACK REPLACEMENT  [A] Trains replace the [S] Rockaway Park Shuttle Days, 9:30 AM to 4 PM, Mon to Fri, Dec 11 - 15    Dec 18 - 22    [A]  trains make all  [S]  stops between Broad Channel and Beach 116 St.',
+				],
+			}
+		};
 });

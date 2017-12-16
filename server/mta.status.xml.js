@@ -343,6 +343,7 @@ function getMessageAction(text) {
 		'illness': [
 			'sick passenger',
 			'medical attention',
+			'medical assistance',
 		],
 		'injury': [
 			'person struck by a train',
@@ -353,11 +354,15 @@ function getMessageAction(text) {
 		'unautherized_person': [
 			'unauthorized person on the tracks',
 		],
+		'police activity': [
+			'NYPD activity',
+			'police activity',
+		],
 		'mechanical_problems': [
 			'mechanical problems',
 		],
 		'rail_condition': ['rail condition'],
-
+		'switch_problems': ['switch problems'],
 		
 
 
@@ -383,12 +388,16 @@ function getMessageAction(text) {
 			'running local',
 			'run local',
 		],
-		'route_change': ['route changes'],
+		'route_change': [
+			'route changes',
+			'Trains are rerouted',
+		],
 		'no_trains': [
-			'No trains between',
 			'No trains running'
 		],
 		'no_trains_partial': [
+			'trains end at',
+			'No trains in',
 			'No trains between',
 			'No trains running between',
 		],
@@ -401,8 +410,6 @@ function getMessageAction(text) {
 			'run at reduced speed',
 			'run with reduced speed',
 		],
-
-
 
 		// Construction
 		'general_maintenance': [
@@ -623,5 +630,6 @@ function getTrainLine(train) {
 module.exports = {
 	parseStatusFeed,
 	getMessagePlannedWorkDate,
+	getMessageAction,
 	getMessageDateTime,
 }
