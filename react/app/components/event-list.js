@@ -8,10 +8,13 @@ class EventList extends React.Component {
 
 		let e = this.props.event;
 
+		let titleClass = "card-divider ";
+		titleClass += (e.planned === true) ? 'caution' : 'bad';
+
 		return (
 
 			<div className="card" key={e.id}>
-			  <div className="card-divider">
+			  <div className={titleClass}>
 			    {e.type}
 			  </div>
 			  <div className="card-section">

@@ -1,10 +1,15 @@
 
 .bad {
-	color: red;
+	color: white;
+	background: red;
 }
 
 .good {
 	color: green;
+}
+
+.caution {
+	color: yellow;
 }
 
 h2 {
