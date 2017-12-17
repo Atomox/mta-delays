@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
-    "start": "webpack-dev-server",
+    "build": "webpack -p --define process.env.NODE_ENV='\"production\"' --config ./webpack.production.config.js",
+    "start": "webpack-dev-server --define process.env.NODE_ENV='\"dev\"'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ben Helmer <Atomox@gmail.com> (http://www.benhelmer.com)",

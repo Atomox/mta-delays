@@ -4,6 +4,21 @@ let React = require('react');
 let StatusList = require('./status-list').StatusList;
 let EventList = require('./event-list').EventList;
 
+const api = {
+  dev: {
+    protocol: 'http://',
+    host: 'localhost',
+    port: 8100,
+    endpoint_prefix: '',
+  },
+  production: {
+    protocol: 'http://',
+    host: 'nyc.bhelmer.com',
+    port: '80',
+    endpoint_prefix: '/api'
+  },
+};
+
 /**
  * The main app container.
  */
@@ -24,7 +39,13 @@ class App extends React.Component {
 
   getStatus = () => {
 
-    let url = "http://nyc.bhelmer.com/api/subway/status";
+    console.log(' ---- The environment is: [', process.env.NODE_ENV, '] ------');
+
+    let e = api[process.env.NODE_ENV];
+    let url = e.protocol + e.host + ':' + e.port 
+      + e.endpoint_prefix + '/' + 'subway/status';
+
+    console.log(' ---- The environment API: [', url, '] ------');
 
     return new Promise((resolve, reject) => {
       fetch(url)
