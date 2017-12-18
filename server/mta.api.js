@@ -48,6 +48,17 @@ function getSubwayStatus (mta_status_file, cacheMinutes) {
 }
 
 
+function getSubwayStations(stations_json_file) {
+	return new Promise( (resolve, reject) => {
+		loadStatusFromFile(stations_json_file + '.json', 'json')
+
+			.then(data => (data) ? resolve(data) : reject('Problem loading data...'))
+
+			.catch(err => reject(err));
+	});
+}
+
+
 /**
  * Given a url, fetch the data, load, prepare and save it. Finally, return it.
  * 
@@ -173,5 +184,7 @@ function makeJson(data) {
 
 
 module.exports = {
-	getSubwayStatus
+	getSubwayStatus,
+	getSubwayStations,
+	saveStatusToFile,
 };

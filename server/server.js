@@ -8,6 +8,7 @@ const mtaStatus = require('./mta.status.xml');
 
 // File where we'll store things. No extension, please.
 const mta_status_file = './data/mta_status';
+const mta_stations_file = './data/mta.stations';
 
 // How long before we refresh the feeds?
 const cacheMinutes = 1;
@@ -42,24 +43,36 @@ app.use(function(req, res, next) {
 
 
 
-app.get('/subway/status', function(req, resp, next) {
+app.get('/subway/status', (req, resp, next) => {
 
 	// Load the data.
 	// Check the filesystem first.
 	mtaApi.getSubwayStatus(mta_status_file, cacheMinutes)
 
-		// Now we play with the data.
-		.then((data) => {
+	// Now we play with the data.
+	.then((data) => {
 
-			if (!data || data.length <= 0) {
-				return Promise.reject('No data loaded from file or endpoint.');
-			}
+		if (!data || data.length <= 0) {
+			return Promise.reject('No data loaded from file or endpoint.');
+		}
 
-			const t = data.Siri.ServiceDelivery[0].SituationExchangeDelivery[0].Situations[0].PtSituationElement;
-			let statusArray = mtaStatus.parseStatusFeed(t);
-			
-			resp.json(statusArray);	
-		});
+		const t = data.Siri.ServiceDelivery[0].SituationExchangeDelivery[0].Situations[0].PtSituationElement;
+		let statusArray = mtaStatus.parseStatusFeed(t);
+		
+		resp.json(statusArray);	
+	});
+});
+
+app.get('/subway/stations', (req, resp, next) => {
+
+	mtaApi.getSubwayStations(mta_stations_file)
+	
+	.then(data => {
+		if (!data || data.length <= 0) {
+			return Promise.reject('No data loaded from file or endpoint.');
+		}
+		resp.json(data);		
+	});
 });
 
 /**

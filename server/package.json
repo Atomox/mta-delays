@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "stations": "node build_stations.js"
   },
   "author": "Ben Helmer <Atomox@gmail.com> (http://www.benhelmer.com)",
   "license": "ISC",

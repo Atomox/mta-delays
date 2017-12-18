@@ -247,4 +247,10 @@ describe('Parse Service Messages', function() {
 				],
 			}
 		};
+
+
+	let r_train_msg = [
+		"SIGNAL MAINTENANCE [R] Trains run via the [Q] in both directions between DeKalb Av and Canal St",
+		'[R] trains are running with delays in both directions because of signal problems between 86 St and Bay Ridge-95 St.',
+	]
 });
