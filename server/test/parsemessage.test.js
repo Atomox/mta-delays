@@ -204,13 +204,20 @@ describe('Parse Service Messages', function() {
 		unplanned: {
 			simple: [
 				// Police Activity
+				'[1] train service has resumed following an earlier investigation at Times Sq-42 Sq.',
 				'Southbound [1] trains are running express from 96 St to 42 St because of NYPD activity 86 St.',
+
+				// Fire Activity
+				'[2], [3], [4] and [5] train service has resumed following earlier FDNY activity at Hoyt St.',
 
 				// Running Local // Signal Problems
 				'Southbound [E] and [F] trains are running local from Forest Hills-71 Av to Jackson Hts-Roosevelt Av because of signal problems at Forest Hills-71 Av.',
 				'[R] trains are running with delays in both directions because of signal problems between 86 St and Bay Ridge-95 St.',
 
+
+				// Rail Condition
 				'There is limited [A] train service between 168 St and Inwood-207 St in both directions because of a rail condition at 190 St.',
+				'[7D] and [7] trains are running with delays in both directions because of an ongoing track condition at Grand Central-42 St.',
 
 				// Terrorism / Incident
 				'[1] [2] [3] [N] [R] [Q] [W] and [7] trains are bypassing Times Sq-42 St in both directions, [A] [C] and [E] trains are bypassing 42 St/Port Authotiy.',

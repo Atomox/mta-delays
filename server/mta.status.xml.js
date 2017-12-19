@@ -361,7 +361,10 @@ function getMessageAction(text) {
 		'mechanical_problems': [
 			'mechanical problems',
 		],
-		'rail_condition': ['rail condition'],
+		'rail_condition': [
+			'rail condition',
+			'track condition',
+		],
 		'switch_problems': ['switch problems'],
 		
 

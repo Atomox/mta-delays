@@ -28,17 +28,49 @@ mtaApi.getSubwayStations(mta_stations_file)
 		return Promise.reject('No data loaded from file or endpoint.');
 	}
 	
-	let results = {};
+	try {
+		let results = {};
+		let lines = {};
 
-	for (let d in data) {
-		
-		let r = prepStationFormat(data[d]);
+		for (let d in data) {
+			
+			let r = prepStationFormat(data[d]);
+			let key = r.boro + r.cid;
 
-		results[r.boro + r.cid] = r;
+			if (!lines[r.line]) {
+				lines[r.line] = {
+					name: r.line,
+					boro: {},
+					trains: {},
+					stations: {},
+				};
+			}
+
+			if (r.trains) {
+				for (let t in r.trains) {
+					lines[r.line].trains[r.trains[t]] = r.trains[t];	
+				}
+			}
+			lines[r.line].boro[r.boro] = r.boro;
+			lines[r.line].stations[key] = r;
+				
+
+			results[key] = r;
+		}
+
+		console.log('lines - - - - - - ', lines);
+
+		let result = {
+			stations: results,
+			by_line: lines,
+		}
+
+		result = JSON.stringify(result);
+		mtaApi.saveStatusToFile(result, './data/mta.stations.final.json');
 	}
-
-	results = JSON.stringify(results);
-	mtaApi.saveStatusToFile(results, './data/mta.stations.final.json');
+	catch (err) {
+		console.error('Error processing stations. ', err);	
+	}
 });
 
 
@@ -57,3 +89,4 @@ function prepStationFormat (row) {
 
 	return r;
 }
+
