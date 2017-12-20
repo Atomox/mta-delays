@@ -96,6 +96,7 @@ describe('Parse Service Messages', function() {
 					'Late Nights, beginning at 10 PM, Mon to Thu, Dec 4 - 7',
 					'Late Nights, 9:45 PM Tue to 5 AM Wed, Dec 5 - 6',
 					'Late Nights, 9:45 PM to 5 AM, Mon to Fri, until Dec 15',
+					'Late Night, 9:45 PM Tue to 5 AM Wed, Dec 19 - 20',
 
 					// Evenings & Late Evenings
 					'Evenings, Mon to Thu, Dec 4 - 7',
@@ -204,23 +205,29 @@ describe('Parse Service Messages', function() {
 		unplanned: {
 			simple: [
 				// Police Activity
+				'Southbound [1] trains are running express from 72 St to 42 St because of an investigation at 42 St.',
 				'[1] train service has resumed following an earlier investigation at Times Sq-42 Sq.',
 				'Southbound [1] trains are running express from 96 St to 42 St because of NYPD activity 86 St.',
 
 				// Fire Activity
 				'[2], [3], [4] and [5] train service has resumed following earlier FDNY activity at Hoyt St.',
+				'Southbound [2], [3], [4] and [5] train service changes and delays because of FDNY activity at Hoyt St. See mta.info',
 
 				// Running Local // Signal Problems
 				'Southbound [E] and [F] trains are running local from Forest Hills-71 Av to Jackson Hts-Roosevelt Av because of signal problems at Forest Hills-71 Av.',
 				'[R] trains are running with delays in both directions because of signal problems between 86 St and Bay Ridge-95 St.',
 
-
+				// Diversions
+				'Southbound [Q] trains are stopping along the [R] line from Canal St to DeKalb Av because of a sick passenger at Canal St.',
+				'Southbound [N] trains are stopping along the [D] line from 36 St (Bklyn) to Coney Island-Stillwell Av because of signal problems between 8 Av and Bay Parkway.',
+				
 				// Rail Condition
 				'There is limited [A] train service between 168 St and Inwood-207 St in both directions because of a rail condition at 190 St.',
 				'[7D] and [7] trains are running with delays in both directions because of an ongoing track condition at Grand Central-42 St.',
 
 				// Terrorism / Incident
 				'[1] [2] [3] [N] [R] [Q] [W] and [7] trains are bypassing Times Sq-42 St in both directions, [A] [C] and [E] trains are bypassing 42 St/Port Authotiy.',
+				'Northbound [2] trains are running with delays because of an unruly passenger at Sterling St.',
 			],
 			complex: [
 				'Some southbound [2] and [3] trains end at Chambers St or Wall St. Some southbound [2] and [3] trains are stopping along the [1] line from Chambers St to South Ferry then end. Southbound [4] and [5] trains end at Bowling Green or Brooklyn Bridge-City Hall. These service changes are because of a person struck by a train at Atlantic Av-Barclays Ctr.',
@@ -243,8 +250,10 @@ describe('Parse Service Messages', function() {
 				// Rerouted
 				'SIGNAL MAINTENANCE [A] Trains run via the [F] in both directions between W 4 St and Jay St-MetroTech [E] and [J] trains provide alternate service',
 				'SIGNAL MAINTENANCE [C] Trains run via the [F] in both directions between W 4 St and Jay St-MetroTech [E] and [J] trains provide alternate service',
+				'PRIORITY REPAIRS [R] Manhattan-bound trains skip 53 St, 45 St, 25 St, Prospect Av, 4 Av-9 St and Union St',
 
 				// No Service Parital
+				'SIGNAL MAINTENANCE [J] No trains between Essex St and Broad St [4] [6] [N] [F] [R] and [W] trains provide alternate service',
 				'TRACK MAINTENANCE [G] No trains between Bedford-Nostrand Avs and Church Av [F] trains and [SB] free shuttle buses provide alternate service',
 				'FASTRACK PROGRAM [N] No trains in Manhattan [Q] Trains are rerouted in Manhattan [R] Service ends early in Manhattan and Queens',
 				'TRACK MAINTENANCE [R] No trains running [4] [E] [M] [N] trains and [SB] free shuttle buses provide alternate service',
@@ -254,10 +263,4 @@ describe('Parse Service Messages', function() {
 				],
 			}
 		};
-
-
-	let r_train_msg = [
-		"SIGNAL MAINTENANCE [R] Trains run via the [Q] in both directions between DeKalb Av and Canal St",
-		'[R] trains are running with delays in both directions because of signal problems between 86 St and Bay Ridge-95 St.',
-	]
 });

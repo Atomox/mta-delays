@@ -9,7 +9,6 @@ const mtaStatus = require('./mta.status.xml');
 
 // File where we'll store things. No extension, please.
 const mta_status_file = './data/mta_status';
-const mta_stations_file = './data/mta.stations.final';
 
 // How long before we refresh the feeds?
 const cacheMinutes = 1;
@@ -49,71 +48,50 @@ app.get('/subway/status', (req, resp, next) => {
 
 app.get('/subway/stations/:boro?', (req, resp, next) => {
 
-	mtaStations.getStations(mta_stations_file, req.params.boro)
-	
-	.then(data => resp.json(data))
-	.catch(err => console.warn('Error fetching stations: ', err));
+	mtaStations.getStations(req.params.boro)
+		.then(data => resp.json(data))
+		.catch(err => handleRequestError(req,resp, err, 'Error fetching stations'));
 });
 
 app.get('/subway/lines/boro/:boro?', (req, resp, next) => {
 
-	mtaStations.getStationLines(mta_stations_file, req.params.boro)
-	
-	.then(data => resp.json(data))
-	.catch(err => console.warn('Error fetching stations: ', err));
+	mtaStations.getStationLines(req.params.boro)
+		.then(data => resp.json(data))
+		.catch(err => handleRequestError(req,resp, err, 'Error fetching stations'));
 });
 
 app.get('/subway/lines/train/:train?', (req, resp, next) => {
 
-	mtaStations.getStationLines(mta_stations_file, null, req.params.train)
-	
-	.then(data => resp.json(data))
-	.catch(err => console.warn('Error fetching stations: ', err));
+	mtaStations.getStationLines(null, req.params.train)
+		.then(data => resp.json(data))
+		.catch(err => handleRequestError(req,resp, err, 'Error fetching stations'));
 });
+
+app.get('/subway/lines/:train/route', (req, resp, next) => {
+	mtaStations.getTrainRoute(req.params.train)
+		.then(data => (data === false) ? 'unavailable' : data )
+		.then(data => resp.json(data))
+		.catch(err => handleRequestError(req,resp, err, 'Error fetching train route'));
+});
+
 
 /**
-app.get('/subway/status/*', function(req, resp, next) {
+ * Handle any catchs in Promise chains, and provide API error response.
+ * 
+ * @param {Object} req
+ * @param {Object} resp
+ * @param {String} err
+ *   Error to be logged internally (not shared to user).
+ * @param {String} msg
+ *   Message to the user.
+ */
+function handleRequestError(req,resp, err, msg) {
+	console.warn(msg, ':', err);
+	resp.json({
+		msg: msg,
+		status: false,
+	});
+}
 
-	// Load the data.
-	// Check the filesystem first.
-	mtaApi.getSubwayStatus(mta_status_file, cacheMinutes)
-
-		// Now we play with the data.
-		.then((data) => {
-
-			if (!data || data.length <= 0) {
-				return Promise.reject('No data loaded from file or endpoint.');
-			}
-
-			// Basic structure of our response-to-be.
-			let stats = new Object;
-			stats.ok = [];
-			stats.ignored = [];
-			stats.line = {};
-
-			// Deal with all the nesting.
-			for (let o in data.service.subway[0]) {
-				for (let line in data.service.subway[0].line) {
-					let l = data.service.subway[0].line;
-
-					// Are we ignoring this line?
-					if (testLines.indexOf(l[line].name[0]) === -1) {
-						stats.ignored.push(l[line].name[0]);
-						continue;
-					} 
-
-					// Properly format our line status.
-					let text = mtaStatus.parseLineStatus(l[line].name[0], l[line].status[0], l[line].text);
-
-					// Add the formatted line data to our results.
-					stats.line[l[line].name[0]] = text;
-				}
-			}
-
-			// JSON-ify and respond.
-			resp.json(stats);
-		});
-});
-*/
 
 server.listen(port);
