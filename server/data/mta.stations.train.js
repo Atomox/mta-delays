@@ -1,5 +1,51 @@
 
 let routes = {
+	F: [
+		// 63rd Lex
+		'M223',
+	],
+	Q: [
+		// Second Ave
+		'M475',
+		'M476',
+		'M477',
+		
+		// 63rd Lex
+		'M223',
+
+		//Broadway - Brighton
+		'M9',
+		'M611', // Times Square
+		'M607',
+		'M602',
+
+		// Manhattan Bridge (Canal)
+		'M623',
+
+		// Broadway - Brighton
+		'Bk26',
+		'Bk617', // (Barklays)
+		'Bk41',
+		'Bk42',
+		'Bk43',
+		'Bk44',
+		'Bk45',
+		'Bk46',
+		'Bk47',
+		'Bk48',
+		'Bk49',
+		'Bk50',
+		'Bk51',
+		'Bk52',
+		'Bk53',
+		'Bk54',
+		'Bk55',
+		'Bk56',
+		'Bk57',
+
+		// Sea Beach / West End / Culver / Brighton (COny Island)
+		'Bk58',
+	],
 	R: [
 		// 'Queens - Archer': 
 		'Q261',

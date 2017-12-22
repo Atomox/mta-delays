@@ -32,18 +32,12 @@ app.get('/subway/status', (req, resp, next) => {
 	// Check the filesystem first.
 	mtaApi.getSubwayStatus(mta_status_file, cacheMinutes)
 
-	// Now we play with the data.
-	.then((data) => {
-
-		if (!data || data.length <= 0) {
-			return Promise.reject('No data loaded from file or endpoint.');
-		}
-
-		const t = data.Siri.ServiceDelivery[0].SituationExchangeDelivery[0].Situations[0].PtSituationElement;
-		let statusArray = mtaStatus.parseStatusFeed(t);
-		
-		resp.json(statusArray);	
-	});
+		// Now we play with the data.
+		.then(data => (!data || data.length <= 0) ? Promise.reject('No data loaded from file or endpoint.') : data) 
+		.then(data => mtaStatus.checkReports(data))
+		.then(data => mtaStatus.parseStatusFeed(data))
+		.then(data => resp.json(data))
+		.catch(err => handleRequestError(req,resp, err, 'Error fetching normal subway status.'));
 });
 
 app.get('/subway/stations/:boro?', (req, resp, next) => {
@@ -69,6 +63,13 @@ app.get('/subway/lines/train/:train?', (req, resp, next) => {
 
 app.get('/subway/lines/:train/route', (req, resp, next) => {
 	mtaStations.getTrainRoute(req.params.train)
+		.then(data => (data === false) ? 'unavailable' : data )
+		.then(data => resp.json(data))
+		.catch(err => handleRequestError(req,resp, err, 'Error fetching train route'));
+});
+
+app.get('/subway/lines/:train/route/array', (req,resp,next) => {
+	mtaStations.getRouteStationsArray(req.params.train)
 		.then(data => (data === false) ? 'unavailable' : data )
 		.then(data => resp.json(data))
 		.catch(err => handleRequestError(req,resp, err, 'Error fetching train route'));

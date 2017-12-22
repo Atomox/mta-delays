@@ -1,6 +1,9 @@
-var assert = require('assert');
+let assert = require('assert');
+let expect = require('chai').expect;
 
-var mtaStatus = mtaStatus || require('../mta.status.xml');
+let mtaStatus = require('../mta.status.xml');
+let mtaStations = require('../mta.stations');
+
 
 describe('Parse Stations', function() {
 
@@ -12,11 +15,13 @@ describe('Parse Stations', function() {
 			message: 'Some northbound [N] trains are stopping on the [Q] line from <STRONG>57 St-7 Av</STRONG> and end at <STRONG>96 St.</STRONG> Some northbound [R] trains are stopping on the [Q] line from <B>57 St-7 Av</B> to <B>Lexington Av-63 St</B>, then over the [F] line from <B>Lexington Av-63 St</B> to <B>Jackson Heights-Roosevelt Av.</B> This service change is because of a train with mechanical problems at <B>5 Av-59 St.</B> Expect delays in [F][N][Q][R] train service.',
 		},
 */
+/**
 		{
 			stations: ['53 St', '45 St', '25 St', 'Prospect Av', '4 Av-9 St', 'Union St'],
 			station_ids: ['Bk34', 'Bk33', 'Bk31', 'Bk30', 'Bk608', 'Bk28'],
 			message: 'PRIORITY REPAIRS [R] Manhattan-bound trains skip 53 St, 45 St, 25 St, Prospect Av, 4 Av-9 St and Union St',
 		},
+*/
 		{
 			stations: ['86 St', 'Bay Ridge-95 St.'],
 			station_ids: ['Bk38', 'Bk39'],
@@ -27,48 +32,45 @@ describe('Parse Stations', function() {
 			station_ids: [],
 			message: 'SIGNAL MAINTENANCE [R] Trains run via the [Q] in both directions between DeKalb Av and Canal St',
 		},
+/*
+		{
+			stations: ['Jackson Hts-Roosevelt Av', 'Forest Hills-71 Av'],
+			station_ids: ['Canal St','57 St-7 Av'],
+			message: 'Some Forest Hills-bound [M] and [R] trains are running express from Jackson Hts-Roosevelt Av to Forest Hills-71 Av because of signal problems at Jackson Hts-Roosevelt Av.',
+		},
+		{
+			stations: [],
+			message: 'Northbound [N] trains are running local from Canal St to 57 St-7 Av.Northbound [Q] trains will end at Times Sq-42 St.Northbound [Q] trains are running local from Canal St to Times Sq-42 St.These service changes are because of a train with mechanical problems at 57 St-7 Av.Expect delays on the [N], [Q], [R] and [W] trains.',
+		},
+*/
 	];
 
 	describe('Parse Stations in R Line', () => {
 
 		it ('Should Identify stations in a message on the R Line.', () => {
-			r_train_msg.map( (value, i) => {
+			
+			let promises = r_train_msg.map( event => {
+				return mtaStations.matchRouteStationsMessage('R', event.message)
+					.then( stations => {
+						let results = [];
+						for (let s in stations) {
+							if (event.stations.indexOf(stations[s]) !== -1) {
+								results.push(stations[s]);
+							}
+						}
+						console.log(' --> ', event.stations, '...', stations);
+						
+						//assert.equal(arrayElementsEqual(results, event.stations), true);
+						//(event.stations).should.equal(results);
+						
+						expect(results).to.have.members(event.stations);
 
-				// Get all stations on the R line.
+						// assert.members([3, 2]);
+					});
+			});
+			
 
-				/**
-				 
-
-
-					@TODO
-
-
-
-
-					*
-					*
-					*
-					*
-					*
-					*
-					*
-					*
-					*
-					*
-					* 
-
-
-
-
-
-
-
-				 */
-
-				let result = mtaStatus.getMessageDateTime(interupt_msg[x]);
-
-				assert.equal(myObj[x].time, result);
-			}
+			return Promise.all(promises);
 		});
 	});
 });

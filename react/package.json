@@ -11,6 +11,8 @@
   "author": "Ben Helmer <Atomox@gmail.com> (http://www.benhelmer.com)",
   "license": "ISC",
   "dependencies": {
+    "lodash": "^4.17.4",
+    "moment": "^2.20.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },

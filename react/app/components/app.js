@@ -1,23 +1,13 @@
 let React = require('react');
+let _ = require('lodash');
 
 // Components.
-let StatusList = require('./status-list').StatusList;
 let EventList = require('./event-list').EventList;
+let Header = require('./header').Header;
 
-const api = {
-  dev: {
-    protocol: 'http://',
-    host: 'localhost',
-    port: 8100,
-    endpoint_prefix: '',
-  },
-  production: {
-    protocol: 'http://',
-    host: 'nyc.bhelmer.com',
-    port: '80',
-    endpoint_prefix: '/api'
-  },
-};
+// Config
+const api = require('../../../config/settings');
+
 
 /**
  * The main app container.
@@ -28,13 +18,14 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      status: 'initializing',
+      age: 0,
       events: []
     }
 
     this.getStatus()
-      .then( (data) => {
-        this.initLists(data);
-      });
+      .then( data => this.initLists(data) )
+      .catch( data => this.initLists({ status: false }) );
   }
 
   getStatus = () => {
@@ -47,42 +38,41 @@ class App extends React.Component {
 
     console.log(' ---- The environment API: [', url, '] ------');
 
-    return new Promise((resolve, reject) => {
-      fetch(url)
-        .then(data => {
-        	console.log('Fetch Result', data);
-        	data = data.json();
-        	console.log('JSON-Parsed Response:', data);
-        	resolve(data);
-        }) // Transform the data into json
-        .catch((err) => {
-          console.log('Fetch Error: ', err);
-          reject(err);
-        });
-    });
+    return fetch(url)
+      .then(res => (res.status == 200) ? res : Promise.reject('Fetch had a non-200 response.'))
+      .then(res => res.json())
+      .catch(err => Promise.reject(err));
   }
 
 
   initLists = (data) => {
   	console.log('initLists: ', data);
+
     this.setState(prevState => {
-      return {
-        events: data
-      };
+      prevState.status = (data.status) ? data.status : false;
+      prevState.events = (data.events) ? data.events : [];
+      prevState.age = (data.timestamp) ? data.timestamp : Date.now();
+
+      return prevState;
     });
   }
 
   render() {
 
-  	console.log(this.state);
-
     return (
-      <div>
+      <div key={_.uniqueId('card')}>
+        <Header 
+          age={this.state.age}
+          status={this.state.status}
+          numEvents={this.state.events.length}/>
+        
         {Object.keys(this.state.events).map(key =>
-            <EventList 
+            <EventList
+              key={_.uniqueId('eventList-')}
             	event={this.state.events[key]} />
           )
         }
+
       </div>
     );
   }

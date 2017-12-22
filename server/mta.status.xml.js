@@ -12,24 +12,56 @@
 const striptags = require('striptags');
 const decode = require('unescape');
 
+const mtaStations = require('./mta.stations');
 
-function parseStatusFeed(feedObject) {
+function checkReports(response) {
 
-	let my_status = [];
+	let timestamp = response.Siri.ServiceDelivery[0].ResponseTimestamp[0];
+	let situations = response.Siri.ServiceDelivery[0].SituationExchangeDelivery[0].Situations;
 
-	let t = feedObject;
-
-	for (let o in t) {
-		my_status.push(parseSingleEvent(t[o])); 
+	let data = {
+		status: true,
+		timestamp: timestamp,
+		events: false
 	}
 
-	console.log(my_status);
+	if (situations && situations[0] && typeof situations[0] == 'object') {
+		if (situations[0].PtSituationElement && typeof situations[0].PtSituationElement == 'object') {
+			data.events = situations[0].PtSituationElement;
+		}
+	}
 
-	return my_status;
+	return data;
+}
+
+async function parseStatusFeed(feedObject) {
+
+	let my_body = {
+		status: true,
+		message: null,
+		timestamp: feedObject.timestamp,
+		events: []
+	};
+
+	if (feedObject.events === false) {
+		my_body.status = true;
+		my_body.message = 'No incidents reported.';
+	}
+	else {
+		let t = feedObject.events;
+
+		for (let o in t) {
+			my_body.events.push(await parseSingleEvent(t[o])); 
+		} 
+	}
+
+	
+
+	return my_body;
 }
 
 
-function parseSingleEvent(event) {
+async function parseSingleEvent(event) {
 
 	let e = {
 		
@@ -73,7 +105,7 @@ function parseSingleEvent(event) {
 	}
 
 
-	e.detail = parseDetailMessage(e.detail, e.summary);
+	e.detail = await parseDetailMessage(e.detail, e.summary, e.line);
 
 	return e;
 
@@ -154,13 +186,12 @@ function parseSingleEvent(event) {
 }
 
 
-function parseDetailMessage(status, short_msg) {
+async function parseDetailMessage(status, short_msg, lines) {
 
 	// Clean it up.
 	status = cleanStatusText(decode(status));
 
-
-	status = formatSingleStatusEvent(status);
+	status = await formatSingleStatusEvent(status, lines);
 
 	// Pull the original message out of there.
 	status.message = status.message.replace(short_msg, '[- - -]');
@@ -208,7 +239,7 @@ function cleanStatusText(text) {
  * @return {object}
  *   An event object.
  */
-function formatSingleStatusEvent(event) {
+async function formatSingleStatusEvent(event, lines) {
 
 	event = event.trim();
 
@@ -221,6 +252,7 @@ function formatSingleStatusEvent(event) {
 			time: null,
 			durration: null,
 			message: null,
+			stations: {},
 		};
 
 		// Store the original message.
@@ -234,6 +266,17 @@ function formatSingleStatusEvent(event) {
 
 		// Get a scheduled time.
 		e.durration = getMessagePlannedWorkDate(event);	
+
+		for (let l in lines) {
+			try {
+				// Get an stations related to this line.
+				e.stations[lines[l].line] = await mtaStations.matchRouteStationsMessage(lines[l].line, event);
+			}
+			catch(err) {
+				continue;
+			}
+		}
+		
 
 		// TUNNEL RECONSTRUCTION Weekend [2] [3] 
 		// 
@@ -638,6 +681,7 @@ function getTrainLine(train) {
 }
 
 module.exports = {
+	checkReports,
 	parseStatusFeed,
 	getMessagePlannedWorkDate,
 	getMessageAction,

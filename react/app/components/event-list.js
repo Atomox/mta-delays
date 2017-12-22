@@ -1,5 +1,7 @@
 let React = require('react');
+let _ = require('lodash');
 
+let Card = require('./card');
 let mta = require('../includes/mta.subway').mtaSubway;
 
 class EventList extends React.Component {
@@ -13,31 +15,35 @@ class EventList extends React.Component {
 
 		return (
 
-			<div className="card" key={e.id}>
-			  <div className={titleClass}>
-			    {e.type}
-			  </div>
-			  <div className="card-section">
+			<Card key="event-list" id={e.id} header={e.type} headerClass={titleClass}>
+			  <div>
 			    <h4>
 			     {
 					Object.keys(e.line).map((key, i) => {
 						let line = mta.getlineById(e.line[key].line);
 						let dir = mta.getlineDirectionByID(e.line[key].dir);
 
-						return <TrainLine line={line} dir={dir} />;
+						return <TrainLine
+							key={_.uniqueId('train-' + line)}
+							line={line}
+							dir={dir} />;
 					})
 				} &nbsp;
+
 			     | {(e.detail.type_detail) 
 					? e.detail.type_detail.join(', ') : ''}
 				</h4>
 			    <p>{e.summary}</p>
+
+			    <StationList stations={e.detail.stations} />
+
 			    <small>
 			    	{(e.planned === true) 
 			    		? e.detail.durration
 			    		: new Date(e.date.start).toString()
 			    	}</small>
-			  </div>
-			</div>
+			    </div>
+			</Card>
 		);
 	}
 }
@@ -46,9 +52,15 @@ class EventList extends React.Component {
 class TrainLine extends React.Component {
 
 	render() {
-		return (<span className="line">
-			<strong>{this.props.line}</strong> {this.props.dir}
-		</span>);
+		return (
+			<span className="line">
+				<strong>
+					{this.props.line}
+				</strong>
+
+				{this.props.dir}
+			</span>
+		);
 	}
 }
 
@@ -63,6 +75,28 @@ class StatusMessage extends React.Component {
 			<li>
 			</li>
 		);
+	}
+}
+
+
+class StationList extends React.Component {
+
+	render() {
+		if (Object.keys(this.props.stations).length === 0) {	
+			return null; 
+		}
+		console.log(this.props.stations);
+
+		return (<div key={_.uniqueId('stations-')}>
+			<em>Stations (alpha) | </em>
+			{
+			(Object.keys(this.props.stations).map(line => {
+				return Object.keys(this.props.stations[line]).map( (val) => {
+						return this.props.stations[line][val];
+					}).join(', ');
+			}))
+			}
+		</div>);
 	}
 }
 
