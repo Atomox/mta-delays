@@ -1,8 +1,69 @@
 
 let routes = {
 	F: [
-		// 63rd Lex
-		'M223',
+
+		// "Queens - Archer" -- boro: "Q" / "M"
+		'Q254', // "Jamaica - 179 St",
+		'Q255', 
+		'Q256',
+		'Q257', // "Sutphin Blvd"
+		'Q258',
+		'Q259',
+		'Q260',
+		'Q261', // "Forest Hills - 71 Av"
+		'Q616', // "Jackson Hts - Roosevelt Av"
+
+		// "63rd St" -- boro: "Q", "M"
+		'Q221', // "21 St - Queensbridge"
+		'M222', // "Roosevelt Island"
+		'M223', // "Lexington Av/63 St"
+
+		// "6th Av - Culver" -- boro: "M", "Bk"
+		'M224', // "57 St"
+		'M225', // "47-50 Sts - Rockefeller Ctr"
+		'M609', // "42 St - Bryant Pk"
+		'M607', // "34 St - Herald Sq"
+		'M228', // "6th Av - Culver"
+		'M601', // "14 St"
+
+		// "8th Av - Fulton St" -- boro: "M", "Bk"
+		'M167', //  "W 4 St"
+
+		// "6th Av - Culver" -- boro: "M", "Bk"
+		'M619', // "Broadway-Lafayette St"
+		'M232', // "2 Av"
+		'M625', // "Delancey St"
+		'M234', // "East Broadway"
+		'Bk235', // "York St"
+
+		// "8th Av - Fulton St" -- boro: "M", "Bk"
+		'Bk636', // "Jay St - MetroTech"
+
+		// "6th Av - Culver" -- boro: "M", "Bk"
+		'Bk236', // "Bergen St"
+		'Bk237', // "Carroll St"
+		'Bk238', // "Smith - 9 Sts"
+		'Bk608', // "4 Av"
+		'Bk240', // "6th Av - Culver"
+		'Bk241', // "15 St - Prospect Park"
+		'Bk242', // "Fort Hamilton Pkwy"
+		'Bk243', // "Church Av"
+		'Bk244', // "Ditmas Av"
+		'Bk245', // "18 Av"
+		'Bk246', // "Avenue I"
+		'Bk247', // "Bay Pkwy"
+		'Bk248', // "Avenue N"
+		'Bk249', // "Avenue P"
+		'Bk250', // "Kings Hwy"
+		'Bk251', // "Avenue U"
+		'Bk252', // "Avenue X",
+		'Bk253', // "Neptune Av",
+
+		// "Broadway - Brighton" -- boro: "M", "Bk"
+		'Bk57', // "W 8 St - NY Aquarium"
+
+		// "Sea Beach / West End / Culver / Brighton" -- boro: "Bk"
+		'Bk58', // "Coney Island - Stillwell Av"
 	],
 	Q: [
 		// Second Ave
@@ -43,8 +104,8 @@ let routes = {
 		'Bk56',
 		'Bk57',
 
-		// Sea Beach / West End / Culver / Brighton (COny Island)
-		'Bk58',
+		// Sea Beach / West End / Culver / Brighton (Cony Island)
+		'Bk58', // Cony Island
 	],
 	R: [
 		// 'Queens - Archer': 

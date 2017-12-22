@@ -123,6 +123,37 @@ async function getRouteStationsArray(line) {
 }
 
 
+function regexWrapNumberBounds(word) {
+  return word.replace(/([0-9]+)/gi, (match, offset, string) => {
+  	return '\\b' + match + '\\b';
+  });
+}
+
+function regexMatchStringsWithSpecialChars(needle, haystack) {
+	let v = needle;
+	let pos = v.indexOf('-');
+
+	// Detect numbers.
+	
+	v = regexWrapNumberBounds(needle);
+
+	if (pos !== -1) {
+		v = v.substr(0, pos).trim() 
+			+ '[\\s]*-[\\s]*'
+			+ v.substr(pos+1).trim();
+	}
+
+	let re = new RegExp(v,"gi");
+	let result = haystack.match(re);
+
+//	console.log('Match:', v, ' ~~~ ', haystack, ' . . . ', result);
+
+	return (result !== null && result[0]) 
+		? needle
+		: false;
+}
+
+
 async function matchRouteStationsMessage(line, message) {
 	try { 
 		line = getTrainById(line);
@@ -130,15 +161,9 @@ async function matchRouteStationsMessage(line, message) {
 		let stations = await getRouteStationsArray(line)
 		let results = {};
 
-			console.log(' --> ', message, '...');
-
 		for (let s in stations) {
-			let re = new RegExp(stations[s],"gi");
-			let result = message.match(re);
-
-			if (result !== null && result[0]) {
-				results[s] = stations[s];
-			}
+			let res = regexMatchStringsWithSpecialChars(stations[s], message);
+			if (res !== false) {	results[s] = res;	}
 		}
 
 		return results;
@@ -225,6 +250,7 @@ module.exports = {
 	getTrainRoute,
 	getRouteStationsArray,
 	matchRouteStationsMessage,
+	regexMatchStringsWithSpecialChars,
 };
 
 // Branch
