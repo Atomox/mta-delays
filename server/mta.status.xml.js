@@ -349,7 +349,7 @@ function getMessagePlannedWorkDate(text) {
 	// let workDatePattern = /((Weekend|Weekends|Late Nights|Days|Late Evenings|All times|Until)\s*,?(\s*([0-9]{0,2}:?[0-9]{0,2}\s*[APM]{0,2}\s*)(Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Mon|Tue|Wed|Thur|Thu|Fri|Sat|Sun|to|until|and|\s)*,?){09},?\s((Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter)\s*[0-9]{0,2}\s*-?\s*[0-9]{0,2}\s*(20[0-9]{2})?\s*(\,|&bull\;)?\s*)*)+/i;
 
 	// In Progress -- Reduction
-	let workDatePattern = /((Weekend[s]?|Late Night[s]?|Night[s]?|Day[s]?|Late Evening[s]?|Evening[s]?|All times|Until)\s*,?(\s*((([0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(AM|PM)\s*)|([0-9]{1,2}\s*(-\s*[0-9]{1,2})?\s*(20[0-9]{2})?)?|(20[0-9]{2}))?\s*[,-]?\s*((Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|beginning(\sat)?|further\snotice|and)|(Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter))?\s*(\,|&bull\;)?\s*)*\s*)+/i;
+	let workDatePattern = /((Weekend[s]?|Late Night[s]?|Night[s]?|Day[s]?|Late Evening[s]?|Evening[s]?|All times|Until)\s*,?(\s*((([0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(AM|PM)\s*)|([0-9]{1,2}\s*(-\s*[0-9]{1,2})?\s*(20[0-9]{2})?)?|(20[0-9]{2}))?\s*[,-]?\s*((Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|beginning(\sat)?|further\snotice|and|including)|(Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter|Holiday[s]?))?\s*(\,|&bull\;|&)?\s*)*\s*)+/i;
 
 	let dateResults = text.match(workDatePattern);
 
