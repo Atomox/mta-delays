@@ -3,169 +3,168 @@ let routes = {
 	F: [
 
 		// "Queens - Archer" -- boro: "Q" / "M"
-		'Q254', // "Jamaica - 179 St",
-		'Q255', 
-		'Q256',
-		'Q257', // "Sutphin Blvd"
-		'Q258',
-		'Q259',
-		'Q260',
-		'Q261', // "Forest Hills - 71 Av"
-		'Q616', // "Jackson Hts - Roosevelt Av"
+		'Q254-F01', // "Jamaica - 179 St",
+		'Q255-F02', 
+		'Q256-F03',
+		'Q257-F04', // "Sutphin Blvd"
+		'Q258-F05',
+		'Q259-F06',
+		'Q260-F07',
+		'Q261-G08', // "Forest Hills - 71 Av"
+		'Q616-G14', // "Jackson Hts - Roosevelt Av"
 
 		// "63rd St" -- boro: "Q", "M"
-		'Q221', // "21 St - Queensbridge"
-		'M222', // "Roosevelt Island"
-		'M223', // "Lexington Av/63 St"
+		'Q221-B04', // "21 St - Queensbridge"
+		'M222-B06', // "Roosevelt Island"
+		'M223-B08', // "Lexington Av/63 St"
 
 		// "6th Av - Culver" -- boro: "M", "Bk"
-		'M224', // "57 St"
-		'M225', // "47-50 Sts - Rockefeller Ctr"
-		'M609', // "42 St - Bryant Pk"
-		'M607', // "34 St - Herald Sq"
-		'M228', // "6th Av - Culver"
-		'M601', // "14 St"
+		'M224-B10', // "57 St"
+		'M225-D15', // "47-50 Sts - Rockefeller Ctr"
+		'M609-D16', // "42 St - Bryant Pk"
+		'M607-D17', // "34 St - Herald Sq"
+		'M228-D18', // "6th Av - Culver"
+		'M601-D19', // "14 St"
 
 		// "8th Av - Fulton St" -- boro: "M", "Bk"
-		'M167', //  "W 4 St"
+		'M167-A32', //  "W 4 St"
 
 		// "6th Av - Culver" -- boro: "M", "Bk"
-		'M619', // "Broadway-Lafayette St"
-		'M232', // "2 Av"
-		'M625', // "Delancey St"
-		'M234', // "East Broadway"
-		'Bk235', // "York St"
+		'M619-D21', // "Broadway-Lafayette St"
+		'M232-F14', // "2 Av"
+		'M625-F15', // "Delancey St"
+		'M234-F16', // "East Broadway"
+		'Bk235-F18', // "York St"
 
 		// "8th Av - Fulton St" -- boro: "M", "Bk"
-		'Bk636', // "Jay St - MetroTech"
+		'Bk636-A41', // "Jay St - MetroTech"
 
 		// "6th Av - Culver" -- boro: "M", "Bk"
-		'Bk236', // "Bergen St"
-		'Bk237', // "Carroll St"
-		'Bk238', // "Smith - 9 Sts"
-		'Bk608', // "4 Av"
-		'Bk240', // "6th Av - Culver"
-		'Bk241', // "15 St - Prospect Park"
-		'Bk242', // "Fort Hamilton Pkwy"
-		'Bk243', // "Church Av"
-		'Bk244', // "Ditmas Av"
-		'Bk245', // "18 Av"
-		'Bk246', // "Avenue I"
-		'Bk247', // "Bay Pkwy"
-		'Bk248', // "Avenue N"
-		'Bk249', // "Avenue P"
-		'Bk250', // "Kings Hwy"
-		'Bk251', // "Avenue U"
-		'Bk252', // "Avenue X",
-		'Bk253', // "Neptune Av",
+		'Bk236-F20', // "Bergen St"
+		'Bk237-F21', // "Carroll St"
+		'Bk238-F22', // "Smith - 9 Sts"
+		'Bk608-F23', // "4 Av"
+		'Bk240-F24', // "6th Av - Culver"
+		'Bk241-F25', // "15 St - Prospect Park"
+		'Bk242-F26', // "Fort Hamilton Pkwy"
+		'Bk243-F27', // "Church Av"
+		'Bk244-F29', // "Ditmas Av"
+		'Bk245-F30', // "18 Av"
+		'Bk246-F31', // "Avenue I"
+		'Bk247-F32', // "Bay Pkwy"
+		'Bk248-F33', // "Avenue N"
+		'Bk249-F34', // "Avenue P"
+		'Bk250-F35', // "Kings Hwy"
+		'Bk251-F36', // "Avenue U"
+		'Bk252-F38', // "Avenue X",
+		'Bk253-F39', // "Neptune Av",
 
 		// "Broadway - Brighton" -- boro: "M", "Bk"
-		'Bk57', // "W 8 St - NY Aquarium"
+		'Bk57-D42', // "W 8 St - NY Aquarium"
 
 		// "Sea Beach / West End / Culver / Brighton" -- boro: "Bk"
-		'Bk58', // "Coney Island - Stillwell Av"
+		'Bk58-D43', // "Coney Island - Stillwell Av"
 	],
 	Q: [
 		// Second Ave
-		'M475',
-		'M476',
-		'M477',
+		'M475-Q05',
+		'M476-Q04',
+		'M477-Q03',
 		
 		// 63rd Lex
-		'M223',
+		'M223-B08',
 
 		//Broadway - Brighton
-		'M9',
-		'M611', // Times Square
-		'M607',
-		'M602',
+		'M9-R14',
+		'M611-R16', // Times Square
+		'M607-R17',
+		'M602-R20',
 
 		// Manhattan Bridge (Canal)
-		'M623',
+		'M623-R23',
 
 		// Broadway - Brighton
-		'Bk26',
-		'Bk617', // (Barklays)
-		'Bk41',
-		'Bk42',
-		'Bk43',
-		'Bk44',
-		'Bk45',
-		'Bk46',
-		'Bk47',
-		'Bk48',
-		'Bk49',
-		'Bk50',
-		'Bk51',
-		'Bk52',
-		'Bk53',
-		'Bk54',
-		'Bk55',
-		'Bk56',
-		'Bk57',
+		'Bk26-R30', // DeKalb Av
+		'Bk617-D24', // (Barklays)
+		'Bk41-D25', // "7 Av"
+		'Bk42-D26', // "Prospect Park"
+		'Bk43-D27', // "Parkside Av"
+		'Bk44-D28', // "Church Av"
+		'Bk45-D29', // "Beverley Rd"
+		'Bk46-D30', // "Cortelyou Rd"
+		'Bk47-D31', // "Newkirk Plaza"
+		'Bk48-D32', // "Avenue H"
+		'Bk49-D33', // "Avenue J"
+		'Bk50-D34', // "Avenue M"
+		'Bk51-D35', // "Kings Hwy"
+		'Bk52-D37', // "Avenue U"
+		'Bk53-D38', // "Neck Rd"
+		'Bk54-D39', // "Sheepshead Bay"
+		'Bk55-D40', // "Brighton Beach"
+		'Bk56-D41', // "Ocean Pkwy"
+		'Bk57-D42', // "W 8 St - NY Aquarium"
 
 		// Sea Beach / West End / Culver / Brighton (Cony Island)
-		'Bk58', // Cony Island
+		'Bk58-D43', // Cony Island
 	],
 	R: [
 		// 'Queens - Archer': 
-		'Q261',
-		'Q262',
-		'Q263',
-		'Q264',
-		'Q265',
-		'Q266',
-		'Q616',
-		'Q268',
-		'Q269',
-		'Q270',
-		'Q271',
-		'Q272',
-		'Q273',
+		'Q261-G08', // Forest Hills 71st Ave
+		'Q262-G09',
+		'Q263-G10',
+		'Q264-G11',
+		'Q265-G12',
+		'Q266-G13',
+		'Q616-G14', // Jackson Hts - Roosevelt Jackson
+		'Q268-G15',
+		'Q269-G16',
+		'Q270-G18',
+		'Q271-G19',
+		'Q272-G20',
+		'Q273-G21',
 
 		// 'Astoria': 
-		'M613',
-		'M8',
+		'M613-629',
+		'M8-R13',
 
 		// 'Broadway - Brighton': 
-		'M9',
-		'M10',
-		'M611',
-		'M607',
-		'M607',
-		'M13',
-		'M14',
-		'M602',
-		'M16',
-		'M17',
+		'M9-R14',
+		'M10-R15',
+		'M611-R16',
+		'M607-R17',
+		'M13-R18',
+		'M14-R19',
+		'M602-R20', 	// 14 St - Union Sq
+		'M16-R21', 		// 8 St - NYU
+		'M17-R22', 		// Prince St
+
 
 		// 'Broadway': 
-		'M623',
-		'M20',
-		'M21',
-		'M22',
-		'M23',
-		'M635',
-		'Bk620',
-		'Bk636',
+		'M623-R23', 	// Canal St
+		"M20-R24", 		// City Hall
+		"M21-R25", 		// Cortlandt St
+		"M22-R26",		// Rector St
+		"M635-R27", 	// Whitehall St
+		"Bk620-R28", 	// Court St
+		"Bk636-R29", 	// Jay St - MetroTech
 
 		//'Broadway - Brighton': 
-		'Bk26',
+		'Bk26-R30', 	// DeKalb Av
 
 		// '4th Av': 
-		'Bk617',
-		'Bk28',
-		'Bk608',
-		'Bk30',
-		'Bk31',
-		'Bk32',
-		'Bk33',
-		'Bk34',
-		'Bk35',
-		'Bk36',
-		'Bk37',
-		'Bk38',
-		'Bk39',
+		'Bk617-235', 	// Atlantic Av - Barclays Ctr
+		"Bk28-R32", 	// Union St
+		"Bk608-R33", 	// 9 St
+		"Bk30-R34", 	// Prospect Av
+		"Bk31-R35", 	// 25 St
+		"Bk32-R36", 	// 36 St
+		"Bk33-R39", 	// 45 St
+		"Bk34-R40", 	// 53 St
+		"Bk35-R41", 	// 59 St
+		"Bk36-R42", 	// Bay Ridge Av
+		"Bk37-R43", 	// 77 St
+		"Bk38-R44", 	// 86 St
+		"Bk39-R45", 	// Bay Ridge - 95 St
 	],
 };
 

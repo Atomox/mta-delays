@@ -35,7 +35,7 @@ mtaApi.getSubwayStations(mta_stations_file)
 		for (let d in data) {
 			
 			let r = prepStationFormat(data[d]);
-			let key = r.boro + r.cid;
+			let key = r.boro + r.cid + '-' + r.gid;
 
 			if (!lines[r.line]) {
 				lines[r.line] = {
@@ -78,7 +78,7 @@ function prepStationFormat (row) {
 
 	let r = {
 		cid: row['Complex ID'],
-		gid: row['Complex ID'],
+		gid: row['GTFS Stop ID'],
 		div: row['Division'],
   		line: row['Line'],
   		name: row['Stop Name'],

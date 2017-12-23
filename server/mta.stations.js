@@ -123,25 +123,34 @@ async function getRouteStationsArray(line) {
 }
 
 
+function regexReplaceSpace(word) {
+	return word.replace(/(\s)+/gi, (match, offset, string) => {
+  	return '(\\s)*';
+  });	
+}
+
 function regexWrapNumberBounds(word) {
-  return word.replace(/([0-9]+)/gi, (match, offset, string) => {
-  	return '\\b' + match + '\\b';
+  return word.replace(/\s*[0-9]+\s*/gi, (match, offset, string) => {
+  	return '\\s*\\b' + match.trim() + '\\b\\s*';
+  });
+}
+
+function regexWrapSeperatorBounds(word) {
+  return word.replace(/(\s)*[-/]+(\s)*/gi, (match, offset, string) => {
+  	return '\\s*' + '[-/]{0,2}' + '\\s*';
   });
 }
 
 function regexMatchStringsWithSpecialChars(needle, haystack) {
 	let v = needle;
-	let pos = v.indexOf('-');
 
-	// Detect numbers.
-	
+	// Detect numbers.	
 	v = regexWrapNumberBounds(needle);
 
-	if (pos !== -1) {
-		v = v.substr(0, pos).trim() 
-			+ '[\\s]*-[\\s]*'
-			+ v.substr(pos+1).trim();
-	}
+	// Wrap Separators.
+	v = regexWrapSeperatorBounds(v);
+
+	v = regexReplaceSpace(v);
 
 	let re = new RegExp(v,"gi");
 	let result = haystack.match(re);

@@ -120,7 +120,10 @@ describe('Parse Service Messages', function() {
 					'Until further notice',
 					'Until 11:59 PM Sun, Nov 26',
 				],
-			}
+			},
+			spellingErrors: [
+				'Late Evenng, 9:45 PM to 11 PM, Friday, Dec 22',
+			],
 		};
 
 

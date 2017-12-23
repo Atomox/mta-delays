@@ -357,7 +357,7 @@ function getMessagePlannedWorkDate(text) {
 		return dateResults[0].trim();
 	}
 
-	console.warn('Can\'t find event dates.');
+	console.warn('Can\'t parse event dates in ---', text);
 	return null;
 }
 
