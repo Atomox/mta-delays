@@ -194,7 +194,16 @@ async function parseDetailMessage(status, short_msg, lines) {
 	status = await formatSingleStatusEvent(status, lines);
 
 	// Pull the original message out of there.
-	status.message = status.message.replace(short_msg, '[- - -]');
+	status.message = status.message.replace(short_msg, '[-SUMMARY-]');
+
+	if (status.durration !== null) {
+		// Pull the original message out of there.
+		status.message = status.message.replace(status.durration, '[-DATES-]');
+	}
+	if (status.alt_instructions !== null) {
+		// Pull the original message out of there.
+		status.message = status.message.replace(status.alt_instructions, '[-Alt-Instructions-]');
+	}
 
 	return status;
 }
@@ -216,6 +225,7 @@ function cleanStatusText(text) {
 	text = text.trim();
 	text = text.replace(/\&nbsp;/g, ' ');
 	text = text.replace(/\&bull;/g, " -- ");
+	text = text.replace(/\&mdash;/g, " -- ");
 	text = unescape(text);
 
 	// Strip tags (minus strong and spans)
@@ -252,11 +262,13 @@ async function formatSingleStatusEvent(event, lines) {
 			time: null,
 			durration: null,
 			message: null,
+			message_raw: null,
 			stations: {},
 		};
 
 		// Store the original message.
 		e.message = event;
+		e.message_raw = event;
 
 		// Determine if the event type has more detail.
 		e.type_detail = getMessageAction(event);
@@ -267,6 +279,8 @@ async function formatSingleStatusEvent(event, lines) {
 		// Get a scheduled time.
 		e.durration = getMessagePlannedWorkDate(event);	
 
+		e.alt_instructions = getMessageAlternateInstructions(event);
+
 		for (let l in lines) {
 			try {
 				// Get an stations related to this line.
@@ -276,61 +290,6 @@ async function formatSingleStatusEvent(event, lines) {
 				continue;
 			}
 		}
-		
-
-		// TUNNEL RECONSTRUCTION Weekend [2] [3] 
-		// 
-		// station closures and route changes
-		// 
-		// Until Summer 2018
-		// 
-		// No service at Park Place, Wall St, Clark St and Hoyt St; use nearby [4] [5] stations No [2] [3] service between Manhattan and Brooklyn; take the [4] or [5] instead. Weekend service map for Lower Manhattan and Downtown Brooklyn New timetables with Weekend Route Changes | [2] pdf | [3] pdf | [4] pdf | [5] pdf
-
-
-		// TRACK REPLACEMENT [C] 168 St-bound trains skip
-		// 
-		// Spring St, 23 St and 50 St
-		// 
-		// Weekend , Saturday and Sunday, Nov 25 - 26
-		// 
-		// For service to Spring St, take the [C] to W 4 St and transfer to a Euclid Av-bound [C]. For service from this station, take the [C] to Canal St and transfer to a 168 St-bound [C]. For service to 23 and 50 Sts, transfer to the [E] at 14 St or 42 St/Port Authority. For service from 23 or 50 Sts, take the [E] to 42 St/Port Authority and transfer to a 168 St-bound [C].
-
-
-		// TRACK REPLACEMENT [A] No trains between
-		// 
-		// Broad Channel and Mott Av
-		// 
-		// [SB] Free shuttle buses provide alternate service
-		// 
-		// Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4
-		// 
-		// [A] service operates between 207 St and Broad Channel , and replace the [S] to/from Beach 116 St .
-		// 
-		// [SB] Buses make stops at Beach 90 , Beach 67 , Beach 60 , Beach 44 , Beach 36 , Beach 25 Sts and Mott Av .
-		// 
-		// &bull; Transfer between [A] trains and [SB] buses at Beach 90 St . Show Shuttle Bus Stops Station Shuttle Bus Stop Bus Mott Av Beach 22 St at Station Entrance &mdash; Beach 25 St Beach Channel Dr at Beach 25 St &mdash; Beach 36 St Beach Channel Dr at Beach 35 St (to Mott Av) Q22 Beach Channel Dr at 36 St (to Beach 90 St) Q22 Beach 44 St Beach Channel Dr at Beach 44 St Q22 Beach 60 St Beach Channel Dr at Beach 59 St Q22 Beach 67 St Beach Channel Dr at Beach 67 St Q22 Beach 90 St [A] Rockaway Beach Blvd at Beach 88 St Q22 Note: Service to/from Lefferts Blvd is not affected.
-		// 
-		// [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.
-
-
-		// TRACK MAINTENANCE [R] Forest Hills-bound trains skip 
-		// 
-		// 36 St, Steinway St, 46 St, Northern Blvd and 65 St 
-		// 
-		// Weekend , Saturday and Sunday , Nov 25 - 26
-		// 
-		// For service to these stations, take the [R] to Roosevelt Av and transfer to a Bay Ridge-bound [R]. For service from these stations, take the [R] to Queens Plaza and transfer to a Forest Hills-bound [R].
-
-		// [type] [line] [direction] [action] [stations]
-
-
-		// TRACK REPLACEMENT [R] Bay Ridge-bound trains skip
-		// 
-		// 67 Av, 63 Dr, Woodhaven Blvd, Grand Av and Elmhurst Av
-		// 
-		// Weekend , Saturday and Sunday, Nov 25 - 26
-		// 
-		// For service to these stations, take the [R] to Roosevelt Av and transfer to a Forest Hills-bound [R]. For service from these stations, take the [R] to 71 Av and transfer to a Bay Ridge-bound [R].
 	}
 
 	return e;
@@ -344,10 +303,23 @@ function getMessageDateTime(text) {
 }
 
 
+function getMessageAlternateInstructions(text) {
+
+	// In Progress -- Reduction
+	let alternateInstructionPattern = /((\b(use (nearby)?|take the|For service (to|from)|Transfer (to|between)?|Travel Alternatives)\b)+((\s*((stations|these stations|trains|transfer to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\.\/\:\;&\(\)]*)*)?)*(\s*\[(A|B|C|D|E|F|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*\s*)*)+/i;
+
+	let results = text.match(alternateInstructionPattern);
+
+	if (results && results[0]) {
+		return results[0].trim();
+	}
+
+	console.warn('Can\'t parse alternate instructions in ---', text);
+	return null;
+}
+
+
 function getMessagePlannedWorkDate(text) {
-
-	// let workDatePattern = /((Weekend|Weekends|Late Nights|Days|Late Evenings|All times|Until)\s*,?(\s*([0-9]{0,2}:?[0-9]{0,2}\s*[APM]{0,2}\s*)(Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Mon|Tue|Wed|Thur|Thu|Fri|Sat|Sun|to|until|and|\s)*,?){09},?\s((Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter)\s*[0-9]{0,2}\s*-?\s*[0-9]{0,2}\s*(20[0-9]{2})?\s*(\,|&bull\;)?\s*)*)+/i;
-
 	// In Progress -- Reduction
 	let workDatePattern = /((Weekend[s]?|Late Night[s]?|Night[s]?|Day[s]?|Late Evening[s]?|Evening[s]?|All times|Until)\s*,?(\s*((([0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(AM|PM)\s*)|([0-9]{1,2}\s*(-\s*[0-9]{1,2})?\s*(20[0-9]{2})?)?|(20[0-9]{2}))?\s*[,-]?\s*((Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|beginning(\sat)?|further\snotice|and|including)|(Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter|Holiday[s]?))?\s*(\,|&bull\;|&)?\s*)*\s*)+/i;
 
@@ -364,13 +336,6 @@ function getMessagePlannedWorkDate(text) {
 
 function getMessageAction(text) {
 
-	// [Q] train service has resumed following an earlier incident involving a train with mechanical problems at <STRONG>Avenue H.</STRONG>
-	// Northbound [N],[R] and [W] trains are running with delays because of signal problems at <STRONG>57 St-7 Av.</STRONG>
-	// Northbound [6] trains will end at <STRONG>Westchester Square-East Tremont Av</STRONG> because of a loss of power between <STRONG>Buhre Av</STRONG> and <STRONG>Pelham Bay Park</STRONG>.
-
-	// Some northbound [E] trains are running local from <STRONG>Queens Plaza</STRONG> to <STRONG>Jackson Hts-Roosevelt Av</STRONG>.  Some northbound [E] trains are stopping long the [C] line from <STRONG>50 St</STRONG> to <STRONG>168 St</STRONG>.   Some northbound [F] trains are running local from <STRONG>21 St-Queensbridge</STRONG> to <STRONG>Jackson Hts-Roosevelt Av</STRONG>.  [M] trains no service between <STRONG>Essex St</STRONG> and <STRONG>Forest Hills-71 Av.</STRONG>   These service changes are because of signal problems at <STRONG>36 St (Queens).</STRONG>  Expect delays on [E], [F], [M] and [R] trains.
-	// SIGNAL MAINTENANCE  [S] Rockaway Park Shuttle - No trains running[A] trains and [SB] free shuttle buses provide alternate service  Days, 9:30 AM to 4 PM, Mon  and  Tue, Nov 27 - 28     [SB] Buses operate between  Beach 67 St [A]  and  Beach 116 St , stopping at Beach 90,  Beach 98 and Beach 105 Sts.   Transfer between [A] trains and [SB] buses at Beach 67 St.     Show Shuttle Bus Stops        Station   Shuttle Bus Stop
-	// SCHEDULED MAINTENANCE  [SIR] Trains board at the Tottenville-bound platform from Arthur Kill to Prince\'s Bay Stations Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1   Boarding change includes  Arthur Kill ,  Richmond Valley ,  Pleasant Plains  and     Prince\'s Bay Stations .
 	const incident_types = {
 		// Incidents
 		'service_resumed': [
@@ -683,6 +648,7 @@ function getTrainLine(train) {
 module.exports = {
 	checkReports,
 	parseStatusFeed,
+	getMessageAlternateInstructions,
 	getMessagePlannedWorkDate,
 	getMessageAction,
 	getMessageDateTime,

@@ -103,6 +103,19 @@ describe('Parse Service Messages', function() {
 	});
 
 
+	describe('Should Separate messages', () => {
+		it ('Should split simple message [alternate travel].', function() {
+			for (let x in event_messages.normal) {
+				if (!event_messages.normal[x].alt_instructions) { continue; }
+				let result = mtaStatus.getMessageAlternateInstructions(event_messages.normal[x].message);
+
+				expect(result).to.equal(event_messages.normal[x].alt_instructions);
+			}
+		});
+
+	});
+
+
 	describe('Parse Event Messages', () => {
 
 		it ('Should Parse simple planned event messages.', function() {
