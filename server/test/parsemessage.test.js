@@ -26,13 +26,22 @@ describe('Parse Service Messages', function() {
 
 	describe('Parse Planned Work Dates inside messages.', function() {
 		
-		it ('Should Parse basic Posted dates from Planned Work.', () => {
+		it ('Should Parse [basic] Planned Work Posted dates from messages.', () => {
 			for (let x in event_messages.normal) {
 				if (event_messages.normal[x].type !== 'PlannedWork') { continue; }
 
 				let result = mtaStatus.getMessagePlannedWorkDate(event_messages.normal[x].message);
 
 				expect(result).to.equal(event_messages.normal[x].durration);
+			}
+		});
+		it.skip ('Should Parse [complex] Planned Work Posted dates from messages.', () => {
+			for (let x in event_messages.complex) {
+				if (event_messages.complex[x].type !== 'PlannedWork') { continue; }
+
+				let result = mtaStatus.getMessagePlannedWorkDate(event_messages.complex[x].message);
+
+				expect(result).to.equal(event_messages.complex[x].durration);
 			}
 		});
 	});
@@ -42,49 +51,49 @@ describe('Parse Service Messages', function() {
 		let s = status_dates;
 		let f = mtaStatus.getMessagePlannedWorkDate;
 
-		it ('Should Parse basic [weekdays] planned work dates.', function() {
+		it ('Should find basic [weekdays] planned work dates.', function() {
 			for (let x in s.weekdays.simple) {
 				let result = f(s.weekdays.simple[x]);
 				assert.equal(s.weekdays.simple[x], result);
 			}
 		});
 
-		it ('Should Parse basic [weekend] planned work dates.', function() {
+		it ('Should find basic [weekend] planned work dates.', function() {
 			for (let x in s.weekend.simple) {
 				let result = f(s.weekend.simple[x]); 
 				assert.equal(s.weekend.simple[x], result);
 			}
 		});
 
-		it ('Should Parse [multi-weekend] planned work dates.', function() {
+		it ('Should find [multi-weekend] planned work dates.', function() {
 			for (let x in s.weekend.multiweekend) {
 				let result = f(s.weekend.multiweekend[x]); 
 				assert.equal(s.weekend.multiweekend[x], result);
 			}
 		});
 
-		it ('Should Parse [complex] planned work dates.', function() {
+		it ('Should find [complex] planned work dates.', function() {
 			for (let x in s.weekend.complex) {
 				let result = f(s.weekend.complex[x]); 
 				assert.equal(s.weekend.complex[x], result);
 			}
 		});
 
-		it ('Should Parse [multi-weekday] planned work dates.', function() {
+		it ('Should find [multi-weekday] planned work dates.', function() {
 			for (let x in s.weekdays.multiweek) {
 				let result = f(s.weekdays.multiweek[x]); 
 				assert.equal(s.weekdays.multiweek[x], result);
 			}
 		});
 
-		it ('Should Parse [long-term] planned work dates.', function() {
+		it ('Should find [long-term] planned work dates.', function() {
 			for (let x in s.longterm.simple) {
 				let result = f(s.longterm.simple[x]); 
 				assert.equal(s.longterm.simple[x], result);
 			}
 		});
 
-		it ('Should Parse [unique] planned work dates, like Holidays.', function() {
+		it ('Should find [unique] planned work dates, like Holidays.', function() {
 			for (let x in s.weekend.unique) {
 				let result = f(s.weekend.unique[x]);
 				expect(s.weekend.unique[x]).to.equal(result);

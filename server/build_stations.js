@@ -35,7 +35,26 @@ mtaApi.getSubwayStations(mta_stations_file)
 		for (let d in data) {
 			
 			let r = prepStationFormat(data[d]);
-			let key = r.boro + r.cid + '-' + r.gid;
+			let boro = '';
+			switch(r.boro){
+				case 'Bx':
+				case 'Bk':
+				case 'SI':
+					boro = r.boro;
+					break;
+				case 'M':
+					boro = r.boro + 'n';
+					break;
+				case 'Q':
+					boro = r.boro + 's';
+					break;
+			}
+
+			let key = boro + r.cid + '-' + r.gid;
+			r.boro = boro;
+
+			// Assign our new key to the station.
+			r.key = key;
 
 			if (!lines[r.line]) {
 				lines[r.line] = {
@@ -51,7 +70,7 @@ mtaApi.getSubwayStations(mta_stations_file)
 					lines[r.line].trains[r.trains[t]] = r.trains[t];	
 				}
 			}
-			lines[r.line].boro[r.boro] = r.boro;
+			lines[r.line].boro[boro] = boro;
 			lines[r.line].stations[key] = r;
 				
 

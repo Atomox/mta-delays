@@ -114,7 +114,7 @@ async function getRouteStationsArray(line) {
 	try {
 		let data = await getTrainRoute(line);
 		let my_result = {};
-		data.map( (value, i) => my_result[value.boro + value.cid] = value.name);		
+		data.map( value => my_result[value.key] = value.name );
 		return my_result;
 	}
 	catch(err) {
@@ -167,7 +167,7 @@ async function matchRouteStationsMessage(line, message) {
 	try { 
 		line = getTrainById(line);
 
-		let stations = await getRouteStationsArray(line)
+		let stations = await getRouteStationsArray(line);
 		let results = {};
 
 		for (let s in stations) {
@@ -175,11 +175,47 @@ async function matchRouteStationsMessage(line, message) {
 			if (res !== false) {	results[s] = res;	}
 		}
 
+		groupStationsByLocation(stations, results);
+
+		console.log(message);
+
 		return results;
 	}
 	catch(err) {
 		throw new Error('Error parsing message for stations: ' + err);
 	}
+}
+
+
+function groupStationsByLocation(line, stations) {
+
+	console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+	console.log('Stations: ', stations);
+
+	let results = [];
+
+	for (let i in stations) {
+
+		results.push({
+			key: i, 
+			line_distance: Object.keys(line).indexOf(i),
+			name: line[i],
+			boro: i.substr(0,2),
+		});
+
+		/**
+		 *
+		 * Get distance to line[i]
+		 *
+		 *   - Distance
+		 *   - Boro
+		 *   - Distance from other stations
+		 * 
+		 */
+	};
+
+
+	return results;
 }
 
 
@@ -260,6 +296,7 @@ module.exports = {
 	getRouteStationsArray,
 	matchRouteStationsMessage,
 	regexMatchStringsWithSpecialChars,
+	groupStationsByLocation,
 };
 
 // Branch

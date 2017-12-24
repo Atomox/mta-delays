@@ -3,37 +3,37 @@ let routes = {
 	F: [
 
 		// "Queens - Archer" -- boro: "Q" / "M"
-		'Q254-F01', // "Jamaica - 179 St",
-		'Q255-F02', 
-		'Q256-F03',
-		'Q257-F04', // "Sutphin Blvd"
-		'Q258-F05',
-		'Q259-F06',
-		'Q260-F07',
-		'Q261-G08', // "Forest Hills - 71 Av"
-		'Q616-G14', // "Jackson Hts - Roosevelt Av"
+		'Qs254-F01', // "Jamaica - 179 St",
+		'Qs255-F02', 
+		'Qs256-F03',
+		'Qs257-F04', // "Sutphin Blvd"
+		'Qs258-F05',
+		'Qs259-F06',
+		'Qs260-F07',
+		'Qs261-G08', // "Forest Hills - 71 Av"
+		'Qs616-G14', // "Jackson Hts - Roosevelt Av"
 
 		// "63rd St" -- boro: "Q", "M"
-		'Q221-B04', // "21 St - Queensbridge"
-		'M222-B06', // "Roosevelt Island"
-		'M223-B08', // "Lexington Av/63 St"
+		'Qs221-B04', // "21 St - Queensbridge"
+		'Mn222-B06', // "Roosevelt Island"
+		'Mn223-B08', // "Lexington Av/63 St"
 
 		// "6th Av - Culver" -- boro: "M", "Bk"
-		'M224-B10', // "57 St"
-		'M225-D15', // "47-50 Sts - Rockefeller Ctr"
-		'M609-D16', // "42 St - Bryant Pk"
-		'M607-D17', // "34 St - Herald Sq"
-		'M228-D18', // "6th Av - Culver"
-		'M601-D19', // "14 St"
+		'Mn224-B10', // "57 St"
+		'Mn225-D15', // "47-50 Sts - Rockefeller Ctr"
+		'Mn609-D16', // "42 St - Bryant Pk"
+		'Mn607-D17', // "34 St - Herald Sq"
+		'Mn228-D18', // "6th Av - Culver"
+		'Mn601-D19', // "14 St"
 
 		// "8th Av - Fulton St" -- boro: "M", "Bk"
-		'M167-A32', //  "W 4 St"
+		'Mn167-A32', //  "W 4 St"
 
 		// "6th Av - Culver" -- boro: "M", "Bk"
-		'M619-D21', // "Broadway-Lafayette St"
-		'M232-F14', // "2 Av"
-		'M625-F15', // "Delancey St"
-		'M234-F16', // "East Broadway"
+		'Mn619-D21', // "Broadway-Lafayette St"
+		'Mn232-F14', // "2 Av"
+		'Mn625-F15', // "Delancey St"
+		'Mn234-F16', // "East Broadway"
 		'Bk235-F18', // "York St"
 
 		// "8th Av - Fulton St" -- boro: "M", "Bk"
@@ -67,21 +67,21 @@ let routes = {
 	],
 	Q: [
 		// Second Ave
-		'M475-Q05',
-		'M476-Q04',
-		'M477-Q03',
+		'Mn475-Q05',
+		'Mn476-Q04',
+		'Mn477-Q03',
 		
 		// 63rd Lex
-		'M223-B08',
+		'Mn223-B08',
 
 		//Broadway - Brighton
-		'M9-R14',
-		'M611-R16', // Times Square
-		'M607-R17',
-		'M602-R20',
+		'Mn9-R14',
+		'Mn611-R16', // Times Square
+		'Mn607-R17',
+		'Mn602-R20',
 
 		// Manhattan Bridge (Canal)
-		'M623-R23',
+		'Mn623-R23',
 
 		// Broadway - Brighton
 		'Bk26-R30', // DeKalb Av
@@ -109,42 +109,42 @@ let routes = {
 	],
 	R: [
 		// 'Queens - Archer': 
-		'Q261-G08', // Forest Hills 71st Ave
-		'Q262-G09',
-		'Q263-G10',
-		'Q264-G11',
-		'Q265-G12',
-		'Q266-G13',
-		'Q616-G14', // Jackson Hts - Roosevelt Jackson
-		'Q268-G15',
-		'Q269-G16',
-		'Q270-G18',
-		'Q271-G19',
-		'Q272-G20',
-		'Q273-G21',
+		'Qs261-G08', // Forest Hills 71st Ave
+		'Qs262-G09',
+		'Qs263-G10',
+		'Qs264-G11',
+		'Qs265-G12',
+		'Qs266-G13',
+		'Qs616-G14', // Jackson Hts - Roosevelt Jackson
+		'Qs268-G15',
+		'Qs269-G16',
+		'Qs270-G18',
+		'Qs271-G19',
+		'Qs272-G20',
+		'Qs273-G21',
 
 		// 'Astoria': 
-		'M613-629',
-		'M8-R13',
+		'Mn613-629',
+		'Mn8-R13',
 
 		// 'Broadway - Brighton': 
-		'M9-R14',
-		'M10-R15',
-		'M611-R16',
-		'M607-R17',
-		'M13-R18',
-		'M14-R19',
-		'M602-R20', 	// 14 St - Union Sq
-		'M16-R21', 		// 8 St - NYU
-		'M17-R22', 		// Prince St
+		'Mn9-R14',
+		'Mn10-R15',
+		'Mn611-R16',
+		'Mn607-R17',
+		'Mn13-R18',
+		'Mn14-R19',
+		'Mn602-R20', 	// 14 St - Union Sq
+		'Mn16-R21', 		// 8 St - NYU
+		'Mn17-R22', 		// Prince St
 
 
 		// 'Broadway': 
-		'M623-R23', 	// Canal St
-		"M20-R24", 		// City Hall
-		"M21-R25", 		// Cortlandt St
-		"M22-R26",		// Rector St
-		"M635-R27", 	// Whitehall St
+		'Mn623-R23', 	// Canal St
+		"Mn20-R24", 		// City Hall
+		"Mn21-R25", 		// Cortlandt St
+		"Mn22-R26",		// Rector St
+		"Mn635-R27", 	// Whitehall St
 		"Bk620-R28", 	// Court St
 		"Bk636-R29", 	// Jay St - MetroTech
 
