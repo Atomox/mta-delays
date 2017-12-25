@@ -203,6 +203,7 @@ let event_messages = {
 				// Running Local // Signal Problems
 				'Southbound [E] and [F] trains are running local from Forest Hills-71 Av to Jackson Hts-Roosevelt Av because of signal problems at Forest Hills-71 Av.',
 				'[R] trains are running with delays in both directions because of signal problems between 86 St and Bay Ridge-95 St.',
+				'Southbound [E] and [F] trains are running local from Forest Hills-71 Av to 36 St (Qns) because of an investigation at Jackson Heights-Roosevelt Av. Expect delays on [E], [F] and [R] trains.',
 
 				// Diversions
 				'Southbound [Q] trains are stopping along the [R] line from Canal St to DeKalb Av because of a sick passenger at Canal St.',

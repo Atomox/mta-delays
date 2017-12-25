@@ -193,18 +193,6 @@ async function parseDetailMessage(status, short_msg, lines) {
 
 	status = await formatSingleStatusEvent(status, lines);
 
-	// Pull the original message out of there.
-	status.message = status.message.replace(short_msg, '[-SUMMARY-]');
-
-	if (status.durration !== null) {
-		// Pull the original message out of there.
-		status.message = status.message.replace(status.durration, '[-DATES-]');
-	}
-	if (status.alt_instructions !== null) {
-		// Pull the original message out of there.
-		status.message = status.message.replace(status.alt_instructions, '[-Alt-Instructions-]');
-	}
-
 	return status;
 }
 
@@ -276,15 +264,18 @@ async function formatSingleStatusEvent(event, lines) {
 		// Get an interruption time
 		e.time = getMessageDateTime(event);
 
-		// Get a scheduled time.
+		// Get a scheduled time from the body. (Planned Work)
 		e.durration = getMessagePlannedWorkDate(event);	
 
+		// Break out any alternate route information from the body.
 		e.alt_instructions = getMessageAlternateInstructions(event);
+
+		e.message = prepareEventMessage(e.message, e);
 
 		for (let l in lines) {
 			try {
 				// Get an stations related to this line.
-				e.stations[lines[l].line] = await mtaStations.matchRouteStationsMessage(lines[l].line, event);
+				e.stations[lines[l].line] = await mtaStations.matchRouteStationsMessage(lines[l].line, e.message);
 			}
 			catch(err) {
 				continue;
@@ -293,6 +284,24 @@ async function formatSingleStatusEvent(event, lines) {
 	}
 
 	return e;
+}
+
+
+function prepareEventMessage(message, status) {
+
+	// Pull the original message out of there.
+//	message = message.replace(message, '[-SUMMARY-]');
+
+	if (status.durration !== null) {
+		// Pull the original message out of there.
+		message = message.replace(status.durration, '[-DATES-]');
+	}
+	if (status.alt_instructions !== null) {
+		// Pull the original message out of there.
+		message = message.replace(status.alt_instructions, '[-Alt-Instructions-]');
+	}
+
+	return message;
 }
 
 
