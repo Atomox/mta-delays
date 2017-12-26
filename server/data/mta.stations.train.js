@@ -288,6 +288,64 @@ let routes = {
 		'Mn622-640',  // "Brooklyn Bridge - City Hall"
 
 	],
+	7: [
+
+		// "Flushing" -- "Qs", "Mn"
+		'Qs447-701',  // "Flushing - Main St"
+		'Qs448-702',  // "Mets - Willets Point"
+		'Qs449-705',  // "111 St"
+		'Qs450-706',  // "103 St - Corona Plaza"
+		'Qs451-707',  // "Junction Blvd"
+		'Qs452-708',  // "90 St - Elmhurst Av"
+		'Qs453-709',  // "82 St - Jackson Hts"
+		'Qs616-710',  // "74 St - Broadway"
+		'Qs455-711',  // "69 St"
+		'Qs456-712',  // "Woodside - 61 St"
+		'Qs457-713',  // "52 St"
+		'Qs458-714',  // "46 St"
+		'Qs459-715',  // "40 St"
+		'Qs460-716',  // "33 St"
+		'Qs461-718',  // "Queensboro Plaza"
+		'Qs606-719',  // "Court Sq"
+		'Qs463-720',  // "Hunters Point Av"
+		'Qs464-721',  // "Vernon Blvd - Jackson Av"
+		'Mn610-723',  // "Grand Central - 42 St"
+		'Mn609-724',  // "5 Av"
+		'Mn611-725',  // "Times Sq - 42 St"
+		'Mn471-726',  // "34 St - 11 Av"
+
+	],
+	E: [
+
+		// "Queens - Archer" -- "Qs", "Mn"
+		'Qs278-G05',  // "Jamaica Center - Parsons/Archer"
+		'Qs279-G06',  // "Sutphin Blvd - Archer Av - JFK Airport"
+		'Qs280-G07',  // "Jamaica - Van Wyck"
+		'Qs258-F05',  // "Briarwood - Van Wyck Blvd"
+		'Qs258-F05',
+		'Qs259-F06',
+		'Qs260-F07',
+		'Qs261-G08', // "Forest Hills - 71 Av"
+		'Qs616-G14', // "Jackson Hts - Roosevelt Av"
+		'Qs273-G21',  // "Queens Plaza"
+		'Qs606-F09',  // "Court Sq"
+		'Mn612-F11',  // "Lexington Av/53 St"
+		'Mn276-F12',  // "5 Av/53 St"
+		'Mn277-D14',  // "7 Av"
+
+
+		// "8th Av - Fulton St" -- "Mn",  "Bk"
+		'Mn162-A25',  // "50 St"
+		'Mn611-A27',  // "42 St - Port Authority Bus Terminal"
+		'Mn164-A28',  // "34 St - Penn Station"
+		'Mn165-A30',  // "23 St"
+		'Mn618-A31',  // "14 St"
+		'Mn167-A32',  // "W 4 St"
+		'Mn168-A33',  // "Spring St"
+		'Mn169-A34',  // "Canal St"
+		'Mn624-E01',  // "World Trade Center"
+
+	],
 	F: [
 
 		// "Queens - Archer" -- boro: "Q" / "M"
@@ -353,6 +411,123 @@ let routes = {
 		// "Sea Beach / West End / Culver / Brighton" -- boro: "Bk"
 		'Bk58-D43', // "Coney Island - Stillwell Av"
 	],
+	J: [
+		// "Queens - Archer" -- "Qs", "Mn"
+		'Qs278-G05',  // "Jamaica Center - Parsons/Archer"
+		'Qs279-G06',  // "Sutphin Blvd - Archer Av - JFK Airport"
+
+		// "Jamaica" -- "Qs", "Bk", "Mn"
+		'Qs80-J12',   // "121 St"
+		'Qs81-J13',   // "111 St"
+		'Qs82-J14',   // "104 St"
+		'Qs83-J15',   // "Woodhaven Blvd"
+		'Qs84-J16',   // "85 St - Forest Pkwy"
+		'Qs85-J17',   // "75 St"
+		'Bk86-J19',   // "Cypress Hills"
+		'Bk87-J20',   // "Crescent St"
+		'Bk88-J21',   // "Norwood Av"
+		'Bk89-J22',   // "Cleveland St"
+		'Bk90-J23',   // "Van Siclen Av"
+		'Bk91-J24',   // "Alabama Av"
+		'Bk621-J27',  // "Broadway Jct"
+		'Bk93-J28',   // "Chauncey St"
+		'Bk94-J29',   // "Halsey St"
+		'Bk95-J30',   // "Gates Av"
+		'Bk96-J31',   // "Kosciuszko St"
+		'Bk97-M11',   // "Myrtle Av"
+		'Bk98-M12',   // "Flushing Av"
+		'Bk99-M13',   // "Lorimer St"
+		'Bk100-M14',  // "Hewes St"
+		'Bk101-M16',  // "Marcy Av"
+		'Mn625-M18',  // "Essex St"
+		'Mn103-M19',  // "Bowery"
+		'Mn623-M20',  // "Canal St"
+		'Mn622-M21',  // "Chambers St"
+		'Mn628-M22',  // "Fulton St"
+		'Mn107-M23',  // "Broad St"
+
+	],
+	L: [
+
+		// "Canarsie" -- "Mn", "Bk", "Qs"
+		'Mn618-L01',  // "8 Av"
+		'Mn601-L02',  // "6 Av"
+		'Mn602-L03',  // "Union Sq - 14 St"
+		'Mn118-L05',  // "3 Av"
+		'Mn119-L06',  // "1 Av"
+		'Bk120-L08',  // "Bedford Av"
+		'Bk629-L10',  // "Lorimer St"
+		'Bk122-L11',  // "Graham Av"
+		'Bk123-L12',  // "Grand St"
+		'Bk124-L13',  // "Montrose Av"
+		'Bk125-L14',  // "Morgan Av"
+		'Bk126-L15',  // "Jefferson St"
+		'Bk127-L16',  // "DeKalb Av"
+		'Bk630-L17',  // "Myrtle - Wyckoff Avs"
+		'Qs129-L19',  // "Halsey St"
+		'Bk130-L20',  // "Wilson Av"
+		'Bk131-L21',  // "Bushwick Av - Aberdeen St"
+		'Bk621-L22',  // "Broadway Jct"
+		'Bk133-L24',  // "Atlantic Av"
+		'Bk134-L25',  // "Sutter Av"
+		'Bk135-L26',  // "Livonia Av"
+		'Bk136-L27',  // "New Lots Av"
+		'Bk137-L28',  // "E 105 St"
+		'Bk138-L29',  // "Canarsie - Rockaway Pkwy"
+
+	],
+
+	M: [
+		// 'Queens - Archer': -- "Qs", "Mn" 
+		'Qs261-G08', // Forest Hills 71st Ave
+		'Qs262-G09',
+		'Qs263-G10',
+		'Qs264-G11',
+		'Qs265-G12',
+		'Qs266-G13',
+		'Qs616-G14', // Jackson Hts - Roosevelt Jackson
+		'Qs268-G15',
+		'Qs269-G16',
+		'Qs270-G18',
+		'Qs271-G19', // Steinway
+		'Qs272-G20',
+		'Qs273-G21', // Queens Plaza
+
+		'Qs606-F09',  // "Court Sq"
+		'Mn612-F11',  // "Lexington Av/53 St"
+		'Mn276-F12',  // "5 Av/53 St"
+
+		// "6th Av - Culver" -- "Mn", "Bk"
+		'Mn225-D15',  // "47-50 Sts - Rockefeller Ctr"
+		'Mn609-D16',  // "42 St - Bryant Pk"
+		'Mn607-D17',  // "34 St - Herald Sq"
+		'Mn228-D18',  // "23 St"
+		'Mn601-D19',  // "14 St"
+
+		// "8th Av - Fulton St" -- "Mn", "Bk"
+		'Mn167-A32',  // "W 4 St"
+
+		// "6th Av - Culver" -- "Mn", "Bk"
+		'Mn619-D21',  // "Broadway-Lafayette St"
+
+		// "Jamaica" -- "Qs", "Bk", "Mn"
+		'Mn625-M18',  // "Essex St"
+
+		'Bk101-M16',  // "Marcy Av"
+		'Bk100-M14',  // "Hewes St"
+		'Bk99-M13',   // "Lorimer St"
+		'Bk98-M12',   // "Flushing Av"
+		'Bk97-M11',   // "Myrtle Av"
+
+		// "Myrtle Av" -- "Qs", "Bk"
+		'Bk114-M10',  // "Central Av"
+		'Bk113-M09',  // "Knickerbocker Av"
+		'Bk630-M08',  // "Myrtle - Wyckoff Avs"
+		'Qs111-M06',  // "Seneca Av"
+		'Qs110-M05',  // "Forest Av"
+		'Qs109-M04',  // "Fresh Pond Rd"
+		'Qs108-M01',  // "Middle Village - Metropolitan Av"
+	],
 	Q: [
 		// Second Ave
 		'Mn475-Q05',
@@ -407,9 +582,9 @@ let routes = {
 		'Qs268-G15',
 		'Qs269-G16',
 		'Qs270-G18',
-		'Qs271-G19',
+		'Qs271-G19', // Steinway
 		'Qs272-G20',
-		'Qs273-G21',
+		'Qs273-G21', // Queens Plaza
 
 		// 'Astoria': 
 		'Mn613-629',
@@ -453,6 +628,33 @@ let routes = {
 		"Bk37-R43", 	// 77 St
 		"Bk38-R44", 	// 86 St
 		"Bk39-R45", 	// Bay Ridge - 95 St
+	],
+	Z: [
+		// "Queens - Archer" -- "Qs", "Mn"
+		'Qs278-G05',  // "Jamaica Center - Parsons/Archer"
+		'Qs279-G06',  // "Sutphin Blvd - Archer Av - JFK Airport"
+
+		// "Jamaica" -- "Qs", "Bk", "Mn"
+		'Qs80-J12',   // "121 St"
+		'Qs82-J14',   // "104 St"
+		'Qs83-J15',   // "Woodhaven Blvd"
+		'Qs85-J17',   // "75 St"
+		'Bk87-J20',   // "Crescent St"
+		'Bk88-J21',   // "Norwood Av"
+		'Bk90-J23',   // "Van Siclen Av"
+		'Bk91-J24',   // "Alabama Av"
+		'Bk621-J27',  // "Broadway Jct"
+		'Bk93-J28',   // "Chauncey St"
+		'Bk95-J30',   // "Gates Av"
+		'Bk97-M11',   // "Myrtle Av"
+		'Bk101-M16',  // "Marcy Av"
+		'Mn625-M18',  // "Essex St"
+		'Mn103-M19',  // "Bowery"
+		'Mn623-M20',  // "Canal St"
+		'Mn622-M21',  // "Chambers St"
+		'Mn628-M22',  // "Fulton St"
+		'Mn107-M23',  // "Broad St"
+
 	],
 };
 
