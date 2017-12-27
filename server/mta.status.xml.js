@@ -108,90 +108,15 @@ async function parseSingleEvent(event) {
 	e.detail = await parseDetailMessage(e.detail, e.summary, e.line);
 
 	return e;
-
-		/**
-		 	2017-07-08T00:00:00-04:00  -- # MTA NYCT_162679
-			PublicationWindow { 
-				StartTime: [ '2017-07-08T00:00:00-04:00' ],
-			  	EndTime: [ '2018-08-26T23:59:00-04:00' ] }
-			Summary { 
-				_: 'TUNNEL RECONSTRUCTION', 
-				'$': { 'xml:lang': 'EN' } }
-			Description { 
-				_: 'TUNNEL RECONSTRUCTION', '$': { 'xml:lang': 'EN' } }
-			Long Desc 
-				&lt;b&gt;&lt;i&gt;TUNNEL RECONSTRUCTION&lt;/i&gt; &lt;/b&gt; &lt;br clear=left&gt;&lt;b&gt;Weekend [2] [3] station closures and route changes&lt;/b&gt;Until Summer 2018&lt;br&gt;&lt;br&gt;No service at Park Place, Wall St, Clark St and Hoyt St; use nearby [4] [5] stations&lt;br&gt;&lt;br&gt;No [2] [3] service between Manhattan and Brooklyn; take the [4] or [5] instead.&lt;br&gt;&lt;br&gt;Weekend service map for &lt;a href=http://web.mta.info/nyct/service/pdf/FF_Clark_St_web_map.pdf target=_blank&gt;&lt;font color=#0000FF&gt;Lower Manhattan and Downtown Brooklyn&lt;/font&gt;&lt;/a&gt;&lt;br&gt;&lt;br&gt;&lt;/font&gt;New timetables with Weekend Route Changes | [2] &lt;a href=http://web.mta.info/nyct/service/pdf/t2cur.pdf target=_blank&gt;&lt;font color=#0000FF&gt;pdf&lt;/font&gt;&lt;/a&gt; | [3] &lt;a href=http://web.mta.info/nyct/service/pdf/t3cur.pdf target=_blank&gt;&lt;font color=#0000FF&gt;pdf&lt;/font&gt;&lt;/a&gt; | [4] &lt;a href=http://web.mta.info/nyct/service/pdf/t4cur.pdf target=_blank&gt;&lt;font color=#0000FF&gt;pdf&lt;/font&gt;&lt;/a&gt; | [5] &lt;a href=http://web.mta.info/nyct/service/pdf/t5cur.pdf target=_blank&gt;&lt;font color=#0000FF&gt;pdf&lt;/font&gt;&lt;/a&gt;&lt;br&gt;&lt;b&gt;&lt;br&gt;
-			Source { SourceType: [ 'directReport' ] }
-			Affects [ 
-				{ 
-					LineRef: [ '\r\n                      MTA NYCT_2' ],
-			    	DirectionRef: [ '1' ] },
-			  	{ 	
-			  		LineRef: [ '\r\n                      MTA NYCT_2' ],
-			    	DirectionRef: [ '0' ] },
-			  	{ 
-			  		LineRef: [ '\r\n                      MTA NYCT_3' ],
-			    	DirectionRef: [ '1' ] },
-			  	{ 
-			  		LineRef: [ '\r\n                      MTA NYCT_3' ],
-			    	DirectionRef: [ '0' ] } ]
-			Consequences { 
-				Consequence: [ { 
-					Condition: [Array],
-					Severity: [Array] } ] }
-		 */
-
-		/*
-		{ 
-			CreationTime: [ '2017-11-26T20:36:22.85-05:00' ],
-		    SituationNumber: [ '\r\n                  MTA NYCT_2f6099d7-5dec-4e84-a699-d361868b8feb' ],
-		    PublicationWindow: [ [Object] ],
-		    Summary: [ [Object] ],
-		    Description: [ [Object] ],
-		    LongDescription:
-		     [ 'Southbound [2]and [5] trains are running with delays because of signal problems at 149 St-Grand Concourse.' ],
-		    Planned: [ 'false' ],
-		    ReasonName: [ 'Delays' ],
-		    MessagePriority: [ '2' ],
-		    Source: [ [Object] ],
-		    Affects: [ [Object] ],
-		    Consequences: [ [Object] ] 
-		},
-
-
-		console.log("\n", '--------------------------------');
-
-		let lines = [];
-		let k = t[o].Affects[0].VehicleJourneys[0].AffectedVehicleJourney;
-		for (let j in k) {
-			lines.push({ line: k[j].LineRef[0].trim(), dir: k[j].DirectionRef[0].trim()});
-		}
-
-		console.log(lines);
-		console.log("\n", ' - - - ', t[o].ReasonName, '', t[o].Consequences[0].Consequence[0].Condition[0], ' - - - (', t[o].Consequences[0].Consequence[0].Severity[0], ')');
-		console.log(t[o].Summary[0]._);
-		console.log('--------------------------------');
-
-		
-		console.log(t[o].CreationTime[0], ' -- #', t[o].SituationNumber[0].trim());
-		console.log('PublicationWindow', t[o].PublicationWindow[0]);
-		
-		console.log('Description', t[o].Description[0]._);
-//		console.log('Long Desc', t[o].LongDescription[0]);
-
-		console.log('--------------------------------');
-
-		*/
-
 }
 
 
-async function parseDetailMessage(status, short_msg, lines) {
+async function parseDetailMessage(status, summary, lines) {
 
 	// Clean it up.
 	status = cleanStatusText(decode(status));
 
-	status = await formatSingleStatusEvent(status, lines);
+	status = await formatSingleStatusEvent(status, lines, summary);
 
 	return status;
 }
@@ -237,7 +162,7 @@ function cleanStatusText(text) {
  * @return {object}
  *   An event object.
  */
-async function formatSingleStatusEvent(event, lines) {
+async function formatSingleStatusEvent(event, lines, summary) {
 
 	event = event.trim();
 
@@ -270,7 +195,11 @@ async function formatSingleStatusEvent(event, lines) {
 		// Break out any alternate route information from the body.
 		e.alt_instructions = getMessageAlternateInstructions(event);
 
-		e.message = prepareEventMessage(e.message, e);
+		e.ad_message = getMessageADNote(event);
+
+		e.message_formula = prepareEventMessage(e.message, e, true, summary);
+		e.message = prepareEventMessage(e.message, e, false);
+
 
 		for (let l in lines) {
 			try {
@@ -287,21 +216,28 @@ async function formatSingleStatusEvent(event, lines) {
 }
 
 
-function prepareEventMessage(message, status) {
+function prepareEventMessage(message, status, use_placeholder, summary) {
 
 	// Pull the original message out of there.
-//	message = message.replace(message, '[-SUMMARY-]');
+	if (summary) {
+		message = message.replace(summary, (use_placeholder) ? '[-SUMMARY-]' : '');
+	}
 
+	// Remove the original message out of there.
 	if (status.durration !== null) {
-		// Pull the original message out of there.
-		message = message.replace(status.durration, '[-DATES-]');
-	}
-	if (status.alt_instructions !== null) {
-		// Pull the original message out of there.
-		message = message.replace(status.alt_instructions, '[-Alt-Instructions-]');
+		message = message.replace(status.durration, (use_placeholder) ? '[-DATES-]' : '');
 	}
 
-	return message;
+	// Remove the alternate directions.
+	if (status.alt_instructions !== null) {
+		message = message.replace(status.alt_instructions, (use_placeholder) ? '[-ALT-INSTRUCT-]' : '');
+	}
+
+	if (status.ad_message !== null) {
+		message = message.replace(status.ad_message, (use_placeholder) ? '[-AD-MESSAGE-]' : '');
+	}
+
+	return message.trim();
 }
 
 
@@ -314,8 +250,8 @@ function getMessageDateTime(text) {
 
 function getMessageAlternateInstructions(text) {
 
-	// In Progress -- Reduction
-	let alternateInstructionPattern = /((\b(use (nearby)?|take the|For service (to|from)|Transfer (to|between)?|Travel Alternatives)\b)+((\s*((stations|these stations|trains|transfer to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\.\/\:\;&\(\)]*)*)?)*(\s*\[(A|B|C|D|E|F|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*\s*)*)+/i;
+	// In Progress -- Reduction For service to these stations
+	let alternateInstructionPattern = /((\b(For\s*service\s*(to|from)|use\s*(nearby)?|take\s*the|Transfer\s*(to|between)?|Travel\s*Alternatives)\b)+((\s*((stations|these stations|trains|transfer\s*to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\.\/\:\;&\(\)\*]*)*)?)*(\s*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*\s*)*)+/i;
 
 	let results = text.match(alternateInstructionPattern);
 
@@ -328,9 +264,22 @@ function getMessageAlternateInstructions(text) {
 }
 
 
+function getMessageADNote(text) {
+
+	let adPattern = /\[ad\](\s*[a-zA-Z0-9\-\.\/\:\;&\(\)\*\,]*)*/i;
+	let results = text.match(adPattern);
+
+	if (results && results[0]) {
+		return results[0].trim();
+	}
+
+	return null;
+}
+
+
 function getMessagePlannedWorkDate(text) {
 	// In Progress -- Reduction
-	let workDatePattern = /((Weekend[s]?|Late Night[s]?|Night[s]?|Day[s]?|Late Evening[s]?|Evening[s]?|All times|Until)\s*,?(\s*((([0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(AM|PM)\s*)|([0-9]{1,2}\s*(-\s*[0-9]{1,2})?\s*(20[0-9]{2})?)?|(20[0-9]{2}))?\s*[,-]?\s*((Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|beginning(\sat)?|further\snotice|and|including)|(Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter|Holiday[s]?))?\s*(\,|&bull\;|&)?\s*)*\s*)+/i;
+	let workDatePattern = /(\b(Weekend[s]?|Late Night[s]?|Night[s]?|Day[s]?|Late Evening[s]?|Evening[s]?|All times|Until)\b\s*,?(\s*((([0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(AM|PM)\s*)|([0-9]{1,2}\s*(-\s*[0-9]{1,2})?\s*(20[0-9]{2})?)?|(20[0-9]{2}))?\s*[,-]?\s*((Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|beginning(\sat)?|further\snotice|and|including)|(Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter|Holiday[s]?))?\s*(\,|&bull\;|&)?\s*)*\s*)+/i;
 
 	let dateResults = text.match(workDatePattern);
 
@@ -419,14 +368,25 @@ function getMessageAction(text) {
 			'route changes',
 			'Trains are rerouted',
 		],
+		'alternate_trains': [
+			'alternate trains',
+			'some trains',
+		],
 		'no_trains': [
-			'No trains running'
+			'No trains running',
 		],
 		'no_trains_partial': [
+			'The last stop',
 			'trains end at',
 			'No trains in',
 			'No trains between',
 			'No trains running between',
+			'No service between',
+			'No weekday service between',
+		],
+		'platform_change' :[
+			'trains board at',
+			'trains baord on',
 		],
 		'running_express': [
 			'running express',
@@ -437,6 +397,10 @@ function getMessageAction(text) {
 			'run at reduced speed',
 			'run with reduced speed',
 		],
+
+		// Misc
+		'additional_service': ['Additional service'],
+
 
 		// Construction
 		'general_maintenance': [

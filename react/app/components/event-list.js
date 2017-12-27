@@ -33,7 +33,7 @@ class EventList extends React.Component {
 			     | {(e.detail.type_detail) 
 					? e.detail.type_detail.join(', ') : ''}
 				</h4>
-			    <p>{e.summary}</p>
+			    <p>{e.detail.message}</p>
 
 			    <StationList stations={e.detail.stations} />
 
