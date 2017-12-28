@@ -1,6 +1,6 @@
 const mtaApi = require('./mta.api');
 const trainRoutes = require('./data/mta.stations.train');
-
+const mtaRegEx = require = require('./includes/regex');
 const mta_stations_file = './data/mta.stations.final';
 
 
@@ -123,46 +123,6 @@ async function getRouteStationsArray(line) {
 }
 
 
-function regexReplaceSpace(word) {
-	return word.replace(/(\s)+/gi, (match, offset, string) => {
-  	return '(\\s)*';
-  });	
-}
-
-function regexWrapNumberBounds(word) {
-  return word.replace(/\s*[0-9]+\s*/gi, (match, offset, string) => {
-  	return '\\s*\\b' + match.trim() + '\\b\\s*';
-  });
-}
-
-function regexWrapSeperatorBounds(word) {
-  return word.replace(/(\s)*[-/]+(\s)*/gi, (match, offset, string) => {
-  	return '\\s*' + '[-/]{0,2}' + '\\s*';
-  });
-}
-
-function regexMatchStringsWithSpecialChars(needle, haystack) {
-	let v = needle;
-
-	// Detect numbers.	
-	v = regexWrapNumberBounds(needle);
-
-	// Wrap Separators.
-	v = regexWrapSeperatorBounds(v);
-
-	v = regexReplaceSpace(v);
-
-	let re = new RegExp(v,"gi");
-	let result = haystack.match(re);
-
-//	console.log('Match:', v, ' ~~~ ', haystack, ' . . . ', result);
-
-	return (result !== null && result[0]) 
-		? needle
-		: false;
-}
-
-
 async function matchRouteStationsMessage(line, message) {
 	try { 
 		line = getTrainById(line);
@@ -171,7 +131,7 @@ async function matchRouteStationsMessage(line, message) {
 		let results = {};
 
 		for (let s in stations) {
-			let res = regexMatchStringsWithSpecialChars(stations[s], message);
+			let res = mtaRegEx.matchStringsWithSpecialChars(stations[s], message);
 			if (res !== false) {	results[s] = res;	}
 		}
 
@@ -188,9 +148,6 @@ async function matchRouteStationsMessage(line, message) {
 
 
 function groupStationsByLocation(line, stations) {
-
-	console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-	console.log('Stations: ', stations);
 
 	let results = [];
 
@@ -293,9 +250,9 @@ module.exports = {
 	getStationLines,
 	getStationsByLine,
 	getTrainRoute,
+	getTrainById,
 	getRouteStationsArray,
 	matchRouteStationsMessage,
-	regexMatchStringsWithSpecialChars,
 	groupStationsByLocation,
 };
 

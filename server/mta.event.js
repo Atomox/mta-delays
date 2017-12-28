@@ -13,6 +13,7 @@ const striptags = require('striptags');
 const decode = require('unescape');
 
 const mtaStations = require('./mta.stations');
+const mtaRegEx = require = require('./includes/regex');
 
 function checkReports(response) {
 
@@ -177,6 +178,7 @@ async function formatSingleStatusEvent(event, lines, summary) {
 			message: null,
 			message_raw: null,
 			stations: {},
+			trains: [],
 		};
 
 		// Store the original message.
@@ -195,11 +197,17 @@ async function formatSingleStatusEvent(event, lines, summary) {
 		// Break out any alternate route information from the body.
 		e.alt_instructions = getMessageAlternateInstructions(event);
 
+		// Get all line names, then filter a distinct set.
+		e.trains = lines
+			.map((val) => val.line)
+			.filter((value, index, self) => self.indexOf(value) === index);
+
 		e.ad_message = getMessageADNote(event);
+
+		e.route_change = await getMessageRouteChange(event, e.trains);
 
 		e.message_formula = prepareEventMessage(e.message, e, true, summary);
 		e.message = prepareEventMessage(e.message, e, false);
-
 
 		for (let l in lines) {
 			try {
@@ -251,7 +259,7 @@ function getMessageDateTime(text) {
 function getMessageAlternateInstructions(text) {
 
 	// In Progress -- Reduction For service to these stations
-	let alternateInstructionPattern = /((\b(For\s*service\s*(to|from)|use\s*(nearby)?|take\s*the|Transfer\s*(to|between)?|Travel\s*Alternatives)\b)+((\s*((stations|these stations|trains|transfer\s*to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\.\/\:\;&\(\)\*]*)*)?)*(\s*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*\s*)*)+/i;
+	let alternateInstructionPattern = /((\[TP\]|(\b(For\s*service\s*(to|from)|use\s*(nearby)?|take\s*the|Transfer\s*(to|between)?|Travel\s*Alternatives)\b))+((\s*((stations|these stations|trains|transfer\s*to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\.\/\:\;&\(\)\*]*)*)?)*(\s*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*\s*)*)+/i;
 
 	let results = text.match(alternateInstructionPattern);
 
@@ -279,7 +287,7 @@ function getMessageADNote(text) {
 
 function getMessagePlannedWorkDate(text) {
 	// In Progress -- Reduction
-	let workDatePattern = /(\b(Weekend[s]?|Late Night[s]?|Night[s]?|Day[s]?|Late Evening[s]?|Evening[s]?|All times|Until)\b\s*,?(\s*((([0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(AM|PM)\s*)|([0-9]{1,2}\s*(-\s*[0-9]{1,2})?\s*(20[0-9]{2})?)?|(20[0-9]{2}))?\s*[,-]?\s*((Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|beginning(\sat)?|further\snotice|and|including)|(Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter|Holiday[s]?))?\s*(\,|&bull\;|&)?\s*)*\s*)+/i;
+	let workDatePattern = /(\b(Weekend[s]?|Late Night[s]?|Night[s]?|Day[s]?|Late Evening[s]?|Evening[s]?|All times|Until)\b\s*,?(\s*((([0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(AM|PM)\s*)|([0-9]{1,2}\s*(-\s*[0-9]{1,2})?\s*(20[0-9]{2})?)?|(20[0-9]{2}))?\s*[,-]?\s*((Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|beginning(\sat)?|further\snotice|and|including)|(Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter|Holiday[s]?))?\s*(\,|&bull\;|&|\*|\;)?\s*)*\s*)+/i;
 
 	let dateResults = text.match(workDatePattern);
 
@@ -289,6 +297,50 @@ function getMessagePlannedWorkDate(text) {
 
 	console.warn('Can\'t parse event dates in ---', text);
 	return null;
+}
+
+
+async function getMessageRouteChange(text, lines) {
+
+	// Get stations in each line.
+	/**
+	 *
+	 * @TODO
+	 *   *
+	 *   *
+	 *   *
+	 *   *
+	 *   *
+	 *   ^
+	 *
+	 *
+	 *
+	 *
+	 * 
+	 */
+	let stations = {};
+
+	for (let l in lines) {
+		let n = mtaStations.getTrainById(lines[l]);
+
+		try {
+			stations[n] = await mtaStations.getTrainRoute(n);
+		}
+		catch (err) {
+			console.warn('[', n, '] line info unavailable.');
+			continue;
+		}
+	}
+
+	// In Progress -- Reduction
+	let workDatePattern = /((((some|northbound|southbound)+\s*)*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*\s*(trains are (rerout(ed)+|stopping)|over the))+(\s*(trains|both directions|line|via|along\s*(the)+|travel(ing)+|are|the|on|the|in|between|from|to|then|end at|\,)*\s*(\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)+/i;
+
+	let dateResults = text.match(workDatePattern);
+
+	if (dateResults && dateResults[0]) {
+		return dateResults[0].trim();
+	}
+	return null;	
 }
 
 
@@ -350,6 +402,7 @@ function getMessageAction(text) {
 			'trains skip',
 			'station closures',
 			'trains are bypassing',
+			'trains will bypass',
 		],
 		'service_ends_early': [
 			'end early',
@@ -365,6 +418,7 @@ function getMessageAction(text) {
 			'run local',
 		],
 		'route_change': [
+			'trains are stopping along',
 			'route changes',
 			'Trains are rerouted',
 		],
@@ -427,9 +481,11 @@ function getMessageAction(text) {
 
 	let my_status = [];
 
+	text = text.toUpperCase();
+
 	for (type in incident_types) {
 		for (variation in incident_types[type]) {
-			if (text.indexOf(incident_types[type][variation]) !== -1) {
+			if (text.indexOf(incident_types[type][variation].toUpperCase()) !== -1) {
 				// console.log(type, ' >>>>>>> ', text);
 				my_status.push(type);
 				break;

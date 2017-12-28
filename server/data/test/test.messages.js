@@ -5,11 +5,12 @@ let event_messages = {
 		normal: [
 			{
 				type: 'ServiceChange',
-				type_detail: null,
+				type_detail: [
+					'route_change',
+				],
 				time: 'Posted: 11/25/2017 7:12PM',
 				durration: null,
-				message: 'Some northbound [N] trains are stopping on the [Q] line from <STRONG>57 St-7 Av</STRONG> and end at <STRONG>96 St.</STRONG> Some northbound [R] trains are stopping on the [Q] line from <B>57 St-7 Av</B> to <B>Lexington Av-63 St</B>, then over the [F] line from <B>Lexington Av-63 St</B> to <B>Jackson Heights-Roosevelt Av.</B> This service change is because of a train with mechanical problems at <B>5 Av-59 St.</B> Expect delays in [F][N][Q][R] train service.',
-				message_raw: '<span class="TitleDelay">Delays</span> <span class="DateStyle">Posted: 11/25/2017 7:12PM</span> Some northbound [N] trains are stopping on the [Q] line from <STRONG>57 St-7 Av</STRONG> and end at <STRONG>96 St.</STRONG> Some northbound [R] trains are stopping on the [Q] line from <B>57 St-7 Av</B> to <B>Lexington Av-63 St</B>, then over the [F] line from <B>Lexington Av-63 St</B> to <B>Jackson Heights-Roosevelt Av.</B> This service change is because of a train with mechanical problems at <B>5 Av-59 St.</B> Expect delays in [F][N][Q][R] train service.',
+				message: 'Some northbound [N] trains are stopping on the [Q] line from 57 St-7 Av and end at 96 St. Some northbound [R] trains are stopping on the [Q] line from 57 St-7 Av to Lexington Av-63 St, then over the [F] line from Lexington Av-63 St to Jackson Heights-Roosevelt Av. This service change is because of a train with mechanical problems at 5 Av-59 St. Expect delays in [F][N][Q][R] train service.',
 				alt_instructions: null,
 			},
 			{
@@ -178,6 +179,59 @@ let event_messages = {
 				message: 'ELECTRICAL IMPROVEMENTS [1] South Ferry-bound trains skip 137, 125, 116, 110 and 103 Sts Late Nights, 9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29 For service to these stations, take the [1] to 96 St and transfer to a Van Cortlandt Park-bound [1]. For service from these stations, take the [1] to 168 St* and transfer to a South Ferry-bound [1]. *Transfer at 145 St with Unlimited Ride MetroCard .',
 				alt_instructions: 'For service to these stations, take the [1] to 96 St and transfer to a Van Cortlandt Park-bound [1]. For service from these stations, take the [1] to 168 St* and transfer to a South Ferry-bound [1]. *Transfer at 145 St with Unlimited Ride MetroCard .',
 			},
+			{
+				type: 'PlannedWork',
+				type_detail: [
+					"signal_problems",
+					"shuttle_bus",
+					"no_trains_partial"
+				],
+				time: null,
+				durration: null,
+				message: '[5] There is no service between Eastchester-Dyre Av and E 180 St in both directions because of ongoing signal problems at Eastchester-Dyre Av.Our crews are on scene working to fix it, we will follow up soon. There are free [SB] shuttle buses at the following bus stops:Toward Eastchester-Dyre Av:On Morris Park Av at E180 St - Bx21 StopOn Morris Park Av at Hone Av - Bx21 StopOn Williamsbridge Rd at Lydig AvOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn E Gunhill Rd at Knapp St - Bx28 StopOn Boston Rd at Baychester Av - Bx30 StopOn Dyre Av at Light St - Bx18 StopToward E 180 St:On Dyre Av at Light St - Bx18 StopOn Boston Rd at Baychester Av - Bx30 StopOn E Gunhill Rd at DeWitt Pl - Bx28 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Lydig AvOn Morris Park Av at Hone Av - Bx21 StopOn Morris Park Av at E180 St - Bx21 Stop',
+				alt_instructions: null,
+			},
+			{
+				type: null,
+				type_detail: [
+					"shuttle_bus",
+					"running_local",
+					"route_change",
+					"no_trains_partial"
+				],
+				time: null,
+				durration: "All Times, 5 AM Tue, Dec 26 until 8 AM Sun, Dec 31",
+				message: "SUBWAY ACTION PLAN: We're improving: Signals, Cables, Tracks and Drainage [E] No service between Jackson Hts-Roosevelt Av and West 4 St [M] No weekday service between Broadway Junction and 71 Av All Times, 5 AM Tue, Dec 26 until 8 AM Sun, Dec 31 [E] trains are rerouted in both directions via the [F] between Jackson Hts-Roosevelt Av and West 4 St * [E] trains run local between 71 Av and 21 St-Queensbridge overnight. [M] Shuttle trains operate all times between Metropolitan Av and Myrtle-Wyckoff Avs . [M] trains operate weekend service between Broadway Junction [J] and Essex St . Overnight [SB] free shuttle buses connect Queens Plaza and Court Sq-23 St [7] stopping at 21 St-Queensbridge [E] [F]. Travel Alternatives [TP] For JFK Airport , take the Far Rockaway-bound [A] to Howard Beach-JFK Airport. For LaGuardia Airport , take the [7] or [E] (from 6 Av) to 74 St-Roosevelt Av, for the LaGuardia Link Q70 SBS . For Port Authority Bus Terminal , all 8 Av [E] stations and overnight service between W 4 St and World Trade Center , take the [A] or [C]. For 53 St [E] stations , use the nearby 51 St [6] or 7 Av [B] [D] Stations. For [M] stations , take the [E] [F] [R] and/or [J]. Take the [7] for Court Sq-23 St [G] , and the [R] ( days/evenings ) for Queens Plaza or free overnight shuttle buses. Click here for details about this Subway Action Plan. *9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29 [E] trains run to/from 2 Av [F] station after W 4 St. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+				alt_instructions: "Travel Alternatives [TP] For JFK Airport , take the Far Rockaway-bound [A] to Howard Beach-JFK Airport. For LaGuardia Airport , take the [7] or [E] (from 6 Av) to 74 St-Roosevelt Av, for the LaGuardia Link Q70 SBS . For Port Authority Bus Terminal , all 8 Av [E] stations and overnight service between W 4 St and World Trade Center , take the [A] or [C]. For 53 St [E] stations , use the nearby 51 St [6] or 7 Av [B] [D] Stations. For [M] stations , take the [E] [F] [R] and/or [J]. Take the [7] for Court Sq-23 St [G] , and the [R] ( days/evenings ) for Queens Plaza or free overnight shuttle buses. Click here for details about this Subway Action Plan. *9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29 [E] trains run to/from 2 Av [F] station after W 4 St.",
+				ad_message: "[ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+			},
+			{
+				type: null,
+				type_detail: [
+				"shuttle_bus",
+				"no_trains_partial",
+				"electrical_improvements"
+				],
+				time: null,
+				durration: "Late Nights, 9:30 PM to 5 AM, Wed to Fri, Dec 27 - 29",
+				message: "ELECTRICAL IMPROVEMENTS [4] No trains between 149 St-Grand Concourse and 125 St[SB] Free shuttle buses provide alternate service Late Nights, 9:30 PM to 5 AM, Wed to Fri, Dec 27 - 29 [TP] [4] service operates in two sections: 1. Between 149 St-Grand Concourse and Woodlawn . 2. Between Crown Hts/New Lots Av and 125 St and via the [6] to/from 3 Av-138 St. [SB] Buses operate between 149 St-Grand Concourse and 3 Av-138 St , stopping at 138 St-Grand Concourse. Transfer between trains and [SB] buses at 149 St-Grand Concourse and/or 3 Av-138 St. Station Shuttle Bus Stop 149 St-Grand Concourse [2] [4] Grand Concourse at 149 St 138 St-Grand Concourse Grand Concourse at 138 St 3 Av-138 St [4] [6] Lincoln Av at 138 St [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+				alt_instructions: "[TP] [4] service operates in two sections: 1. Between 149 St-Grand Concourse and Woodlawn . 2. Between Crown Hts/New Lots Av and 125 St and via the [6] to/from 3 Av-138 St. [SB] Buses operate between 149 St-Grand Concourse and 3 Av-138 St , stopping at 138 St-Grand Concourse. Transfer between trains and [SB] buses at 149 St-Grand Concourse and/or 3 Av-138 St. Station Shuttle Bus Stop 149 St-Grand Concourse [2] [4] Grand Concourse at 149 St 138 St-Grand Concourse Grand Concourse at 138 St 3 Av-138 St [4] [6] Lincoln Av at 138 St",
+				ad_message: "[ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+			},
+			{
+				type: null,
+				type_detail: [
+				"delays",
+				"rail_condition",
+				"running_local"
+				],
+				time: null,
+				durration: null,
+				message: "Southbound [D] trains are stopping along the [C] line from 59 St-Columbus Circle to W 4 St-Wash Sq then along the [F] line to Coney Island-Stillwell Av.Southbound [A] trains are running local from 59 St-Columbus Circle to W 4 St-Wash Sq.Expect delays on [A] [C] [D] and [F] trains.These service changes are because of a rail condition at 59 St-Columbus Circle.",
+				alt_instructions: null,
+				ad_message: null,
+				message_formula: "Southbound [D] trains are stopping along the [C] line from 59 St-Columbus Circle to W 4 St-Wash Sq then along the [F] line to Coney Island-Stillwell Av.Southbound [A] trains are running local from 59 St-Columbus Circle to W 4 St-Wash Sq.Expect delays on [A] [C] [D] and [F] trains.These service changes are because of a rail condition at 59 St-Columbus Circle."
+			},
 		],
 
 		complex: [
@@ -196,7 +250,14 @@ let event_messages = {
 				message: 'TUNNEL RECONSTRUCTION Weekend [2] [3] station closures and route changes Until Summer 2018 including Dec 25, 2017 and Jan 1, 2018 No service at Park Place, Wall St, Clark St and Hoyt St; use nearby [4] [5] stations No [2] [3] service between Manhattan and Brooklyn; take the [4] or [5] instead. Weekend service map for Lower Manhattan and Downtown Brooklyn New timetables with Weekend Route Changes | [2] pdf | [3] pdf | [4] pdf | [5] pdf',
 				alt_instructions: 'use nearby [4] [5] stations No [2] [3] service between Manhattan and Brooklyn; take the [4] or [5] instead. Weekend service map for Lower Manhattan and Downtown Brooklyn New timetables with Weekend Route Changes | [2] pdf | [3] pdf | [4] pdf | [5] pdf',
 			},
-
+			{
+				type: 'ServiceChange',
+				type_detail: null,
+				time: null,
+				durration: null,
+				message: '[5] There is no service between Eastchester-Dyre Av and E 180 St in both directions because of ongoing signal problems at Eastchester-Dyre Av.Our crews are on scene working to fix it, we will follow up soon. There are free [SB] shuttle buses at the following bus stops:Toward Eastchester-Dyre Av:On Morris Park Av at E180 St - Bx21 StopOn Morris Park Av at Hone Av - Bx21 StopOn Williamsbridge Rd at Lydig AvOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn E Gunhill Rd at Knapp St - Bx28 StopOn Boston Rd at Baychester Av - Bx30 StopOn Dyre Av at Light St - Bx18 StopToward E 180 St:On Dyre Av at Light St - Bx18 StopOn Boston Rd at Baychester Av - Bx30 StopOn E Gunhill Rd at DeWitt Pl - Bx28 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Lydig AvOn Morris Park Av at Hone Av - Bx21 StopOn Morris Park Av at E180 St - Bx21 Stop',
+				alt_instructions: 'There are free [SB] shuttle buses at the following bus stops:Toward Eastchester-Dyre Av:On Morris Park Av at E180 St - Bx21 StopOn Morris Park Av at Hone Av - Bx21 StopOn Williamsbridge Rd at Lydig AvOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn E Gunhill Rd at Knapp St - Bx28 StopOn Boston Rd at Baychester Av - Bx30 StopOn Dyre Av at Light St - Bx18 StopToward E 180 St:On Dyre Av at Light St - Bx18 StopOn Boston Rd at Baychester Av - Bx30 StopOn E Gunhill Rd at DeWitt Pl - Bx28 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Lydig AvOn Morris Park Av at Hone Av - Bx21 StopOn Morris Park Av at E180 St - Bx21 Stop',
+			},
 		],
 	},
 

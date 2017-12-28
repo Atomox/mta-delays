@@ -9,7 +9,7 @@ class Card extends React.Component {
 		return(
 			<div className="card" key={key}>
 			  <div className={this.props.headerClass}>
-			    {this.props.header}
+			    <h3>{this.props.header}</h3>
 			  </div>
 			  <div className="card-section">
 			    {this.props.children}

@@ -1,8 +1,9 @@
 let assert = require('assert');
 let expect = require('chai').expect;
 
-let mtaStatus = require('../mta.status.xml');
+let mtaStatus = require('../mta.event');
 let mtaStations = require('../mta.stations');
+let mtaRegEx = require('../includes/regex');
 
 // Test Data
 let stations = require('../data/test/test.stations').stations.names;
@@ -30,25 +31,25 @@ describe('Parse Stations', function() {
 	describe('Parse Strings with Special Characters', () => {
 		it ('Should match [simple names]', () => {
 			Object.keys(stations.simple).map( i => {
-				let res = mtaStations.regexMatchStringsWithSpecialChars(i, stations.simple[i]);
+				let res = mtaRegEx.matchStringsWithSpecialChars(i, stations.simple[i]);
 				expect(res).to.equal(i);
 			});
 		});
 		it ('Should match [names] with [mismatched-whitespace]', () => {
 			Object.keys(stations.hyphen).map( i => {
-				let res = mtaStations.regexMatchStringsWithSpecialChars(i, stations.hyphen[i]);
+				let res = mtaRegEx.matchStringsWithSpecialChars(i, stations.hyphen[i]);
 				expect(res).to.equal(i);
 			});
 		});
 		it.skip ('Should *not* match [shorter names] with [longer ones].', () => {
 			Object.keys(stations.mistaken_identity).map( i => {
-				let res = mtaStations.regexMatchStringsWithSpecialChars(i, stations.mistaken_identity[i]);
+				let res = mtaRegEx.matchStringsWithSpecialChars(i, stations.mistaken_identity[i]);
 				expect(res).to.not.equal(i);
 			});
 		});
 		it.skip ('Should match [abreviated names] with [full station names].', () => {
 			Object.keys(stations.nomDePlume).map( i => {
-				let res = mtaStations.regexMatchStringsWithSpecialChars(i, stations.nomDePlume[i]);
+				let res = mtaRegEx.matchStringsWithSpecialChars(i, stations.nomDePlume[i]);
 				expect(res).to.equal(i);
 			});
 		});

@@ -13,26 +13,45 @@ class EventList extends React.Component {
 		let titleClass = "card-divider ";
 		titleClass += (e.planned === true) ? 'caution' : 'bad';
 
+		let trains = {};
+		for (let i in e.line) {
+			let line = mta.getlineById(e.line[i].line);
+			let dir = e.line[i].dir;
+			
+			if (!trains[line]) {
+				trains[line] = {line: line, dir: dir,};
+			}
+			else {
+				if (trains[line].dir !== dir) {
+					trains[line].dir = 2;
+				}
+			}
+		}
+
 		return (
 
-			<Card key="event-list" id={e.id} header={e.type} headerClass={titleClass}>
+			<Card key="event-list" id={e.id} 
+				header={e.type}
+				headerSubtitle={e.type}
+				headerClass={titleClass}>
 			  <div>
-			    <h4>
-			     {
-					Object.keys(e.line).map((key, i) => {
-						let line = mta.getlineById(e.line[key].line);
-						let dir = mta.getlineDirectionByID(e.line[key].dir);
+			    <h3>
+			    {
+					Object.keys(trains).map((key, i) => {
+						let line = trains[key].line;
+						let dir = mta.getlineDirectionByID(trains[key].dir);
 
 						return <TrainLine
 							key={_.uniqueId('train-' + line)}
 							line={line}
 							dir={dir} />;
 					})
-				} &nbsp;
-
-			     | {(e.detail.type_detail) 
-					? e.detail.type_detail.join(', ') : ''}
-				</h4>
+				}
+				</h3>
+				<h5>{
+					(e.detail.type_detail) 
+						? e.detail.type_detail.join(' | ')
+						: ''}</h5>
 			    <p>{e.detail.message}</p>
 
 			    <StationList stations={e.detail.stations} />
@@ -58,7 +77,7 @@ class TrainLine extends React.Component {
 					{this.props.line}
 				</strong>
 
-				{this.props.dir}
+				{(this.props.dir !== 'both') ? this.props.dir : null}
 			</span>
 		);
 	}

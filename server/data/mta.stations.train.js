@@ -315,6 +315,117 @@ let routes = {
 		'Mn471-726',  // "34 St - 11 Av"
 
 	],
+	A: [
+
+		// "8th Av - Fulton St" -- "Mn", "Bk"
+		'Mn143-A02',  // "Inwood - 207 St"
+		'Mn144-A03',  // "Dyckman St"
+		'Mn145-A05',  // "190 St"
+		'Mn146-A06',  // "181 St"
+		'Mn147-A07',  // "175 St"
+		'Mn605-A09',  // "168 St"
+		'Mn151-A12',  // "145 St"
+		'Mn153-A15',  // "125 St"
+		'Mn614-A24',  // "59 St - Columbus Circle"
+
+		'Mn611-A27',  // "42 St - Port Authority Bus Terminal"
+		'Mn164-A28',  // "34 St - Penn Station"
+		'Mn618-A31',  // "14 St"
+		'Mn167-A32',  // "W 4 St"
+		'Mn169-A34',  // "Canal St"
+		'Mn624-A36',  // "Chambers St"
+		'Mn628-A38',  // "Fulton St"
+
+		'Bk173-A40',  // "High St"
+		'Bk636-A41',  // "Jay St - MetroTech"
+		'Bk175-A42',  // "Hoyt - Schermerhorn Sts"
+		'Bk179-A46',  // "Nostrand Av"
+		'Bk181-A48',  // "Utica Av"
+		'Bk621-A51',  // "Broadway Jct"
+		'Bk188-A55',  // "Euclid Av"
+
+		// "Liberty Av" -- "Qs"
+		'Bk189-A57',  // "Grant Av"
+		'Qs190-A59',  // "80 St"
+		'Qs191-A60',  // "88 St"
+		'Qs192-A61',  // "Rockaway Blvd"
+
+		//
+		// @TODO:
+		//   How do we split lines?
+		//
+		
+		// A: Liberty Ave Branch
+		'Qs193-A63',  // "104 St"
+		'Qs194-A64',  // "111 St"
+		'Qs195-A65',  // "Ozone Park - Lefferts Blvd"
+
+		// B: "Rockaway" -- "Qs"
+		'Qs196-H01',  // "Aqueduct Racetrack"
+		'Qs197-H02',  // "Aqueduct - N Conduit Av"
+		'Qs198-H03',  // "Howard Beach - JFK Airport"
+		'Qs199-H04',  // "Broad Channel"
+
+		// A Shuttle 
+		'Qs200-H12',  // "Beach 90 St"
+		'Qs201-H13',  // "Beach 98 St"
+		'Qs202-H14',  // "Beach 105 St"
+		'Qs203-H15',  // "Rockaway Park - Beach 116 St"
+		
+		// A (B Rockaway branch)
+		'Qs204-H06',  // "Beach 67 St"
+		'Qs205-H07',  // "Beach 60 St"
+		'Qs206-H08',  // "Beach 44 St"
+		'Qs207-H09',  // "Beach 36 St"
+		'Qs208-H10',  // "Beach 25 St"
+		'Qs209-H11',  // "Far Rockaway - Mott Av"
+
+	],
+	C: [
+
+		// "8th Av - Fulton St" -- "Mn", "Bk"
+		'Mn605-A09',  // "168 St"
+		'Mn149-A10',  // "163 St - Amsterdam Av"
+		'Mn150-A11',  // "155 St"
+		'Mn151-A12',  // "145 St"
+		'Mn152-A14',  // "135 St"
+		'Mn153-A15',  // "125 St"
+		'Mn154-A16',  // "116 St"
+		'Mn155-A17',  // "Cathedral Pkwy (110 St)"
+		'Mn156-A18',  // "103 St"
+		'Mn157-A19',  // "96 St"
+		'Mn158-A20',  // "86 St"
+		'Mn159-A21',  // "81 St - Museum of Natural History"
+		'Mn160-A22',  // "72 St"
+		'Mn614-A24',  // "59 St - Columbus Circle"
+		'Mn162-A25',  // "50 St"
+		'Mn611-A27',  // "42 St - Port Authority Bus Terminal"
+		'Mn164-A28',  // "34 St - Penn Station"
+		'Mn165-A30',  // "23 St"
+		'Mn618-A31',  // "14 St"
+		'Mn167-A32',  // "W 4 St"
+		'Mn168-A33',  // "Spring St"
+		'Mn169-A34',  // "Canal St"
+		'Mn624-A36',  // "Chambers St"
+		'Mn628-A38',  // "Fulton St"
+		'Bk173-A40',  // "High St"
+		'Bk636-A41',  // "Jay St - MetroTech"
+		'Bk175-A42',  // "Hoyt - Schermerhorn Sts"
+		'Bk176-A43',  // "Lafayette Av"
+		'Bk177-A44',  // "Clinton - Washington Avs"
+		'Bk627-A45',  // "Franklin Av"
+		'Bk179-A46',  // "Nostrand Av"
+		'Bk180-A47',  // "Kingston - Throop Avs"
+		'Bk181-A48',  // "Utica Av"
+		'Bk182-A49',  // "Ralph Av"
+		'Bk183-A50',  // "Rockaway Av"
+		'Bk621-A51',  // "Broadway Jct"
+		'Bk185-A52',  // "Liberty Av"
+		'Bk186-A53',  // "Van Siclen Av"
+		'Bk187-A54',  // "Shepherd Av"
+		'Bk188-A55',  // "Euclid Av"
+
+	],
 	E: [
 
 		// "Queens - Archer" -- "Qs", "Mn"

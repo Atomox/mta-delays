@@ -68,6 +68,7 @@ let mtaSubway = (() => {
 	}
 
 	function getlineDirectionByID(id) {
+		if (id == 2) { return 'both'; }
 		return (id == 0) ? 'northbound' : 'southbound';
 	}
 

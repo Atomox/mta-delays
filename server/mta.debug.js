@@ -1,5 +1,5 @@
 const mtaApi = require('./mta.api');
-const mtaStatus = require('./mta.status.xml');
+const mtaStatus = require('./mta.event');
 
 // const mode = 'full';
 const mode = 'type';

@@ -1,7 +1,7 @@
 let assert = require('assert');
 let expect = require('chai').expect;
 
-var mtaStatus = mtaStatus || require('../mta.status.xml');
+var mtaStatus = mtaStatus || require('../mta.event');
 
 // Test data.
 let status_dates = require('../data/test/test.dates').dateMessages;
@@ -112,7 +112,14 @@ describe('Parse Service Messages', function() {
 				expect(result).to.equal(event_messages.normal[x].alt_instructions);
 			}
 		});
+		it.skip ('Should split complex messages [alternate travel].', function() {
+			for (let x in event_messages.complex) {
+				if (!event_messages.complex[x].alt_instructions) { continue; }
+				let result = mtaStatus.getMessageAlternateInstructions(event_messages.complex[x].message);
 
+				expect(result).to.equal(event_messages.complex[x].alt_instructions);
+			}
+		});
 	});
 
 

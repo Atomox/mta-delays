@@ -5,7 +5,7 @@ var status_debug = require('./mta.debug').debug;
 
 const mtaApi = require('./mta.api');
 const mtaStations = require('./mta.stations');
-const mtaStatus = require('./mta.status.xml');
+const mtaStatus = require('./mta.event');
 
 // File where we'll store things. No extension, please.
 const mta_status_file = './data/mta_status';
