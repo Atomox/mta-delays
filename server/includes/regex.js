@@ -19,6 +19,14 @@ function wrapSeperatorBounds(word) {
   });
 }
 
+function wrapWrappers(word) {
+	word = word.replace(')', '\\)');
+	word = word.replace('(', '\\(');
+	word = word.replace('[', '\\[');
+	word = word.replace(']', '\\]');
+	return word;
+}
+
 function convertArrayToRegexOr(list) {
 	return '(' + list.join('|') + ')';
 }
@@ -46,6 +54,9 @@ function prepareRegExpString(exp) {
 
 function prepareRexExNameString(name) {
 	let v = name;
+
+	// Wrap text/word parens () -- DO THIS FIRST!
+	v = wrapWrappers(v);
 
 	// Detect numbers.	
 	v = wrapNumberBounds(v);

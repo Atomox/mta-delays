@@ -306,7 +306,7 @@ async function getMessageRouteChange(text, lines) {
 	let stations = await mtaStations.getStationLinesRegex(lines);
 
 	// Parse Route Changes ([R] trains are running along the [F] line from...)
-	let workDatePattern = /(((((Some|northbound|southbound|and)\s*)*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(trains(\s*are)?\s*(reroute[d]?|stopping|run(ning)? via (the)?)|(then)?\s*over\s(the)?)){1}(\s*(trains|both\s*directions|line(s)?|travel(ing)?|are|(on|in|between|along|long|from|to|via)\s*(the)?|then|end at|\,|\.)*\s*(\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
+	let workDatePattern = /(((((Some|northbound|southbound|and)\s*)*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(trains(\s*are)?\s*(reroute[d]?|stopping|run(ning)? via (the)?)|(then)?\s*(stopping)?\s*(over|along)\s*(the)?)){1}(\s*(trains|both\s*directions|line(s)?|travel(ing)?|are|(on|in|between|along|long|from|to|via)\s*(the)?|then|end at|\,|\.)*\s*(\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 
 	// The regex suffix, where the stations regex should be inserted before.
 	let suffix_wrapper = ')*)+';
@@ -317,6 +317,8 @@ async function getMessageRouteChange(text, lines) {
 	workDatePattern = mtaRegEx.convertRegExpToString(workDatePattern);
 	workDatePattern = workDatePattern.slice(0, -(suffix_wrapper.length));
 	workDatePattern += stations + '*' + suffix_wrapper;
+
+//	console.log(lines, '--', stations);
 	
 	return mtaRegEx.matchRegexString(workDatePattern, text);	
 }

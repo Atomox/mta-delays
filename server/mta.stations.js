@@ -110,11 +110,14 @@ function getTrainRoute(line) {
 }
 
 
-async function getRouteStationsArray(line) {
+async function getRouteStationsArray(line, include_stats) {
 	try {
 		let data = await getTrainRoute(line);
 		let my_result = {};
-		data.map( value => my_result[value.key] = value.name );
+//		console.log('~~~~', data, '~~~~~');
+		data.map( value => my_result[value.key] = (include_stats === true) 
+			? value
+			: value.name );
 		return my_result;
 	}
 	catch(err) {
@@ -127,13 +130,17 @@ async function matchRouteStationsMessage(line, message) {
 	try { 
 		line = getTrainById(line);
 
-		let stations = await getRouteStationsArray(line);
+		let stations = await getRouteStationsArray(line, true);
 		let results = {};
 
+		// Search each station.
 		for (let s in stations) {
-			let res = mtaRegEx.matchStringsWithSpecialChars(stations[s], message);
-			if (res !== false) {	results[s] = res;	}
+			// let res = mtaRegEx.matchStringsWithSpecialChars(stations[s].name, message);
+			//if (res !== false) {	results[s] = res;	}
+			let res_re = mtaRegEx.matchRegexString(stations[s].regex, message);
+			if (res_re !== false) {	results[s] = res_re; }
 		}
+
 
 		groupStationsByLocation(stations, results);
 

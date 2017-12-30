@@ -57,12 +57,10 @@ mtaApi.getSubwayStations(mta_stations_file)
 
 			// The regEx part of the quiz.
 			// Get any aliases, and build a giant regex (alias|station name).
-			let all_alias = stationAliases(r.name);
-			all_alias.push(r.name);
+			let all_alias = stationAliases(r.name, r.boro);
 			all_alias = all_alias.map(value => {
-				let res = mtaRegEx.wrapNumberBounds(value);
-				res = mtaRegEx.wrapSeperatorBounds(res);
-				res = mtaRegEx.replaceSpace(res);
+				console.log(value);
+				let res = mtaRegEx.prepareRexExNameString(value);
 
 				return res;
 			});
@@ -109,32 +107,137 @@ mtaApi.getSubwayStations(mta_stations_file)
 });
 
 
-function stationAliases(key) {
+function stationAliases(name, boro) {
 	const alias = {
-		'W 4 St': [
-			'W 4th St',
-			'West 4th St',
-			'West 4 St',
-			'W 4 St-Wash Sq',
-			'W 4 St-Washington Sq',
-			'W 4 St-Washington Square',
-		],
-		'Jackson Hts - Roosevelt Av': [
-			'Jackson Hts',
-			'Jackson Heights',
-			'Jackson Hts-Roosevelt Av',
-			'Jackson Heights-Roosevelt Av',
-			'74th',
-		],
+		Mn: {
+			'W 4 St': [
+				'W 4th St',
+				'West 4th St',
+				'West 4 St',
+				'W 4 St-Wash Sq',
+				'W 4 St-Washington Sq',
+				'W 4 St-Washington Square',
+			],
+			'Times Sq - 42 St':[
+				'Times Square - 42 St',
+				'42 Times Square',
+				'Times Sq',
+				'42 St',
+			],
+			'Grand Central - 42 St': [
+				'Grand Central - 42 St',
+				'Grand Central',
+				'42 St',
+			],
+			'14 St - Union Sq': [
+				'14 St - Union Sq',
+				'Union Square',
+				'Union Sq',
+				'14 St',
+			],
+			'42 St - Port Authority Bus Terminal': [
+				'42 St-Port Authority',
+				'Port Authority',
+				'PABT',
+				'42 St',
+			],
+			'34 St - Penn Station': [
+				'Penn Station',
+				'34 St',
+			],
+			'World Trade Center': [
+				'World Trade Ctr',
+				'World Trade',
+				'WTC',
+			],
+			'Lexington Av/53 St': [
+				'Lex/53 St',
+				'53/Lex',
+			],
+		},
+
+		Qs: {
+
+			'Jackson Hts - Roosevelt Av': [
+				'Jackson Hts',
+				'Jackson Heights',
+				'Jackson Hts-Roosevelt Av',
+				'Jackson Heights-Roosevelt Av',
+				'74th',
+			],
+			'Briarwood - Van Wyck Blvd': [
+				'Briarwood',
+				'Van Wyck Blvd',
+			],
+			'Kew Gardens - Union Tpke': [
+				'Kew Gardens',
+				'Union Tpke',
+			],
+			'Forest Hills - 71 Av': [
+				'71/Continental',
+				'71 Av',
+				'Forest Hills 71st',
+			],
+			'Queens Plaza': [
+				'Qns Plza'
+			],
+			'Jamaica Center - Parsons/Archer': [
+				'Jamaica Center',
+				'Parsons Blvd/Archer Ave',
+				'Parsons Blvd',
+			],
+			'Sutphin Blvd - Archer Av - JFK Airport': [
+				'Sutphin Blvd - Archer Av',
+				'Sutphin Blvd',
+				'Sutphin/Archer',
+			],
+			'Jamaica - Van Wyck': [
+				'Van Wyck',
+			],
+			'36 St': [
+				'36 St (Qns)',
+			],
+		},
+
+
+		Bk: {
+
+			'Atlantic Av - Barclays Ctr': [
+				'Atlantic Av-Barclays Center',
+				'Barclays Center',
+				'Barclays Ctr',
+				'Atlantic Av-Barclays Ctr',
+			],
+			'Coney Island - Stillwell Av': [
+				'Stillwell Av',
+				'Coney Island',
+			],
+			'W 8 St - NY Aquarium': [
+				'W 8 St',
+				'NY Aquarium',
+			],
+			'36 St': [
+				'36 St (Bklyn)',
+			],
+		},
+
+		Bx: {},
+		SI: {},
 	};
 
-	return (alias[key]) 
-		? alias[key].sort(function(a, b){
-			  // ASC  -> a.length - b.length
-			  // DESC -> b.length - a.length
-			  return b.length - a.length;
-			})
-		: [];
+
+	let results = [];
+
+	if (alias[boro][name]) {
+		results = alias[boro][name];
+	} 
+
+	// Include the name in the result.
+	results.push(name);
+
+	// Return the array of names, sorted by length of the name.
+	// (longest names should be matched before shorter names).
+	return results.sort( (a, b) => b.length - a.length );
 }
 
 
