@@ -381,6 +381,68 @@ let routes = {
 		'Qs209-H11',  // "Far Rockaway - Mott Av"
 
 	],
+	B: [
+
+		// "Concourse" -- "Bx", "Mn"
+		'Bx211-D03',  // "Bedford Park Blvd"
+		'Bx212-D04',  // "Kingsbridge Rd"
+		'Bx213-D05',  // "Fordham Rd"
+		'Bx214-D06',  // "182-183 Sts"
+		'Bx215-D07',  // "Tremont Av"
+		'Bx216-D08',  // "174-175 Sts"
+		'Bx217-D09',  // "170 St"
+		'Bx218-D10',  // "167 St"
+		'Bx604-D11',  // "161 St - Yankee Stadium"
+		'Mn220-D12',  // "155 St"
+
+		// "8th Av - Fulton St" -- "Mn", "Bk"
+		'Mn151-A12',  // "145 St"
+		'Mn152-A14',  // "135 St"
+		'Mn153-A15',  // "125 St"
+		'Mn154-A16',  // "116 St"
+		'Mn155-A17',  // "Cathedral Pkwy (110 St)"
+		'Mn156-A18',  // "103 St"
+		'Mn157-A19',  // "96 St"
+		'Mn158-A20',  // "86 St"
+		'Mn159-A21',  // "81 St - Museum of Natural History"
+		'Mn160-A22',  // "72 St"
+		'Mn614-A24',  // "59 St - Columbus Circle"
+
+		// "Queens - Archer" -- "Qs", "Mn"
+		'Mn277-D14',  // "7 Av"
+
+		// "6th Av - Culver" -- "Mn", "Bk"
+		'Mn225-D15',  // "47-50 Sts - Rockefeller Ctr"
+		'Mn609-D16',  // "42 St - Bryant Pk"
+		'Mn607-D17',  // "34 St - Herald Sq"
+
+		// "8th Av - Fulton St" -- "Mn", "Bk"
+		'Mn167-A32',  // "W 4 St"
+
+		// "6th Av - Culver" -- "Mn", "Bk"
+		'Mn619-D21',  // "Broadway-Lafayette St"
+		'Mn231-D22',  // "Grand St"
+
+		// "Broadway - Brighton" -- "Mn", "Bk"
+		'Bk26-R30',	 // "DeKalb Av"
+		'Bk617-D24', // "Atlantic Av - Barclays Ctr"
+		'Bk41-D25',	 // "7 Av"
+		'Bk42-D26',	 // "Prospect Park"
+		'Bk43-D27',	 // "Parkside Av"
+		'Bk44-D28',	 // "Church Av"
+		'Bk45-D29',	 // "Beverley Rd"
+		'Bk46-D30',	 // "Cortelyou Rd"
+		'Bk47-D31',	 // "Newkirk Plaza"
+		'Bk48-D32',	 // "Avenue H"
+		'Bk49-D33',	 // "Avenue J"
+		'Bk50-D34',	 // "Avenue M"
+		'Bk51-D35',	 // "Kings Hwy"
+		'Bk52-D37',	 // "Avenue U"
+		'Bk53-D38',	 // "Neck Rd"
+		'Bk54-D39',	 // "Sheepshead Bay"
+		'Bk55-D40',	 // "Brighton Beach"
+
+	],
 	C: [
 
 		// "8th Av - Fulton St" -- "Mn", "Bk"
@@ -426,6 +488,25 @@ let routes = {
 		'Bk188-A55',  // "Euclid Av"
 
 	],
+//	D: [
+
+		/**
+		 *
+		 * 
+		 * @TODO
+		 *
+		 *
+		 *
+		 *
+		 *
+		 *
+		 *
+		 *
+		 *
+		 *
+		 * 
+		 */
+//	],
 	E: [
 
 		// "Queens - Archer" -- "Qs", "Mn"
@@ -522,6 +603,19 @@ let routes = {
 		// "Sea Beach / West End / Culver / Brighton" -- boro: "Bk"
 		'Bk58-D43', // "Coney Island - Stillwell Av"
 	],
+//	G: [
+		/**
+		 *
+		 * @TODO
+		 *
+		 *
+		 *
+		 *
+		 *
+		 *
+		 * 
+		 */
+//	],
 	J: [
 		// "Queens - Archer" -- "Qs", "Mn"
 		'Qs278-G05',  // "Jamaica Center - Parsons/Archer"
@@ -639,6 +733,53 @@ let routes = {
 		'Qs109-M04',  // "Fresh Pond Rd"
 		'Qs108-M01',  // "Middle Village - Metropolitan Av"
 	],
+	N: [
+
+		// "Astoria" -- "Qs", "Mn"
+		'Qs1-R01',  // "Astoria - Ditmars Blvd"
+		'Qs2-R03',  // "Astoria Blvd"
+		'Qs3-R04',  // "30 Av"
+		'Qs4-R05',  // "Broadway"
+		'Qs5-R06',  // "36 Av"
+		'Qs6-R08',  // "39 Av"
+
+		// "Flushing" -- "Qs","Mn"
+		'Qs461-718',  // "Queensboro Plaza"
+
+		// "Astoria" -- "Qs", "Mn"
+		'Mn613-R11',  // "Lexington Av/59 St"
+		'Mn8-R13',  // "5 Av/59 St"
+
+		// Broadway - Brighton
+		'Mn9-R14',	 // 57th St
+		'Mn10-R15',  // "49 St"
+		'Mn611-R16', // Times Square
+		'Mn607-R17', // 34th
+		'Mn602-R20', // Union Square
+
+		// Manhattan Bridge (Canal)
+		'Mn623-R23', // Canal Street
+
+		// "4th Av" -- "Bk"
+		'Bk617-R31',  // "Atlantic Av - Barclays Ctr"
+		'Bk32-R36',  // "36 St"
+		'Bk35-R41',  // "59 St"
+
+		// "Sea Beach" -- "Bk"
+		'Bk71-N02',  // "8 Av"
+		'Bk72-N03',  // "Fort Hamilton Pkwy"
+		'Bk615-N04',  // "New Utrecht Av"
+		'Bk74-N05',  // "18 Av"
+		'Bk75-N06',  // "20 Av"
+		'Bk76-N07',  // "Bay Pkwy"
+		'Bk77-N08',  // "Kings Hwy"
+		'Bk78-N09',  // "Avenue U"
+		'Bk79-N10',  // "86 St"
+
+		// "Sea Beach / West End / Culver / Brighton" -- "Bk"
+		'Bk58-D43',  // "Coney Island - Stillwell Av"
+
+	],
 	Q: [
 		// Second Ave
 		'Mn475-Q05',
@@ -649,13 +790,13 @@ let routes = {
 		'Mn223-B08',
 
 		//Broadway - Brighton
-		'Mn9-R14',
+		'Mn9-R14',	 // 57th St
 		'Mn611-R16', // Times Square
-		'Mn607-R17',
-		'Mn602-R20',
+		'Mn607-R17', // 34th
+		'Mn602-R20', // Union Square
 
 		// Manhattan Bridge (Canal)
-		'Mn623-R23',
+		'Mn623-R23', // Canal Street
 
 		// Broadway - Brighton
 		'Bk26-R30', // DeKalb Av
@@ -689,11 +830,11 @@ let routes = {
 		'Qs264-G11',
 		'Qs265-G12',
 		'Qs266-G13',
-		'Qs616-G14', // Jackson Hts - Roosevelt Jackson
+		'Qs616-G14', // Jackson Hts - Roosevelt Ave
 		'Qs268-G15',
 		'Qs269-G16',
 		'Qs270-G18',
-		'Qs271-G19', // Steinway
+		'Qs271-G19', // Steinway St
 		'Qs272-G20',
 		'Qs273-G21', // Queens Plaza
 
@@ -709,14 +850,14 @@ let routes = {
 		'Mn13-R18',
 		'Mn14-R19',
 		'Mn602-R20', 	// 14 St - Union Sq
-		'Mn16-R21', 		// 8 St - NYU
-		'Mn17-R22', 		// Prince St
+		'Mn16-R21', 	// 8 St - NYU
+		'Mn17-R22', 	// Prince St
 
 
 		// 'Broadway': 
 		'Mn623-R23', 	// Canal St
-		"Mn20-R24", 		// City Hall
-		"Mn21-R25", 		// Cortlandt St
+		"Mn20-R24", 	// City Hall
+		"Mn21-R25", 	// Cortlandt St
 		"Mn22-R26",		// Rector St
 		"Mn635-R27", 	// Whitehall St
 		"Bk620-R28", 	// Court St
@@ -739,6 +880,41 @@ let routes = {
 		"Bk37-R43", 	// 77 St
 		"Bk38-R44", 	// 86 St
 		"Bk39-R45", 	// Bay Ridge - 95 St
+	],
+	W: [
+
+		// "Astoria" -- "Qs", "Mn"
+		'Qs1-R01',  // "Astoria - Ditmars Blvd"
+		'Qs2-R03',  // "Astoria Blvd"
+		'Qs3-R04',  // "30 Av"
+		'Qs4-R05',  // "Broadway"
+		'Qs5-R06',  // "36 Av"
+		'Qs6-R08',  // "39 Av"
+
+		// "Flushing" -- "Qs","Mn"
+		'Qs461-718',  // "Queensboro Plaza"
+
+		// "Astoria" -- "Qs", "Mn"
+		'Mn613-R11',  // "Lexington Av/59 St"
+		'Mn8-R13',  // "5 Av/59 St"
+
+		// 'Broadway - Brighton': 
+		'Mn9-R14',
+		'Mn10-R15',
+		'Mn611-R16',
+		'Mn607-R17',
+		'Mn13-R18',
+		'Mn14-R19',
+		'Mn602-R20', 	// 14 St - Union Sq
+		'Mn16-R21', 	// 8 St - NYU
+		'Mn17-R22', 	// Prince St
+
+		// 'Broadway': 
+		'Mn623-R23', 	// Canal St
+		"Mn20-R24", 	// City Hall
+		"Mn21-R25", 	// Cortlandt St
+		"Mn22-R26",		// Rector St
+		"Mn635-R27", 	// Whitehall St
 	],
 	Z: [
 		// "Queens - Archer" -- "Qs", "Mn"
