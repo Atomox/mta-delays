@@ -4,21 +4,26 @@ let expect = require('chai').expect;
 let mtaStatus = require('../mta.event');
 let mtaStations = require('../mta.stations');
 
+let event_messages = require('../data/test/test.messages').event_messages.structured;
 
-describe.skip ('Detect Train Lines', function() {
-	describe('Determine which line trains are on.', () => {
 
-		it.skip ('Detect a train on its normal lines.', () => {
-			expect(line).to.equal(otherLine);
-		});
+describe ('Detect Train Lines', function() {
+	describe('Detect line changes in a status message.', () => {
+		
 		it ('Detect diversions to other lines.', () => {
-			for (let x in event_messages.normal) {
-				if (event_messages.normal[x].type_detail.indexOf('route_change') === -1) { continue; }
-
-				let result = mtaStatus.getMessageRouteChange(event_messages.normal[x].message, line);
-
-				expect(result).to.equal(false);
-			}
+			
+			let promises = event_messages.normal.map( event => {
+				// Only process Route Changes.
+				if (event.type_detail && event.type_detail.indexOf('route_change') !== -1) { 
+					return mtaStatus.getMessageRouteChange(event.message, event.line)
+						.then( data => expect(data).to.equal(event.route_change));
+				}
+			});
+			
+			return Promise.all(promises);
 		});
+	});
+	describe.skip('Determine which line trains are on.', () => {
+
 	});
 });

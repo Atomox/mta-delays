@@ -1,5 +1,7 @@
 const mtaApi = require('./mta.api');
 
+const mtaRegEx = require('./includes/regex');
+
 // File where we'll store things. No extension, please.
 const mta_stations_file = './data/mta.stations';
 
@@ -53,6 +55,20 @@ mtaApi.getSubwayStations(mta_stations_file)
 			let key = boro + r.cid + '-' + r.gid;
 			r.boro = boro;
 
+			// The regEx part of the quiz.
+			// Get any aliases, and build a giant regex (alias|station name).
+			let all_alias = stationAliases(r.name);
+			all_alias.push(r.name);
+			all_alias = all_alias.map(value => {
+				let res = mtaRegEx.wrapNumberBounds(value);
+				res = mtaRegEx.wrapSeperatorBounds(res);
+				res = mtaRegEx.replaceSpace(res);
+
+				return res;
+			});
+			
+			r.regex = mtaRegEx.convertArrayToRegexOr(all_alias);
+
 			// Assign our new key to the station.
 			r.key = key;
 
@@ -91,6 +107,35 @@ mtaApi.getSubwayStations(mta_stations_file)
 		console.error('Error processing stations. ', err);	
 	}
 });
+
+
+function stationAliases(key) {
+	const alias = {
+		'W 4 St': [
+			'W 4th St',
+			'West 4th St',
+			'West 4 St',
+			'W 4 St-Wash Sq',
+			'W 4 St-Washington Sq',
+			'W 4 St-Washington Square',
+		],
+		'Jackson Hts - Roosevelt Av': [
+			'Jackson Hts',
+			'Jackson Heights',
+			'Jackson Hts-Roosevelt Av',
+			'Jackson Heights-Roosevelt Av',
+			'74th',
+		],
+	};
+
+	return (alias[key]) 
+		? alias[key].sort(function(a, b){
+			  // ASC  -> a.length - b.length
+			  // DESC -> b.length - a.length
+			  return b.length - a.length;
+			})
+		: [];
+}
 
 
 function prepStationFormat (row) {

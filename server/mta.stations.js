@@ -137,13 +137,43 @@ async function matchRouteStationsMessage(line, message) {
 
 		groupStationsByLocation(stations, results);
 
-		console.log(message);
+//		console.log(message);
 
 		return results;
 	}
 	catch(err) {
 		throw new Error('Error parsing message for stations: ' + err);
 	}
+}
+
+
+async function getStationLinesRegex(lines) {
+	let regexSpace = '\\s*';
+	let stations = {};
+						// (\s*( |between|and|until|to|end (at)?)*\s)
+	let conjunctions = [' ', 'between', 'and', 'until', 'to', 'end (at)?'];
+	let stationregex = [];
+
+	for (let l in lines) {
+		let n = getTrainById(lines[l]);
+
+		try {
+			let m = await getTrainRoute(n);
+			stations[n] = m.map( (item, key) => item.regex);
+
+			// Assemble line
+			stationregex.push(
+				mtaRegEx.convertArrayToRegexOr(stations[n]));
+		}
+		catch (err) {
+			console.warn('[', n, '] line info unavailable.','--', err);
+			continue;
+		}
+	}
+
+	let results = mtaRegEx.convertArrayToRegexOr(stationregex);
+	conjunctions = mtaRegEx.convertArrayToRegexOr(conjunctions) + '*';
+	return '(' + regexSpace + conjunctions + regexSpace + results + '+)';
 }
 
 
@@ -254,6 +284,7 @@ module.exports = {
 	getRouteStationsArray,
 	matchRouteStationsMessage,
 	groupStationsByLocation,
+	getStationLinesRegex,
 };
 
 // Branch

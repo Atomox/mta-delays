@@ -8,12 +8,12 @@
  *
  * This is a cleaner API, which requires less cleanup.
  */
-
 const striptags = require('striptags');
 const decode = require('unescape');
+const _ = require('lodash');
 
 const mtaStations = require('./mta.stations');
-const mtaRegEx = require = require('./includes/regex');
+const mtaRegEx = require('./includes/regex');
 
 function checkReports(response) {
 
@@ -302,45 +302,23 @@ function getMessagePlannedWorkDate(text) {
 
 async function getMessageRouteChange(text, lines) {
 
-	// Get stations in each line.
-	/**
-	 *
-	 * @TODO
-	 *   *
-	 *   *
-	 *   *
-	 *   *
-	 *   *
-	 *   ^
-	 *
-	 *
-	 *
-	 *
-	 * 
-	 */
-	let stations = {};
+	// Get stations in each line, as a giant regex.
+	let stations = await mtaStations.getStationLinesRegex(lines);
 
-	for (let l in lines) {
-		let n = mtaStations.getTrainById(lines[l]);
+	// Parse Route Changes ([R] trains are running along the [F] line from...)
+	let workDatePattern = /(((((Some|northbound|southbound|and)\s*)*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(trains(\s*are)?\s*(reroute[d]?|stopping|run(ning)? via (the)?)|(then)?\s*over\s(the)?)){1}(\s*(trains|both\s*directions|line(s)?|travel(ing)?|are|(on|in|between|along|long|from|to|via)\s*(the)?|then|end at|\,|\.)*\s*(\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 
-		try {
-			stations[n] = await mtaStations.getTrainRoute(n);
-		}
-		catch (err) {
-			console.warn('[', n, '] line info unavailable.');
-			continue;
-		}
-	}
+	// The regex suffix, where the stations regex should be inserted before.
+	let suffix_wrapper = ')*)+';
 
-	// In Progress -- Reduction
-	let workDatePattern = /((((some|northbound|southbound)+\s*)*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*\s*(trains are (rerout(ed)+|stopping)|over the))+(\s*(trains|both directions|line|via|along\s*(the)+|travel(ing)+|are|the|on|the|in|between|from|to|then|end at|\,)*\s*(\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)+/i;
-
-	let dateResults = text.match(workDatePattern);
-
-	if (dateResults && dateResults[0]) {
-		return dateResults[0].trim();
-	}
-	return null;	
+	// Convert the main regex, then remove the suffix, insert the stations,
+	// and reapply the suffix. This should compelte the regex as a string,
+	// ready to be passed the RegEx String Match function.
+	workDatePattern = mtaRegEx.convertRegExpToString(workDatePattern);
+	workDatePattern = workDatePattern.slice(0, -(suffix_wrapper.length));
+	workDatePattern += stations + '*' + suffix_wrapper;
+	
+	return mtaRegEx.matchRegexString(workDatePattern, text);	
 }
 
 
@@ -432,6 +410,7 @@ function getMessageAction(text) {
 		'no_trains_partial': [
 			'The last stop',
 			'trains end at',
+			'trains will end at',
 			'No trains in',
 			'No trains between',
 			'No trains running between',
@@ -495,91 +474,6 @@ function getMessageAction(text) {
 
 	return (my_status.length > 0) ? my_status : null;
 }
-
-
-function getStations(text) {
-
-	/*
-	  @TODO
-	    Get all sations here:
-
-	    http://web.mta.info/developers/data/nyct/subway/Stations.csv
-	 */
-	const stations = [
-		// Queens
-		'Roosevelt Av',
-		'71 Av',
-		
-		// Queens -- 7 Train
-		'61 St-Woodside',
-		'74 St-Broadway',
-		'Queensboro Plaza',
-
-		// Brooklyn
-		'Euclid Av.',
-		'Fulton St.',
-		'Atlantic Av-Barclays Ctr.',
-		
-		// Manhattan
-		'5 Av/53 St.',
-		'125 St.',
-		'66 St', 
-		'59 St', 
-		'50 St',
-
-		// The Bronx
-
-
-		// SIR
-		'Arthur Kill',
-		'Prince\'s Bay Stations',
-	];
-
-	const tunnels = [
-		'Clark St Tunnel',
-	];
-}
-
-
-function getAffectedStations(text, actionList, line) {
-
-// TRACK MAINTENANCE [R] Forest Hills-bound trains skip 
-// 
-// 36 St, Steinway St, 46 St, Northern Blvd and 65 St 
-// 
-// Weekend , Saturday and Sunday , Nov 25 - 26
-// 
-// For service to these stations, take the [R] to Roosevelt Av and transfer to a Bay Ridge-bound [R]. For service from these stations, take the [R] to Queens Plaza and transfer to a Forest Hills-bound [R].
-
-// [type] [line] [direction] [action] [stations]
-
-
-// TRACK REPLACEMENT [R] Bay Ridge-bound trains skip
-// 
-// 67 Av, 63 Dr, Woodhaven Blvd, Grand Av and Elmhurst Av
-// 
-// Weekend , Saturday and Sunday, Nov 25 - 26
-// 
-// For service to these stations, take the [R] to Roosevelt Av and transfer to a Forest Hills-bound [R]. For service from these stations, take the [R] to 71 Av and transfer to a Bay Ridge-bound [R].
-
-	if (line == 'R') {
-
-		const directions = {
-			'southbound': [
-				'Bay Ridge-bound',
-				'Brooklyn-bound',
-			],
-			'northbound': [
-				'Forest Hills-bound',
-				'Queens-bound',
-			],
-			'mixed': [
-				'Manhattan-bound',
-			],
-		};
-	}
-}
-
 
 
 function findTrainsInText (text) {
@@ -681,4 +575,5 @@ module.exports = {
 	getMessagePlannedWorkDate,
 	getMessageAction,
 	getMessageDateTime,
+	getMessageRouteChange,
 }

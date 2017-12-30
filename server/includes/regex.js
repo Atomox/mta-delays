@@ -3,7 +3,7 @@
 
 function replaceSpace(word) {
 	return word.replace(/(\s)+/gi, (match, offset, string) => {
-  	return '(\\s)*';
+  	return '\\s*';
   });	
 }
 
@@ -19,24 +19,70 @@ function wrapSeperatorBounds(word) {
   });
 }
 
-function matchStringsWithSpecialChars(needle, haystack) {
-	let v = needle;
+function convertArrayToRegexOr(list) {
+	return '(' + list.join('|') + ')';
+}
+
+function convertRegExpToString(exp) {
+	exp = exp.toString();
+
+	// Trip leading and trailing '/', so new string can be run through new RegExp().
+	exp = exp.slice(1);
+	exp = exp.slice(0, -1);
+
+	return exp;
+}
+
+function prepareRegExpString(exp) {
+	console.log(exp);
+//	return exp.replace(/[\\\-\/\{\}\?\.\^\$\|]/g, "\\\$&");
+	return exp.replace(/[\\\-\/\{\}\?\.\^\$\|]/g, (match) => {
+
+		console.log('Our match....', match);
+		return match;
+	});
+}
+
+
+function prepareRexExNameString(name) {
+	let v = name;
 
 	// Detect numbers.	
-	v = wrapNumberBounds(needle);
+	v = wrapNumberBounds(v);
 
 	// Wrap Separators.
 	v = wrapSeperatorBounds(v);
 
+	// Replace all spaces.
 	v = replaceSpace(v);
 
-	let re = new RegExp(v,"gi");
+	return v;
+}
+
+
+function matchStringsWithSpecialChars(needle, haystack) {
+	let v = needle;
+
+	// Detect numbers.	
+	v = wrapNumberBounds(v);
+
+	// Wrap Separators.
+	v = wrapSeperatorBounds(v);
+
+	// Replace all spaces.
+	v = replaceSpace(v);
+
+	return matchRegexString(v, haystack);
+}
+
+function matchRegexString(pattern, haystack) {
+	let re = new RegExp(pattern,"gi");
 	let result = haystack.match(re);
 
-//	console.log('Match:', v, ' ~~~ ', haystack, ' . . . ', result);
+//	console.log(result);
 
 	return (result !== null && result[0]) 
-		? needle
+		? result[0].trim()
 		: false;
 }
 
@@ -46,5 +92,10 @@ module.exports = {
 	replaceSpace,
 	wrapNumberBounds,
 	wrapSeperatorBounds,
-	matchStringsWithSpecialChars
+	matchStringsWithSpecialChars,
+	matchRegexString,
+	prepareRegExpString,
+	convertRegExpToString,
+	convertArrayToRegexOr,
+	prepareRexExNameString,
 };
