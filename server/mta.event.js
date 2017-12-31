@@ -204,7 +204,8 @@ async function formatSingleStatusEvent(event, lines, summary) {
 
 		e.ad_message = getMessageADNote(event);
 
-		e.route_change = await getMessageRouteChange(event, e.trains);
+		e.route_change = await getRouteChange(event, e.trains)
+
 
 		e.message_formula = prepareEventMessage(e.message, e, true, summary);
 		e.message = prepareEventMessage(e.message, e, false);
@@ -297,6 +298,24 @@ function getMessagePlannedWorkDate(text) {
 
 	console.warn('Can\'t parse event dates in ---', text);
 	return null;
+}
+
+
+async function getRouteChange(text, lines) {
+	let c = await getMessageRouteChange(text, lines);
+
+	if (c) {
+		c = {
+			message: c,
+			line: null,
+			from: null,
+			to: null, 
+			bypass: [],
+			new_stations: [],
+		}
+	}
+
+	return c;
 }
 
 
@@ -578,4 +597,5 @@ module.exports = {
 	getMessageAction,
 	getMessageDateTime,
 	getMessageRouteChange,
+	getRouteChange,
 }

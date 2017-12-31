@@ -8,6 +8,28 @@ const fs = require('fs');
 // const url = "http://web.mta.info/status/serviceStatus.txt";
 const url = "http://web.mta.info/status/ServiceStatusSubway.xml";
 
+
+
+/**
+ * 
+ *
+ *  @TODO
+ *
+ *    Parse this in order to plan future dates.
+ *
+ *
+ *
+ *
+ *
+ *
+ * 
+ */
+const future_url = 'http://travel.mtanyct.info/serviceadvisory/routeStatusResult.aspx'
+		+ '?tag=ALL&date=' 
+		+ '12/31/2017' 
+		+ '&time=' 
+		+ '&method=getstatus4';
+
 /**
  * Get the latest, return it, and store it in a local file.
  * 

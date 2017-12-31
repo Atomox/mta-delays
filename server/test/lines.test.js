@@ -8,9 +8,9 @@ let event_messages = require('../data/test/test.messages').event_messages.struct
 
 
 describe ('Detect Train Lines', function() {
-	describe('Detect line changes in a status message.', () => {
+	describe('Detect line changes in a status message', () => {
 		
-		it ('Detect diversions to other lines.', () => {
+		it ('Detect diversions to other lines', () => {
 			
 			let promises = event_messages.normal.map( event => {
 				// Only process Route Changes.
@@ -23,7 +23,20 @@ describe ('Detect Train Lines', function() {
 			return Promise.all(promises);
 		});
 	});
-	describe.skip('Determine which line trains are on.', () => {
+	describe('Detect line change specifics', () => {
+		it ('Determine the rerouted line, start and end stations', () => {
+			let promises = event_messages.normal.map( event => {
+				// Only process Route Changes.
+				if (event.type_detail && event.type_detail.indexOf('route_change') !== -1) { 
+
+					return mtaStatus.getRouteChange(event.message, event.line)
+						.then( data => console.log(event.line, '----->' ,data));
+				}
+			});
+			return Promise.all(promises);
+		});
+	});
+	describe('Determine which line trains are on.', () => {
 
 	});
 });

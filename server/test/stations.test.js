@@ -20,7 +20,7 @@ describe('Parse Stations', function() {
 					.then( stations => {
 //						console.log(' --> ', event.stations, '...', stations);
 			
-						expect(Object.values(stations)).to.have.members(event.stations);
+						expect(Object.values(stations.stations)).to.have.members(event.stations);
 					});
 			});
 			

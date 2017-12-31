@@ -132,21 +132,28 @@ async function matchRouteStationsMessage(line, message) {
 
 		let stations = await getRouteStationsArray(line, true);
 		let results = {};
+		let result_message = message;
 
 		// Search each station.
 		for (let s in stations) {
 			// let res = mtaRegEx.matchStringsWithSpecialChars(stations[s].name, message);
 			//if (res !== false) {	results[s] = res;	}
 			let res_re = mtaRegEx.matchRegexString(stations[s].regex, message);
-			if (res_re !== false) {	results[s] = res_re; }
+
+			if (res_re !== false) {
+				results[s] = res_re;
+				result_message = result_message.replace(res_re, '[' + s + '--' + stations[s].name +']');
+			}
 		}
 
 
-		groupStationsByLocation(stations, results);
+		let analysis = groupStationsByLocation(stations, results);
 
-//		console.log(message);
-
-		return results;
+		return {
+			processed_message: result_message,
+			stations: results,
+			analysis: analysis,
+		};
 	}
 	catch(err) {
 		throw new Error('Error parsing message for stations: ' + err);

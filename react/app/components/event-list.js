@@ -110,10 +110,11 @@ class StationList extends React.Component {
 			<em>Stations (alpha) | </em>
 			{
 			(Object.keys(this.props.stations).map(line => {
-				return Object.keys(this.props.stations[line]).map( (val) => {
-						return this.props.stations[line][val];
+				return mta.getlineById(line) 
+					+ ' :' + Object.keys(this.props.stations[line].stations).map( (val) => {
+						return this.props.stations[line].stations[val];
 					}).join(', ');
-			}))
+			})).join(' --- ')
 			}
 		</div>);
 	}
