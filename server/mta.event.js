@@ -175,15 +175,12 @@ async function formatSingleStatusEvent(event, lines, summary) {
 			type_detail: null,
 			time: null,
 			durration: null,
-			message: null,
-			message_raw: null,
+			message: event,
+			message_raw: event,
+			message_station_parse: event,
 			stations: {},
 			trains: [],
 		};
-
-		// Store the original message.
-		e.message = event;
-		e.message_raw = event;
 
 		// Determine if the event type has more detail.
 		e.type_detail = getMessageAction(event);
@@ -202,26 +199,56 @@ async function formatSingleStatusEvent(event, lines, summary) {
 			.map((val) => val.line)
 			.filter((value, index, self) => self.indexOf(value) === index);
 
+
+		// Get all stations per line. Also get a formatted message, with station names 
+		// substituted with their IDs, for easier parsing of line and route changes.
+		let station_result = await getStationsInEventMessage(lines, e.message_station_parse);
+		e.stations = station_result.stations;
+		e.message_station_parse = station_result.parsed_message;
+
+
 		e.ad_message = getMessageADNote(event);
 
-		e.route_change = await getRouteChange(event, e.trains)
-
+		e.route_change = await getRouteChange(e.message_station_parse, e.trains, true);
 
 		e.message_formula = prepareEventMessage(e.message, e, true, summary);
 		e.message = prepareEventMessage(e.message, e, false);
-
-		for (let l in lines) {
-			try {
-				// Get an stations related to this line.
-				e.stations[lines[l].line] = await mtaStations.matchRouteStationsMessage(lines[l].line, e.message);
-			}
-			catch(err) {
-				continue;
-			}
-		}
 	}
 
 	return e;
+}
+
+
+/**
+ * Get all stations per line. Also get a formatted message, with station names 
+ * substituted with their IDs, for easier parsing of line and route changes.
+ * 
+ * @param  {array(string)} lines
+ *   An array of original MTA Subway tokens.
+ * @param  {string} message
+ *   Our haystack.
+ * 
+ * @return {Object}
+ *   [stations] contains all the station results
+ *   [parsed_message] contains the original message, with all stations matches replaced by their ID, wrapped in [].
+ */
+async function getStationsInEventMessage(lines, message) {
+	let result = {
+		stations: {},
+		parsed_message: message,
+	};
+
+
+	for (let l in lines) {
+		try {
+			// Get an stations related to this line.
+			result.stations[lines[l].line] = await mtaStations.matchRouteStationsMessage(lines[l].line, result.parsed_message);
+			result.parsed_message = result.stations[lines[l].line].processed_message;
+		} 
+		catch (err) { continue; }
+	}
+
+	return result;
 }
 
 
@@ -301,17 +328,65 @@ function getMessagePlannedWorkDate(text) {
 }
 
 
-async function getRouteChange(text, lines) {
-	let c = await getMessageRouteChange(text, lines);
+async function getRouteChange(text, lines, station_ids_in_text) {
+	let c = await getMessageRouteChange(text, lines, station_ids_in_text);
+
+	// This pattern is better,
+	// but REGEX Groups Only save a SINGLE captured value, and can't be reused.
+	// 
+	// p = /(\[[A-Z0-9]\](?:and|\s)*)+(?:\s|[^\[\]])*(?:(\[[ABCDEFGJLMNQRSTWZ0-9]\])+(?:\s|[^\[\]])*(?:(\[[A-Z]{2}[A-Z0-9]{2,4}\-[A-Z0-9]{3,5}\])+(?:\s|[^\[\]])*)+)+/i;
+
+	// Works for: A & C along the D from [] to [], then the [F] to [blah]
+	let reroute_pattern = /(\[[A-Z0-9]\])+(?:\s|[^\[\]])*(\[[A-Z0-9]\](?:\s)*)*(?:\s|[^\[\]])*(\[[A-Z0-9]\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{2,4}\-[A-Z0-9]{3,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{2,4}\-[A-Z0-9]{3,5}\])(?:\s|[^\[\]])*(\[[A-Z0-9]\])*(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{2,4}\-[A-Z0-9]{3,5}\])*/i;
+
+	function unwrapTrain(train) {
+		if (!train) { return train; };
+		train = train.replace('[', '');
+		train = train.replace(']', '');
+		return train;
+	}
 
 	if (c) {
 		c = {
 			message: c,
-			line: null,
-			from: null,
-			to: null, 
-			bypass: [],
+			re: null,
+			trains: [],
+			route: [], 
 			new_stations: [],
+		};
+		c.results = mtaRegEx.matchRegexString(reroute_pattern, c.message, true);	
+
+		if (c.results[1] !== undefined) {
+			c.results.map((item, i) => {
+				if (i == 0 || !item) { return; };
+				let j = (i <= 5 ) ? 0 : 1;
+
+				if (!c.route[j]) {
+					c.route.push({
+						along: null,
+						from: null,
+						to: null,
+					});
+				}
+				switch (i) {
+					case 1:
+					case 2:
+						c.trains.push(unwrapTrain(item));
+						break;
+					case 3:
+					case 6:
+						c.route[j].along = unwrapTrain(item);
+						break;
+					case 4:
+						c.route[j].from = unwrapTrain(item);
+						break;
+					case 7:
+						c.route[j].from = c.route[j-1].from;
+					case 5:
+						c.route[j].to = unwrapTrain(item);
+						break;
+				}
+			});
 		}
 	}
 
@@ -319,10 +394,26 @@ async function getRouteChange(text, lines) {
 }
 
 
-async function getMessageRouteChange(text, lines) {
+/**
+ * Given a string status update, find any route change messaging.
+ * 
+ * @param  {string} text
+ *   The haystack.
+ * @param  {array} lines
+ *   The train lines, by original ID.
+ * @param  {boolean} station_ids_in_text
+ *   TRUE if the find sations function was run against this message,
+ *   and all station names have been replaces by ID placeholders,
+ *   like: [Qs123-ID]. This prevents us from running heavier regex with 
+ *   all stations in the lines.
+ *   
+ * @return {text | false}
+ *   If found, we return the matched rout change message.
+ */
+async function getMessageRouteChange(text, lines, station_ids_in_text) {
 
 	// Get stations in each line, as a giant regex.
-	let stations = await mtaStations.getStationLinesRegex(lines);
+	let stations = await mtaStations.getStationLinesRegex(lines, station_ids_in_text);
 
 	// Parse Route Changes ([R] trains are running along the [F] line from...)
 	let workDatePattern = /(((((Some|northbound|southbound|and)\s*)*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(trains(\s*are)?\s*(reroute[d]?|stopping|run(ning)? via (the)?)|(then)?\s*(stopping)?\s*(over|along)\s*(the)?)){1}(\s*(trains|both\s*directions|line(s)?|travel(ing)?|are|(on|in|between|along|long|from|to|via)\s*(the)?|then|end at|\,|\.)*\s*(\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
@@ -598,4 +689,5 @@ module.exports = {
 	getMessageDateTime,
 	getMessageRouteChange,
 	getRouteChange,
+	getStationsInEventMessage,
 }

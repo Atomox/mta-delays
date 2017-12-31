@@ -138,11 +138,23 @@ async function matchRouteStationsMessage(line, message) {
 		for (let s in stations) {
 			// let res = mtaRegEx.matchStringsWithSpecialChars(stations[s].name, message);
 			//if (res !== false) {	results[s] = res;	}
+			
+			/* @TODO
+			 *  *
+			 *  * We need a more definitive way to replace matches, 
+			 *  * and ensure the longest match is replaced.
+			 *  *
+			 *  * E.G. Avoid this: [Mn624-228]ace (Park Pl vs Park Place)
+			 *  *
+			 *  *
+			 *  *
+			 *
+			 */
 			let res_re = mtaRegEx.matchRegexString(stations[s].regex, message);
 
 			if (res_re !== false) {
 				results[s] = res_re;
-				result_message = result_message.replace(res_re, '[' + s + '--' + stations[s].name +']');
+				result_message = result_message.replace(res_re, '[' + s +']');
 			}
 		}
 
@@ -161,27 +173,36 @@ async function matchRouteStationsMessage(line, message) {
 }
 
 
-async function getStationLinesRegex(lines) {
+async function getStationLinesRegex(lines, station_id_regex_only) {
 	let regexSpace = '\\s*';
 	let stations = {};
 						// (\s*( |between|and|until|to|end (at)?)*\s)
 	let conjunctions = [' ', 'between', 'and', 'until', 'to', 'end (at)?'];
 	let stationregex = [];
+	let boros = ['Qs', 'Mn', 'Bx', 'Bk', 'SI'];
+	let station_id_regex = '(\\[' 
+		+ mtaRegEx.convertArrayToRegexOr(boros) 
+		+ '[0-9]{1,5}\\-[A-z0-9]{1,5}\\])'
 
-	for (let l in lines) {
-		let n = getTrainById(lines[l]);
+	// Assemble line
+	stationregex.push(station_id_regex);
 
-		try {
-			let m = await getTrainRoute(n);
-			stations[n] = m.map( (item, key) => item.regex);
+	if (station_id_regex_only !== true) {
+		for (let l in lines) {
+			let n = getTrainById(lines[l]);
 
-			// Assemble line
-			stationregex.push(
-				mtaRegEx.convertArrayToRegexOr(stations[n]));
-		}
-		catch (err) {
-			console.warn('[', n, '] line info unavailable.','--', err);
-			continue;
+			try {
+				let m = await getTrainRoute(n);
+				stations[n] = m.map( (item, key) => item.regex);
+
+				// Assemble line
+				stationregex.push(
+					mtaRegEx.convertArrayToRegexOr(stations[n]));
+			}
+			catch (err) {
+				console.warn('[', n, '] line info unavailable.','--', err);
+				continue;
+			}
 		}
 	}
 

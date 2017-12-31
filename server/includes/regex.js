@@ -87,22 +87,13 @@ function matchStringsWithSpecialChars(needle, haystack) {
 }
 
 function matchRegexString(pattern, haystack, return_all) {
-	let re = new RegExp(pattern,"gi");
+	let re = new RegExp(pattern,"i");
 	let result = haystack.match(re);
 
-
-	/**
-	 * 
-	 * @TODO
-	 *
-	 *
-	 *
-	 * 
-	 */
-	if (return_all === true) {
-		console.log(result);	
+	if (return_all === true && result !== null) {
+		return result;
 	}
-	
+
 	return (result !== null && result[0]) 
 		? result[0].trim()
 		: false;
