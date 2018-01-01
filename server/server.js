@@ -1,22 +1,19 @@
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
-var status_debug = require('./mta.debug').debug;
 
-const mtaApi = require('./mta.api');
+const mtaApi = require('./svc/mta/subway/mta.api');
 const mtaStations = require('./mta.stations');
 const mtaStatus = require('./mta.event');
 
 // File where we'll store things. No extension, please.
-const mta_status_file = './data/mta_status';
+const mta_status_file = './data/generated/mta_status.cache';
 
 // How long before we refresh the feeds?
 const cacheMinutes = 1;
 
 const port = 8100;
 
-// Display a short summary of the current status on the console at startup.
-// status_debug(mta_status_file, cacheMinutes, testLines);
 
 // Allow other domains to access us. (Prepare for mingling)
 app.use(function(req, res, next) {

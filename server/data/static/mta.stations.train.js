@@ -174,6 +174,7 @@ let routes = {
 		'Mn622-640',  // "Brooklyn Bridge - City Hall"
 		'Mn628-418',  // "Fulton St"
 		'Mn413-419',  // "Wall St"
+		'Mn414-420',  // "Bowling Green"
 		'Bk620-232',  // "Borough Hall"
 
 		// "Eastern Pky" -- "Bk"
@@ -229,9 +230,10 @@ let routes = {
 		'Mn414-420',  // "Bowling Green"
 
 		// "Eastern Pky" -- "Bk"
-		'Bk337-234',  // "Nevins St"
-		'Bk626-239',  // "Franklin Av"
 		'Bk620-423',  // "Borough Hall"
+		'Bk337-234',  // "Nevins St"
+		'Bk617-235',  // "Atlantic Av - Barclays Ctr"
+		'Bk626-239',  // "Franklin Av"
 
 		// "Nostrand" -- "Bk"
 		'Bk353-241',  // "President St"

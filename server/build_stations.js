@@ -1,10 +1,10 @@
-const mtaApi = require('./mta.api');
+const mtaApi = require('./svc/mta/subway/mta.api');
 
 const mtaRegEx = require('./includes/regex');
 
 // File where we'll store things. No extension, please.
-const mta_stations_file = './data/mta.stations';
-
+const mta_stations_file = './data/static/mta.stations';
+const stations_generated_filename = './data/generated/mta.stations.compiled.json';
 
 //{ 
 //  'Complex ID': 1,
@@ -64,7 +64,7 @@ mtaApi.getSubwayStations(mta_stations_file)
 
 				return res;
 			});
-			
+
 			r.regex = mtaRegEx.convertArrayToRegexOr(all_alias);
 
 			// Assign our new key to the station.
@@ -99,7 +99,7 @@ mtaApi.getSubwayStations(mta_stations_file)
 		}
 
 		result = JSON.stringify(result);
-		mtaApi.saveStatusToFile(result, './data/mta.stations.final.json');
+		mtaApi.saveStatusToFile(result, stations_generated_filename);
 	}
 	catch (err) {
 		console.error('Error processing stations. ', err);	

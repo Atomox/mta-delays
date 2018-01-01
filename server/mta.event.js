@@ -14,6 +14,7 @@ const _ = require('lodash');
 
 const mtaStations = require('./mta.stations');
 const mtaRegEx = require('./includes/regex');
+const mtaTaxonomy = require('./data/static/mta.taxonomy');
 
 function checkReports(response) {
 
@@ -202,7 +203,7 @@ async function formatSingleStatusEvent(event, lines, summary) {
 
 		// Get all stations per line. Also get a formatted message, with station names 
 		// substituted with their IDs, for easier parsing of line and route changes.
-		let station_result = await getStationsInEventMessage(lines, e.message_station_parse);
+		let station_result = await getStationsInEventMessage(lines, e.message, e.message_station_parse);
 		e.stations = station_result.stations;
 		e.message_station_parse = station_result.parsed_message;
 
@@ -232,20 +233,27 @@ async function formatSingleStatusEvent(event, lines, summary) {
  *   [stations] contains all the station results
  *   [parsed_message] contains the original message, with all stations matches replaced by their ID, wrapped in [].
  */
-async function getStationsInEventMessage(lines, message) {
+async function getStationsInEventMessage(lines, message, parsed_message) {
 	let result = {
 		stations: {},
-		parsed_message: message,
+		parsed_message: (parsed_message) ? parsed_message : message,
 	};
 
 
 	for (let l in lines) {
 		try {
+			let my_l = (lines[l].line) ? lines[l].line : lines[l];
+
 			// Get an stations related to this line.
-			result.stations[lines[l].line] = await mtaStations.matchRouteStationsMessage(lines[l].line, result.parsed_message);
-			result.parsed_message = result.stations[lines[l].line].processed_message;
+			result.stations[my_l] = await mtaStations.matchRouteStationsMessage(my_l, message, result.parsed_message);
+			result.parsed_message = result.stations[my_l].processed_message;
+
+			console.log('\n\n', my_l,'---', result.stations[my_l].stations);
 		} 
-		catch (err) { continue; }
+		catch (err) { 
+			console.warn('Error while fetching stations in event msg: ', err);
+			continue; 
+		}
 	}
 
 	return result;
@@ -436,148 +444,13 @@ async function getMessageRouteChange(text, lines, station_ids_in_text) {
 
 function getMessageAction(text) {
 
-	const incident_types = {
-		// Incidents
-		'service_resumed': [
-			'service has resumed',
-			'following an earlier incident',
-			'resumed service',
-			'service resumed',
-		],
-		'delays': [
-			'delays',
-			'running with delays',
-		],
-		'illness': [
-			'sick passenger',
-			'medical attention',
-			'medical assistance',
-		],
-		'injury': [
-			'person struck by a train',
-			'customer injury',
-		],
-		'signal_problems': ['signal problems'],
-		'power_loss': ['loss of power'],
-		'unautherized_person': [
-			'unauthorized person on the tracks',
-		],
-		'unruly passenger': [
-			'unruly passenger',
-		],
-		'police activity': [
-			'NYPD activity',
-			'police activity',
-			'investigation',
-		],
-		'fire activity': [
-			'FDNY activity',
-		],
-		'mechanical_problems': [
-			'mechanical problems',
-		],
-		'rail_condition': [
-			'rail condition',
-			'track condition',
-		],
-		'switch_problems': ['switch problems'],
-		
-
-		// Diversions.
-		'shuttle_bus': [
-			'[SB]',
-			'Shuttle Bus',
-		],
-		'skip_stations': [
-			'trains skip',
-			'station closures',
-			'trains are bypassing',
-			'trains will bypass',
-		],
-		'service_ends_early': [
-			'end early',
-			'Service ends early',
-			'service ends early',
-		],
-		'running_local': [
-			'trains run local',
-			'trains are running local',
-			'trains make local stops',
-			'local stops',
-			'running local',
-			'run local',
-		],
-		'route_change': [
-			'trains are stopping along',
-			'route changes',
-			'Trains are rerouted',
-		],
-		'alternate_trains': [
-			'alternate trains',
-			'some trains',
-		],
-		'no_trains': [
-			'No trains running',
-		],
-		'no_trains_partial': [
-			'The last stop',
-			'trains end at',
-			'trains will end at',
-			'No trains in',
-			'No trains between',
-			'No trains running between',
-			'No service between',
-			'No weekday service between',
-		],
-		'platform_change' :[
-			'trains board at',
-			'trains baord on',
-		],
-		'running_express': [
-			'running express',
-			'trains run express',
-		],
-		'running_slow': [
-			'running with slower speeds',
-			'run at reduced speed',
-			'run with reduced speed',
-		],
-
-		// Misc
-		'additional_service': ['Additional service'],
-
-
-		// Construction
-		'general_maintenance': [
-			'PRIORITY REPAIRS',
-			'SCHEDULED MAINTENANCE',
-			'PREVENTIVE MAINTENANCE',
-			'STRUCTURAL IMPROVEMENTS',
-		],
-		'signal_maintenance':['SIGNAL MAINTENANCE'],
-		'station_improvements': [
-			'STATION IMPROVEMENTS',
-			'STATION ENHANCEMENTS',
-		],
-		'electrical_improvements': ['ELECTRICAL IMPROVEMENTS'],
-		'track_maintenance': [
-			'TRACK MAINTENANCE',
-			'TRACK REPLACEMENT',
-			'TRACK PLATE INSTALLATION',
-			'TRACK INSTALLATION',
-			'REPLACEMENT OF POWER & COMMUNICATION CABLES',
-		],
-		'tunnel_maintenance': ['TUNNEL RECONSTRUCTION'],
-	};
-
 	let my_status = [];
 
 	text = text.toUpperCase();
 
-	for (type in incident_types) {
-		for (variation in incident_types[type]) {
-			if (text.indexOf(incident_types[type][variation].toUpperCase()) !== -1) {
-				// console.log(type, ' >>>>>>> ', text);
+	for (type in mtaTaxonomy.incident_types) {
+		for (variation in mtaTaxonomy.incident_types[type]) {
+			if (text.indexOf(mtaTaxonomy.incident_types[type][variation].toUpperCase()) !== -1) {
 				my_status.push(type);
 				break;
 			}
@@ -587,98 +460,6 @@ function getMessageAction(text) {
 	return (my_status.length > 0) ? my_status : null;
 }
 
-
-function findTrainsInText (text) {
-	// Look for line
-	const linePattern = /\[[ABCDEFGLMNQRSW1234567]\]/g;
-	let lines = text.match(linePattern);
-
-	status.lines = getTrainsInLine(line, lines);
-
-	// Look for other affected lines
-	status.otherLines = getTrainsNotInLine(line, lines);
-}
-
-
-function getTrainsNotInLine(line, trains) {
-	return getTrains(line, trains, false);
-}
-
-function getTrainsInLine(line, trains) {
-	return getTrains(line, trains, true);
-}
-
-function getTrains(line, trains, in_line) {
-	in_line = (!in_line) ? false : true;
-
-	let my_lines = {};
-
-	for (t in trains) {
-		let my_train = stripTrainWrapper(trains[t]);
-		
-		if (getTrainLine(my_train) == line && in_line === true) {
-			my_lines[my_train] = my_train;
-		}
-		else if (getTrainLine(my_train) !== line && in_line === false) {
-			my_lines[my_train] = my_train;
-		}
-	}
-
-	return (my_lines) ? my_lines : null;
-}
-
-function stripTrainWrapper(train) {
-	return (train.charAt(0) == '[') ? train.substr(1, train.length-2) : train;
-}
-
-function getTrainLine(train) {
-	// Strip any [line] wrappers, so we only see the raw train name.
-	train = stripTrainWrapper(train);
-
-	switch (train) {
-		case 'A':
-		case 'C':
-		case 'E':
-			return 'ACE';
-
-		case 'B':
-		case 'D':
-		case 'F':
-		case 'M':
-			return 'BDFM';
-
-		case 'N':
-		case 'Q':
-		case 'R':
-		case 'W':
-			return 'NQRW';
-
-		case 'L':
-			return 'L';
-
-		case 'J':
-		case 'Z':
-			return 'JZ';
-
-		case '1':
-		case '2':
-		case '3':
-			return '123';
-		
-		case '4':
-		case '5':
-		case '6':
-			return '456';
-
-		case '7':
-			return '7';
-
-		case 'S':
-			return 'S';
-	}
-
-	return false;
-}
 
 module.exports = {
 	checkReports,

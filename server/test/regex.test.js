@@ -123,8 +123,10 @@ describe ('Test Regex Functions', function() {
 		let promises = line_tests.map( line => {
 			return mtaStations.getStationLinesRegex(line.lines)
 				.then( station_regex => station_regex + '+')
-				.then( station_regex => mtaRegEx.matchRegexString(station_regex, line.message).trim())
-				.then( station_regex => expect(station_regex).to.equal(line.expect));
+				.then( station_regex => mtaRegEx.matchRegexString(station_regex, line.message) )
+				.then( data => data.trim() )
+				.then( station_regex => expect(station_regex).to.equal(line.expect))
+				.catch( err => console.log(err) );
 		});
 		
 		return Promise.all(promises);

@@ -1,13 +1,14 @@
-const mtaApi = require('./mta.api');
-const trainRoutes = require('./data/mta.stations.train');
-const mtaRegEx = require = require('./includes/regex');
-const mta_stations_file = './data/mta.stations.final';
+const mtaApi = require('./svc/mta/subway/mta.api');
+const mtaRegEx = require('./includes/regex');
+
+// Date files.
+const trainRoutes = require('./data/static/mta.stations.train');
+const mta_stations_file_path = './data/generated/mta.stations.compiled';
 
 
 async function getStations(ids) {
 	try {
-		let data = await mtaApi.getSubwayStations(mta_stations_file);
-		
+		let data = await mtaApi.getSubwayStations(mta_stations_file_path);
 		if (!data || data.length <= 0) {
 			throw new Error('No data loaded from file or endpoint.');
 		}
@@ -15,7 +16,7 @@ async function getStations(ids) {
 		return data.stations;
 	}
 	catch(err) {
-		return err;
+		throw new Error('Error fetching Stations File: ', err, 'file:', mta_stations_file_path);
 	}
 }
 
@@ -50,7 +51,7 @@ function filterStations(data, ids) {
 
 async function getStationLines(boro, train, omitStations) {
 	try {
-		let data = await mtaApi.getSubwayStations(mta_stations_file);
+		let data = await mtaApi.getSubwayStations(mta_stations_file_path);
 
 		if (!data || data.length <= 0) {
 			throw new Error('No data loaded from file or endpoint.');
@@ -84,7 +85,7 @@ async function getStationLines(boro, train, omitStations) {
 
 async function getStationsByLine() {
 	try {
-		let data = await mtaApi.getSubwayStations(mta_stations_file);
+		let data = await mtaApi.getSubwayStations(mta_stations_file_path);
 
 		if (!data || data.length <= 0) {
 			throw new Error('No data loaded from file or endpoint.');
@@ -93,7 +94,7 @@ async function getStationsByLine() {
 		return data.by_line;
 	}
 	catch(err) {
-		return err;
+		throw new Error('Error geting stations by line: ' + err);
 	}
 }
 
@@ -105,7 +106,7 @@ function getTrainRoute(line) {
 		getStations(trainRoutes[line])
 		.then(data => Promise.resolve(filterStations(data, trainRoutes[line])) )
 		.then(data => resolve(data))
-		.catch(err => reject('Error fetching train route... ' + err));
+		.catch(err => reject('Error fetching train route... ' + err) );
 	});
 }
 
@@ -114,7 +115,6 @@ async function getRouteStationsArray(line, include_stats) {
 	try {
 		let data = await getTrainRoute(line);
 		let my_result = {};
-//		console.log('~~~~', data, '~~~~~');
 		data.map( value => my_result[value.key] = (include_stats === true) 
 			? value
 			: value.name );
@@ -126,13 +126,15 @@ async function getRouteStationsArray(line, include_stats) {
 }
 
 
-async function matchRouteStationsMessage(line, message) {
+async function matchRouteStationsMessage(line, message, processed_message) {
 	try { 
+
 		line = getTrainById(line);
 
 		let stations = await getRouteStationsArray(line, true);
 		let results = {};
-		let result_message = message;
+		let result_message = (processed_message) ? processed_message : message;
+
 
 		// Search each station.
 		for (let s in stations) {
@@ -150,7 +152,11 @@ async function matchRouteStationsMessage(line, message) {
 			 *  *
 			 *
 			 */
+			// Check station name regex against the message.
 			let res_re = mtaRegEx.matchRegexString(stations[s].regex, message);
+
+			// Check station ID against message.
+			
 
 			if (res_re !== false) {
 				results[s] = res_re;
@@ -182,13 +188,14 @@ async function getStationLinesRegex(lines, station_id_regex_only) {
 	let boros = ['Qs', 'Mn', 'Bx', 'Bk', 'SI'];
 	let station_id_regex = '(\\[' 
 		+ mtaRegEx.convertArrayToRegexOr(boros) 
-		+ '[0-9]{1,5}\\-[A-z0-9]{1,5}\\])'
+		+ '[0-9]{1,5}\\-[A-z0-9]{1,5}\\])';
 
 	// Assemble line
 	stationregex.push(station_id_regex);
 
 	if (station_id_regex_only !== true) {
 		for (let l in lines) {
+			// Convert ID to line letter/number
 			let n = getTrainById(lines[l]);
 
 			try {
@@ -243,6 +250,12 @@ function groupStationsByLocation(line, stations) {
 
 
 function getTrainById (id) {
+
+	// Allow both raw line {line, direction}
+	// -or- string formats.
+	id = (id && id.line) ? id.line : id;
+
+
 	switch (id) {
 		case 'MTA NYCT_6':
 			return 6;

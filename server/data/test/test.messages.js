@@ -4,6 +4,32 @@ let event_messages = {
 	structured: {
 		normal: [
 			{
+				type: 'Delays',
+				type_detail: [
+					'service_resumed',
+					'mechanical_problems',
+				],
+				time: null,
+				durration: null,
+				message: '[4] and [5] train service has resumed following an earlier train with mechanical problems at Bowling Green.',
+				stations: {
+					'MTA NYCT_4': {
+						stations: {
+							'Mn414-420': "Bowling Green"
+						}
+					},
+					'MTA NYCT_5': {
+						stations: {
+							'Mn414-420': "Bowling Green"
+						}
+					}
+				},
+				line: [
+					"MTA NYCT_4",
+					"MTA NYCT_5",
+				],
+			},
+			{
 				type: 'ServiceChange',
 				type_detail: [
 					'route_change',
@@ -19,11 +45,41 @@ let event_messages = {
 					route: [
 						{
 							along: "Q",
-							from: '',
+							from: 'Mn9-R14',
 							to: '',
 						},
 					],
 				},
+				/**
+				stations: {
+					'MTA NYCT_N': {
+						stations: {
+							'Mn9-R14': '57 St-7 Av',
+							'Mn8-R13': '5 Av-59 St',
+						}
+					},
+					'MTA NYCT_Q': {
+						stations: {
+							'Mn9-R14': '57 St-7 Av',
+							'Mn475-Q05': '96 St',
+							'Mn223-B08': 'Lexington Av-63 St'
+						}
+					},
+					'MTA NYCT_R': {
+						stations: {
+							'Mn9-R14': '57 St-7 Av',
+							'Qs616-G14': 'Jackson Heights-Roosevelt Av',
+							'Mn8-R13': '5 Av-59 St',
+						}
+					},
+					'MTA NYCT_F': {
+						stations: {
+							'Qs616-G14': 'Jackson Heights-Roosevelt Av',
+							'Mn223-B08': 'Lexington Av-63 St'
+						}
+					},
+				},
+				*/
 				line: [
 					{ line: 'MTA NYCT_N'},
 					{ line: 'MTA NYCT_Q'},
@@ -39,6 +95,34 @@ let event_messages = {
 				message: ' [2], [3], [4] and [5] trains are running with delays in both directions because of signal maintenance at <STRONG>Eastern Pkwy-Brooklyn Museum.</STRONG>',
 				message_raw: '<span class="TitleDelay">Delays</span> <span class="DateStyle"> Posted: 11/15/2017 12:22PM  </span> [2], [3], [4] and [5] trains are running with delays in both directions because of signal maintenance at <STRONG>Eastern Pkwy-Brooklyn Museum.</STRONG>',
 				alt_instructions: null,
+				stations: {
+					'MTA NYCT_2': {
+						stations: {
+							'Bk341-238': 'Eastern Pkwy-Brooklyn Museum',
+						}
+					},
+					'MTA NYCT_3': {
+						stations: {
+							'Bk341-238': 'Eastern Pkwy-Brooklyn Museum',
+						}
+					},
+					'MTA NYCT_4': {
+						stations: {
+							'Bk341-238': 'Eastern Pkwy-Brooklyn Museum',
+						}
+					},
+					'MTA NYCT_5': {
+						stations: {
+							'Bk341-238': 'Eastern Pkwy-Brooklyn Museum',
+						}
+					},
+				},
+				line: [
+					{ line: 'MTA NYCT_2'},
+					{ line: 'MTA NYCT_3'},
+					{ line: 'MTA NYCT_4'},
+					{ line: 'MTA NYCT_5'},
+				],
 			},
 			{
 				type: 'Delays',
@@ -58,6 +142,46 @@ let event_messages = {
 							to: ""
 						},
 					],
+				},
+				stations: {
+					'MTA NYCT_C': {
+						stations: {
+							'Mn162-A25': '50 St',
+							'Mn605-A09': '168 St',
+						}
+					},
+					'MTA NYCT_E': {
+						stations: {
+							'Mn162-A25': '50 St',
+							'Qs272-G20': 'Queens Plaza',
+							'Qs616-G14': 'Jackson Hts-Roosevelt Av',
+							'Qs261-G08': 'Forest Hills-71 Av.',
+						}
+					},
+					'MTA NYCT_F': {
+						stations: {
+							'Qs616-G14': 'Jackson Hts-Roosevelt Av. ',
+							'Qs221-B04': '21 St-Queensbridge',
+							'Qs261-G08': 'Forest Hills-71 Av.',
+						}
+					},
+					'MTA NYCT_M': {
+						stations: {
+							'Mn625-M18': 'Essex St',
+							'Qs272-G20': 'Queens Plaza',
+							'Qs616-G14': 'Jackson Hts-Roosevelt Av. ',
+							'Qs261-G08': 'Forest Hills-71 Av.',
+							'Qs272-G20': '36 St (Queens)',
+						}
+					},
+					'MTA NYCT_R': {
+						stations: {
+							'Qs272-G20': 'Queens Plaza',
+							'Qs616-G14': 'Jackson Hts-Roosevelt Av. ',
+							'Qs261-G08': 'Forest Hills-71 Av.',
+							'Qs272-G20': '36 St (Queens)',
+						}
+					},
 				},
 				line: [
 					{ line: 'MTA NYCT_C'},
@@ -406,6 +530,21 @@ let event_messages = {
 						},
 					],
 				},
+				stations: {
+					'MTA NYCT_F': {
+						stations: {
+							'Bk636-A41': "Jay St-MetroTech",
+							'Qs616-G14': 'Jackson Heights-Roosevelt Av',
+							'Mn619-D21': 'Broadway-Lafayette St',
+						}
+					},
+					'MTA NYCT_E': {
+						stations: {
+							'Mn611-A27': '42 St-Port Authority',
+							'Qs616-G14': 'Jackson Heights-Roosevelt Av',
+						}
+					}
+				},
 				line: [
 					{ line: 'MTA NYCT_A'},
 					{ line: 'MTA NYCT_E'},
@@ -457,6 +596,9 @@ let event_messages = {
 				// Fire Activity
 				'[2], [3], [4] and [5] train service has resumed following earlier FDNY activity at Hoyt St.',
 				'Southbound [2], [3], [4] and [5] train service changes and delays because of FDNY activity at Hoyt St. See mta.info',
+
+				// Service resumed
+				'[4] and [5] train service has resumed following an earlier train with mechanical problems at Bowling Green.',
 
 				// Running Local // Signal Problems
 				'Southbound [E] and [F] trains are running local from Forest Hills-71 Av to Jackson Hts-Roosevelt Av because of signal problems at Forest Hills-71 Av.',
