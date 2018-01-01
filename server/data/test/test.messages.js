@@ -153,7 +153,7 @@ let event_messages = {
 					'MTA NYCT_E': {
 						stations: {
 							'Mn162-A25': '50 St',
-							'Qs272-G20': 'Queens Plaza',
+							'Qs273-G21': 'Queens Plaza',
 							'Qs616-G14': 'Jackson Hts-Roosevelt Av',
 							'Qs261-G08': 'Forest Hills-71 Av.',
 						}
@@ -168,20 +168,22 @@ let event_messages = {
 					'MTA NYCT_M': {
 						stations: {
 							'Mn625-M18': 'Essex St',
-							'Qs272-G20': 'Queens Plaza',
+							'Qs273-G21': 'Queens Plaza',
 							'Qs616-G14': 'Jackson Hts-Roosevelt Av. ',
 							'Qs261-G08': 'Forest Hills-71 Av.',
 							'Qs272-G20': '36 St (Queens)',
 						}
 					},
+				/**
 					'MTA NYCT_R': {
 						stations: {
-							'Qs272-G20': 'Queens Plaza',
+							'Qs273-G21': 'Queens Plaza',
 							'Qs616-G14': 'Jackson Hts-Roosevelt Av. ',
 							'Qs261-G08': 'Forest Hills-71 Av.',
 							'Qs272-G20': '36 St (Queens)',
 						}
 					},
+				*/
 				},
 				line: [
 					{ line: 'MTA NYCT_C'},

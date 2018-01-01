@@ -48,24 +48,17 @@ describe('Parse Stations', function() {
 						let results = false;
 						let mocha_msg = event.message;
 
-
-//						console.log('----------- [', event.message ,'] -----------');
-						
 						for (let l in event.stations) {
-//							console.log('Stations :::', l , ':::', data.stations[l]); 
 							results = true;
 
 							let msg = '[' + l + '] ' + event.message;
-
-//							expect(data, my_mocha_msg).to.have.property('stations');
-//							expect(data, my_mocha_msg).to.have.property('parsed_message');
-//							expect(data.stations, my_mocha_msg).to.have.property(l);
 							let stations_expected = Object.keys(event.stations[l].stations);
 							let stations_found = Object.keys(data.stations[l].stations);
 
-							expect(stations_found, 
-								msg + stations_found.join(','))
-								.to.have.members(stations_expected);
+							// Message to help find data culprate.
+							msg = '[' +stations_found.join(',') + '] <--> [' + stations_expected.join(',') + '] ' + msg;
+
+							expect(stations_found, msg).to.have.members(stations_expected);
 						}
 
 						expect(results, 'Event should have at least one station -- ' + mocha_msg).to.equal(true);
