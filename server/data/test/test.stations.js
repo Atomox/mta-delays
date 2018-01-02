@@ -2,9 +2,9 @@ let stations = {
 	names: {
 		hyphen: {
 			'Times Sq-42 St': 'Times Sq - 42 St',
-			'Bay Ridge-95 St': 'Bay Ridge- 95 St.',
-			'Lexington Av-63 St': 'Lexington Av-63 St.',
-			'Jackson Heights-Roosevelt Av': 'Jackson Heights - Roosevelt Av.',
+			'Bay Ridge-95 St': 'Bay Ridge- 95 St',
+			'Lexington Av-63 St': 'Lexington Av-63 St',
+			'Jackson Heights-Roosevelt Av': 'Jackson Heights - Roosevelt Av',
 			'5 Av-59 St': '5 Av/59 St',
 			'57 St-7 Av': '57 St- 7 Av',
 			'4 Av-9 St': '4 Av-9 St',

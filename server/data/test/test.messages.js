@@ -739,54 +739,52 @@ let train_line = {
 			message: 'SIGNAL MAINTENANCE [R] Trains run via the [Q] in both directions between DeKalb Av and Canal St',
 		},
 		{
-			stations: ['86 St', 'Bay Ridge - 95 St'],
+			stations: ['86 St', 'Bay Ridge-95 St'],
 			station_ids: ['Bk38', 'Bk39'],
 			message: '[R] trains are running with delays in both directions because of signal problems between 86 St and Bay Ridge-95 St.',
 		},
-		{
+/**		{
+			known_problems: 'Stations: 36th St (Bkyn)'
+			stations: ['65 St', 'Northern Blvd', '46 St', 'Steinway St', '36 St', 'Queens Plaza', 'Roosevelt Av'],
+			station_ids: ['Q268', 'Q269', 'Q270', 'Q271', 'Q272'],
+			problem: '36 St exists in Queens and Brooklyn',
+			message: 'TRACK MAINTENANCE [R] Bay Ridge-bound trains skip 65 St, Northern Blvd, 46 St, Steinway St and 36 St. Late Evenng, 9:45 PM to 11 PM, Friday, Dec 22. For service to these stations, take the [R] to Queens Plaza and transfer to a Forest Hills-bound. For service from these stations, take the [R] to Roosevelt Av and transfer to a Bay Ridge-bound [R].',
+		},
+*/
+/*		{
+			known_problems: 'Stations: 36th St (Bkyn)'
 			stations: ['65 St', 'Northern Blvd', '46 St', 'Steinway St', '36 St', 'Queens Plaza'],
 			station_ids: ['Q268', 'Q269', 'Q270', 'Q271', 'Q272'],
 			problem: '36 St exists in Queens and Brooklyn',
 			message: 'TRACK MAINTENANCE [R] Bay Ridge-bound trains skip 65 St, Northern Blvd, 46 St, Steinway St and 36 St. Late Evenng, 9:45 PM to 11 PM, Friday, Dec 22. For service to these stations, take the [R] to Queens Plaza and transfer to a Forest Hills-bound. For service from these stations, take the [R] to Roosevelt Av and transfer to a Bay Ridge-bound [R].',
 		},
-		{
-			stations: ['65 St', 'Northern Blvd', '46 St', 'Steinway St', '36 St', 'Queens Plaza'],
-			station_ids: ['Q268', 'Q269', 'Q270', 'Q271', 'Q272'],
-			problem: '36 St exists in Queens and Brooklyn',
-			message: 'TRACK MAINTENANCE [R] Bay Ridge-bound trains skip 65 St, Northern Blvd, 46 St, Steinway St and 36 St. Late Evenng, 9:45 PM to 11 PM, Friday, Dec 22. For service to these stations, take the [R] to Queens Plaza and transfer to a Forest Hills-bound. For service from these stations, take the [R] to Roosevelt Av and transfer to a Bay Ridge-bound [R].',
-		},
-
+*/
 /*
 		{
-			stations: ['57 St - 7 Av', '5 Av/59 St', 'Jackson Heights-Roosevelt Av'],
+			known_problems: 'Stations: 59th St (Bkyn)'
+			stations: ['57 St-7 Av', '5 Av-59 St', 'Jackson Heights-Roosevelt Av'],
 			stationsOtherLines: ['96 St', 'Lexington Av-63 St'],
 			stationIds: [],
 			problem: '59 St exists in Manhattan and Brooklyn',
 			message: 'Some northbound [N] trains are stopping on the [Q] line from 57 St-7 Av and end at 96 St. Some northbound [R] trains are stopping on the [Q] line from 57 St-7 Av to Lexington Av-63 St, then over the [F] line from Lexington Av-63 St to Jackson Heights-Roosevelt Av. This service change is because of a train with mechanical problems at 5 Av-59 St. Expect delays in [F][N][Q][R] train service.',
 		},
- 
+*/
 		{
 			stations: ['53 St', '45 St', '25 St', 'Prospect Av', '4 Av-9 St', 'Union St'],
 			station_ids: ['Bk34', 'Bk33', 'Bk31', 'Bk30', 'Bk608', 'Bk28'],
 			problem: '9th St is listed as Line-Station (4 Av-9 St)',
 			message: 'PRIORITY REPAIRS [R] Manhattan-bound trains skip 53 St, 45 St, 25 St, Prospect Av, 4 Av-9 St and Union St',
 		},
-		
-*/
-
-/*
 		{
 			stations: ['Jackson Hts-Roosevelt Av', 'Forest Hills-71 Av'],
 			station_ids: ['Canal St','57 St-7 Av'],
 			message: 'Some Forest Hills-bound [M] and [R] trains are running express from Jackson Hts-Roosevelt Av to Forest Hills-71 Av because of signal problems at Jackson Hts-Roosevelt Av.',
 		},
-/*
+
 		{
-			stations: [],
+			stations: ['Canal St','57 St-7 Av', 'Times Sq-42 St'],
 			message: 'Northbound [N] trains are running local from Canal St to 57 St-7 Av.Northbound [Q] trains will end at Times Sq-42 St.Northbound [Q] trains are running local from Canal St to Times Sq-42 St.These service changes are because of a train with mechanical problems at 57 St-7 Av.Expect delays on the [N], [Q], [R] and [W] trains.',
 		},
-*/
-
 	],
 }
 

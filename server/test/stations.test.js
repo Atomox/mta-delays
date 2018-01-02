@@ -24,7 +24,7 @@ describe('Parse Stations', function() {
 			let promises = r_train_msg.map( event => {
 				return mtaStations.matchRouteStationsMessage('R', event.message)
 					.then( stations => {
-//						console.log(' --> ', event.stations, '...', stations);
+						console.log(' --> ', event.stations, '...', stations);
 			
 						expect(Object.values(stations.stations)).to.have.members(event.stations);
 					});
@@ -82,7 +82,7 @@ describe('Parse Stations', function() {
 		it ('Should match [names] with [mismatched-whitespace]', () => {
 			Object.keys(stations.hyphen).map( i => {
 				let res = mtaRegEx.matchStringsWithSpecialChars(i, stations.hyphen[i]);
-				expect(res).to.equal(i);
+				expect(res).to.equal(stations.hyphen[i]);
 			});
 		});
 		it.skip ('Should *not* match [shorter names] with [longer ones].', () => {

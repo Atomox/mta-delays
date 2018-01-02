@@ -196,13 +196,16 @@ function stationAliases(name, boro) {
 				'Van Wyck',
 			],
 			'36 St': [
+				'36 St (Queens)',
 				'36 St (Qns)',
 			],
 		},
 
 
 		Bk: {
-
+			'9 St': [
+				'4 Av-9 St',
+			],
 			'Atlantic Av - Barclays Ctr': [
 				'Atlantic Av-Barclays Center',
 				'Barclays Center',
