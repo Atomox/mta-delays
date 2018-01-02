@@ -24,6 +24,96 @@
                 "PtSituationElement": [
                   {
                     "CreationTime": [
+                      "2018-01-02T07:35:04.803-05:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_ab3be9ce-052c-48f3-9ddb-25d447f6457b"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2018-01-02T07:21:00-05:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "Some northbound [Q] express Kings Hwy to Prospect Pk. Some northbound [Q] stop on [N] line Stillwell Av to DeKalb Av because of signal problems at Parkside Av",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "<P>Some northbound [Q] trains are running express from <STRONG>Kings Hwy</STRONG> to<STRONG> Prospect Park</STRONG>. </P>\r\n<P>Some northbound [Q] trains are stopping along the [N] line from<STRONG> Coney Island-Stillwell Av</STRONG> to <STRONG>DeKalb Av.</STRONG></P>\r\n<P>These service changes are because of signal problems at Parkside Av.</P>",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "Some northbound [Q] trains are running express from Kings Hwy to Prospect Park. \r\nSome northbound [Q] trains are stopping along the [N] line from Coney Island-Stillwell Av to DeKalb Av.\r\nThese service changes are because of signal problems at Parkside Av."
+                    ],
+                    "Planned": [
+                      "false"
+                    ],
+                    "ReasonName": [
+                      "Service Change"
+                    ],
+                    "MessagePriority": [
+                      "3"
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_B"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_Q"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "altered"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "CreationTime": [
                       "2017-12-26T00:00:00-05:00"
                     ],
                     "SituationNumber": [

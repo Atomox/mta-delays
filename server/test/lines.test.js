@@ -20,7 +20,7 @@ describe ('Detect Train Lines', function() {
 		
 				return mtaStatus.
 					getMessageRouteChange(event.message, event.line)
-					.then( data => expect(data).to.equal(event.route_change.message));
+					.then( data => expect(data).to.equal(event.route_change.message_raw));
 			});
 			
 			return Promise.all(promises);

@@ -16,6 +16,7 @@ let archive_status = {
 		'mta_status.20.New_Years_Messaging',
 		'mta_status.21.NYE_ended',
 		'mta_status.22.all_reroutes',
+		'mta_status.23.route_change',
 	],
 	path: './data/archive/',
 };

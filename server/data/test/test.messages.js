@@ -91,8 +91,8 @@ let event_messages = {
 				durration: null,
 				message: 'Some northbound [N] trains are stopping on the [Q] line from 57 St-7 Av and end at 96 St. Some northbound [R] trains are stopping on the [Q] line from 57 St-7 Av to Lexington Av-63 St, then over the [F] line from Lexington Av-63 St to Jackson Heights-Roosevelt Av. This service change is because of a train with mechanical problems at 5 Av-59 St. Expect delays in [F][N][Q][R] train service.',
 				alt_instructions: null,
-				route_change: 'Some northbound [N] trains are stopping on the [Q] line from 57 St-7 Av and end at 96 St. Some northbound [R] trains are stopping on the [Q] line from 57 St-7 Av to Lexington Av-63 St, then over the [F] line from Lexington Av-63 St to Jackson Heights-Roosevelt Av.',
 				route_change: {
+					message_raw: 'Some northbound [N] trains are stopping on the [Q] line from 57 St-7 Av and end at 96 St. Some northbound [R] trains are stopping on the [Q] line from 57 St-7 Av to Lexington Av-63 St, then over the [F] line from Lexington Av-63 St to Jackson Heights-Roosevelt Av.',
 					message: 'Some northbound [N] trains are stopping on the [Q] line from [Mn9-R14] and end at [Mn475-Q05]. Some northbound [R] trains are stopping on the [Q] line from [Mn9-R14] to [Mn223-B08], then over the [F] line from [Mn223-B08] to [Qs616-G14].',
 					trains: [],
 					route: [
@@ -187,6 +187,7 @@ let event_messages = {
 				durration: null,
 				message: 'Some northbound [E] trains are running local from Queens Plaza to Jackson Hts-Roosevelt Av. Some northbound [E] trains are stopping long the [C] line from 50 St to 168 St.   Some northbound [F] trains are running local from 21 St-Queensbridge to Jackson Hts-Roosevelt Av.  [M] trains no service between Essex St and Forest Hills-71 Av. These service changes are because of signal problems at 36 St (Queens). Expect delays on [E], [F], [M] and [R] trains.',
 				route_change: {
+					message_raw: 'Some northbound [E] trains are stopping long the [C] line from 50 St to 168 St.',
 					message: 'Some northbound [E] trains are stopping long the [C] line from [Mn162-A25] to [Mn605-A09].',
 					trains: ["E"],
 					route: [
@@ -423,6 +424,7 @@ let event_messages = {
 				alt_instructions: "Travel Alternatives [TP] For JFK Airport , take the Far Rockaway-bound [A] to Howard Beach-JFK Airport. For LaGuardia Airport , take the [7] or [E] (from 6 Av) to 74 St-Roosevelt Av, for the LaGuardia Link Q70 SBS . For Port Authority Bus Terminal , all 8 Av [E] stations and overnight service between W 4 St and World Trade Center , take the [A] or [C]. For 53 St [E] stations , use the nearby 51 St [6] or 7 Av [B] [D] Stations. For [M] stations , take the [E] [F] [R] and/or [J]. Take the [7] for Court Sq-23 St [G] , and the [R] ( days/evenings ) for Queens Plaza or free overnight shuttle buses. Click here for details about this Subway Action Plan. *9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29 [E] trains run to/from 2 Av [F] station after W 4 St.",
 				ad_message: "[ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 				route_change: {
+					message_raw: '[E] trains are rerouted in both directions via the [F] between Jackson Hts-Roosevelt Av and West 4 St',
 					message: '[E] trains are rerouted in both directions via the [F] between [Qs616-G14] and [Mn167-A32]',
 					trains: ["E"],
 					route: [
@@ -464,6 +466,7 @@ let event_messages = {
 				alt_instructions: null,
 				ad_message: null,
 				route_change: {
+					message_raw: 'Southbound [D] trains are stopping along the [C] line from 59 St-Columbus Circle to W 4 St-Wash Sq then along the [F] line to Coney Island-Stillwell Av.',
 					message: 'Southbound [D] trains are stopping along the [C] line from [Mn614-A24] to [Mn167-A32] then along the [F] line to [Bk58-D43].',
 					trains: ["D"],
 					route: [
@@ -492,6 +495,7 @@ let event_messages = {
 				durration: null,
 				message: 'Some northbound [A] and [C] trains are stopping along the [F] line from Jay St-MetroTech to W 4 St-Washington Sq because of signal problems at High St.Expect delays on the [A], [C] and [F] trains.',
 				route_change: {
+					message_raw: 'Some northbound [A] and [C] trains are stopping along the [F] line from Jay St-MetroTech to W 4 St-Washington Sq',
 					message: 'Some northbound [A] and [C] trains are stopping along the [F] line from [Bk636-A41] to [Mn167-A32]',
 					trains: ['A','C'],
 					route: [
@@ -519,6 +523,7 @@ let event_messages = {
 				durration: null,
 				message: 'Southbound [Q] trains are stopping along the [R] line from Canal St to DeKalb Av because of a sick passenger at Canal St.',
 				route_change: {
+					message_raw: 'Southbound [Q] trains are stopping along the [R] line from Canal St to DeKalb Av',
 					message: 'Southbound [Q] trains are stopping along the [R] line from [Mn623-R23] to [Bk26-R30]',
 					trains: ['Q'],
 					route: [
@@ -545,6 +550,7 @@ let event_messages = {
 				durration: null,
 				message: 'Southbound [N] trains are stopping along the [D] line from 36 St (Bklyn) to Coney Island-Stillwell Av because of signal problems between 8 Av and Bay Parkway.',
 				route_change: {
+					message_raw: 'Southbound [N] trains are stopping along the [D] line from 36 St (Bklyn) to Coney Island-Stillwell Av',
 					message: 'Southbound [N] trains are stopping along the [D] line from [Bk32-R36] to [Bk58-D43]',
 					trains: ['N'],
 					route: [
@@ -571,6 +577,7 @@ let event_messages = {
 				durration: null,
 				message: 'Northbound [F] trains are stopping along the [A] line from Jay St-MetroTech to 42 St-Port Authority, then stopping along the [E] line to Jackson Heights-Roosevelt Av. These service changes are because of switch problems at Broadway-Lafayette St. Expect delays on the [A], [E], and [F] lines.',
 				route_change: {
+					message_raw: 'Northbound [F] trains are stopping along the [A] line from Jay St-MetroTech to 42 St-Port Authority, then stopping along the [E] line to Jackson Heights-Roosevelt Av.',
 					message: 'Northbound [F] trains are stopping along the [A] line from [Bk636-A41] to [Mn611-A27], then stopping along the [E] line to [Qs616-G14].',
 					trains: ['F'],
 					route: [
