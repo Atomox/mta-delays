@@ -8,8 +8,8 @@ let Header = require('./header').Header;
 // Config
 const api = require('../../../config/settings');
 
-const endpoint = 'subway/status';
-//const endpoint = 'subway/status/archive/15';
+// const endpoint = 'subway/status';
+const endpoint = 'subway/status/archive/15';
 
 /**
  * The main app container.

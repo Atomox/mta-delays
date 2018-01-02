@@ -94,12 +94,13 @@ let event_messages = {
 				route_change: {
 					message_raw: 'Some northbound [N] trains are stopping on the [Q] line from 57 St-7 Av and end at 96 St. Some northbound [R] trains are stopping on the [Q] line from 57 St-7 Av to Lexington Av-63 St, then over the [F] line from Lexington Av-63 St to Jackson Heights-Roosevelt Av.',
 					message: 'Some northbound [N] trains are stopping on the [Q] line from [Mn9-R14] and end at [Mn475-Q05]. Some northbound [R] trains are stopping on the [Q] line from [Mn9-R14] to [Mn223-B08], then over the [F] line from [Mn223-B08] to [Qs616-G14].',
-					trains: [],
+					trains: ['N'],
 					route: [
 						{
+							lines: ['N'],
 							along: "Q",
 							from: 'Mn9-R14',
-							to: '',
+							to: 'Mn475-Q05',
 						},
 					],
 				},
@@ -192,9 +193,10 @@ let event_messages = {
 					trains: ["E"],
 					route: [
 						{
+							lines: ['E'],
 							along: "C",
-							from: "",
-							to: ""
+							from: "Mn162-A25",
+							to: "Mn605-A09"
 						},
 					],
 				},
@@ -429,6 +431,7 @@ let event_messages = {
 					trains: ["E"],
 					route: [
 						{
+							lines: ['E'],
 							along: "F",
 							from: 'Qs616-G14',
 							to: 'Mn167-A32',
@@ -471,9 +474,16 @@ let event_messages = {
 					trains: ["D"],
 					route: [
 						{
+							lines: ['D'],
 							along: "C",
-							from: '',
-							to: '',
+							from: 'Mn614-A24',
+							to: 'Mn167-A32',
+						},
+						{
+							lines: ['D'],
+							along: "F",
+							from: 'Mn167-A32',
+							to: 'Bk58-D43',
 						},
 					],
 				},
@@ -500,9 +510,10 @@ let event_messages = {
 					trains: ['A','C'],
 					route: [
 						{
+							lines: ['A', 'C'],
 							along: "F",
-							from: '',
-							to: '',
+							from: 'Bk636-A41',
+							to: 'Mn167-A32',
 						},
 					],
 				},
@@ -528,9 +539,10 @@ let event_messages = {
 					trains: ['Q'],
 					route: [
 						{
+							lines: ['Q'],
 							along: "R",
-							from: '',
-							to: '',
+							from: 'Mn623-R23',
+							to: 'Bk26-R30',
 						},
 					],
 				},
@@ -555,9 +567,10 @@ let event_messages = {
 					trains: ['N'],
 					route: [
 						{
+							lines: ['N'],
 							along: "D",
-							from: '',
-							to: '',
+							from: 'Bk32-R36',
+							to: 'Bk58-D43',
 						},
 					],
 				},
@@ -582,14 +595,16 @@ let event_messages = {
 					trains: ['F'],
 					route: [
 						{
+							lines: ['F'],
 							along: "A",
-							from: '',
-							to: '',
+							from: 'Bk636-A41',
+							to: 'Mn611-A27',
 						},
 						{
+							lines: ['F'],
 							along: "E",
-							from: '',
-							to: '',
+							from: 'Mn611-A27',
+							to: 'Qs616-G14',
 						},
 					],
 				},

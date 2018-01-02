@@ -36,8 +36,18 @@ describe ('Detect Train Lines', function() {
 				return mtaStatus.getStationsInEventMessage(event.line, event.message)
 
 					.then( data => mtaStatus.getRouteChange(data.parsed_message, event.line, true) )
-					.then( data => expect(data.message).to.equal(event.route_change.message))
+					.then( data => {
+						expect(data.message).to.equal(event.route_change.message);
 
+//						console.log('\n\n', event.route_change.route);
+						data.route.map( (e, i) => {
+//							console.log(' --- ', i, ' -- ', e);
+//							e.lines (array)
+//							e.along (single)
+//							e.from (single)
+//							e.to (single)
+						});
+					});
 
 // 'Southbound [Q] trains are stopping along the [R] line from [Mn623-R23] to [Bk26-R30]',
 // 'Southbound [D] trains are stopping along the [C] line from [Mn614-A24] to [Mn167-A32] then along the [F] line to [Bk58-D43].',

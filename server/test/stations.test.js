@@ -24,8 +24,6 @@ describe('Parse Stations', function() {
 			let promises = r_train_msg.map( event => {
 				return mtaStations.matchRouteStationsMessage('R', event.message)
 					.then( stations => {
-						console.log(' --> ', event.stations, '...', stations);
-			
 						expect(Object.values(stations.stations)).to.have.members(event.stations);
 					});
 			});
