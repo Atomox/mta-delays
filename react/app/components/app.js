@@ -8,6 +8,8 @@ let Header = require('./header').Header;
 // Config
 const api = require('../../../config/settings');
 
+const endpoint = 'subway/status';
+//const endpoint = 'subway/status/archive/10';
 
 /**
  * The main app container.
@@ -34,7 +36,7 @@ class App extends React.Component {
 
     let e = api[process.env.NODE_ENV];
     let url = e.protocol + e.host + ':' + e.port 
-      + e.endpoint_prefix + '/' + 'subway/status';
+      + e.endpoint_prefix + '/' + endpoint;
 
     console.log(' ---- The environment API: [', url, '] ------');
 

@@ -159,6 +159,7 @@ function stationAliases(name, boro) {
 		Qs: {
 
 			'Jackson Hts - Roosevelt Av': [
+				'Roosevelt Av',
 				'Jackson Hts',
 				'Jackson Heights',
 				'Jackson Hts-Roosevelt Av',

@@ -248,7 +248,7 @@ async function getStationsInEventMessage(lines, message, parsed_message) {
 			result.stations[my_l] = await mtaStations.matchRouteStationsMessage(my_l, message, result.parsed_message);
 			result.parsed_message = result.stations[my_l].processed_message;
 
-			console.log('\n\n', my_l,'---', result.stations[my_l].stations);
+//			console.log('\n\n', my_l,'---', result.stations[my_l].stations);
 		} 
 		catch (err) { 
 			console.warn('Error while fetching stations in event msg: ', err);

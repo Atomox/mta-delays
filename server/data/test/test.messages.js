@@ -30,6 +30,59 @@ let event_messages = {
 				],
 			},
 			{
+				type: null,
+				type_detail: [
+					"delays",
+					"signal_problems"
+				],
+				time: null,
+				durration: null,
+				message: "Southbound [E] and [F] trains are running with delays because of signal problems at Woodhaven Blvd.",
+				stations: {
+					'MTA NYCT_E': {
+						processed_message: "Southbound [E] and [F] trains are running with delays because of signal problems at Woodhaven Blvd.",
+						stations: { },
+						analysis: [ ]
+					},
+					'MTA NYCT_F': {
+						processed_message: "Southbound [E] and [F] trains are running with delays because of signal problems at Woodhaven Blvd.",
+						stations: { },
+						analysis: [ ]
+					}
+				},
+				trains: [
+				"MTA NYCT_E",
+				"MTA NYCT_F"
+				],
+				alt_instructions: null,
+				ad_message: null,
+				route_change: false,
+				TEST_NOTE: 'This tests ensuring that stations mentioned on a train route, but that they do not stop at normally, are not included inthe stations list.',
+			},
+			{
+				type: null,
+				type_detail: [
+					"running_local"
+				],
+				time: null,
+				durration: "Late Evenings, beginning 10 PM, Mon to Thu, Dec 4 - 7",
+				message: "[E] Trains run local in both directions between Roosevelt Av and 71 Av Trains stop at Elmhurst, Grand Avs, Woodhaven Blvd, 63 Dr, and 67 Av. Please allow additional travel time.",
+				message_raw: "[E] Trains run local in both directions between Roosevelt Av and 71 Av Late Evenings, beginning 10 PM, Mon to Thu, Dec 4 - 7 Trains stop at Elmhurst, Grand Avs, Woodhaven Blvd, 63 Dr, and 67 Av. Please allow additional travel time.",
+				message_station_parse: "[E] Trains run local in both directions between Roosevelt Av and [Qs261-G08] Late Evenings, beginning 10 PM, Mon to Thu, Dec 4 - 7 Trains stop at Elmhurst, Grand Avs, Woodhaven Blvd, 63 Dr, and 67 Av. Please allow additional travel time.",
+				stations: {
+					'MTA NYCT_E': {
+						processed_message: "[E] Trains run local in both directions between Roosevelt Av and [Qs261-G08] Late Evenings, beginning 10 PM, Mon to Thu, Dec 4 - 7 Trains stop at Elmhurst, Grand Avs, Woodhaven Blvd, 63 Dr, and 67 Av. Please allow additional travel time.",
+						stations: {
+							'Qs261-G08': "71 Av",
+							'Qs616-G14': "Roosevelt Av"
+						},
+					},
+				},
+				trains: [
+					"MTA NYCT_E"
+				],
+			},
+			{
 				type: 'ServiceChange',
 				type_detail: [
 					'route_change',
@@ -50,7 +103,7 @@ let event_messages = {
 						},
 					],
 				},
-				/**
+/**
 				stations: {
 					'MTA NYCT_N': {
 						stations: {
@@ -65,6 +118,7 @@ let event_messages = {
 							'Mn223-B08': 'Lexington Av-63 St'
 						}
 					},
+				
 					'MTA NYCT_R': {
 						stations: {
 							'Mn9-R14': '57 St-7 Av',
@@ -79,7 +133,7 @@ let event_messages = {
 						}
 					},
 				},
-				*/
+*/
 				line: [
 					{ line: 'MTA NYCT_N'},
 					{ line: 'MTA NYCT_Q'},

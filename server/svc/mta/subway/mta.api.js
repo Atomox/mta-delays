@@ -36,7 +36,8 @@ const future_url = 'http://travel.mtanyct.info/serviceadvisory/routeStatusResult
  * @param  {string} mta_status_file
  *   A filename where we should store (cache) our request.
  * @param  {int} cacheMinutes
- *   How many minutes old can we use this data for before refreshing?
+ *   How many minutes old can we use this data for before refreshing? 
+ *   Note: If [false], this will be ignored, and data will not be refreshed.
  *   
  * @return {object}
  *   The Subway status in a data object. Not cleaned or restructured!
@@ -44,14 +45,13 @@ const future_url = 'http://travel.mtanyct.info/serviceadvisory/routeStatusResult
 function getSubwayStatus (mta_status_file, cacheMinutes) {
 
 	return new Promise ( (resolve, reject) => {
-		
-		loadStatusFromFile(mta_status_file + '.json', 'json')
 
+		loadStatusFromFile(mta_status_file + '.json', 'json')
 
 			// results.Siri.ServiceDelivery[0].ResponseTimestamp[0]
 
 			// Make sure data is fresh.
-			.then((results) => (checkFreshnessDate(results.Siri.ServiceDelivery[0].ResponseTimestamp[0], cacheMinutes) === true)
+			.then((results) => (cacheMinutes === false || checkFreshnessDate(results.Siri.ServiceDelivery[0].ResponseTimestamp[0], cacheMinutes) === true)
 				? Promise.resolve(results)
 				: Promise.reject('Refresh data, please.'))
 
@@ -124,12 +124,17 @@ function checkFreshnessDate(packed_date, expires) {
 	let minutesOld = Math.abs(Date.now() - lastUpdated.getTime());
 	minutesOld = Math.floor((minutesOld/1000/60) << 0);
 
+	let time_msg = 'Cached data is of age ' + lastUpdated.getTime() 
+		+ ' (' + minutesOld  + ' minutes ago).';
+
+	console.warn(' -- [', time_msg, '] -- ');
+
 	if (minutesOld > expires) {
-		let message = 'Cached data is of age' + lastUpdated.getTime() + '(' + minutesOld  + ' minutes ago). Refreshing cached data at' + Date.now();
-		console.warn(message);
+		let message = 'Refreshing cached data at [' + Date.now() + ']';
+		console.warn(' -- [', message, '] -- ');
 		return false;
 	}
-	console.log('Cached data is of age', lastUpdated.getTime(), '(', minutesOld ,' minutes ago). Still fresh. Using cached data.');
+	console.log(' -- [', 'Still fresh. Using cached data.', '] --');
 	return true;
 }
 
