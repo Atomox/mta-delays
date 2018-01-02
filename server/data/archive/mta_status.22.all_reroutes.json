@@ -1,0 +1,1181 @@
+{
+  "Siri": {
+    "$": {
+      "xmlns:ns2": "http://www.ifopt.org.uk/acsb",
+      "xmlns": "http://www.siri.org.uk/siri",
+      "xmlns:ns4": "http://datex2.eu/schema/1_0/1_0",
+      "xmlns:ns3": "http://www.ifopt.org.uk/ifopt"
+    },
+    "ServiceDelivery": [
+      {
+        "ResponseTimestamp": [
+          "2017-12-26T11:11:02.4593571-05:00"
+        ],
+        "SituationExchangeDelivery": [
+          {
+            "ResponseTimestamp": [
+              "2017-12-26T11:11:02.4593571-05:00"
+            ],
+            "Status": [
+              "true"
+            ],
+            "Situations": [
+              {
+                "PtSituationElement": [
+                  {
+                    "CreationTime": [
+                      "2017-12-26T00:00:00-05:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_174552"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2017-12-26T00:00:00-05:00"
+                        ],
+                        "EndTime": [
+                          "2017-12-31T23:59:00-05:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "SUBWAY ACTION PLAN: We're improving: Signals, Cables, Tracks and Drainage  [E] No service between Jackson Hts-Roosevelt Av and West 4 St  [M] No weekday service between Broadway Junction and 71 Av",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "SUBWAY ACTION PLAN: We're improving: Signals, Cables, Tracks and Drainage  [E] No service between Jackson Hts-Roosevelt Av and West 4 St  [M] No weekday service between Broadway Junction and 71 Av",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "&lt;b&gt;&lt;i&gt;SUBWAY ACTION PLAN: We're improving: Signals, Cables, Tracks and Drainage&lt;/i&gt;&lt;br clear=left&gt;[E] No service between Jackson Hts-Roosevelt Av and West 4 St &lt;br clear=left&gt;[M] No weekday service between Broadway Junction and 71 Av&lt;/b&gt;All Times, 5 AM Tue, Dec 26 until 8 AM Sun, Dec 31&lt;br&gt;&lt;br&gt;[E] trains are rerouted in both directions via the [F] between &lt;b&gt;Jackson Hts-Roosevelt Av &lt;/b&gt;and &lt;b&gt;West 4 St&lt;/b&gt;&lt;font size=3&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;i&gt;               [E] trains run local between 71 Av and 21 St-Queensbridge overnight.&lt;/i&gt;&lt;br&gt;&lt;br&gt;[M] Shuttle trains operate &lt;i&gt;all times&lt;/i&gt; between &lt;b&gt;Metropolitan Av&lt;/b&gt; and &lt;b&gt;Myrtle-Wyckoff Avs&lt;/b&gt;.&lt;br&gt;[M] trains operate &lt;i&gt;weekend&lt;/i&gt; service between &lt;b&gt;Broadway Junction [J] &lt;/b&gt;and &lt;b&gt;Essex St&lt;/b&gt;.&lt;br&gt;&lt;br&gt;&lt;b&gt;Overnight&lt;/b&gt; [SB] free shuttle buses connect &lt;b&gt;Queens Plaza&lt;/b&gt; &lt;br clear=left&gt;and &lt;b&gt;Court Sq-23 St &lt;/b&gt;[7] stopping at &lt;b&gt;21 St-Queensbridge&lt;/b&gt; [E] [F]. &lt;br&gt;&lt;br&gt;&lt;table class=plannedworkTableStyle  width=70%&gt;&lt;tr&gt;&lt;td&gt;&lt;font size=3&gt;&lt;b&gt;Travel Alternatives&lt;/b&gt;&lt;/font&gt;&lt;td align=right&gt;[TP]&lt;/table&gt;&lt;br&gt;For &lt;b&gt;JFK Airport&lt;/b&gt;, take the Far Rockaway-bound [A] to Howard Beach-JFK Airport.&lt;br&gt;&lt;br&gt;For &lt;a href=http://web.mta.info/nyct/service/AirlineTerminalRrelocations%20at%20LaGuardiaAirport.htm target=_blank&gt;&lt;font color=#0000FF&gt;&lt;b&gt;LaGuardia Airport&lt;/b&gt;&lt;/font&gt;&lt;/a&gt;, take the [7] or [E] (from 6 Av) to 74 St-Roosevelt Av,&lt;br clear=left&gt;for the &lt;a href=http://web.mta.info/mta/planning/sbs/Q70SBS.html target=_blank&gt;&lt;font color=#0000FF&gt;LaGuardia Link Q70 SBS&lt;/font&gt;&lt;/a&gt;&lt;/font&gt;.&lt;br&gt;&lt;br&gt;For &lt;b&gt;Port Authority Bus Terminal&lt;/b&gt;, all &lt;b&gt;8 Av [E] stations&lt;/b&gt; and overnight service &lt;br&gt;between &lt;b&gt;W 4 St&lt;/b&gt; and &lt;b&gt;World Trade Center&lt;/b&gt;, take the [A] or [C].&lt;br&gt;&lt;br&gt;For&lt;b&gt; 53 St [E] stations&lt;/b&gt;, use the &lt;a href=http://web.mta.info/weekender/tileMap.html?staID=10065 target=_blank&gt;&lt;font color=#0000FF&gt;nearby 51 St &lt;/font&gt;&lt;/a&gt; [6] or &lt;a href=http://web.mta.info/weekender/tileMap.html?staID=10212 target=_blank&gt;&lt;font color=#0000FF&gt;7 Av &lt;/font&gt;&lt;/a&gt; [B] [D] Stations.&lt;br&gt;&lt;br&gt;For [M] &lt;b&gt;stations&lt;/b&gt;, take the [E] [F] [R] and/or [J].&lt;br&gt;&lt;br&gt;Take the [7] for &lt;b&gt;Court Sq-23 St [G]&lt;/b&gt;, and the [R] (&lt;i&gt;days/evenings&lt;/i&gt;) for &lt;b&gt;Queens Plaza&lt;br clear=left&gt;&lt;/b&gt;or free overnight shuttle buses.&lt;br&gt;&lt;br&gt;&lt;a href=http://www.mta.info/subway-service-change target=_blank&gt;&lt;font color=#0000FF&gt;Click here&lt;/font&gt;&lt;/a&gt; for details about this Subway Action Plan.&lt;br&gt;&lt;br&gt;&lt;/font&gt;*9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29 [E] trains run &lt;i&gt;to/from&lt;/i&gt; 2 Av [F] station after W 4 St.&lt;br&gt;&lt;br&gt;&lt;table class=plannedworkTableStyle  border=1 cellspacing=1 cellpadding=5 rules=none frame=box&gt;&lt;td&gt;  [ad]  &lt;td&gt;&lt;font size=1&gt;This service change affects one or more ADA accessible stations. Please call 511 for help with planning&lt;br clear=left&gt;your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.  &lt;/font&gt;&lt;/table&gt;&lt;br&gt;&lt;b&gt;&lt;br&gt;"
+                    ],
+                    "Planned": [
+                      "true"
+                    ],
+                    "ReasonName": [
+                      "Planned Work"
+                    ],
+                    "MessagePriority": [
+                      "\r\n                  1\r\n                "
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_E"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_E"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_M"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_M"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "diverted"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "CreationTime": [
+                      "2017-12-04T00:00:00-05:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_172634"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2017-12-04T00:00:00-05:00"
+                        ],
+                        "EndTime": [
+                          "2017-12-08T23:59:00-05:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "TRACK MAINTENANCE  [E]  No trains between W 4  St and World Trade Center [A] [C] trains provide alternate service",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "TRACK MAINTENANCE  [E]  No trains between W 4  St and World Trade Center [A] [C] trains provide alternate service",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "&lt;b&gt;&lt;i&gt;TRACK MAINTENANCE&lt;/i&gt;&lt;br clear=left&gt;[E]&lt;/font&gt; No trains between W 4&lt;/font&gt; St and World Trade Center&lt;br clear=left&gt;[A] [C] trains provide alternate service&lt;/b&gt;Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8&lt;br&gt;&lt;br&gt;[E] service operates between &lt;b&gt;Jamaica Center&lt;/b&gt; and &lt;b&gt;W 4 St&lt;/b&gt;, and via the [F] &lt;i&gt;to/from&lt;/i&gt; &lt;b&gt;2 Av&lt;/b&gt;.&lt;br&gt;&lt;br&gt;For Spring St*, Canal St and World Trade Center (Chambers St), take the [A] or [C] instead.&lt;br&gt;&lt;br&gt; Transfer between trains at W 4 St.&lt;br&gt;&lt;br&gt;&lt;i&gt;*Please review [A] [C] advisories for additional information that may affect your trip.&lt;br&gt;&lt;/i&gt;&lt;b&gt;&lt;br&gt;"
+                    ],
+                    "Planned": [
+                      "true"
+                    ],
+                    "ReasonName": [
+                      "Planned Work"
+                    ],
+                    "MessagePriority": [
+                      "\r\n                  1\r\n                "
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_E"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_E"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "noService"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "CreationTime": [
+                      "2017-12-06T18:52:31.89-05:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_05130d14-2230-4e6f-9257-1e53faab9e50"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2017-12-06T18:28:00-05:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "[2], [3], [4] and [5] trains are running with delays in both directions because of a person struck by a train at Atlantic Av-Barclays Ctr.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "<P>Some southbound [2] and [3] trains end at <STRONG>Chambers St</STRONG> or <STRONG>Wall St</STRONG>. </P>\r\n<P>Some southbound [2] and [3] trains are stopping along the [1] line from <STRONG>Chambers St</STRONG> to <STRONG>South Ferry</STRONG> then end. </P>\r\n<P>Southbound [4] and [5] trains end at <STRONG>Bowling Green</STRONG> or <STRONG>Brooklyn Bridge-City Hall</STRONG>. </P>\r\n<P>These service changes are because of a person struck by a train at <STRONG>Atlantic Av-Barclays Ctr</STRONG>. </P>",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "Some southbound [2] and [3] trains end at Chambers St or Wall St. \r\nSome southbound [2] and [3] trains are stopping along the [1] line from Chambers St to South Ferry then end. \r\nSouthbound [4] and [5] trains end at Bowling Green or Brooklyn Bridge-City Hall. \r\nThese service changes are because of a person struck by a train at Atlantic Av-Barclays Ctr. "
+                    ],
+                    "Planned": [
+                      "false"
+                    ],
+                    "ReasonName": [
+                      "Service Change"
+                    ],
+                    "MessagePriority": [
+                      "3"
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_2"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_2"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_3"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_3"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_4"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_4"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_5"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_5"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "altered"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+				  {
+                    "CreationTime": [
+                      "2017-12-11T08:13:55.557-05:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_d0283bcc-95e1-47e8-9e44-e2628314fdcd"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2017-12-11T07:32:00-05:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "[1] [2] [3] [N] [R] [Q] [W] and [7] trains are bypassing Times Sq-42 St in both directions, [A] [C] and [E] trains are bypassing 42 St/Port Authotiy.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "<P>[1] [2] [3] [N] [Q] [R] [W] and [7] trains are bypassing <STRONG>Times Sq-42 St</STRONG> in both directions.</P>\r\n<P>[A] [C] and [E] trains are bypassing<STRONG> 42 St/Port Authority-Bus Terminal</STRONG> in both directions.</P>\r\n<P>There is no [S] 42 St shuttle service in both directions.</P>\r\n<P>[A] and [C] trains are stopping along the [D] line between<STRONG> W 4 St-Washington Sq</STRONG> and<STRONG> 59 St-Columbus Circle</STRONG> in both directions.</P>\r\n<P>There is no [B] train service between <STRONG>Bedford Park Blvd</STRONG> and<STRONG> Brighton Beach</STRONG> in both directions.</P>\r\n<P>[E] Trains are stopping along the [F] line between <STRONG>Jackson Hts-Roosevelt Av </STRONG>and <STRONG>W 4 St-Washington Sq</STRONG> in both directions.</P>\r\n<P>No [L] train service between <STRONG>8 Av</STRONG> and <STRONG>6 Av</STRONG> in both directions.</P>\r\n<P>[M] Trains are running between <STRONG>Delancey-Essex St</STRONG> and <STRONG>Forest Hills-71 Av.</STRONG></P>\r\n<P>These service changes are because of an NYPD investigation at <STRONG>42 St/Port Authority-Bus Terminal.</STRONG></P>",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "[1] [2] [3] [N] [Q] [R] [W] and [7] trains are bypassing Times Sq-42 St in both directions.\r\n[A] [C] and [E] trains are bypassing 42 St/Port Authority-Bus Terminal in both directions.\r\nThere is no [S] 42 St shuttle service in both directions.\r\n[A] and [C] trains are stopping along the [D] line between W 4 St-Washington Sq and 59 St-Columbus Circle in both directions.\r\nThere is no [B] train service between Bedford Park Blvd and Brighton Beach in both directions.\r\n[E] Trains are stopping along the [F] line between Jackson Hts-Roosevelt Av and W 4 St-Washington Sq in both directions.\r\nNo [L] train service between 8 Av and 6 Av in both directions.\r\n[M] Trains are running between Delancey-Essex St and Forest Hills-71 Av.\r\nThese service changes are because of an NYPD investigation at 42 St/Port Authority-Bus Terminal."
+                    ],
+                    "Planned": [
+                      "false"
+                    ],
+                    "ReasonName": [
+                      "Service Change"
+                    ],
+                    "MessagePriority": [
+                      "3"
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_1"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_1"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_2"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_2"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_3"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_3"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_7"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_7"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_A"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_A"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_B"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_B"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_C"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_C"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_E"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_E"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_GS"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_GS"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_L"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_L"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_N"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_N"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_Q"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_Q"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_R"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_R"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_W"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_W"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "altered"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "CreationTime": [
+                      "2017-12-11T00:00:00-05:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_173510"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2017-12-11T00:00:00-05:00"
+                        ],
+                        "EndTime": [
+                          "2017-12-15T23:59:00-05:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "SIGNAL MAINTENANCE  [A] Trains run via the [F] in both directions between W 4 St and Jay St-MetroTech  [E] and [J] trains provide alternate service",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "SIGNAL MAINTENANCE  [A] Trains run via the [F] in both directions between W 4 St and Jay St-MetroTech  [E] and [J] trains provide alternate service",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "&lt;b&gt;&lt;i&gt;SIGNAL MAINTENANCE&lt;/i&gt;&lt;br clear=left&gt;[A] Trains run via the [F] in both directions between W 4 St and Jay St-MetroTech[E] and [J] trains provide alternate service&lt;br&gt;&lt;/b&gt;Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 11 - 15 &lt;br&gt;&lt;br&gt;No [A] [C] service at &lt;b&gt;Spring&lt;/b&gt;, &lt;b&gt;Canal&lt;/b&gt;, &lt;b&gt;Chambers&lt;/b&gt;, &lt;b&gt;Fulton&lt;/b&gt; and &lt;b&gt;High Sts&lt;/b&gt;.&lt;br&gt;&lt;br&gt;&lt;/font&gt;&lt;table class=plannedworkTableStyle  width=80%&gt;&lt;tr&gt;&lt;td&gt;&lt;font size=3&gt;&lt;b&gt;Travel Alternatives&lt;/b&gt;&lt;/font&gt;&lt;td align=right&gt;[TP]&lt;/table&gt;&lt;br&gt;For &lt;b&gt;Spring, Canal, &lt;/b&gt;and&lt;b&gt; Chambers Sts&lt;/b&gt;, take the &lt;b&gt;[E]&lt;/b&gt; instead. Transfer between trains at W 4 St.&lt;br&gt;&lt;br&gt;For &lt;b&gt;Fulton St&lt;/b&gt;, take the &lt;b&gt;[J]&lt;/b&gt; instead. Transfer between trains at Delancey St/Essex St [F] Station.&lt;br&gt;&lt;i&gt;Or&lt;/i&gt;, use the nearby &lt;a href=http://web.mta.info/weekender/tileMap.html?staID=10320 target=_blank&gt;&lt;font color=#0000FF&gt;World Trade Center&lt;/font&gt;&lt;/a&gt; [E] Station. Transfer between trains at W 4 St.&lt;br&gt;&lt;br&gt;&lt;/font&gt;For &lt;b&gt;High St&lt;/b&gt;, use the nearby &lt;a href=http://web.mta.info/weekender/tileMap.html?staID=10262 target=_blank&gt;&lt;font color=#0000FF&gt;York St&lt;/font&gt;&lt;/a&gt; [F] Station instead.&lt;br&gt;&lt;br&gt;&lt;table class=plannedworkTableStyle  border=1 cellspacing=1 cellpadding=5 rules=none frame=box&gt;&lt;td&gt;  [ad]  &lt;td&gt;&lt;font size=1&gt;This service change affects one or more ADA accessible stations. Please call 511 for help with planning&lt;br&gt;your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.  &lt;/font&gt;&lt;/table&gt;&lt;br&gt;&lt;b&gt;&lt;br&gt;"
+                    ],
+                    "Planned": [
+                      "true"
+                    ],
+                    "ReasonName": [
+                      "Planned Work"
+                    ],
+                    "MessagePriority": [
+                      "\r\n                  1\r\n                "
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_A"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_A"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "diverted"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "CreationTime": [
+                      "2017-12-11T00:00:00-05:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_173647"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2017-12-11T00:00:00-05:00"
+                        ],
+                        "EndTime": [
+                          "2017-12-15T23:59:00-05:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "FASTRACK PROGRAM  [N] No trains in Manhattan [Q] Trains are rerouted in Manhattan [R] Service ends early in Manhattan and Queens",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "FASTRACK PROGRAM  [N] No trains in Manhattan [Q] Trains are rerouted in Manhattan [R] Service ends early in Manhattan and Queens",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "&lt;b&gt;&lt;i&gt;FASTRACK PROGRAM&lt;/i&gt;&lt;br clear=left&gt;[N] No trains in Manhattan&lt;br clear=left&gt;[Q] Trains are rerouted in Manhattan&lt;br clear=left&gt;[R] Service ends early in Manhattan and Queens&lt;/b&gt;Late Nights, 9:30 PM to 5 AM, Mon to Fri, Dec 11 - 15&lt;br&gt;&lt;br&gt;&lt;b&gt;[N]&lt;/b&gt; &lt;b&gt;service operates in two sections&lt;/b&gt;:&lt;br&gt;  1. Between &lt;b&gt;Stillwell Av and Atlantic Av-Barclays Ctr&lt;/b&gt;, and via the &lt;b&gt;[R]&lt;/b&gt; &lt;i&gt;to/from&lt;/i&gt; &lt;b&gt;Court St&lt;br&gt;&lt;/b&gt;  2. Between &lt;b&gt;Queensboro Plaza&lt;/b&gt; and &lt;b&gt;Ditmars Blvd&lt;br&gt;&lt;br&gt;[Q]&lt;/b&gt; service operates between &lt;b&gt;Stillwell Av&lt;/b&gt; and &lt;b&gt;96 St&lt;/b&gt;, and is rerouted as follows:&lt;br&gt;   Via the &lt;b&gt;[D]&lt;/b&gt; between &lt;b&gt;DeKalb Av&lt;/b&gt; and &lt;b&gt;47-50 Sts&lt;/b&gt;.&lt;br&gt;   Via the &lt;b&gt;[F]&lt;/b&gt; between &lt;b&gt;47-50 Sts&lt;/b&gt; and &lt;b&gt;Lexington Av/63 St&lt;/b&gt;. &lt;br&gt;&lt;br&gt;[W] service ends early.&lt;br&gt;&lt;br&gt;&lt;table class=plannedworkTableStyle  width=87%&gt;&lt;tr&gt;&lt;td&gt;&lt;font size=3&gt;&lt;b&gt;Travel Alternatives&lt;/b&gt;&lt;/font&gt;&lt;td align=right&gt;[TP]&lt;/table&gt;&lt;br&gt;&lt;/font&gt; Take the [2] [4] [A] [D] [F] [Q] for service between Brooklyn and Manhattan.&lt;br&gt; Take the [7] for service between Manhattan and Queens.&lt;br&gt;  Take the [M] and &lt;i&gt;local &lt;/i&gt;[E] for service in Queens.&lt;br&gt;&lt;br&gt;&lt;table class=plannedworkTableStyle  width=100% cellpadding=3 rules=rows frame=hsides&gt;&lt;tr bgcolor=FAF8CC&gt;&lt;td&gt;&lt;b&gt;Affected Station&lt;/b&gt;&lt;td&gt;&lt;b&gt;Nearby Station&lt;/b&gt;&lt;tr&gt;&lt;td rowspan=2&gt;Whitehall St&lt;td&gt;Bowling Green [4] [5] | [ad]&lt;tr&gt;&lt;td&gt;South Ferry [1] | [ad]&lt;tr&gt;&lt;td rowspan=2&gt;Rector St&lt;td&gt;Rector St [1]&lt;tr&gt;&lt;td&gt;Wall St [4] [5]&lt;tr&gt;&lt;td&gt;Cortlandt St&lt;td&gt;Fulton St [2] [3] [4] [5] [A] [C] [J] | [ad]&lt;tr&gt;&lt;td rowspan=2&gt;City Hall&lt;td&gt;Park Place [2] [3]&lt;tr&gt;&lt;td&gt;Brooklyn Bridge [4] [5] [6] | [ad]&lt;tr&gt;&lt;td&gt;Canal St [4] &lt;i&gt;local&lt;/i&gt;, [6]&lt;td&gt;Grand St  [B] [D] [Q]&lt;tr&gt;&lt;td rowspan=2&gt;Prince St&lt;td&gt;Bleecker St/B'way-Lafayette St [4] &lt;i&gt;local&lt;/i&gt;, [6] [B] [D] [F] [M] [Q] | [ad]&lt;tr&gt;&lt;td&gt;Spring St  [4] &lt;i&gt;local&lt;/i&gt;, [6]&lt;tr&gt;&lt;td&gt;8 St-NYU&lt;td&gt;Astor Pl  [4] &lt;i&gt;local&lt;/i&gt;, [6]&lt;tr&gt;&lt;td&gt;14 St-Union Sq [4] [6] [L]&lt;td&gt;14 St [F]&lt;tr&gt;&lt;td rowspan=3&gt;23 St&lt;td&gt;23 St [F]&lt;tr&gt;&lt;td&gt;23 St [4] &lt;i&gt;local&lt;/i&gt;, [6] | [ad]&lt;tr&gt;&lt;td&gt;23 St [1] [2] &lt;i&gt;local&lt;/i&gt;&lt;tr&gt;&lt;td rowspan=2&gt;28 St&lt;td&gt;28 St [4] &lt;i&gt;local&lt;/i&gt;, [6]&lt;tr&gt;&lt;td&gt;28 St [1] [2] &lt;i&gt;local&lt;/i&gt;&lt;tr&gt;&lt;td&gt;34 St-Herald Sq [B] [D] [F] [Q] | [ad]&lt;td&gt;34 St-Penn Station [1] [2] [3] | [ad]&lt;tr&gt;&lt;td&gt;Times Sq-42 St/Port Authority&lt;br&gt;[1] [2] [3]  [7] [A] [C] [E] | [ad]&lt;br&gt;&lt;font size=1&gt;&lt;i&gt;(Passageway not accessible)&lt;/i&gt;&lt;/font&gt;&lt;td&gt;5 Av/42 St-Bryant Pk [7] [B] [D] [F] [M] [Q]&lt;tr&gt;&lt;td rowspan=2&gt;49 St&lt;td&gt;50 St [1] [2] &lt;i&gt;local&lt;/i&gt;&lt;tr&gt;&lt;td&gt;47-50 Sts [B] [D] [F] [M] [Q] | [ad]&lt;tr&gt;&lt;td&gt;57 St-7 Av&lt;td&gt;7 Av [B] [D] [E]&lt;tr&gt;&lt;td rowspan=3&gt;5 Av/59 St&lt;td&gt;57 St [F] [Q]&lt;tr&gt;&lt;td&gt;59 St [4] [5] [6]&lt;tr&gt;&lt;td&gt;5 Av/53 St [E] [M]&lt;tr&gt;&lt;td rowspan=2&gt;Lexington Av/59 St  [4] [5] [6]&lt;td&gt;Lexington Av/53 St [E] [M] | [ad]&lt;tr&gt;&lt;td&gt;Lexington Av/63 St [F] [Q] | [ad]&lt;/table&gt;&lt;br&gt;&lt;table class=plannedworkTableStyle  width=90% cellpadding=3 rules=rows frame=hsides&gt;&lt;tr bgcolor=000000&gt;&lt;td colspan=2&gt;&lt;font color=#FAF8CC&gt;&lt;b&gt;Key Transfer Stations&lt;/b&gt;&lt;/font&gt;&lt;tr&gt;&lt;td&gt;Atlantic Av-Barclays Ctr [ad]&lt;td&gt;[2] [3] [4] [B] [D] [N] [Q] [R]&lt;tr&gt;&lt;td&gt;Jay St-MetroTech [ad]&lt;td&gt;[A] [C] [F] [N]&lt;tr&gt;&lt;td&gt;Court St/Borough Hall&lt;td&gt;[2] [3] [4] [N]&lt;br&gt;[ad] &lt;font size=1&gt;&lt;i&gt;&lt;b&gt;2&lt;/b&gt;,&lt;b&gt; 3&lt;/b&gt;, northbound &lt;b&gt;4&lt;/b&gt; and &lt;b&gt;5&lt;/b&gt;&lt;/i&gt;&lt;/font&gt;&lt;tr&gt;&lt;td&gt;Bleecker St/&lt;br&gt;B'way-Lafayette St [ad]&lt;td&gt;[4] &lt;i&gt;local&lt;/i&gt;, [6] [B] [D] [F] [M] [Q]&lt;tr&gt;&lt;td&gt;Times Sq-42 St/Port Authority &lt;br&gt;[ad] &lt;font size=1&gt;&lt;i&gt;(Passageway&lt;i&gt; &lt;/i&gt;not accessible)&lt;/i&gt;&lt;/font&gt;&lt;td&gt;[1] [2] [3] [7] [A] [C] [E]&lt;tr&gt;&lt;td&gt;5 Av/42 St-Bryant Pk&lt;td&gt;[7] [B] [D] [F] [M] [Q]&lt;tr&gt;&lt;td&gt;Queensboro Plaza&lt;td&gt;[7]  [N]&lt;/table&gt;&lt;br&gt;&lt;/font&gt;&lt;b&gt;Reminder:&lt;/b&gt; During late nights, all alternate stations are served, though not all lines run.&lt;br&gt;&lt;br&gt;&lt;table class=plannedworkTableStyle  border=1 cellspacing=1 cellpadding=5 rules=none frame=box&gt;&lt;td&gt;  [ad]  &lt;td&gt;&lt;font size=1&gt;This service change affects one or more ADA accessible stations. Please call 511 for help with planning&lt;br&gt;your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.  &lt;/font&gt;&lt;/table&gt;&lt;br&gt;&lt;b&gt;&lt;br&gt;"
+                    ],
+                    "Planned": [
+                      "true"
+                    ],
+                    "ReasonName": [
+                      "Planned Work"
+                    ],
+                    "MessagePriority": [
+                      "\r\n                  1\r\n                "
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_N"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_N"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_Q"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_Q"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_R"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_R"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "noService"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "CreationTime": [
+                      "2017-12-26T00:00:00-05:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_174572"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2017-12-26T00:00:00-05:00"
+                        ],
+                        "EndTime": [
+                          "2017-12-29T23:59:00-05:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "TRACK MAINTENANCE  [W] No trains between 57 St-7 Av and Ditmars Blvd - Take the [N] instead [W] trains run every 20 minutes in Manhattan",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "TRACK MAINTENANCE  [W] No trains between 57 St-7 Av and Ditmars Blvd - Take the [N] instead [W] trains run every 20 minutes in Manhattan",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "&lt;b&gt;&lt;i&gt;TRACK MAINTENANCE&lt;/i&gt;&lt;br clear=left&gt;[W] No trains between 57 St-7 Av and Ditmars Blvd - Take the [N] instead&lt;br clear=left&gt;[W] trains run every 20 minutes in Manhattan&lt;/b&gt;Days, 10 AM to 3:30 PM, Tue to Fri, Dec 26 - 29&lt;br&gt;&lt;br&gt;[W] service operates between &lt;b&gt;Whitehall St&lt;/b&gt; and &lt;b&gt;57 St-7 Av, &lt;/b&gt;and via the [Q] &lt;i&gt;to/from &lt;/i&gt;&lt;b&gt;96 St&lt;/b&gt;.&lt;br&gt;&lt;br&gt; Transfer between [N]* and [W] trains at Times Sq-42 St (across the platform).          &lt;/font&gt;&lt;a href=http://apps.mta.info/traintime/ target=_blank&gt;&lt;img height=32px src=http://apps.mta.info/traintime/desktop2Images/logoSm.png&gt;&lt;/a&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;*Please review [N] advisories for additional information that may affect your trip.&lt;br&gt;&lt;br&gt;&lt;b&gt;Alternate travel note:&lt;br&gt;&lt;/b&gt;&lt;/i&gt;[R] service is also available at 5 Av/59 St and Lexington Av/59 St. &lt;br&gt;Transfer between [R] and [W] trains at 57 St-7 Av.&lt;br&gt;&lt;b&gt;&lt;br&gt;"
+                    ],
+                    "Planned": [
+                      "true"
+                    ],
+                    "ReasonName": [
+                      "Planned Work"
+                    ],
+                    "MessagePriority": [
+                      "\r\n                  1\r\n                "
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_W"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_W"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "noService"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "CreationTime": [
+                      "2017-12-26T00:00:00-05:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_175740"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2017-12-26T00:00:00-05:00"
+                        ],
+                        "EndTime": [
+                          "2017-12-29T23:59:00-05:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "TRACK MAINTENANCE  [E]",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "TRACK MAINTENANCE  [E]",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "&lt;b&gt;&lt;i&gt;TRACK MAINTENANCE&lt;/i&gt;&lt;br clear=left&gt;[E]&lt;/b&gt;&lt;/font&gt; &lt;b&gt;No trains between W 4&lt;/font&gt; St and World Trade Center&lt;br clear=left&gt;[A] [C] trains provide alternate service&lt;/b&gt;Late Nights, 9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29&lt;br&gt;&lt;br&gt;&lt;i&gt;After&lt;/i&gt; W 4 St, [E] trains run to/from the 2 Av [F] Station.&lt;br&gt;&lt;br&gt;For Spring St*, Canal St and World Trade Center (Chambers St), take the [A] or [C] instead.&lt;br&gt;&lt;br&gt; Transfer between trains at W 4 St.&lt;br&gt;&lt;br&gt;&lt;i&gt;*Please review [A] [C] advisories for additional information that may affect your trip.&lt;br&gt;&lt;/i&gt;&lt;b&gt;&lt;br&gt;"
+                    ],
+                    "Planned": [
+                      "true"
+                    ],
+                    "ReasonName": [
+                      "Planned Work"
+                    ],
+                    "MessagePriority": [
+                      "\r\n                  1\r\n                "
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_E"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_E"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "noService"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "CreationTime": [
+                      "2017-12-27T22:39:48.613-05:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_380e324e-31ab-4890-aa90-47f7e7e60677"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2017-12-27T22:35:00-05:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "Southbound [D] via [C] 59 St to W 4 St then via [F] to Stillwell Av because of a rail condition at 59 St.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "<P>Southbound [D] trains are stopping along the [C] line from <STRONG>59 St-Columbus&nbsp;Circle </STRONG>to <STRONG>W 4 St-Wash Sq</STRONG>&nbsp;then&nbsp;along the&nbsp;[F] line to<STRONG> Coney Island-Stillwell Av.</STRONG></P>\r\n<P>Southbound [A] trains are running local from <STRONG>59 St-Columbus Circle</STRONG> to <STRONG>W 4 St-Wash Sq</STRONG>.</P>\r\n<P>Expect delays on [A] [C] [D] and [F] trains.</P>\r\n<P>These service changes are because of a rail condition at <STRONG>59 St-</STRONG><STRONG>Columbus Circle</STRONG>.</P>",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "Southbound [D] trains are stopping along the [C] line from 59 St-Columbus&nbsp;Circle to W 4 St-Wash Sq&nbsp;then&nbsp;along the&nbsp;[F] line to Coney Island-Stillwell Av.\r\nSouthbound [A] trains are running local from 59 St-Columbus Circle to W 4 St-Wash Sq.\r\nExpect delays on [A] [C] [D] and [F] trains.\r\nThese service changes are because of a rail condition at 59 St-Columbus Circle."
+                    ],
+                    "Planned": [
+                      "false"
+                    ],
+                    "ReasonName": [
+                      "Service Change"
+                    ],
+                    "MessagePriority": [
+                      "3"
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_A"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_C"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_D"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_F"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "altered"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

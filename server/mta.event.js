@@ -371,6 +371,7 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 
 				if (!c.route[j]) {
 					c.route.push({
+						lines: [],
 						along: null,
 						from: null,
 						to: null,
@@ -380,6 +381,7 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 					case 1:
 					case 2:
 						c.trains.push(unwrapTrain(item));
+						c.route[j].lines.push(unwrapTrain(item));
 						break;
 					case 3:
 					case 6:
