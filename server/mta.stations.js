@@ -156,8 +156,6 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 			let res_re = mtaRegEx.matchRegexString(stations[s].regex, message);
 
 			// Check station ID against message.
-			
-
 			if (res_re !== false) {
 				results[s] = res_re;
 				result_message = result_message.replace(res_re, '[' + s +']');

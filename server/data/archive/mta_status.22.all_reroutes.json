@@ -1276,7 +1276,7 @@
                     ],
                     "Summary": [
                       {
-                        "_": "Southbound 2 trains are stopping along the 5 line from 149 St-Grand Concourse to Nevins St. Some northbound 3 trains are stopping along the 1 line from 96 St to 137 St-City College then end. Some northbound 3 trains end at Times Sq-42 St. Some southbound 3 trains end at Central Park North (110 St). Expect delays to 1, 2, 3, 4 and 5 train service. These service changes are because of a train with mechanical problems at 96 St.",
+                        "_": "Southbound [2] trains are stopping along the [5] line from 149 St-Grand Concourse to Nevins St. Some northbound [3] trains are stopping along the [1] line from 96 St to 137 St-City College then end. Some northbound [3] trains end at Times Sq-42 St. Some southbound [3] trains end at Central Park North (110 St). Expect delays to [1], [2], [3], [4] and [5] train service. These service changes are because of a train with mechanical problems at 96 St.",
                         "$": {
                           "xml:lang": "EN"
                         }
@@ -1284,14 +1284,14 @@
                     ],
                     "Description": [
                       {
-                        "_": "Southbound 2 trains are stopping along the 5 line from 149 St-Grand Concourse to Nevins St. Some northbound 3 trains are stopping along the 1 line from 96 St to 137 St-City College then end. Some northbound 3 trains end at Times Sq-42 St. Some southbound 3 trains end at Central Park North (110 St). Expect delays to 1, 2, 3, 4 and 5 train service. These service changes are because of a train with mechanical problems at 96 St.",
+                        "_": "Southbound [2] trains are stopping along the [5] line from 149 St-Grand Concourse to Nevins St. Some northbound [3] trains are stopping along the [1] line from 96 St to 137 St-City College then end. Some northbound [3] trains end at Times Sq-42 St. Some southbound [3] trains end at Central Park North (110 St). Expect delays to [1], [2], [3], [4] and [5] train service. These service changes are because of a train with mechanical problems at 96 St.",
                         "$": {
                           "xml:lang": "EN"
                         }
                       }
                     ],
                     "LongDescription": [
-                      "Southbound 2 trains are stopping along the 5 line from 149 St-Grand Concourse to Nevins St. Some northbound 3 trains are stopping along the 1 line from 96 St to 137 St-City College then end. Some northbound 3 trains end at Times Sq-42 St. Some southbound 3 trains end at Central Park North (110 St). Expect delays to 1, 2, 3, 4 and 5 train service. These service changes are because of a train with mechanical problems at 96 St."
+                      "Southbound [2] trains are stopping along the [5] line from 149 St-Grand Concourse to Nevins St. Some northbound [3] trains are stopping along the [1] line from 96 St to 137 St-City College then end. Some northbound [3] trains end at Times Sq-42 St. Some southbound [3] trains end at Central Park North (110 St). Expect delays to [1], [2], [3], [4] and [5] train service. These service changes are because of a train with mechanical problems at 96 St."
                     ],
                     "Planned": [
                       "false"
@@ -1393,7 +1393,7 @@
                                 "DirectionRef": [
                                   "1"
                                 ]
-                              },
+                              }
                             ]
                           }
                         ]
@@ -1413,7 +1413,11 @@
                         ]
                       }
                     ]
-                  },
+                  }
+
+
+
+
                 ]
               }
             ]

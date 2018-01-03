@@ -46,6 +46,10 @@ function getSubwayStatus (mta_status_file, cacheMinutes) {
 
 	return new Promise ( (resolve, reject) => {
 
+		if (mta_status_file.indexOf('.json') !== -1) {
+			console.warn('JSON extension already in file name!');
+		}
+
 		loadStatusFromFile(mta_status_file + '.json', 'json')
 
 			// results.Siri.ServiceDelivery[0].ResponseTimestamp[0]
@@ -56,7 +60,14 @@ function getSubwayStatus (mta_status_file, cacheMinutes) {
 				: Promise.reject('Refresh data, please.'))
 
 			// If we couldn't get it, load from mta.info's API.
-			.catch(err => getLocation(url, mta_status_file))
+			.catch(err => {
+				console.warn('\n\n','  <!> -- Error checking cache file -- <!> \n', err);
+				if (cacheMinutes === false) {
+					throw new Error('Error loading file during archive mode.');
+				}
+			
+				return getLocation(url, mta_status_file);
+			})
 
 			// Catch an errors from API load or 
 			.catch(err => console.error('Problem after loading API data. ', err))
@@ -115,6 +126,11 @@ function getLocation (url, filename) {
 
 
 function checkFreshnessDate(packed_date, expires) {
+
+	if (expires === false) {
+		console.log(' -- [', 'Cached timing disabled. Using cached data.', '] --');
+		return true;
+	}
 
 	let lastUpdated = new Date(packed_date);
 	let expiresIn = new Date(packed_date);
