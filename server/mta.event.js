@@ -345,13 +345,13 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 	// p = /(\[[A-Z0-9]\](?:and|\s)*)+(?:\s|[^\[\]])*(?:(\[[ABCDEFGJLMNQRSTWZ0-9]\])+(?:\s|[^\[\]])*(?:(\[[A-Z]{2}[A-Z0-9]{2,4}\-[A-Z0-9]{3,5}\])+(?:\s|[^\[\]])*)+)+/i;
 
 	// Works for: A & C along the D from [] to [], then the [F] to [blah]
-	let reroute_pattern = /(\[[A-Z0-9]\])+(?:\s|[^\[\]])*(\[[A-Z0-9]\](?:\s)*)*(?:\s|[^\[\]])*(\[[A-Z0-9]\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{2,4}\-[A-Z0-9]{3,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{2,4}\-[A-Z0-9]{3,5}\])(?:\s|[^\[\]])*(\[[A-Z0-9]\])*(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{2,4}\-[A-Z0-9]{3,5}\])*/i;
+	let reroute_pattern = /(\[[A-Z0-9]\])+(?:\s|[^\[\]])*(\[[A-Z0-9]\](?:\s)*)*(?:\s|[^\[\]])*(\[[A-Z0-9]\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z0-9]\])*(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])*/i;
 
 	function unwrapTrain(train) {
 		if (!train) { return train; };
 		train = train.replace('[', '');
 		train = train.replace(']', '');
-		return train;
+		return train.trim();
 	}
 
 	if (c) {
@@ -391,7 +391,8 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 						c.route[j].from = unwrapTrain(item);
 						break;
 					case 7:
-						c.route[j].from = c.route[j-1].from;
+						c.route[j].lines = (c.route[j-1].lines);
+						c.route[j].from = c.route[j-1].to;
 					case 5:
 						c.route[j].to = unwrapTrain(item);
 						break;

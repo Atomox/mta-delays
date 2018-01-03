@@ -94,13 +94,25 @@ let event_messages = {
 				route_change: {
 					message_raw: 'Some northbound [N] trains are stopping on the [Q] line from 57 St-7 Av and end at 96 St. Some northbound [R] trains are stopping on the [Q] line from 57 St-7 Av to Lexington Av-63 St, then over the [F] line from Lexington Av-63 St to Jackson Heights-Roosevelt Av.',
 					message: 'Some northbound [N] trains are stopping on the [Q] line from [Mn9-R14] and end at [Mn475-Q05]. Some northbound [R] trains are stopping on the [Q] line from [Mn9-R14] to [Mn223-B08], then over the [F] line from [Mn223-B08] to [Qs616-G14].',
-					trains: ['N'],
+					trains: ['N', 'R'],
 					route: [
 						{
 							lines: ['N'],
 							along: "Q",
 							from: 'Mn9-R14',
 							to: 'Mn475-Q05',
+						},
+						{
+							lines: ['R'],
+							along: 'Q',
+							from: 'Mn9-R14', 
+							to: 'Mn223-B08',
+						},
+						{
+							lines: ['R'],
+							along: 'F',
+							from: 'Mn223-B08',
+							to: 'Qs616-G14',
 						},
 					],
 				},
@@ -468,6 +480,7 @@ let event_messages = {
 				message: "Southbound [D] trains are stopping along the [C] line from 59 St-Columbus Circle to W 4 St-Wash Sq then along the [F] line to Coney Island-Stillwell Av.Southbound [A] trains are running local from 59 St-Columbus Circle to W 4 St-Wash Sq.Expect delays on [A] [C] [D] and [F] trains.These service changes are because of a rail condition at 59 St-Columbus Circle.",
 				alt_instructions: null,
 				ad_message: null,
+/**
 				route_change: {
 					message_raw: 'Southbound [D] trains are stopping along the [C] line from 59 St-Columbus Circle to W 4 St-Wash Sq then along the [F] line to Coney Island-Stillwell Av.',
 					message: 'Southbound [D] trains are stopping along the [C] line from [Mn614-A24] to [Mn167-A32] then along the [F] line to [Bk58-D43].',
@@ -487,6 +500,7 @@ let event_messages = {
 						},
 					],
 				},
+*/
 				line: [
 					{ line: 'MTA NYCT_A'},
 					{ line: 'MTA NYCT_C'},
@@ -561,6 +575,7 @@ let event_messages = {
 				time: null,
 				durration: null,
 				message: 'Southbound [N] trains are stopping along the [D] line from 36 St (Bklyn) to Coney Island-Stillwell Av because of signal problems between 8 Av and Bay Parkway.',
+/*
 				route_change: {
 					message_raw: 'Southbound [N] trains are stopping along the [D] line from 36 St (Bklyn) to Coney Island-Stillwell Av',
 					message: 'Southbound [N] trains are stopping along the [D] line from [Bk32-R36] to [Bk58-D43]',
@@ -574,6 +589,7 @@ let event_messages = {
 						},
 					],
 				},
+*/
 				line: [
 					{ line: 'MTA NYCT_N'},
 					{ line: 'MTA NYCT_D'},

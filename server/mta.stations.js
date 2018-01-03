@@ -132,6 +132,7 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 		line = getTrainById(line);
 
 		let stations = await getRouteStationsArray(line, true);
+
 		let results = {};
 		let result_message = (processed_message) ? processed_message : message;
 
@@ -173,6 +174,7 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 	}
 	catch(err) {
 		throw new Error('Error parsing message for stations: ' + err);
+		return results;
 	}
 }
 
