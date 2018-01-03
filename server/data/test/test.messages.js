@@ -480,7 +480,6 @@ let event_messages = {
 				message: "Southbound [D] trains are stopping along the [C] line from 59 St-Columbus Circle to W 4 St-Wash Sq then along the [F] line to Coney Island-Stillwell Av.Southbound [A] trains are running local from 59 St-Columbus Circle to W 4 St-Wash Sq.Expect delays on [A] [C] [D] and [F] trains.These service changes are because of a rail condition at 59 St-Columbus Circle.",
 				alt_instructions: null,
 				ad_message: null,
-/**
 				route_change: {
 					message_raw: 'Southbound [D] trains are stopping along the [C] line from 59 St-Columbus Circle to W 4 St-Wash Sq then along the [F] line to Coney Island-Stillwell Av.',
 					message: 'Southbound [D] trains are stopping along the [C] line from [Mn614-A24] to [Mn167-A32] then along the [F] line to [Bk58-D43].',
@@ -500,7 +499,6 @@ let event_messages = {
 						},
 					],
 				},
-*/
 				line: [
 					{ line: 'MTA NYCT_A'},
 					{ line: 'MTA NYCT_C'},
@@ -575,7 +573,6 @@ let event_messages = {
 				time: null,
 				durration: null,
 				message: 'Southbound [N] trains are stopping along the [D] line from 36 St (Bklyn) to Coney Island-Stillwell Av because of signal problems between 8 Av and Bay Parkway.',
-/*
 				route_change: {
 					message_raw: 'Southbound [N] trains are stopping along the [D] line from 36 St (Bklyn) to Coney Island-Stillwell Av',
 					message: 'Southbound [N] trains are stopping along the [D] line from [Bk32-R36] to [Bk58-D43]',
@@ -589,7 +586,6 @@ let event_messages = {
 						},
 					],
 				},
-*/
 				line: [
 					{ line: 'MTA NYCT_N'},
 					{ line: 'MTA NYCT_D'},
@@ -643,6 +639,45 @@ let event_messages = {
 					{ line: 'MTA NYCT_A'},
 					{ line: 'MTA NYCT_E'},
 					{ line: 'MTA NYCT_F'},
+				],
+			},
+			{
+				type: 'ServiceChange',
+				type_detail: [
+					"delays",
+					"switch_problems",
+					"route_change"
+				],
+				time: null,
+				durration: null,
+				message: '[1] [2] [3] [N] [Q] [R] [W] and [7] trains are bypassing Times Sq-42 St in both directions.[A] [C] and [E] trains are bypassing 42 St/Port Authority-Bus Terminal in both directions.There is no [S] 42 St shuttle service in both directions.[A] and [C] trains are stopping along the [D] line between W 4 St-Washington Sq and 59 St-Columbus Circle in both directions.There is no [B] train service between Bedford Park Blvd and Brighton Beach in both directions.[E] Trains are stopping along the [F] line between Jackson Hts-Roosevelt Av and W 4 St-Washington Sq in both directions.No [L] train service between 8 Av and 6 Av in both directions.[M] Trains are running between Delancey-Essex St and Forest Hills-71 Av.These service changes are because of an NYPD investigation at 42 St/Port Authority-Bus Terminal.',
+				route_change: {
+					message_raw: '[A] and [C] trains are stopping along the [D] line between W 4 St-Washington Sq and 59 St-Columbus Circle in both directions.[E] Trains are stopping along the [F] line between Jackson Hts-Roosevelt Av and W 4 St-Washington Sq in both directions.',
+					trains: ['F'],
+					route: [
+						{
+							lines: ['A', 'C'],
+							along: "D",
+							from: 'Mn167-A32',
+							to: 'Mn614-125',
+						},
+						{
+							lines: ['E'],
+							along: "F",
+							from: 'Qs616-G14',
+							to: 'Mn167-A32',
+						},
+					],
+				},
+				line: [
+					{ line: 'MTA NYCT_1'},
+					{ line: 'MTA NYCT_2'},
+					{ line: 'MTA NYCT_3'},
+					{ line: 'MTA NYCT_7'},
+					{ line: 'MTA NYCT_N'},
+					{ line: 'MTA NYCT_Q'},
+					{ line: 'MTA NYCT_R'},
+					{ line: 'MTA NYCT_W'},
 				],
 			},
 		],
