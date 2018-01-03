@@ -1259,7 +1259,161 @@
                         ]
                       }
                     ]
-                  }
+                  },
+                  {
+                    "CreationTime": [
+                      "2017-12-27T22:39:48.613-05:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_380e324e-31ab-4890-aa90-47f7e7e60677"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2018-01-02T16:50:00-05:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "Southbound 2 trains are stopping along the 5 line from 149 St-Grand Concourse to Nevins St. Some northbound 3 trains are stopping along the 1 line from 96 St to 137 St-City College then end. Some northbound 3 trains end at Times Sq-42 St. Some southbound 3 trains end at Central Park North (110 St). Expect delays to 1, 2, 3, 4 and 5 train service. These service changes are because of a train with mechanical problems at 96 St.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "Southbound 2 trains are stopping along the 5 line from 149 St-Grand Concourse to Nevins St. Some northbound 3 trains are stopping along the 1 line from 96 St to 137 St-City College then end. Some northbound 3 trains end at Times Sq-42 St. Some southbound 3 trains end at Central Park North (110 St). Expect delays to 1, 2, 3, 4 and 5 train service. These service changes are because of a train with mechanical problems at 96 St.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "Southbound 2 trains are stopping along the 5 line from 149 St-Grand Concourse to Nevins St. Some northbound 3 trains are stopping along the 1 line from 96 St to 137 St-City College then end. Some northbound 3 trains end at Times Sq-42 St. Some southbound 3 trains end at Central Park North (110 St). Expect delays to 1, 2, 3, 4 and 5 train service. These service changes are because of a train with mechanical problems at 96 St."
+                    ],
+                    "Planned": [
+                      "false"
+                    ],
+                    "ReasonName": [
+                      "Service Change"
+                    ],
+                    "MessagePriority": [
+                      "3"
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_1"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_1"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_2"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_2"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_3"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_3"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_4"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_4"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_5"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_5"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "altered"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
                 ]
               }
             ]

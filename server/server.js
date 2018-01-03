@@ -44,7 +44,7 @@ app.get(['/subway/status', '/subway/status/archive/:id'], (req, resp, next) => {
 		}
 	}
 
-	console.log(' -- [', 'Serving request from file: ', req_file, '] --');
+	console.log(' -- [', 'Serving request from file: ', req_file, ', with cache: ' + my_cache_time + '] --');
 
 	// Load the data.
 	// Check the filesystem first.
