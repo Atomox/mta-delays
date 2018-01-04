@@ -295,7 +295,8 @@ function getMessageDateTime(text) {
 function getMessageAlternateInstructions(text) {
 
 	// In Progress -- Reduction For service to these stations
-	let alternateInstructionPattern = /((\[TP\]|(\b(For\s*service\s*(to|from)|use\s*(nearby)?|take\s*the|Transfer\s*(to|between)?|Travel\s*Alternatives)\b))+((\s*((stations|these stations|trains|transfer\s*to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\.\/\:\;&\(\)\*]*)*)?)*(\s*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*\s*)*)+/i;
+	let alternateInstructionPattern = /((\[TP\]|(\b(For\s*service\s*(to|from)|use\s*(nearby)?|take\s*the|Transfer\s*(to|between)?|Travel\s*Alternatives|As\s*an\s*alternative\s*(?:customers\s*may\s*)take\s*the)\b))+((\s*((stations|these stations|trains|transfer\s*to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\.\/\:\;&\(\)\*]*)*)?)*(\s*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*\s*)*)+/i;
+
 
 	let results = text.match(alternateInstructionPattern);
 
@@ -347,7 +348,7 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 	// Works for: A & C along the D from [] to [], then the [F] to [blah]
 //	let reroute_pattern = /(\[[A-Z0-9]\])+(?:\s|[^\[\]])*(\[[A-Z0-9]\](?:\s)*)*(?:\s|[^\[\]])*(\[[A-Z0-9]\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z0-9]\])*(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])*/i;
 
-	let reroute_pattern = /\[([A-Z0-9])\](?:\s|[^\[\]])*(?:\[([A-Z0-9])\](?:\s)*)?(?:\s|[^\[\]])*\[([A-Z0-9])\](?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(?:(\[(?!\1\2)[A-Z0-9]\])?(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]))?/i;
+	let reroute_pattern = /\[([A-Z0-9])\](?:\s|[^\[\]])*(?:\[([A-Z0-9])\](?:\s)*)?(?:\s|[^\[\]])*\[([A-Z0-9])\](?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(?:(\[(?!\1\2)[A-Z0-9]\])?(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:(?:\s|[^\[\]])*((\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])))?)?/i;
 
 	/**
 	 *
@@ -411,18 +412,6 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 					if (i == 0 || !item) { return; };
 					let j = (i <= 5 ) ? 0 : 1;
 
-					/**
-					 *
-					 * @TODO
-					 *   *
-					 *   *  J is assumed to always be one.
-					 *   *       This is an assumption from the single-pass days.
-					 *   *
-					 *   *
-					 *   +
-					 * 
-					 */
-
 					if (!route_pair.route[j]) {
 						route_pair.route.push({
 							lines: [],
@@ -446,7 +435,15 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 							break;
 						case 7:
 							route_pair.route[j].lines = (route_pair.route[j-1].lines);
-							route_pair.route[j].from = route_pair.route[j-1].to;
+							// Possible structures:
+							// 1. A over B  from [station] to [station] then C to [station],
+							// 2. A over B  from [station] to [station] then C from [station] to [station],
+							// If 1, then set [0].to as [1].from.
+							if (c.results[8] === undefined) {
+								route_pair.route[j].from = route_pair.route[j-1].to;	
+							}
+						case 8:
+							route_pair.route[j].to = unwrapTrain(item);
 						case 5:
 							route_pair.route[j].to = unwrapTrain(item);
 							break;
@@ -455,7 +452,7 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 
 				// Push the results onto our final guy.
 				route_pair.route.map(r => {	
-//					console.log('Pushing onto ', c);
+					console.log('Pushing onto - - - - -\n', c, '\n\n');
 					c.route.push(r);	});
 			}
 		}
