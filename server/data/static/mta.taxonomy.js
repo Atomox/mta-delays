@@ -116,6 +116,9 @@ const taxonomy = {
 
 		// Misc
 		'additional_service': ['Additional service'],
+		'bad_weather': [
+			'weather conditions',
+		],
 		'event': [
 			'New Year\'s Eve',
 			'Celebrations',
