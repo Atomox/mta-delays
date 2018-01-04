@@ -111,6 +111,7 @@ function stationAliases(name, boro) {
 	const alias = {
 		Mn: {
 			'W 4 St': [
+				'W 4 St',
 				'W 4th St',
 				'West 4th St',
 				'West 4 St',

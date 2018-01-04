@@ -345,7 +345,27 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 	// p = /(\[[A-Z0-9]\](?:and|\s)*)+(?:\s|[^\[\]])*(?:(\[[ABCDEFGJLMNQRSTWZ0-9]\])+(?:\s|[^\[\]])*(?:(\[[A-Z]{2}[A-Z0-9]{2,4}\-[A-Z0-9]{3,5}\])+(?:\s|[^\[\]])*)+)+/i;
 
 	// Works for: A & C along the D from [] to [], then the [F] to [blah]
-	let reroute_pattern = /(\[[A-Z0-9]\])+(?:\s|[^\[\]])*(\[[A-Z0-9]\](?:\s)*)*(?:\s|[^\[\]])*(\[[A-Z0-9]\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z0-9]\])*(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])*/i;
+//	let reroute_pattern = /(\[[A-Z0-9]\])+(?:\s|[^\[\]])*(\[[A-Z0-9]\](?:\s)*)*(?:\s|[^\[\]])*(\[[A-Z0-9]\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z0-9]\])*(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])*/i;
+
+	let reroute_pattern = /\[([A-Z0-9])\](?:\s|[^\[\]])*(?:\[([A-Z0-9])\](?:\s)*)?(?:\s|[^\[\]])*\[([A-Z0-9])\](?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(?:(\[(?!\1\2)[A-Z0-9]\])?(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]))?/i;
+
+	/**
+	 *
+	 * @TODO
+	 *   *
+	 *   * When we match a pattern, REPLACE THE TEXT in the message.
+	 *   *
+	 *   * Then try again.
+	 *   *
+	 *   * Way may need to piecemeal our way through these messages in order to match multiple route changes.
+	 *   *
+	 *   * Regex Alt: Consider Capture Group callbacks to the train line. If our CG(1) or CG(2) match a train latter in the pattern, BAIL. 
+	 *   * That way, we can pull that first message, process it, and try another pass for other messages.
+	 *   *
+	 *   *
+	 *   +
+	 * 
+	 */
 
 	function unwrapTrain(train) {
 		if (!train) { return train; };
@@ -357,47 +377,87 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 	if (c) {
 		c = {
 			message: c,
+			message_mod: c,
 			re: null,
 			trains: [],
 			route: [], 
 			new_stations: [],
 		};
-		c.results = mtaRegEx.matchRegexString(reroute_pattern, c.message, true);	
 
-		if (c.results[1] !== undefined) {
-			c.results.map((item, i) => {
-				if (i == 0 || !item) { return; };
-				let j = (i <= 5 ) ? 0 : 1;
+		for (let passes = 0; passes < 6; passes++) {
 
-				if (!c.route[j]) {
-					c.route.push({
-						lines: [],
-						along: null,
-						from: null,
-						to: null,
-					});
+			c.results = mtaRegEx.matchRegexString(reroute_pattern, c.message_mod, true);	
+
+			// Only makes passes until our regex comes up blank.
+			if (c.results === false) {	break;	}
+
+
+			// Replace the pattern.
+			if (c.results[0] && c.results[1]) {
+				if (c.results[1] === c.results[6]) {
+					console.warn('\n\n\n\nWe should replace part of this message! We may be stealing part of another message!\n\n\n\n\n');
 				}
-				switch (i) {
-					case 1:
-					case 2:
-						c.trains.push(unwrapTrain(item));
-						c.route[j].lines.push(unwrapTrain(item));
-						break;
-					case 3:
-					case 6:
-						c.route[j].along = unwrapTrain(item);
-						break;
-					case 4:
-						c.route[j].from = unwrapTrain(item);
-						break;
-					case 7:
-						c.route[j].lines = (c.route[j-1].lines);
-						c.route[j].from = c.route[j-1].to;
-					case 5:
-						c.route[j].to = unwrapTrain(item);
-						break;
-				}
-			});
+
+				c.message_mod = c.message_mod.replace(c.results[0],'[-- route-match --]');
+			}
+
+			if (c.results[1] !== undefined) {
+
+				let route_pair = {
+					route: [],
+				};
+
+				c.results.map((item, i) => {
+					if (i == 0 || !item) { return; };
+					let j = (i <= 5 ) ? 0 : 1;
+
+					/**
+					 *
+					 * @TODO
+					 *   *
+					 *   *  J is assumed to always be one.
+					 *   *       This is an assumption from the single-pass days.
+					 *   *
+					 *   *
+					 *   +
+					 * 
+					 */
+
+					if (!route_pair.route[j]) {
+						route_pair.route.push({
+							lines: [],
+							along: null,
+							from: null,
+							to: null,
+						});
+					}
+					switch (i) {
+						case 1:
+						case 2:
+							c.trains.push(unwrapTrain(item));
+							route_pair.route[j].lines.push(unwrapTrain(item));
+							break;
+						case 3:
+						case 6:
+							route_pair.route[j].along = unwrapTrain(item);
+							break;
+						case 4:
+							route_pair.route[j].from = unwrapTrain(item);
+							break;
+						case 7:
+							route_pair.route[j].lines = (route_pair.route[j-1].lines);
+							route_pair.route[j].from = route_pair.route[j-1].to;
+						case 5:
+							route_pair.route[j].to = unwrapTrain(item);
+							break;
+					}
+				});
+
+				// Push the results onto our final guy.
+				route_pair.route.map(r => {	
+//					console.log('Pushing onto ', c);
+					c.route.push(r);	});
+			}
 		}
 	}
 
@@ -427,7 +487,9 @@ async function getMessageRouteChange(text, lines, station_ids_in_text) {
 	let stations = await mtaStations.getStationLinesRegex(lines, station_ids_in_text);
 
 	// Parse Route Changes ([R] trains are running along the [F] line from...)
-	let workDatePattern = /(((((Some|northbound|southbound|and)\s*)*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(trains(\s*are)?\s*(reroute[d]?|stopping|run(ning)? via (the)?)|(then)?\s*(stopping)?\s*(over|along)\s*(the)?)){1}(\s*(trains|both\s*directions|line(s)?|travel(ing)?|are|(on|in|between|along|long|from|to|via)\s*(the)?|then|end at|\,|\.)*\s*(\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
+//	let workDatePattern = /(((((Some|northbound|southbound|and)\s*)*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(trains(\s*are)?\s*(reroute[d]?|stopping|run(ning)? via (the)?)|(then)?\s*(stopping)?\s*(over|along)\s*(the)?)){1}(\s*(trains|both\s*directions|line(s)?|travel(ing)?|are|(on|in|between|along|long|from|to|via)\s*(the)?|then|end at|\,|\.)*\s*(\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
+
+	let workDatePattern = /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\s|are)*(?:reroute[d]?|stopping|run(?:ning)? via (?:the)?)|(?:then)?\s*(?:stopping)?\s*(?:over|along)\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?))(?:\s*(?:trains|both\s*directions|line[s]?|travel(?:ing)?|are|(?:on|in|between|along|long|from|to|via)\s*(?:the)?|then|end\s*(?:at)|\,|\.)*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 
 	// The regex suffix, where the stations regex should be inserted before.
 	let suffix_wrapper = ')*)+';

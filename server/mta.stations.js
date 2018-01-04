@@ -159,7 +159,7 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 			// Check station ID against message.
 			if (res_re !== false) {
 				results[s] = res_re;
-				result_message = result_message.replace(res_re, '[' + s +']');
+				result_message = result_message.replace(res_re, (match) => '[' + s +']' );
 			}
 		}
 
@@ -183,7 +183,7 @@ async function getStationLinesRegex(lines, station_id_regex_only) {
 	let regexSpace = '\\s*';
 	let stations = {};
 						// (\s*( |between|and|until|to|end (at)?)*\s)
-	let conjunctions = [' ', 'between', 'and', 'until', 'to', 'end (at)?'];
+	let conjunctions = [' ', 'between', 'and', 'until', 'to', 'end (at)?', '\\((QNS|BKLYN)\\)'];
 	let stationregex = [];
 	let boros = ['Qs', 'Mn', 'Bx', 'Bk', 'SI'];
 	let station_id_regex = '(\\[' 

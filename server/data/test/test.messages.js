@@ -680,6 +680,79 @@ let event_messages = {
 					{ line: 'MTA NYCT_W'},
 				],
 			},
+			{ 
+				type: null,
+				type_detail: [
+					"delays",
+					"police_activity",
+					"skip_stations",
+					"route_change"
+				],
+				time: null,
+				durration: null,
+				message: "Northbound [R] trains are bypassing Jay St-MetroTech.Southbound [R] trains are stopping along the [Q] line from Canal St to DeKalb Av. Some southbound [R] trains are stopping along the [F] line from 36 St (Qns) to W 4 St-Washington Sq then via the [D] line to DeKalb Av. Expect delays to [B], [D], [N], [Q] and [R] train service. These service changes are because of NYPD activity at Jay St-MetroTech.",
+				message_raw: "Northbound [R] trains are bypassing Jay St-MetroTech.Southbound [R] trains are stopping along the [Q] line from Canal St to DeKalb Av. Some southbound [R] trains are stopping along the [F] line from 36 St (Qns) to W 4 St-Washington Sq then via the [D] line to DeKalb Av. Expect delays to [B], [D], [N], [Q] and [R] train service. These service changes are because of NYPD activity at Jay St-MetroTech.",
+				message_station_parse: "Northbound [R] trains are bypassing [Bk636-R29].Southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [R] trains are stopping along the [F] line from [Bk32-R36] (Qns) to [Mn167-A32] then via the [D] line to [Bk26-R30]. Expect delays to [B], [D], [N], [Q] and [R] train service. These service changes are because of NYPD activity at [Bk636-R29].",
+				trains: [
+					"MTA NYCT_B",
+					"MTA NYCT_D",
+					"MTA NYCT_N",
+					"MTA NYCT_Q",
+					"MTA NYCT_R"
+				],
+				alt_instructions: null,
+				ad_message: null,
+				route_change: {
+					message: "Southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [R] trains are stopping along the [F] line from [Bk32-R36]",
+					trains: ["R"],
+					route: [
+						{
+							lines: ["R"],
+							along: "Q",
+							from: "Mn623-R23",   // Canal 
+							to: "Bk26-R30",		 // DeKalb
+						},
+						{
+							lines: ["R"],
+							along: "F",
+							from: 'Qs272-G20',  // 36 St (Qns)
+							to: 'Mn167-A32',  	// W 4th
+						},
+						{
+							lines: ['R'],
+							along: 'D',
+							from: 'Mn167-A32',  // W 4th
+							to: 'Mn167-A32',	// DeKalb
+						},
+					],
+				},
+				line: [
+					{
+						line: "MTA NYCT_B",
+						dir: "1"
+					},
+					{
+						line: "MTA NYCT_D",
+						dir: "1"
+					},
+					{
+						line: "MTA NYCT_N",
+						dir: "1"
+					},
+					{
+						line: "MTA NYCT_Q",
+						dir: "1"
+					},
+					{
+						line: "MTA NYCT_R",
+						dir: "0"
+					},
+					{
+						line: "MTA NYCT_R",
+						dir: "1"
+					}
+				],
+			}
 		],
 
 		complex: [
