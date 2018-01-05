@@ -55,13 +55,40 @@ mtaApi.getSubwayStations(mta_stations_file)
 			let key = boro + r.cid + '-' + r.gid;
 			r.boro = boro;
 
+
+			/**
+			 *
+			 *
+			 *   @TODO 
+			 * 
+			 *     *
+			 *     *  Given this list, add the unfiltered regex list, with key, to an array.
+			 *     *
+			 *     *  Then pass the array somehow to a list, which we can run
+			 *     *  during station identification, 
+			 *     *  before the normal station check.
+			 *     *
+			 *     *
+			 *     *
+			 *     *
+			 *     *
+			 *     +
+			 * 
+			 */
+
+
+			if (problemStations(r.name, null) === true) {
+				console.warn(' --> ', key, '\t', r.name, ' \t\t ------------------------------------ <!>');
+			}
+			else {
+				console.log(' --> ', key, '\t', r.name);
+			}
+
 			// The regEx part of the quiz.
 			// Get any aliases, and build a giant regex (alias|station name).
 			let all_alias = stationAliases(r.name, r.boro);
 			all_alias = all_alias.map(value => {
-				console.log(value);
 				let res = mtaRegEx.prepareRexExNameString(value);
-
 				return res;
 			});
 
@@ -91,7 +118,7 @@ mtaApi.getSubwayStations(mta_stations_file)
 			results[key] = r;
 		}
 
-		console.log('lines - - - - - - ', lines);
+//		console.log('lines - - - - - - ', lines);
 
 		let result = {
 			stations: results,
@@ -106,6 +133,23 @@ mtaApi.getSubwayStations(mta_stations_file)
 	}
 });
 
+
+function problemStations(name, boro) {
+	
+	switch (name) {
+		case '36 St':
+		case '36 St (Bklyn)':
+			return true;
+
+		case '59 St':
+			return true;
+
+		case '4 Av-9 St':
+		case '9 St':
+			return true;
+	}
+	return false;
+}
 
 function stationAliases(name, boro) {
 	const alias = {

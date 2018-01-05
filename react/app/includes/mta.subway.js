@@ -57,6 +57,7 @@ let mtaSubway = (() => {
 
 			case 'MTA NYCT_H':
 			case 'MTA NYCT_GS':
+			case 'MTA NYCT_FS':
 				return 'S';
 			
 			case 'MTA NYCT_SI':

@@ -452,7 +452,7 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 
 				// Push the results onto our final guy.
 				route_pair.route.map(r => {	
-					console.log('Pushing onto - - - - -\n', c, '\n\n');
+//					console.log('Pushing onto - - - - -\n', c, '\n\n');
 					c.route.push(r);	});
 			}
 		}

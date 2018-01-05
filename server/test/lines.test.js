@@ -10,7 +10,7 @@ let event_messages = require('../data/test/test.messages').event_messages.struct
 
 
 describe ('Detect Train Lines', function() {
-	describe('Detect line changes in a status message', () => {
+	describe.skip('Detect line changes in a status message', () => {
 		
 		it ('Detect diversions to other lines', () => {
 			

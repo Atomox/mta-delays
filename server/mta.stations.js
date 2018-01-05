@@ -4,7 +4,7 @@ const mtaRegEx = require('./includes/regex');
 // Date files.
 const trainRoutes = require('./data/static/mta.stations.train');
 const mta_stations_file_path = './data/generated/mta.stations.compiled';
-
+const problem_stations = require('./data/static/mta.stations.suppliment').name_problems;
 
 async function getStations(ids) {
 	try {
@@ -133,15 +133,21 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 
 		let stations = await getRouteStationsArray(line, true);
 
+		// Get problem stations we should replace first.
+		let stations_first = problem_stations;
+
 		let results = {};
 		let result_message = (processed_message) ? processed_message : message;
 
+		let problem_st_lengths = {};
 
 		// Search each station.
 		for (let s in stations) {
 			// let res = mtaRegEx.matchStringsWithSpecialChars(stations[s].name, message);
 			//if (res !== false) {	results[s] = res;	}
 			
+			// If this is a problem station, generate custom regex.
+		
 			/* @TODO
 			 *  *
 			 *  * We need a more definitive way to replace matches, 
@@ -156,13 +162,60 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 			// Check station name regex against the message.
 			let res_re = mtaRegEx.matchRegexString(stations[s].regex, message);
 
-			// Check station ID against message.
-			if (res_re !== false) {
-				results[s] = res_re;
-				result_message = result_message.replace(res_re, (match) => '[' + s +']' );
+			// Problem stations get stored and compared after this process finishes. Until then, we don't count them as a final match.
+			if (problem_stations[stations[s].name]) {
+				if (res_re !== false) {
+					if (!problem_st_lengths[stations[s].name]) {
+						problem_st_lengths[stations[s].name] = [];	
+					}
+					
+					problem_st_lengths[stations[s].name].push(
+						{ found: res_re, sid: s}
+					);
+				}
+			}
+			else {
+				// Check station ID against message.
+				if (res_re !== false) {
+					results[s] = res_re;
+					result_message = result_message.replace(res_re, (match) => '[' + s +']' );
+				}
 			}
 		}
 
+		if (Object.keys(problem_st_lengths).length > 0 ) {
+
+			Object.keys(problem_st_lengths).map( (key, i) => {
+				
+				let st_length = 0;
+				let st_obj = null;
+
+				// Find the longest match, and choose that one.
+				problem_st_lengths[key].map( ps => {
+
+					if (ps.found.length > st_length) {
+						st_length = ps.found.length;
+						st_obj = ps;
+					}
+					/**
+					 * @TODO
+					 *   If the length is ==, include multiple.
+					 *
+					 *
+					 *
+					 *
+					 * 
+					 */
+				});
+
+				if (st_obj !== null) {
+					results[st_obj.sid] = st_obj.found;
+					result_message = result_message.replace(st_obj.found, (match) => '[' + st_obj.sid +']' );
+
+					console.log('\n <!> ~~~~~~~~ PROBLEM REPORT: ', key, ' Matched:', st_obj, '\n');
+				}
+			});		
+		}
 
 		let analysis = groupStationsByLocation(stations, results);
 
@@ -311,6 +364,7 @@ function getTrainById (id) {
 			return 'Z';
 
 		case 'MTA NYCT_H':
+		case 'MTA NYCT_FS':
 		case 'MTA NYCT_GS':
 			return 'S';
 		

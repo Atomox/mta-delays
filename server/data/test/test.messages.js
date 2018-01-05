@@ -882,22 +882,20 @@ let train_line = {
 			station_ids: ['Bk38', 'Bk39'],
 			message: '[R] trains are running with delays in both directions because of signal problems between 86 St and Bay Ridge-95 St.',
 		},
-/**		{
-			known_problems: 'Stations: 36th St (Bkyn)'
+		{
+			known_problems: 'Stations: 36th St (Bkyn)',
 			stations: ['65 St', 'Northern Blvd', '46 St', 'Steinway St', '36 St', 'Queens Plaza', 'Roosevelt Av'],
 			station_ids: ['Q268', 'Q269', 'Q270', 'Q271', 'Q272'],
 			problem: '36 St exists in Queens and Brooklyn',
 			message: 'TRACK MAINTENANCE [R] Bay Ridge-bound trains skip 65 St, Northern Blvd, 46 St, Steinway St and 36 St. Late Evenng, 9:45 PM to 11 PM, Friday, Dec 22. For service to these stations, take the [R] to Queens Plaza and transfer to a Forest Hills-bound. For service from these stations, take the [R] to Roosevelt Av and transfer to a Bay Ridge-bound [R].',
 		},
-*/
-/*		{
-			known_problems: 'Stations: 36th St (Bkyn)'
-			stations: ['65 St', 'Northern Blvd', '46 St', 'Steinway St', '36 St', 'Queens Plaza'],
+		{
+			known_problems: 'Stations: 36th St (Bkyn)',
+			stations: ['65 St', 'Northern Blvd', '46 St', 'Steinway St', '36 St', 'Queens Plaza', 'Roosevelt Av'],
 			station_ids: ['Q268', 'Q269', 'Q270', 'Q271', 'Q272'],
 			problem: '36 St exists in Queens and Brooklyn',
 			message: 'TRACK MAINTENANCE [R] Bay Ridge-bound trains skip 65 St, Northern Blvd, 46 St, Steinway St and 36 St. Late Evenng, 9:45 PM to 11 PM, Friday, Dec 22. For service to these stations, take the [R] to Queens Plaza and transfer to a Forest Hills-bound. For service from these stations, take the [R] to Roosevelt Av and transfer to a Bay Ridge-bound [R].',
 		},
-*/
 /*
 		{
 			known_problems: 'Stations: 59th St (Bkyn)'
