@@ -139,26 +139,12 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 		let results = {};
 		let result_message = (processed_message) ? processed_message : message;
 
+		// Dump problem stations here.  We'll determine the best match after the loop.
 		let problem_st_lengths = {};
 
 		// Search each station.
 		for (let s in stations) {
-			// let res = mtaRegEx.matchStringsWithSpecialChars(stations[s].name, message);
-			//if (res !== false) {	results[s] = res;	}
-			
-			// If this is a problem station, generate custom regex.
-		
-			/* @TODO
-			 *  *
-			 *  * We need a more definitive way to replace matches, 
-			 *  * and ensure the longest match is replaced.
-			 *  *
-			 *  * E.G. Avoid this: [Mn624-228]ace (Park Pl vs Park Place)
-			 *  *
-			 *  *
-			 *  *
-			 *
-			 */
+
 			// Check station name regex against the message.
 			let res_re = mtaRegEx.matchRegexString(stations[s].regex, message);
 
@@ -174,7 +160,6 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 							name: stations[s].name,
 							found: res_re, 
 							sid: s, 
-							regex: stations[s].regex
 						}
 					);
 				}
@@ -221,7 +206,7 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 					results[st_obj.sid] = st_obj.found;
 					result_message = result_message.replace(st_obj.found, (match) => '[' + st_obj.sid +']' );
 
-					console.log('\n <!> ~~~~~~~~ PROBLEM REPORT: \'', key, '\'on ', line, 'line Matched:', st_obj, '\n', 'in: ', message);
+//					console.log('\n <!> ~~~~~~~~ PROBLEM REPORT: \'', key, '\'on ', line, 'line Matched:', st_obj, '\n', 'in: ', message);
 
 
 				}
@@ -253,6 +238,8 @@ async function getStationLinesRegex(lines, station_id_regex_only) {
 	let station_id_regex = '(\\[' 
 		+ mtaRegEx.convertArrayToRegexOr(boros) 
 		+ '[0-9]{1,5}\\-[A-z0-9]{1,5}\\])';
+
+	//	/(?:(?:\s|between|and|until|to|end\s(?:at)?)*\s*(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\]))*)*/
 
 	// Assemble line
 	stationregex.push(station_id_regex);

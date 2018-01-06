@@ -87,6 +87,11 @@ function matchStringsWithSpecialChars(needle, haystack) {
 }
 
 function matchRegexString(pattern, haystack, return_all) {
+	
+	if (!haystack) {
+		return false;
+	}
+
 	let re = new RegExp(pattern,"i");
 	let result = haystack.match(re);
 

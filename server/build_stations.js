@@ -26,9 +26,13 @@ console.log('Compile Stations List...');
 mtaApi.getSubwayStations(mta_stations_file)
 
 .then(data => {
+
+	console.log(' > Stations Fetched....');	
 	if (!data || data.length <= 0) {
 		return Promise.reject('No data loaded from file or endpoint.');
 	}
+
+	console.log(' > Preparing Stations....');
 	
 	try {
 		let results = {};
@@ -76,14 +80,6 @@ mtaApi.getSubwayStations(mta_stations_file)
 			 * 
 			 */
 
-
-			if (problemStations(r.name, null) === true) {
-				console.warn(' --> ', key, '\t', r.name, ' \t\t ------------------------------------ <!>');
-			}
-			else {
-				console.log(' --> ', key, '\t', r.name);
-			}
-
 			// The regEx part of the quiz.
 			// Get any aliases, and build a giant regex (alias|station name).
 			let all_alias = stationAliases(r.name, r.boro);
@@ -126,7 +122,9 @@ mtaApi.getSubwayStations(mta_stations_file)
 		}
 
 		result = JSON.stringify(result);
+		console.log(' > Saving to file....');
 		mtaApi.saveStatusToFile(result, stations_generated_filename);
+		console.log(' > Complete.');
 	}
 	catch (err) {
 		console.error('Error processing stations. ', err);	
@@ -157,6 +155,20 @@ function stationAliases(name, boro) {
 				'Grand Central',
 				'42 St',
 			],
+			'59 St - Columbus Circle': [
+				'Columbus Circle',
+			],
+			'47-50 Sts - Rockefeller Ctr': [
+				'47-50 Sts',
+				'Rockefeller Ctr',
+			], 
+			'42 St - Bryant Pk': [
+				'Bryant Pk',
+			],
+			'34 St - Herald Sq': [
+				'Herald Square',
+				'Herald Sq',
+			],
 			'14 St - Union Sq': [
 				'14 St - Union Sq',
 				'Union Square',
@@ -168,6 +180,11 @@ function stationAliases(name, boro) {
 				'Port Authority',
 				'PABT',
 				'42 St',
+			],
+			'Broadway-Lafayette St': [
+				'B\'way-Lafayette St',
+				'Broadway-Lafayette',
+				'B\'way-Lafayette',
 			],
 			'34 St - Penn Station': [
 				'Penn Station',
@@ -253,7 +270,16 @@ function stationAliases(name, boro) {
 			],
 		},
 
-		Bx: {},
+		Bx: {
+			'Norwood - 205 St': [
+				'Norwood',
+				'205 St',
+			],
+			'161 St - Yankee Stadium': [
+				'161 St',
+				'Yankee Stadium',
+			],
+		},
 		SI: {},
 	};
 

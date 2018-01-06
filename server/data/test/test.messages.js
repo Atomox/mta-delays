@@ -243,7 +243,6 @@ let event_messages = {
 							'Qs272-G20': '36 St (Queens)',
 						}
 					},
-				/**
 					'MTA NYCT_R': {
 						stations: {
 							'Qs273-G21': 'Queens Plaza',
@@ -252,7 +251,6 @@ let event_messages = {
 							'Qs272-G20': '36 St (Queens)',
 						}
 					},
-				*/
 				},
 				line: [
 					{ line: 'MTA NYCT_C'},
@@ -675,14 +673,53 @@ let event_messages = {
 					{ line: 'MTA NYCT_3'},
 					{ line: 'MTA NYCT_7'},
 					{ line: 'MTA NYCT_A'},
+					{ line: 'MTA NYCT_B'},
 					{ line: 'MTA NYCT_C'},
+					{ line: 'MTA NYCT_D'},
 					{ line: 'MTA NYCT_E'},
+					{ line: 'MTA NYCT_F'},
 					{ line: 'MTA NYCT_N'},
 					{ line: 'MTA NYCT_Q'},
 					{ line: 'MTA NYCT_R'},
 					{ line: 'MTA NYCT_W'},
 				],
 			},
+
+			{
+				type: null,
+				type_detail: [
+					"shuttle_bus",
+					"route_change"
+				],
+				time: null,
+				durration: "Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15",
+				mesage: 'SIGNAL IMPROVEMENTS [D] Service is rerouted in Manhattan and Brooklyn[F] [N] [Q] [R] trains and [SB] free shuttle buses provide alternate service Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15 No [D] service at 7 Av , 47-50 Sts , 42 St-Bryant Pk , 34 St-Herald Sq , B\'way-Lafayette St and Grand St . [D] service operates b etween 205 St and 59 St-Columbus Circle, and via the [A] express to/from Jay St-MetroTech , and via the [F] to/from Stillwell Av . [F]* trains are rerouted via the [Q] express in Manhattan and replace the [D] in Brooklyn between Atlantic Av-Barclays Ctr and Stillwell Av . [SB] Buses operate between W 4 St and Grand St , stopping at B\'way-Lafayette St . Show Shuttle Bus Stops Station Bus Stop Bus W 4 St [ad] [A] [C] [D] [E] 6 Av at W 3 St M55 B\'way-Lafayette St Houston St at Broadway M21 Grand St Grand St at Chrystie St -- Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [F] [N] [Q] or [R]. Transfer between [D] and [F] [N] [Q] [R] trains at 42 St-Port Authority/Times Sq-42 St. Transfer between [D] and [N]* [R] trains at Jay St-MetroTech and 4 Av-9 St. Affected Station Alternate Station/Service 7 Av [E] 47-50 Sts 7 Av or 5 Av/53 St [E] 49 St [N] [Q] local , [R] | [ad] uptown only 50 St (B\'way) [1] [2] local 50 St (8 Av) [A] local , [C] [E] | [ad] downtown only 42 St-Bryant Pk [7] (5 Av) Times Sq-42 St [1] [2] [3] [7] [F] [N] [Q] [R] [S] | [ad] 42 St/Port Authority [A] [C] [D] [E] | [ad] 34 St-Herald Sq [ad] [F] [N] [Q] [R] 34 St-Penn Station [1] [2] [3] | [ad] B\'way-Lafayette St [SB] Grand St [SB], nearby Bowery [J] Station For Brooklyn [D] stations between Atlantic Av-Barclays Ctr and Stillwell Av , take the [F] instead. Key Transfer Stations 59 St-Columbus Circle [ad] [A] [C] [D] and [1] [2] local Times Sq-42 St/42 St-Port Authority [ad] ( Passageway not accessible ) [1] [2] [3] [7] [F] [N] [Q] [R] [S] [A] [C] [D] [E] W 4 St-Wash Sq [ad] [A] [C] [D] [E] and [SB] Fulton St [ad] [4] [5] [A] [C] [D] [J] Jay St-MetroTech [ad] [A] [C] [D] [N] [R] and [SB] 4 Av-9 St [D] [G] [N] [R] | [F] late night only *This detour has taken into account additional planned service changes. Reminders: During late night, all alternate stations are served, though not all lines run. Manhattan-bound [F] platforms at Avenue X, Avenue U, Avenue P, Avenue N, Bay Pkwy and Avenue I are closed for renovation. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.',
+/**
+				route_change: {
+					message: '[D] service operates b etween [Bx210-D01] and [Mn614-A24], and via the [A] express to/from Jay St-MetroTech , and via the [F] to/from [Bk58-D43] . [F]* trains are rerouted via the [Q] express in Manhattan and replace the [D] in Brooklyn between [Bk617-R31] and [Bk58-D43] .',
+					trains: ['D'],
+					route: [
+						{
+							lines: ['D'],
+							along: "A",
+							from: 'Mn167-A32',
+							to: 'Mn614-125',
+						},
+						{
+							lines: ['E'],
+							along: "F",
+							from: 'Qs616-G14',
+							to: 'Mn167-A32',
+						},
+					],
+				},
+*/
+				line: [
+					{ line: 'MTA NYCT_D'},
+				],
+			},
+
+
 			{ 
 				type: null,
 				type_detail: [
@@ -706,6 +743,11 @@ let event_messages = {
 				alt_instructions: null,
 				ad_message: null,
 /**
+  Disabled Reason:
+
+		Parsing 36 St (Bklyn) on D line before R line, so only 36 Bklyn is available.
+
+
 				route_change: {
 					message: "Southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [R] trains are stopping along the [F] line from [Qs272-G20] to [Mn167-A32] then via the [D] line to [Bk26-R30]",
 					trains: ["R"],

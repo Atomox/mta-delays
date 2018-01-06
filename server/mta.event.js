@@ -342,24 +342,6 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 
 	let reroute_pattern = /\[([A-Z0-9])\](?:\s|[^\[\]])*(?:\[([A-Z0-9])\](?:\s)*)?(?:\s|[^\[\]])*\[([A-Z0-9])\](?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(?:(\[(?!\1\2)[A-Z0-9]\])?(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:(?:\s|[^\[\]])*((\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])))?)?/i;
 
-	/**
-	 *
-	 * @TODO
-	 *   *
-	 *   * When we match a pattern, REPLACE THE TEXT in the message.
-	 *   *
-	 *   * Then try again.
-	 *   *
-	 *   * Way may need to piecemeal our way through these messages in order to match multiple route changes.
-	 *   *
-	 *   * Regex Alt: Consider Capture Group callbacks to the train line. If our CG(1) or CG(2) match a train latter in the pattern, BAIL. 
-	 *   * That way, we can pull that first message, process it, and try another pass for other messages.
-	 *   *
-	 *   *
-	 *   +
-	 * 
-	 */
-
 	function unwrapTrain(train) {
 		if (!train) { return train; };
 		train = train.replace('[', '');
@@ -445,7 +427,6 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 
 				// Push the results onto our final guy.
 				route_pair.route.map(r => {	
-//					console.log('Pushing onto - - - - -\n', c, '\n\n');
 					c.route.push(r);	});
 			}
 		}
@@ -479,7 +460,7 @@ async function getMessageRouteChange(text, lines, station_ids_in_text) {
 	// Parse Route Changes ([R] trains are running along the [F] line from...)
 //	let workDatePattern = /(((((Some|northbound|southbound|and)\s*)*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(trains(\s*are)?\s*(reroute[d]?|stopping|run(ning)? via (the)?)|(then)?\s*(stopping)?\s*(over|along)\s*(the)?)){1}(\s*(trains|both\s*directions|line(s)?|travel(ing)?|are|(on|in|between|along|long|from|to|via)\s*(the)?|then|end at|\,|\.)*\s*(\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 
-	let workDatePattern = /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\s|are)*(?:reroute[d]?|stopping|run(?:ning)? via (?:the)?)|(?:then)?\s*(?:stopping)?\s*(?:over|along)\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?))(?:\s*(?:trains|both\s*directions|line[s]?|travel(?:ing)?|are|(?:on|in|between|along|long|from|to|via)\s*(?:the)?|then|end\s*(?:at)|\,|\.)*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
+	let workDatePattern = /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\s|are)*(?:reroute[d]?|stopping|run(?:ning)? via (?:the)?)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?))(?:\s*(?:trains|both\s*directions|line[s]?|travel(?:ing)?|are|(?:on|in|between|along|long|from|to|via)\s*(?:the)?|then|end\s*(?:at)|\,|\.)*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 
 	// The regex suffix, where the stations regex should be inserted before.
 	let suffix_wrapper = ')*)+';
@@ -491,9 +472,17 @@ async function getMessageRouteChange(text, lines, station_ids_in_text) {
 	workDatePattern = workDatePattern.slice(0, -(suffix_wrapper.length));
 	workDatePattern += stations + '*' + suffix_wrapper;
 
-//	console.log(lines, '--', stations);
-	
-	return mtaRegEx.matchRegexString(workDatePattern, text);	
+	let results = [];
+	let message_raw = text;
+	for (let i = 0; i < 5; i++) {
+		let match = mtaRegEx.matchRegexString(workDatePattern, text);
+		if (!match) {	break; }
+
+		results.push(match);
+		text = text.replace(match, ' --M' + 1 + '-- ');
+	}
+
+	return results.join(' ');	
 }
 
 
