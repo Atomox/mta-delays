@@ -340,14 +340,6 @@ function getMessagePlannedWorkDate(text) {
 async function getRouteChange(text, lines, station_ids_in_text) {
 	let c = await getMessageRouteChange(text, lines, station_ids_in_text);
 
-	// This pattern is better,
-	// but REGEX Groups Only save a SINGLE captured value, and can't be reused.
-	// 
-	// p = /(\[[A-Z0-9]\](?:and|\s)*)+(?:\s|[^\[\]])*(?:(\[[ABCDEFGJLMNQRSTWZ0-9]\])+(?:\s|[^\[\]])*(?:(\[[A-Z]{2}[A-Z0-9]{2,4}\-[A-Z0-9]{3,5}\])+(?:\s|[^\[\]])*)+)+/i;
-
-	// Works for: A & C along the D from [] to [], then the [F] to [blah]
-//	let reroute_pattern = /(\[[A-Z0-9]\])+(?:\s|[^\[\]])*(\[[A-Z0-9]\](?:\s)*)*(?:\s|[^\[\]])*(\[[A-Z0-9]\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z0-9]\])*(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])*/i;
-
 	let reroute_pattern = /\[([A-Z0-9])\](?:\s|[^\[\]])*(?:\[([A-Z0-9])\](?:\s)*)?(?:\s|[^\[\]])*\[([A-Z0-9])\](?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(?:(\[(?!\1\2)[A-Z0-9]\])?(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:(?:\s|[^\[\]])*((\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])))?)?/i;
 
 	/**
@@ -435,11 +427,12 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 							break;
 						case 7:
 							route_pair.route[j].lines = (route_pair.route[j-1].lines);
+
 							// Possible structures:
 							// 1. A over B  from [station] to [station] then C to [station],
 							// 2. A over B  from [station] to [station] then C from [station] to [station],
 							// If 1, then set [0].to as [1].from.
-							if (c.results[8] === undefined) {
+							if (typeof c.results[8]) {	
 								route_pair.route[j].from = route_pair.route[j-1].to;	
 							}
 						case 8:

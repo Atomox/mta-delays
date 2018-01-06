@@ -170,7 +170,12 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 					}
 					
 					problem_st_lengths[stations[s].name].push(
-						{ found: res_re, sid: s}
+						{ 
+							name: stations[s].name,
+							found: res_re, 
+							sid: s, 
+							regex: stations[s].regex
+						}
 					);
 				}
 			}
@@ -194,8 +199,12 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 				problem_st_lengths[key].map( ps => {
 
 					if (ps.found.length > st_length) {
+						console.log(' . . matched', ps.found, ' [', ps.sid, ']');
 						st_length = ps.found.length;
 						st_obj = ps;
+					}
+					else {
+						console.log(' . . [no] mas', ps.found, ' [', ps.sid, ']');
 					}
 					/**
 					 * @TODO
@@ -212,7 +221,9 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 					results[st_obj.sid] = st_obj.found;
 					result_message = result_message.replace(st_obj.found, (match) => '[' + st_obj.sid +']' );
 
-					console.log('\n <!> ~~~~~~~~ PROBLEM REPORT: ', key, ' Matched:', st_obj, '\n');
+					console.log('\n <!> ~~~~~~~~ PROBLEM REPORT: \'', key, '\'on ', line, 'line Matched:', st_obj, '\n', 'in: ', message);
+
+
 				}
 			});		
 		}

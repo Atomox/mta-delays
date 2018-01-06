@@ -490,25 +490,63 @@ let routes = {
 		'Bk188-A55',  // "Euclid Av"
 
 	],
-//	D: [
+	D: [
 
-		/**
-		 *
-		 * 
-		 * @TODO
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 * 
-		 */
-//	],
+		// "Concourse" -- "Bx", "Mn"
+		'Bx210-D01',  // "Norwood - 205 St"
+		'Bx211-D03',  // "Bedford Park Blvd"
+		'Bx212-D04',  // "Kingsbridge Rd"
+		'Bx213-D05',  // "Fordham Rd"
+		'Bx214-D06',  // "182-183 Sts"
+		'Bx215-D07',  // "Tremont Av"
+		'Bx216-D08',  // "174-175 Sts"
+		'Bx217-D09',  // "170 St"
+		'Bx218-D10',  // "167 St"
+		'Bx604-D11',  // "161 St - Yankee Stadium"
+		'Mn220-D12',  // "155 St"		
+
+		// "8th Av - Fulton St" -- "Mn", "Bk"
+		'Mn151-A12',  // "145 St"
+		'Mn153-A15',  // "125 St"
+		'Mn614-A24',  // "59 St - Columbus Circle"		
+
+		// "Queens - Archer" --  "Qs", "Mn"
+		'Mn277-D14',  // "7 Av",		
+
+		// "6th Av - Culver" -- "Mn", "Bk"
+		'Mn225-D15',  // "47-50 Sts - Rockefeller Ctr"
+		'Mn609-D16',  // "42 St - Bryant Pk"
+		'Mn607-D17',  // "34 St - Herald Sq"		
+
+		// "8th Av - Fulton St" -- "Mn", "Bk"
+		'Mn167-A32',  // "W 4 St"		
+
+		// "6th Av - Culver" -- "Mn", "Bk"
+		'Mn619-D21',  // "Broadway-Lafayette St"
+		'Mn231-D22',  // "Grand St"		
+
+		// "4th Av" -- "Bk"
+		'Bk617-R31',  // "Atlantic Av - Barclays Ctr"
+		'Bk32-R36',  // "36 St"		
+
+		// "West End" -- "Bk"
+		'Bk59-B12',  // "9 Av"
+		'Bk60-B13',  // "Fort Hamilton Pkwy"
+		'Bk61-B14',  // "50 St"
+		'Bk62-B15',  // "55 St"
+		'Bk615-B16',  // "62 St"
+		'Bk64-B17',  // "71 St"
+		'Bk65-B18',  // "79 St"
+		'Bk66-B19',  // "18 Av"
+		'Bk67-B20',  // "20 Av"
+		'Bk68-B21',  // "Bay Pkwy"
+		'Bk69-B22',  // "25 Av"
+		'Bk70-B23',  // "Bay 50 St"		
+
+		// "Sea Beach / West End / Culver / Brighton" -- "Bk"
+		'Bk58-D43',  // "Coney Island - Stillwell Av"
+
+	],
 	E: [
 
 		// "Queens - Archer" -- "Qs", "Mn"

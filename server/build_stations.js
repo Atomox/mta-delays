@@ -134,23 +134,6 @@ mtaApi.getSubwayStations(mta_stations_file)
 });
 
 
-function problemStations(name, boro) {
-	
-	switch (name) {
-		case '36 St':
-		case '36 St (Bklyn)':
-			return true;
-
-		case '59 St':
-			return true;
-
-		case '4 Av-9 St':
-		case '9 St':
-			return true;
-	}
-	return false;
-}
-
 function stationAliases(name, boro) {
 	const alias = {
 		Mn: {

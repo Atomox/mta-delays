@@ -652,7 +652,7 @@ let event_messages = {
 				durration: null,
 				message: '[1] [2] [3] [N] [Q] [R] [W] and [7] trains are bypassing Times Sq-42 St in both directions.[A] [C] and [E] trains are bypassing 42 St/Port Authority-Bus Terminal in both directions.There is no [S] 42 St shuttle service in both directions.[A] and [C] trains are stopping along the [D] line between W 4 St-Washington Sq and 59 St-Columbus Circle in both directions.There is no [B] train service between Bedford Park Blvd and Brighton Beach in both directions.[E] Trains are stopping along the [F] line between Jackson Hts-Roosevelt Av and W 4 St-Washington Sq in both directions.No [L] train service between 8 Av and 6 Av in both directions.[M] Trains are running between Delancey-Essex St and Forest Hills-71 Av.These service changes are because of an NYPD investigation at 42 St/Port Authority-Bus Terminal.',
 				route_change: {
-					message_raw: '[A] and [C] trains are stopping along the [D] line between W 4 St-Washington Sq and 59 St-Columbus Circle in both directions.[E] Trains are stopping along the [F] line between Jackson Hts-Roosevelt Av and W 4 St-Washington Sq in both directions.',
+					message: '[A] and [C] trains are stopping along the [D] line between [Mn167-A32] and [Mn614-125] in both directions. [E] Trains are stopping along the [F] line between [Qs616-G14] and [Mn167-A32] in both directions.',
 					trains: ['F'],
 					route: [
 						{
@@ -674,6 +674,9 @@ let event_messages = {
 					{ line: 'MTA NYCT_2'},
 					{ line: 'MTA NYCT_3'},
 					{ line: 'MTA NYCT_7'},
+					{ line: 'MTA NYCT_A'},
+					{ line: 'MTA NYCT_C'},
+					{ line: 'MTA NYCT_E'},
 					{ line: 'MTA NYCT_N'},
 					{ line: 'MTA NYCT_Q'},
 					{ line: 'MTA NYCT_R'},
@@ -692,7 +695,7 @@ let event_messages = {
 				durration: null,
 				message: "Northbound [R] trains are bypassing Jay St-MetroTech.Southbound [R] trains are stopping along the [Q] line from Canal St to DeKalb Av. Some southbound [R] trains are stopping along the [F] line from 36 St (Qns) to W 4 St-Washington Sq then via the [D] line to DeKalb Av. Expect delays to [B], [D], [N], [Q] and [R] train service. These service changes are because of NYPD activity at Jay St-MetroTech.",
 				message_raw: "Northbound [R] trains are bypassing Jay St-MetroTech.Southbound [R] trains are stopping along the [Q] line from Canal St to DeKalb Av. Some southbound [R] trains are stopping along the [F] line from 36 St (Qns) to W 4 St-Washington Sq then via the [D] line to DeKalb Av. Expect delays to [B], [D], [N], [Q] and [R] train service. These service changes are because of NYPD activity at Jay St-MetroTech.",
-				message_station_parse: "Northbound [R] trains are bypassing [Bk636-R29].Southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [R] trains are stopping along the [F] line from [Bk32-R36] (Qns) to [Mn167-A32] then via the [D] line to [Bk26-R30]. Expect delays to [B], [D], [N], [Q] and [R] train service. These service changes are because of NYPD activity at [Bk636-R29].",
+				message_station_parse: "Northbound [R] trains are bypassing [Bk636-R29].Southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [R] trains are stopping along the [F] line from [Qs272-G20] to [Mn167-A32] then via the [D] line to [Bk26-R30]. Expect delays to [B], [D], [N], [Q] and [R] train service. These service changes are because of NYPD activity at [Bk636-R29].",
 				trains: [
 					"MTA NYCT_B",
 					"MTA NYCT_D",
@@ -702,8 +705,9 @@ let event_messages = {
 				],
 				alt_instructions: null,
 				ad_message: null,
+/**
 				route_change: {
-					message: "Southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [R] trains are stopping along the [F] line from [Bk32-R36]",
+					message: "Southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [R] trains are stopping along the [F] line from [Qs272-G20] to [Mn167-A32] then via the [D] line to [Bk26-R30]",
 					trains: ["R"],
 					route: [
 						{
@@ -726,6 +730,7 @@ let event_messages = {
 						},
 					],
 				},
+*/
 				line: [
 					{
 						line: "MTA NYCT_B",

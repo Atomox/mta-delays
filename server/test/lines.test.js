@@ -39,14 +39,12 @@ describe ('Detect Train Lines', function() {
 
 				return mtaStatus.getStationsInEventMessage(event.line, event.message)
 
-					.then( data => mtaStatus.getRouteChange(data.parsed_message, event.line, true) )
+					.then( data => mtaStatus.getRouteChange(data.parsed_message, event.line, true))
 					.then( data => {
 						expect(data).to.have.property('route');
 						expect(data.message).to.equal(event.route_change.message);
 
-//						console.log('\n\n', data.route);
 						event.route_change.route.map( (change, i) => {
-							// expect(data.route).to.deep.contain(change);
 							let matches = false;
 
 							data.route.map( (e, i) => {
