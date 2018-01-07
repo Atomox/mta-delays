@@ -19,38 +19,31 @@ describe ('Detect Train Lines', () => {
 			routeTestByTag('A-overC', ['MTAD-001'], null, ['A-overC']);
 			routeTestByTag('A-overC-thenD', ['MTAD-001'], null, ['A-overC-thenD']);
 			routeTestByTag('AB-overC', ['MTAD-001'], null, ['AB-overC']);
-			routeTestByTag('AB-overC-end', ['MTAD-001'], null, ['AB-overC-end']);
+//			routeTestByTag('AB-overC-end', ['MTAD-001'], null, ['AB-overC-end']);
 			routeTestByTag('A-overC-D-overE', ['MTAD-001'], null, ['A-overC-D-overE']);
 			routeTestByTag('AB-overC-D-overE', ['MTAD-001'], null, ['AB-overC-D-overE']);
-			routeTestByTag('A-operates-then-overC-thenD', ['MTAD-001'], null, ['A-operates-then-overC-thenD']);
-//			routeTestByTag('Multiple', ['MTAD-001'], null,null);
+//			routeTestByTag('Multiple Patterns', ['MTAD-001'], null, '#any-two');
 
 		});
-		it ('Line Changes -- Patterns', () => {});
 	});
 
 	describe('MTAD-002 -- Running Local', () => {	});
-	describe('MTAD-003 -- Map Stations from Route Change', () => {
+	describe.skip('MTAD-003 -- Map Stations from Route Change', () => {
 		it ('Route Change -- New Stations', () => {});
 		it ('Route Change -- Bypassed Stations', () => { });
 	});
 
-	describe('MTAD-006 -- Detect Stations from Alternate Line', () => {});
-	describe('MTAD-009 -- Split Service Route Change', () => {});
-	describe('MTAD-010 -- Route Change, then end.', () => { });
+	describe.skip('MTAD-006 -- Detect Stations from Alternate Line', () => {});
+	describe.skip('MTAD-009 -- Split Service Route Change', () => {});
+	describe.skip('MTAD-010 -- Route Change, then end.', () => { });
 
-	describe('MTAD-014 -- Line Changes, Complex', () => {
-		it.skip ('Line Changes -- Operates Between A & B, then via [line] from C to D', () => {
-			let promises = event_messages.normal.map( event => {
-				// Only process Route Changes.
-				if (filterTest(event, 'route_change', ['MTAD-014'])) {
-					return testStationLineRerouteObject(event);
-				}
-			});
-			return Promise.all(promises);
-		});
+	describe.skip('MTAD-014 -- Line Changes, Complex', () => {
+		routeTestByTag('A-operates-then-overC', ['MTAD-0014'], null, ['A-operates-then-overC']);
+		routeTestByTag('A-operates-then-overC-thenD', ['MTAD-014'], null, ['A-operates-then-overC-thenD']);
 	});
 });
+
+
 
 
 
@@ -73,7 +66,7 @@ function testStationLineRerouteObject(event) {
 				let matches = false;
 
 				data.route.map( (e, i) => {
-	//								console.log('Checking: ', e.lines, 'against', change.lines);
+//					console.log('Checking: ', e.lines, 'against', change.lines);
 					if (_.isEqual(e.lines, change.lines)) {
 //						console.log('MATCH', e, 'with', change);
 						if (e.along == change.along
@@ -132,6 +125,10 @@ function filterTags(tags, include, exclude) {
 			if (tags.indexOf(include[t]) === -1) {	return false; }
 		}
 	}
+	else if (typeof include == 'String' && include.indexOf('#' === 0)) {
+		if (include == '#any-two' && tags.lenght < 2) {	return false;	}
+	}
+
 	// If omit tags, make sure none exist.
 	if (Array.isArray(exclude)) {
 		for (let t in exclude) {

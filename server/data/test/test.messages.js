@@ -779,7 +779,7 @@ let event_messages = {
 				durration: "Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15",
 				mesage: "SIGNAL IMPROVEMENTS [D] Service is rerouted in Manhattan and Brooklyn[F] [N] [Q] [R] trains and [SB] free shuttle buses provide alternate service Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15 No [D] service at 7 Av , 47-50 Sts , 42 St-Bryant Pk , 34 St-Herald Sq , B\'way-Lafayette St and Grand St . [D] service operates b etween 205 St and 59 St-Columbus Circle, and via the [A] express to/from Jay St-MetroTech , and via the [F] to/from Stillwell Av . [F]* trains are rerouted via the [Q] express in Manhattan and replace the [D] in Brooklyn between Atlantic Av-Barclays Ctr and Stillwell Av . [SB] Buses operate between W 4 St and Grand St , stopping at B\'way-Lafayette St . Show Shuttle Bus Stops Station Bus Stop Bus W 4 St [ad] [A] [C] [D] [E] 6 Av at W 3 St M55 B\'way-Lafayette St Houston St at Broadway M21 Grand St Grand St at Chrystie St -- Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [F] [N] [Q] or [R]. Transfer between [D] and [F] [N] [Q] [R] trains at 42 St-Port Authority/Times Sq-42 St. Transfer between [D] and [N]* [R] trains at Jay St-MetroTech and 4 Av-9 St. Affected Station Alternate Station/Service 7 Av [E] 47-50 Sts 7 Av or 5 Av/53 St [E] 49 St [N] [Q] local , [R] | [ad] uptown only 50 St (B\'way) [1] [2] local 50 St (8 Av) [A] local , [C] [E] | [ad] downtown only 42 St-Bryant Pk [7] (5 Av) Times Sq-42 St [1] [2] [3] [7] [F] [N] [Q] [R] [S] | [ad] 42 St/Port Authority [A] [C] [D] [E] | [ad] 34 St-Herald Sq [ad] [F] [N] [Q] [R] 34 St-Penn Station [1] [2] [3] | [ad] B\'way-Lafayette St [SB] Grand St [SB], nearby Bowery [J] Station For Brooklyn [D] stations between Atlantic Av-Barclays Ctr and Stillwell Av , take the [F] instead. Key Transfer Stations 59 St-Columbus Circle [ad] [A] [C] [D] and [1] [2] local Times Sq-42 St/42 St-Port Authority [ad] ( Passageway not accessible ) [1] [2] [3] [7] [F] [N] [Q] [R] [S] [A] [C] [D] [E] W 4 St-Wash Sq [ad] [A] [C] [D] [E] and [SB] Fulton St [ad] [4] [5] [A] [C] [D] [J] Jay St-MetroTech [ad] [A] [C] [D] [N] [R] and [SB] 4 Av-9 St [D] [G] [N] [R] | [F] late night only *This detour has taken into account additional planned service changes. Reminders: During late night, all alternate stations are served, though not all lines run. Manhattan-bound [F] platforms at Avenue X, Avenue U, Avenue P, Avenue N, Bay Pkwy and Avenue I are closed for renovation. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 				route_change: {
-					tag: ['A-operates-then-overC-thenD'],
+					tag: ['A-operates-then-overC-thenD', 'A-viaC-inBoro-replaceD'],
 					message: '[D] service operates b etween [Bx210-D01] and [Mn614-A24], and via the [A] express to/from Jay St-MetroTech , and via the [F] to/from [Bk58-D43] . [F]* trains are rerouted via the [Q] express in Manhattan and replace the [D] in Brooklyn between [Bk617-R31] and [Bk58-D43] .',
 					trains: ['D'],
 					route: [
@@ -815,8 +815,6 @@ let event_messages = {
 				time: null,
 				durration: null,
 				message: "Northbound [R] trains are bypassing Jay St-MetroTech.Southbound [R] trains are stopping along the [Q] line from Canal St to DeKalb Av. Some southbound [R] trains are stopping along the [F] line from 36 St (Qns) to W 4 St-Washington Sq then via the [D] line to DeKalb Av. Expect delays to [B], [D], [N], [Q] and [R] train service. These service changes are because of NYPD activity at Jay St-MetroTech.",
-				message_raw: "Northbound [R] trains are bypassing Jay St-MetroTech.Southbound [R] trains are stopping along the [Q] line from Canal St to DeKalb Av. Some southbound [R] trains are stopping along the [F] line from 36 St (Qns) to W 4 St-Washington Sq then via the [D] line to DeKalb Av. Expect delays to [B], [D], [N], [Q] and [R] train service. These service changes are because of NYPD activity at Jay St-MetroTech.",
-				message_station_parse: "Northbound [R] trains are bypassing [Bk636-R29].Southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [R] trains are stopping along the [F] line from [Qs272-G20] to [Mn167-A32] then via the [D] line to [Bk26-R30]. Expect delays to [B], [D], [N], [Q] and [R] train service. These service changes are because of NYPD activity at [Bk636-R29].",
 				trains: [
 					"MTA NYCT_B",
 					"MTA NYCT_D",
@@ -824,14 +822,10 @@ let event_messages = {
 					"MTA NYCT_Q",
 					"MTA NYCT_R"
 				],
-				alt_instructions: null,
-				ad_message: null,
+
+//  Disabled Reason:
+//		Parsing 36 St (Bklyn) on D line before R line, so only 36 Bklyn is available.
 /**
-  Disabled Reason:
-
-		Parsing 36 St (Bklyn) on D line before R line, so only 36 Bklyn is available.
-
-
 				route_change: {
 					tag: ['A-overC-D-overE'],
 					message: "Southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [R] trains are stopping along the [F] line from [Qs272-G20] to [Mn167-A32] then via the [D] line to [Bk26-R30]",
@@ -884,7 +878,103 @@ let event_messages = {
 						dir: "1"
 					}
 				],
-			}
+			},
+			{
+				type: null,
+				type_detail: [
+					"delays",
+					"mechanical_problems",
+					"route_change",
+					"no_trains_partial"
+				],
+				tag: ['MTAD-001'],
+				time: null,
+				durration: null,
+				message: "Southbound [2] trains are stopping along the [5] line from 149 St-Grand Concourse to Nevins St. Some northbound [3] trains are stopping along the [1] line from 96 St to 137 St-City College then end. Some northbound [3] trains end at Times Sq-42 St. Some southbound [3] trains end at Central Park North (110 St). Expect delays to [1], [2], [3], [4] and [5] train service. These service changes are because of a train with mechanical problems at 96 St.",
+				line: [
+					"MTA NYCT_1",
+					"MTA NYCT_2",
+					"MTA NYCT_3",
+					"MTA NYCT_4",
+					"MTA NYCT_5",
+				],
+				route_change: {
+					tag: ['A-overC-D-overE'],
+					message: "Southbound [2] trains are stopping along the [5] line from [Bx603-222] to [Bk337-234]. Some northbound [3] trains are stopping along the [1] line from [Mn310-120] to [Mn305-115] then Some northbound [3] trains end at [Mn611-127]. Some southbound [3] trains end at [Mn441-227].",
+					trains: [
+						"2",
+						"3"
+					],
+					route: [
+						{
+							lines: ["2"],
+							along: "5",
+							from: "Bx603-222",
+							to: "Bk337-234"
+						},
+						{
+							lines: ["3"],
+							along: "1",
+							from: "Mn310-120",
+							to: "Mn305-115"
+						}
+						]
+					}
+				},
+				{
+					type: null,
+					type_detail: [
+						"delays",
+						"police_activity",
+						"skip_stations",
+						"route_change"
+					],
+					tag: ['MTAD-001'],
+					time: null,
+					durration: null,
+					message: "Northbound [R] trains are bypassing Jay St-MetroTech.Southbound [R] trains are stopping along the [Q] line from Canal St to DeKalb Av. Some southbound [R] trains are stopping along the [F] line from 36 St (Qns) to W 4 St-Washington Sq then via the [D] line to DeKalb Av. Expect delays to [B], [D], [N], [Q] and [R] train service. These service changes are because of NYPD activity at Jay St-MetroTech.",
+					line: [
+						"MTA NYCT_B",
+						"MTA NYCT_D",
+						"MTA NYCT_N",
+						"MTA NYCT_Q",
+						"MTA NYCT_R"
+					],
+					route_change: {
+						tag: ['A-overC','A-overC-thenD'],
+						message: "Southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [R] trains are stopping along the [F] line from [Bk32-R36] (Qns) to [Mn167-A32] then via the [D] line to [Bk26-R30].",
+						trains: [
+							"R",
+							"R"
+						],
+						route: [
+							{
+								lines: [
+								"R"
+								],
+								along: "Q",
+								from: "Mn623-R23",
+								to: "Bk26-R30"
+							},
+							{
+								lines: [
+								"R"
+								],
+								along: "F",
+								from: "Bk32-R36",
+								to: "Mn167-A32"
+							},
+							{
+								lines: [
+								"R"
+								],
+								along: "D",
+								from: "Mn167-A32",
+								to: "Bk26-R30"
+							}
+						],
+					}
+				}
 		],
 
 		complex: [
