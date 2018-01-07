@@ -19,7 +19,6 @@ describe ('Detect Train Lines', () => {
 			routeTestByTag('A-overC', ['MTAD-001'], null, ['A-overC']);
 			routeTestByTag('A-overC-thenD', ['MTAD-001'], null, ['A-overC-thenD']);
 			routeTestByTag('AB-overC', ['MTAD-001'], null, ['AB-overC']);
-//			routeTestByTag('AB-overC-end', ['MTAD-001'], null, ['AB-overC-end']);
 			routeTestByTag('A-overC-D-overE', ['MTAD-001'], null, ['A-overC-D-overE']);
 			routeTestByTag('AB-overC-D-overE', ['MTAD-001'], null, ['AB-overC-D-overE']);
 //			routeTestByTag('Multiple Patterns', ['MTAD-001'], null, '#any-two');
@@ -35,9 +34,13 @@ describe ('Detect Train Lines', () => {
 
 	describe.skip('MTAD-006 -- Detect Stations from Alternate Line', () => {});
 	describe.skip('MTAD-009 -- Split Service Route Change', () => {});
-	describe.skip('MTAD-010 -- Route Change, then end.', () => { });
+	describe.skip('MTAD-010 -- Route Change, then end.', () => {
 
-	describe.skip('MTAD-014 -- Line Changes, Complex', () => {
+		routeTestByTag('AB-overC-end', ['MTAD-001'], null, ['AB-overC-end']);
+	});
+
+
+	describe.skip('MTAD-014 -- Line Operate Between, then Route Change', () => {
 		routeTestByTag('A-operates-then-overC', ['MTAD-0014'], null, ['A-operates-then-overC']);
 		routeTestByTag('A-operates-then-overC-thenD', ['MTAD-014'], null, ['A-operates-then-overC-thenD']);
 	});
