@@ -51,7 +51,7 @@ app.get(['/subway/status', '/subway/status/archive/:id'], (req, resp, next) => {
 	mtaApi.getSubwayStatus(req_file, my_cache_time)
 
 		// Now we play with the data.
-		.then(data => (!data || data.length <= 0) ? Promise.reject('No data loaded from file or endpoint.') : data) 
+		.then(data => (!data || data.length <= 0) ? Promise.reject('No data loaded from file or endpoint.') : data)
 		.then(data => mtaStatus.checkReports(data))
 		.then(data => mtaStatus.parseStatusFeed(data))
 		.then(data => resp.json(data))
@@ -108,7 +108,7 @@ app.get('/subway/lines/:train/route/array', (req,resp,next) => {
 
 /**
  * Handle any catchs in Promise chains, and provide API error response.
- * 
+ *
  * @param {Object} req
  * @param {Object} resp
  * @param {String} err

@@ -6,7 +6,7 @@ const mtaRegEx = require('./includes/regex');
 const mta_stations_file = './data/static/mta.stations';
 const stations_generated_filename = './data/generated/mta.stations.compiled.json';
 
-//{ 
+//{
 //  'Complex ID': 1,
 //  'GTFS Stop ID': 'R01',
 //  Division: 'BMT',
@@ -27,19 +27,19 @@ mtaApi.getSubwayStations(mta_stations_file)
 
 .then(data => {
 
-	console.log(' > Stations Fetched....');	
+	console.log(' > Stations Fetched....');
 	if (!data || data.length <= 0) {
 		return Promise.reject('No data loaded from file or endpoint.');
 	}
 
 	console.log(' > Preparing Stations....');
-	
+
 	try {
 		let results = {};
 		let lines = {};
 
 		for (let d in data) {
-			
+
 			let r = prepStationFormat(data[d]);
 			let boro = '';
 			switch(r.boro){
@@ -63,13 +63,13 @@ mtaApi.getSubwayStations(mta_stations_file)
 			/**
 			 *
 			 *
-			 *   @TODO 
-			 * 
+			 *   @TODO
+			 *
 			 *     *
 			 *     *  Given this list, add the unfiltered regex list, with key, to an array.
 			 *     *
 			 *     *  Then pass the array somehow to a list, which we can run
-			 *     *  during station identification, 
+			 *     *  during station identification,
 			 *     *  before the normal station check.
 			 *     *
 			 *     *
@@ -77,7 +77,7 @@ mtaApi.getSubwayStations(mta_stations_file)
 			 *     *
 			 *     *
 			 *     +
-			 * 
+			 *
 			 */
 
 			// The regEx part of the quiz.
@@ -104,12 +104,12 @@ mtaApi.getSubwayStations(mta_stations_file)
 
 			if (r.trains) {
 				for (let t in r.trains) {
-					lines[r.line].trains[r.trains[t]] = r.trains[t];	
+					lines[r.line].trains[r.trains[t]] = r.trains[t];
 				}
 			}
 			lines[r.line].boro[boro] = boro;
 			lines[r.line].stations[key] = r;
-				
+
 
 			results[key] = r;
 		}
@@ -127,7 +127,7 @@ mtaApi.getSubwayStations(mta_stations_file)
 		console.log(' > Complete.');
 	}
 	catch (err) {
-		console.error('Error processing stations. ', err);	
+		console.error('Error processing stations. ', err);
 	}
 });
 
@@ -161,7 +161,7 @@ function stationAliases(name, boro) {
 			'47-50 Sts - Rockefeller Ctr': [
 				'47-50 Sts',
 				'Rockefeller Ctr',
-			], 
+			],
 			'42 St - Bryant Pk': [
 				'Bryant Pk',
 			],
@@ -202,7 +202,9 @@ function stationAliases(name, boro) {
 		},
 
 		Qs: {
-
+			'Astoria - Ditmars Blvd': [
+				'Ditmars Blvd',
+			],
 			'Jackson Hts - Roosevelt Av': [
 				'Roosevelt Av',
 				'Jackson Hts',
@@ -288,7 +290,7 @@ function stationAliases(name, boro) {
 
 	if (alias[boro][name]) {
 		results = alias[boro][name];
-	} 
+	}
 
 	// Include the name in the result.
 	results.push(name);
@@ -314,4 +316,3 @@ function prepStationFormat (row) {
 
 	return r;
 }
-

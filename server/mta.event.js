@@ -1,9 +1,9 @@
 /**
  * Parse status from the MTA xml status feed.
  *
- * There are two feeds. This one is for the .xml endpoint from the MTA, 
- * at: 
- * 
+ * There are two feeds. This one is for the .xml endpoint from the MTA,
+ * at:
+ *
  * http://web.mta.info/status/ServiceStatusSubway.xml
  *
  * This is a cleaner API, which requires less cleanup.
@@ -53,11 +53,11 @@ async function parseStatusFeed(feedObject) {
 		let t = feedObject.events;
 
 		for (let o in t) {
-			my_body.events.push(await parseSingleEvent(t[o])); 
-		} 
+			my_body.events.push(await parseSingleEvent(t[o]));
+		}
 	}
 
-	
+
 
 	return my_body;
 }
@@ -66,7 +66,7 @@ async function parseStatusFeed(feedObject) {
 async function parseSingleEvent(event) {
 
 	let e = {
-		
+
 		id: null,
 		type: null,
 		planned: false,
@@ -126,15 +126,15 @@ async function parseDetailMessage(status, summary, lines) {
 
 /**
  * Cleanup first pass: Strip garbage characters and tags from a joint line status message.
- * 
+ *
  * @param  {string} text
  *   A status message string, maybe container extra html and stuff.
- *   
+ *
  * @return {string}
  *   A cleaner string.
  */
 function cleanStatusText(text) {
-	
+
 	// Clean up the tags and newlines.
 	text = text.replace(/(?:\r\n|\r|\n)/g, '');
 	text = text.trim();
@@ -157,10 +157,10 @@ function cleanStatusText(text) {
 
 /**
  * Gather info on a single status event.
- * 
+ *
  * @param  {string} event
  *   The text for a single event.
- *   
+ *
  * @return {object}
  *   An event object.
  */
@@ -190,7 +190,12 @@ async function formatSingleStatusEvent(event, lines, summary) {
 		e.time = getMessageDateTime(event);
 
 		// Get a scheduled time from the body. (Planned Work)
-		e.durration = getMessagePlannedWorkDate(event);	
+		e.durration = getMessagePlannedWorkDate(event);
+
+
+		// Get AD note (always at the bottom).
+		// <!> Must run before Travel Alt, which WILL match this.
+		e.ad_message = getMessageADNote(event);
 
 		// Break out any alternate route information from the body.
 		e.alt_instructions = getMessageAlternateInstructions(event);
@@ -201,14 +206,12 @@ async function formatSingleStatusEvent(event, lines, summary) {
 			.filter((value, index, self) => self.indexOf(value) === index);
 
 
-		// Get all stations per line. Also get a formatted message, with station names 
+		// Get all stations per line. Also get a formatted message, with station names
 		// substituted with their IDs, for easier parsing of line and route changes.
 		let station_result = await getStationsInEventMessage(lines, e.message, e.message_station_parse);
 		e.stations = station_result.stations;
 		e.message_station_parse = station_result.parsed_message;
 
-
-		e.ad_message = getMessageADNote(event);
 
 		e.route_change = await getRouteChange(e.message_station_parse, e.trains, true);
 
@@ -221,14 +224,14 @@ async function formatSingleStatusEvent(event, lines, summary) {
 
 
 /**
- * Get all stations per line. Also get a formatted message, with station names 
+ * Get all stations per line. Also get a formatted message, with station names
  * substituted with their IDs, for easier parsing of line and route changes.
- * 
+ *
  * @param  {array(string)} lines
  *   An array of original MTA Subway tokens.
  * @param  {string} message
  *   Our haystack.
- * 
+ *
  * @return {Object}
  *   [stations] contains all the station results
  *   [parsed_message] contains the original message, with all stations matches replaced by their ID, wrapped in [].
@@ -249,10 +252,10 @@ async function getStationsInEventMessage(lines, message, parsed_message) {
 			result.parsed_message = result.stations[my_l].processed_message;
 
 //			console.log('\n\n', my_l,'---', result.stations[my_l].stations);
-		} 
-		catch (err) { 
+		}
+		catch (err) {
 			console.warn('Error while fetching stations in event msg: ', err);
-			continue; 
+			continue;
 		}
 	}
 
@@ -262,24 +265,31 @@ async function getStationsInEventMessage(lines, message, parsed_message) {
 
 function prepareEventMessage(message, status, use_placeholder, summary) {
 
+//	console.log('\n\n Handling Message Cleanup\n', message);
+
 	// Pull the original message out of there.
 	if (summary) {
+//		console.log(' > Replacing summary message...\n', summary);
 		message = message.replace(summary, (use_placeholder) ? '[-SUMMARY-]' : '');
 	}
 
 	// Remove the original message out of there.
 	if (status.durration !== null) {
+//		console.log(' > Replacing Durration message...\n', status.durration);
 		message = message.replace(status.durration, (use_placeholder) ? '[-DATES-]' : '');
 	}
 
 	// Remove the alternate directions.
 	if (status.alt_instructions !== null) {
+//		console.log(' > Replacing Alt Instructions message...\n', status.alt_instructions);
 		message = message.replace(status.alt_instructions, (use_placeholder) ? '[-ALT-INSTRUCT-]' : '');
 	}
 
 	if (status.ad_message !== null) {
+//		console.log(' > Replacing AD message...\n', status.ad_message);
 		message = message.replace(status.ad_message, (use_placeholder) ? '[-AD-MESSAGE-]' : '');
 	}
+
 
 	return message.trim();
 }
@@ -295,8 +305,15 @@ function getMessageDateTime(text) {
 function getMessageAlternateInstructions(text) {
 
 	// In Progress -- Reduction For service to these stations
-	let alternateInstructionPattern = /((\[TP\]|(\b(For\s*service\s*(to|from)|use\s*(nearby)?|take\s*the|Transfer\s*(to|between)?|Travel\s*Alternatives|As\s*an\s*alternative\s*(?:customers\s*may\s*)take\s*the)\b))+((\s*((stations|these stations|trains|transfer\s*to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\.\/\:\;&\(\)\*]*)*)?)*(\s*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*\s*)*)+/i;
+//	let alternateInstructionPattern = /((\[TP\]|(\b(For\s*service\s*(to|from)|use\s*(nearby)?|take\s*the|Transfer\s*(to|between)?|Travel\s*Alternatives|As\s*an\s*alternative\s*(?:customers\s*may\s*)take\s*the)\b))+((\s*((stations|these stations|trains|transfer\s*to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\.\/\:\;&\(\)\*]*)*)?)*(\s*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*\s*)*)+/i;
 
+	let alternateInstructionPattern = /((\[TP\]|(\b(For\s*service\s*(to|from)|use\s*(nearby)?|take\s*the|Transfer\s*(to|between)?|Travel\s*Alternatives|As\s*an\s*alternative\s*(?:customers\s*may\s*)take\s*the)\b))+((\s*((stations|these stations|trains|transfer\s*to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\'\.\/\:\;&\(\)\*]*)*)?)*(\s*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]|(\[(ad)\]))*\s*)*)+/i;
+
+	// We must remove the Ad note suppliment before we can perform a TP match.
+	let ad_message = getMessageADNote(text);
+	if (ad_message !== null) {
+		text = text.replace(ad_message, '');
+	}
 
 	let results = text.match(alternateInstructionPattern);
 
@@ -311,7 +328,8 @@ function getMessageAlternateInstructions(text) {
 
 function getMessageADNote(text) {
 
-	let adPattern = /\[ad\](\s*[a-zA-Z0-9\-\.\/\:\;&\(\)\*\,]*)*/i;
+	// let adPattern = /\[ad\](\s*[a-zA-Z0-9\-\.\/\:\;&\(\)\*\,]*)*/i;
+	let adPattern = /\[ad\](\s*This\s*service\s*change\s*affects)\s*(\s*[\'\|a-zA-Z0-9\-\.\/\:\;&\(\)\*\,]+)+/i;
 	let results = text.match(adPattern);
 
 	if (results && results[0]) {
@@ -355,13 +373,13 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 			message_mod: c,
 			re: null,
 			trains: [],
-			route: [], 
+			route: [],
 			new_stations: [],
 		};
 
 		for (let passes = 0; passes < 6; passes++) {
 
-			c.results = mtaRegEx.matchRegexString(reroute_pattern, c.message_mod, true);	
+			c.results = mtaRegEx.matchRegexString(reroute_pattern, c.message_mod, true);
 
 			// Only makes passes until our regex comes up blank.
 			if (c.results === false) {	break;	}
@@ -414,8 +432,8 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 							// 1. A over B  from [station] to [station] then C to [station],
 							// 2. A over B  from [station] to [station] then C from [station] to [station],
 							// If 1, then set [0].to as [1].from.
-							if (typeof c.results[8]) {	
-								route_pair.route[j].from = route_pair.route[j-1].to;	
+							if (typeof c.results[8]) {
+								route_pair.route[j].from = route_pair.route[j-1].to;
 							}
 						case 8:
 							route_pair.route[j].to = unwrapTrain(item);
@@ -426,7 +444,7 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 				});
 
 				// Push the results onto our final guy.
-				route_pair.route.map(r => {	
+				route_pair.route.map(r => {
 					c.route.push(r);	});
 			}
 		}
@@ -438,7 +456,7 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 
 /**
  * Given a string status update, find any route change messaging.
- * 
+ *
  * @param  {string} text
  *   The haystack.
  * @param  {array} lines
@@ -446,9 +464,9 @@ async function getRouteChange(text, lines, station_ids_in_text) {
  * @param  {boolean} station_ids_in_text
  *   TRUE if the find sations function was run against this message,
  *   and all station names have been replaces by ID placeholders,
- *   like: [Qs123-ID]. This prevents us from running heavier regex with 
+ *   like: [Qs123-ID]. This prevents us from running heavier regex with
  *   all stations in the lines.
- *   
+ *
  * @return {text | false}
  *   If found, we return the matched rout change message.
  */
@@ -482,7 +500,7 @@ async function getMessageRouteChange(text, lines, station_ids_in_text) {
 		text = text.replace(match, ' --M' + 1 + '-- ');
 	}
 
-	return results.join(' ');	
+	return results.join(' ');
 }
 
 
@@ -498,7 +516,7 @@ function getMessageAction(text) {
 				my_status.push(type);
 				break;
 			}
-		}	
+		}
 	}
 
 	return (my_status.length > 0) ? my_status : null;
