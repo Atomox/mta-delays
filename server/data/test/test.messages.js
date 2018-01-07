@@ -1,26 +1,26 @@
 
 let event_messages = {
 
-	structured: {
-		normal: [
+	"structured": {
+		"normal": [
 			{
-				type: 'Delays',
-				type_detail: [
-					'service_resumed',
-					'mechanical_problems',
+				"type": "Delays",
+				"type_detail": [
+					"service_resumed",
+					"mechanical_problems",
 				],
 				time: null,
 				durration: null,
-				message: '[4] and [5] train service has resumed following an earlier train with mechanical problems at Bowling Green.',
+				message: "[4] and [5] train service has resumed following an earlier train with mechanical problems at Bowling Green.",
 				stations: {
-					'MTA NYCT_4': {
-						stations: {
-							'Mn414-420': "Bowling Green"
+					"MTA NYCT_4": {
+						"stations": {
+							"Mn414-420": "Bowling Green"
 						}
 					},
-					'MTA NYCT_5': {
-						stations: {
-							'Mn414-420': "Bowling Green"
+					"MTA NYCT_5": {
+						"stations": {
+							"Mn414-420": "Bowling Green"
 						}
 					}
 				},
@@ -50,6 +50,7 @@ let event_messages = {
 				alt_instructions: null,
 				ad_message: null,
 				route_change: {
+					tag: ['AB-overC-end'],
 					message: "Some southbound [2] and [3] trains end at [Mn327-137] Some southbound [2] and [3] trains are stopping along the [1] line from [Mn327-137] to then end. Southbound [4] and [5] trains end at [Mn414-420]",
 					message_mod: "Some southbound [2] and [3] trains end at [Mn327-137] Some southbound [2] and [3] trains are stopping along the [1] line from [Mn327-137] to then end. Southbound [4] and [5] trains end at [Mn414-420]",
 					trains: [ ],
@@ -128,6 +129,7 @@ let event_messages = {
 				message: "Some northbound [N] trains are stopping on the [Q] line from 57 St-7 Av and end at 96 St. Some northbound [R] trains are stopping on the [Q] line from 57 St-7 Av to Lexington Av-63 St, then over the [F] line from Lexington Av-63 St to Jackson Heights-Roosevelt Av. This service change is because of a train with mechanical problems at 5 Av-59 St. Expect delays in [F][N][Q][R] train service.",
 				alt_instructions: null,
 				route_change: {
+					tag: ['AB-overC-end', 'A-overC-thenD'],
 					message: "Some northbound [N] trains are stopping on the [Q] line from [Mn9-R14] and end at [Mn475-Q05]. Some northbound [R] trains are stopping on the [Q] line from [Mn9-R14] to [Mn223-B08], then over the [F] line from [Mn223-B08] to [Qs616-G14].",
 					trains: ['N', 'R'],
 					route: [
@@ -236,6 +238,7 @@ let event_messages = {
 				durration: null,
 				message: "Some northbound [E] trains are running local from Queens Plaza to Jackson Hts-Roosevelt Av. Some northbound [E] trains are stopping long the [C] line from 50 St to 168 St.   Some northbound [F] trains are running local from 21 St-Queensbridge to Jackson Hts-Roosevelt Av.  [M] trains no service between Essex St and Forest Hills-71 Av. These service changes are because of signal problems at 36 St (Queens). Expect delays on [E], [F], [M] and [R] trains.",
 				route_change: {
+					tag: ['A-overC'],
 					message: "Some northbound [E] trains are stopping long the [C] line from [Mn162-A25] to [Mn605-A09].",
 					trains: ["E"],
 					route: [
@@ -472,6 +475,7 @@ let event_messages = {
 				alt_instructions: "Travel Alternatives [TP] For JFK Airport , take the Far Rockaway-bound [A] to Howard Beach-JFK Airport. For LaGuardia Airport , take the [7] or [E] (from 6 Av) to 74 St-Roosevelt Av, for the LaGuardia Link Q70 SBS . For Port Authority Bus Terminal , all 8 Av [E] stations and overnight service between W 4 St and World Trade Center , take the [A] or [C]. For 53 St [E] stations , use the nearby 51 St [6] or 7 Av [B] [D] Stations. For [M] stations , take the [E] [F] [R] and/or [J]. Take the [7] for Court Sq-23 St [G] , and the [R] ( days/evenings ) for Queens Plaza or free overnight shuttle buses. Click here for details about this Subway Action Plan. *9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29 [E] trains run to/from 2 Av [F] station after W 4 St.",
 				ad_message: "[ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 				route_change: {
+					tag: ['A-overC'],
 					message_raw: "[E] trains are rerouted in both directions via the [F] between Jackson Hts-Roosevelt Av and West 4 St",
 					message: "[E] trains are rerouted in both directions via the [F] between [Qs616-G14] and [Mn167-A32]",
 					trains: ["E"],
@@ -517,6 +521,7 @@ let event_messages = {
 				alt_instructions: null,
 				ad_message: null,
 				route_change: {
+					tag: ['A-overC-thenD'],
 					message_raw: "Southbound [D] trains are stopping along the [C] line from 59 St-Columbus Circle to W 4 St-Wash Sq then along the [F] line to Coney Island-Stillwell Av.",
 					message: "Southbound [D] trains are stopping along the [C] line from [Mn614-A24] to [Mn167-A32] then along the [F] line to [Bk58-D43].",
 					trains: ["D"],
@@ -554,6 +559,7 @@ let event_messages = {
 				durration: null,
 				message: "Some northbound [A] and [C] trains are stopping along the [F] line from Jay St-MetroTech to W 4 St-Washington Sq because of signal problems at High St.Expect delays on the [A], [C] and [F] trains.",
 				route_change: {
+					tag: ['AB-overC'],
 					message_raw: "Some northbound [A] and [C] trains are stopping along the [F] line from Jay St-MetroTech to W 4 St-Washington Sq",
 					message: "Some northbound [A] and [C] trains are stopping along the [F] line from [Bk636-A41] to [Mn167-A32]",
 					trains: ['A','C'],
@@ -584,6 +590,7 @@ let event_messages = {
 				durration: null,
 				message: "Southbound [Q] trains are stopping along the [R] line from Canal St to DeKalb Av because of a sick passenger at Canal St.",
 				route_change: {
+					tag: ['A-overC'],
 					message_raw: "Southbound [Q] trains are stopping along the [R] line from Canal St to DeKalb Av",
 					message: "Southbound [Q] trains are stopping along the [R] line from [Mn623-R23] to [Bk26-R30]",
 					trains: ['Q'],
@@ -613,6 +620,7 @@ let event_messages = {
 				durration: null,
 				message: "Southbound [N] trains are stopping along the [D] line from 36 St (Bklyn) to Coney Island-Stillwell Av because of signal problems between 8 Av and Bay Parkway.",
 				route_change: {
+					tag: ['A-overC'],
 					message_raw: "Southbound [N] trains are stopping along the [D] line from 36 St (Bklyn) to Coney Island-Stillwell Av",
 					message: "Southbound [N] trains are stopping along the [D] line from [Bk32-R36] to [Bk58-D43]",
 					trains: ['N'],
@@ -642,6 +650,7 @@ let event_messages = {
 				durration: null,
 				message: "Northbound [F] trains are stopping along the [A] line from Jay St-MetroTech to 42 St-Port Authority, then stopping along the [E] line to Jackson Heights-Roosevelt Av. These service changes are because of switch problems at Broadway-Lafayette St. Expect delays on the [A], [E], and [F] lines.",
 				route_change: {
+					tag: ['A-overC-thenD'],
 					message_raw: "Northbound [F] trains are stopping along the [A] line from Jay St-MetroTech to 42 St-Port Authority, then stopping along the [E] line to Jackson Heights-Roosevelt Av.",
 					message: "Northbound [F] trains are stopping along the [A] line from [Bk636-A41] to [Mn611-A27], then stopping along the [E] line to [Qs616-G14].",
 					trains: ['F'],
@@ -688,12 +697,13 @@ let event_messages = {
 					"route_change",
 					"running_express"
 				],
-				tag: ["MTAD-006", "MTAD-001"],
+				tag: ["MTAD-006", "MTAD-001", "MTAD-011", "MTAD-014"],
 				time: null,
 				durration: "Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15",
 				message: "SIGNAL IMPROVEMENTS [F] Service is rerouted in Manhattan and Brooklyn[A] [C] [D] [N] [R] trains and [SB] free shuttle buses provide alternate service Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15 No [F] service at 57 St , 47-50 Sts , 42 St-Bryant Pk , 23 St , 14 St , W 4 St , B'way-Lafayette St , 2 Av , Delancey St/Essex St , East Broadway , and York St . [F] service operates b etween Jamaica-179 St and Lexington Av-63 St, and via the [Q] to/from Atlantic Av-Barclays Ctr (skipping DeKalb Av, days and evenings), and via the [D] to/from Stillwell Av . Trains run express in Manhattan all weekend . [D]* trains are rerouted via the [A] in Manhattan and replace the [F] in Brooklyn between Jay St-MetroTech and Stillwell Av . [SB] Buses operate along two routes: 1. Between W 4 St and East Broadway , stopping at B'way-Lafayette St, 2 Av and Delancey St/Essex St. 2. Between Jay St-MetroTech and York St . Show Shuttle Bus Stops Station Bus Stop Bus W 4 St [ad] [A] [C] [D] [E] 6 Av at W 3 St M55 B'way-Lafayette St Houston St at Lafayette St (to East Broadway) M21 Houston St at Broadway (to W 4 St) M21 2 Av Houston St at 1 Av M21 Delancey St/Essex St [J] Delancey St at Essex St (to East Broadway) B39 Essex St at Delancey St (to W 4 St) M9 East Broadway Essex St at Straus Square M9 York St Jay St at York St B67 Jay St-MetroTech [ad] [A] [C] [D] [N] [R] Jay St at Willoughby St B26 Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [A] [C] [D] [N] or [R]. Transfer between [F] ([Q] platform) and [A] [C] [D] [N] or [R] trains at 42 St-Port Authority/Times Sq-42 St. Transfer between [F] ([Q] platform) and [N] [R] trains at Canal St. Transfer between [D] and [N] [R] trains at Jay St-MetroTech. Affected Station Alternate Station/Service 57 St 7 Av or 5 Av/53 St [E] 47-50 Sts 7 Av or 5 Av/53 St [E] 49 St [N] [Q] local , [R] | [ad] uptown only 50 St (B'way) [1] [2] local 50 St (8 Av) [A] local , [C] [E] | [ad] downtown only 42 St-Bryant Pk [7] (5 Av) Times Sq-42 St [1] [2] [3] [7] [F] [N] [Q] [R] [S] | [ad] 42 St/Port Authority [A] [C] [D] [E] | [ad] 34 St-Herald Sq [ad] [F] [N] [Q] [R] 34 St-Penn Station [1] [2] [3] | [ad] 23 St 23 St [N] [Q] local , [R] 23 St [1] [2] local 14 St [1] [2] [3] (7 Av) or [L] (8 Av) | [ad] B'way-Lafayette St [ad] [SB] and Bleecker St [4] local , [6] | [ad] 2 Av [SB] Delancey St/Essex St [J] and [SB] East Broadway [SB] York St [SB] and nearby High St [A] [C] [D] Jay St MetroTech [ad] [SB] and [D] [N] [R] For Brooklyn [F] stations between Jay St-MetroTech and Stillwell Av , take the [D] instead. Key Transfer Stations 59 St-Columbus Circle [ad] [A] [C] [D] and [1] [2] local Times Sq-42 St/42 St-Port Authority [ad] (Passageway not accessible) [1] [2] [3] [7] [F] [N] [Q] [R] [S] [A] [C] [D] [E] 14 St-Union Sq [ad] (L, N, F, Q, R only) [4] [6] and [F] [N] [Q] [R] Canal St [ad] (4, 6 only) [4] local , [6] [J] [F] [N] [Q] [R] Jay St-MetroTech [ad] [A] [C] [D] [N] [R] and [SB] 4 Av-9 St [D] [G] [N] [R] | [F] late night only *This detour has taken into account additional planned service changes. Reminder: During late nights, all alternate stations are served, though not all lines run. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 				message_station_parse: "SIGNAL IMPROVEMENTS [F] Service is rerouted in Manhattan and Brooklyn[A] [C] [D] [N] [R] trains and [SB] free shuttle buses provide alternate service Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15 No [F] service at [Mn224-B10] , [Mn225-D15] , [Mn609-D16] , [Mn228-D18] , [Mn601-D19] , [Mn167-A32] , [Mn619-D21] , [Mn232-F14] , [Mn625-F15]/Essex St , [Mn234-F16] , and [Bk235-F18] . [F] service operates b etween [Qs254-F01] and [Mn223-B08], and via the [Q] to/from Atlantic Av-Barclays Ctr (skipping DeKalb Av, days and evenings), and via the [D] to/from [Bk58-D43] . Trains run express in Manhattan all weekend . [D]* trains are rerouted via the [A] in Manhattan and replace the [F] in Brooklyn between [Bk636-A41] and [Bk58-D43] . [SB] Buses operate along two routes: 1. Between [Mn167-A32] and [Mn234-F16] , stopping at [Mn619-D21], [Mn232-F14] and [Mn625-F15]/Essex St. 2. Between [Bk636-A41] and [Bk235-F18] . Show Shuttle Bus Stops Station Bus Stop Bus W 4 St [ad] [A] [C] [D] [E] 6 Av at W 3 St M55 B'way-Lafayette St Houston St at Lafayette St (to East Broadway) M21 Houston St at Broadway (to W 4 St) M21 2 Av Houston St at 1 Av M21 Delancey St/Essex St [J] Delancey St at Essex St (to East Broadway) B39 Essex St at Delancey St (to W 4 St) M9 East Broadway Essex St at Straus Square M9 York St Jay St at York St B67 Jay St-MetroTech [ad] [A] [C] [D] [N] [R] Jay St at Willoughby St B26 Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [A] [C] [D] [N] or [R]. Transfer between [F] ([Q] platform) and [A] [C] [D] [N] or [R] trains at 42 St-Port Authority/Times Sq-42 St. Transfer between [F] ([Q] platform) and [N] [R] trains at Canal St. Transfer between [D] and [N] [R] trains at Jay St-MetroTech. Affected Station Alternate Station/Service [Mn224-B10] [Bk240-F24] or 5 Av/53 St [E] [Mn225-D15] [Bk240-F24] or 5 Av/53 St [E] 49 St [N] [Q] local , [R] | [ad] uptown only 50 St (B'way) [1] [2] local 50 St (8 Av) [A] local , [C] [E] | [ad] downtown only [Mn609-D16] [7] (5 Av) Times Sq-42 St [1] [2] [3] [7] [F] [N] [Q] [R] [S] | [ad] 42 St/Port Authority [A] [C] [D] [E] | [ad] [Mn607-D17] [ad] [F] [N] [Q] [R] 34 St-Penn Station [1] [2] [3] | [ad] [Mn228-D18] 23 St [N] [Q] local , [R] 23 St [1] [2] local [Mn601-D19] [1] [2] [3] (7 Av) or [L] (8 Av) | [ad] B'way-Lafayette St [ad] [SB] and Bleecker St [4] local , [6] | [ad] 2 Av [SB] Delancey St/Essex St [J] and [SB] East Broadway [SB] York St [SB] and nearby High St [A] [C] [D] Jay St MetroTech [ad] [SB] and [D] [N] [R] For Brooklyn [F] stations between Jay St-MetroTech and Stillwell Av , take the [D] instead. Key Transfer Stations 59 St-Columbus Circle [ad] [A] [C] [D] and [1] [2] local Times Sq-42 St/42 St-Port Authority [ad] (Passageway not accessible) [1] [2] [3] [7] [F] [N] [Q] [R] [S] [A] [C] [D] [E] 14 St-Union Sq [ad] (L, N, F, Q, R only) [4] [6] and [F] [N] [Q] [R] Canal St [ad] (4, 6 only) [4] local , [6] [J] [F] [N] [Q] [R] Jay St-MetroTech [ad] [A] [C] [D] [N] [R] and [SB] [Bk608-F23]-9 St [D] [G] [N] [R] | [F] late night only *This detour has taken into account additional planned service changes. Reminder: During late nights, all alternate stations are served, though not all lines run. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 				route_change: {
+					tag: ['A-operates-then-overC-thenD'],
 					message: "[F] service operates b etween [Qs254-F01] and [Mn223-B08], and via the [Q] to/from Atlantic Av-Barclays Ctr (skipping DeKalb Av, days and evenings), and via the [D] to/from [Bk58-D43]",
 					re: null,
 					trains: [ ],
@@ -722,6 +732,7 @@ let event_messages = {
 				durration: null,
 				message: "[1] [2] [3] [N] [Q] [R] [W] and [7] trains are bypassing Times Sq-42 St in both directions.[A] [C] and [E] trains are bypassing 42 St/Port Authority-Bus Terminal in both directions.There is no [S] 42 St shuttle service in both directions.[A] and [C] trains are stopping along the [D] line between W 4 St-Washington Sq and 59 St-Columbus Circle in both directions.There is no [B] train service between Bedford Park Blvd and Brighton Beach in both directions.[E] Trains are stopping along the [F] line between Jackson Hts-Roosevelt Av and W 4 St-Washington Sq in both directions.No [L] train service between 8 Av and 6 Av in both directions.[M] Trains are running between Delancey-Essex St and Forest Hills-71 Av.These service changes are because of an NYPD investigation at 42 St/Port Authority-Bus Terminal.",
 				route_change: {
+					tag: ['AB-overC-D-overE'],
 					message: "[A] and [C] trains are stopping along the [D] line between [Mn167-A32] and [Mn614-125] in both directions. [E] Trains are stopping along the [F] line between [Qs616-G14] and [Mn167-A32] in both directions.",
 					trains: ['F'],
 					route: [
@@ -763,12 +774,12 @@ let event_messages = {
 					"shuttle_bus",
 					"route_change"
 				],
-				tag: ["MTAD-001", "MTAD-012"],
+				tag: ["MTAD-001", "MTAD-012", "MTAD-011", "MTAD-014"],
 				time: null,
 				durration: "Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15",
 				mesage: "SIGNAL IMPROVEMENTS [D] Service is rerouted in Manhattan and Brooklyn[F] [N] [Q] [R] trains and [SB] free shuttle buses provide alternate service Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15 No [D] service at 7 Av , 47-50 Sts , 42 St-Bryant Pk , 34 St-Herald Sq , B\'way-Lafayette St and Grand St . [D] service operates b etween 205 St and 59 St-Columbus Circle, and via the [A] express to/from Jay St-MetroTech , and via the [F] to/from Stillwell Av . [F]* trains are rerouted via the [Q] express in Manhattan and replace the [D] in Brooklyn between Atlantic Av-Barclays Ctr and Stillwell Av . [SB] Buses operate between W 4 St and Grand St , stopping at B\'way-Lafayette St . Show Shuttle Bus Stops Station Bus Stop Bus W 4 St [ad] [A] [C] [D] [E] 6 Av at W 3 St M55 B\'way-Lafayette St Houston St at Broadway M21 Grand St Grand St at Chrystie St -- Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [F] [N] [Q] or [R]. Transfer between [D] and [F] [N] [Q] [R] trains at 42 St-Port Authority/Times Sq-42 St. Transfer between [D] and [N]* [R] trains at Jay St-MetroTech and 4 Av-9 St. Affected Station Alternate Station/Service 7 Av [E] 47-50 Sts 7 Av or 5 Av/53 St [E] 49 St [N] [Q] local , [R] | [ad] uptown only 50 St (B\'way) [1] [2] local 50 St (8 Av) [A] local , [C] [E] | [ad] downtown only 42 St-Bryant Pk [7] (5 Av) Times Sq-42 St [1] [2] [3] [7] [F] [N] [Q] [R] [S] | [ad] 42 St/Port Authority [A] [C] [D] [E] | [ad] 34 St-Herald Sq [ad] [F] [N] [Q] [R] 34 St-Penn Station [1] [2] [3] | [ad] B\'way-Lafayette St [SB] Grand St [SB], nearby Bowery [J] Station For Brooklyn [D] stations between Atlantic Av-Barclays Ctr and Stillwell Av , take the [F] instead. Key Transfer Stations 59 St-Columbus Circle [ad] [A] [C] [D] and [1] [2] local Times Sq-42 St/42 St-Port Authority [ad] ( Passageway not accessible ) [1] [2] [3] [7] [F] [N] [Q] [R] [S] [A] [C] [D] [E] W 4 St-Wash Sq [ad] [A] [C] [D] [E] and [SB] Fulton St [ad] [4] [5] [A] [C] [D] [J] Jay St-MetroTech [ad] [A] [C] [D] [N] [R] and [SB] 4 Av-9 St [D] [G] [N] [R] | [F] late night only *This detour has taken into account additional planned service changes. Reminders: During late night, all alternate stations are served, though not all lines run. Manhattan-bound [F] platforms at Avenue X, Avenue U, Avenue P, Avenue N, Bay Pkwy and Avenue I are closed for renovation. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
-/**
 				route_change: {
+					tag: ['A-operates-then-overC-thenD'],
 					message: '[D] service operates b etween [Bx210-D01] and [Mn614-A24], and via the [A] express to/from Jay St-MetroTech , and via the [F] to/from [Bk58-D43] . [F]* trains are rerouted via the [Q] express in Manhattan and replace the [D] in Brooklyn between [Bk617-R31] and [Bk58-D43] .',
 					trains: ['D'],
 					route: [
@@ -786,7 +797,6 @@ let event_messages = {
 						},
 					],
 				},
-*/
 				line: [
 					{ line: 'MTA NYCT_D'},
 				],
@@ -801,9 +811,7 @@ let event_messages = {
 					"skip_stations",
 					"route_change"
 				],
-
 				tag: ["MTAD-001", "MTAD-004", "MTAD-013"],
-
 				time: null,
 				durration: null,
 				message: "Northbound [R] trains are bypassing Jay St-MetroTech.Southbound [R] trains are stopping along the [Q] line from Canal St to DeKalb Av. Some southbound [R] trains are stopping along the [F] line from 36 St (Qns) to W 4 St-Washington Sq then via the [D] line to DeKalb Av. Expect delays to [B], [D], [N], [Q] and [R] train service. These service changes are because of NYPD activity at Jay St-MetroTech.",
@@ -825,6 +833,7 @@ let event_messages = {
 
 
 				route_change: {
+					tag: ['A-overC-D-overE'],
 					message: "Southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [R] trains are stopping along the [F] line from [Qs272-G20] to [Mn167-A32] then via the [D] line to [Bk26-R30]",
 					trains: ["R"],
 					route: [
@@ -992,32 +1001,25 @@ let event_messages = {
 };
 
 let train_line = {
-	R: [
+	"R": [
 
 		{
-			stations: ['DeKalb Av', 'Canal St'],
+			stations: ["DeKalb Av", "Canal St"],
 			station_ids: [],
 			stationsOtherLines: [],
-			message: 'SIGNAL MAINTENANCE [R] Trains run via the [Q] in both directions between DeKalb Av and Canal St',
+			message: "SIGNAL MAINTENANCE [R] Trains run via the [Q] in both directions between DeKalb Av and Canal St",
 		},
 		{
 			stations: ['86 St', 'Bay Ridge-95 St'],
 			station_ids: ['Bk38', 'Bk39'],
-			message: '[R] trains are running with delays in both directions because of signal problems between 86 St and Bay Ridge-95 St.',
+			message: "[R] trains are running with delays in both directions because of signal problems between 86 St and Bay Ridge-95 St.",
 		},
 		{
 			known_problems: 'Stations: 36th St (Bkyn)',
 			stations: ['65 St', 'Northern Blvd', '46 St', 'Steinway St', '36 St', 'Queens Plaza', 'Roosevelt Av'],
 			station_ids: ['Q268', 'Q269', 'Q270', 'Q271', 'Q272'],
 			problem: '36 St exists in Queens and Brooklyn',
-			message: 'TRACK MAINTENANCE [R] Bay Ridge-bound trains skip 65 St, Northern Blvd, 46 St, Steinway St and 36 St. Late Evenng, 9:45 PM to 11 PM, Friday, Dec 22. For service to these stations, take the [R] to Queens Plaza and transfer to a Forest Hills-bound. For service from these stations, take the [R] to Roosevelt Av and transfer to a Bay Ridge-bound [R].',
-		},
-		{
-			known_problems: 'Stations: 36th St (Bkyn)',
-			stations: ['65 St', 'Northern Blvd', '46 St', 'Steinway St', '36 St', 'Queens Plaza', 'Roosevelt Av'],
-			station_ids: ['Q268', 'Q269', 'Q270', 'Q271', 'Q272'],
-			problem: '36 St exists in Queens and Brooklyn',
-			message: 'TRACK MAINTENANCE [R] Bay Ridge-bound trains skip 65 St, Northern Blvd, 46 St, Steinway St and 36 St. Late Evenng, 9:45 PM to 11 PM, Friday, Dec 22. For service to these stations, take the [R] to Queens Plaza and transfer to a Forest Hills-bound. For service from these stations, take the [R] to Roosevelt Av and transfer to a Bay Ridge-bound [R].',
+			message: "'TRACK MAINTENANCE [R] Bay Ridge-bound trains skip 65 St, Northern Blvd, 46 St, Steinway St and 36 St. Late Evenng, 9:45 PM to 11 PM, Friday, Dec 22. For service to these stations, take the [R] to Queens Plaza and transfer to a Forest Hills-bound. For service from these stations, take the [R] to Roosevelt Av and transfer to a Bay Ridge-bound [R].",
 		},
 /*
 		{
@@ -1026,24 +1028,24 @@ let train_line = {
 			stationsOtherLines: ['96 St', 'Lexington Av-63 St'],
 			stationIds: [],
 			problem: '59 St exists in Manhattan and Brooklyn',
-			message: 'Some northbound [N] trains are stopping on the [Q] line from 57 St-7 Av and end at 96 St. Some northbound [R] trains are stopping on the [Q] line from 57 St-7 Av to Lexington Av-63 St, then over the [F] line from Lexington Av-63 St to Jackson Heights-Roosevelt Av. This service change is because of a train with mechanical problems at 5 Av-59 St. Expect delays in [F][N][Q][R] train service.',
+			message: "Some northbound [N] trains are stopping on the [Q] line from 57 St-7 Av and end at 96 St. Some northbound [R] trains are stopping on the [Q] line from 57 St-7 Av to Lexington Av-63 St, then over the [F] line from Lexington Av-63 St to Jackson Heights-Roosevelt Av. This service change is because of a train with mechanical problems at 5 Av-59 St. Expect delays in [F][N][Q][R] train service.",
 		},
 */
 		{
 			stations: ['53 St', '45 St', '25 St', 'Prospect Av', '4 Av-9 St', 'Union St'],
 			station_ids: ['Bk34', 'Bk33', 'Bk31', 'Bk30', 'Bk608', 'Bk28'],
 			problem: '9th St is listed as Line-Station (4 Av-9 St)',
-			message: 'PRIORITY REPAIRS [R] Manhattan-bound trains skip 53 St, 45 St, 25 St, Prospect Av, 4 Av-9 St and Union St',
+			message: "PRIORITY REPAIRS [R] Manhattan-bound trains skip 53 St, 45 St, 25 St, Prospect Av, 4 Av-9 St and Union St",
 		},
 		{
 			stations: ['Jackson Hts-Roosevelt Av', 'Forest Hills-71 Av'],
 			station_ids: ['Canal St','57 St-7 Av'],
-			message: 'Some Forest Hills-bound [M] and [R] trains are running express from Jackson Hts-Roosevelt Av to Forest Hills-71 Av because of signal problems at Jackson Hts-Roosevelt Av.',
+			message: "Some Forest Hills-bound [M] and [R] trains are running express from Jackson Hts-Roosevelt Av to Forest Hills-71 Av because of signal problems at Jackson Hts-Roosevelt Av.",
 		},
 
 		{
 			stations: ['Canal St','57 St-7 Av', 'Times Sq-42 St'],
-			message: 'Northbound [N] trains are running local from Canal St to 57 St-7 Av.Northbound [Q] trains will end at Times Sq-42 St.Northbound [Q] trains are running local from Canal St to Times Sq-42 St.These service changes are because of a train with mechanical problems at 57 St-7 Av.Expect delays on the [N], [Q], [R] and [W] trains.',
+			message: "Northbound [N] trains are running local from Canal St to 57 St-7 Av.Northbound [Q] trains will end at Times Sq-42 St.Northbound [Q] trains are running local from Canal St to Times Sq-42 St.These service changes are because of a train with mechanical problems at 57 St-7 Av.Expect delays on the [N], [Q], [R] and [W] trains.",
 		},
 	],
 }

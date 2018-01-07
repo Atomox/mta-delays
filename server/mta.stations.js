@@ -23,12 +23,12 @@ async function getStations(ids) {
 
 /**
  * Filter a list of stations by passed station IDs, preserving order of the passed IDs.
- * 
+ *
  * @param  {object} data
  *   Response from getStations() (complete list of stations)
  * @param  {array} ids
  *   IDs, possibly with a secific order.
- *   
+ *
  * @return {array(objects)}
  *   All station data, in order, from the passed array, if found.
  */
@@ -41,7 +41,7 @@ function filterStations(data, ids) {
 
 	for (let i in ids) {
 		if (Object.keys(data).indexOf(ids[i]) !== -1) {
-			results.push(data[ids[i]]);	
+			results.push(data[ids[i]]);
 		}
 	}
 
@@ -115,7 +115,7 @@ async function getRouteStationsArray(line, include_stats) {
 	try {
 		let data = await getTrainRoute(line);
 		let my_result = {};
-		data.map( value => my_result[value.key] = (include_stats === true) 
+		data.map( value => my_result[value.key] = (include_stats === true)
 			? value
 			: value.name );
 		return my_result;
@@ -127,7 +127,7 @@ async function getRouteStationsArray(line, include_stats) {
 
 
 async function matchRouteStationsMessage(line, message, processed_message) {
-	try { 
+	try {
 
 		line = getTrainById(line);
 
@@ -152,14 +152,14 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 			if (problem_stations[stations[s].name]) {
 				if (res_re !== false) {
 					if (!problem_st_lengths[stations[s].name]) {
-						problem_st_lengths[stations[s].name] = [];	
+						problem_st_lengths[stations[s].name] = [];
 					}
-					
+
 					problem_st_lengths[stations[s].name].push(
-						{ 
+						{
 							name: stations[s].name,
-							found: res_re, 
-							sid: s, 
+							found: res_re,
+							sid: s,
 						}
 					);
 				}
@@ -176,7 +176,7 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 		if (Object.keys(problem_st_lengths).length > 0 ) {
 
 			Object.keys(problem_st_lengths).map( (key, i) => {
-				
+
 				let st_length = 0;
 				let st_obj = null;
 
@@ -184,12 +184,12 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 				problem_st_lengths[key].map( ps => {
 
 					if (ps.found.length > st_length) {
-						console.log(' . . matched', ps.found, ' [', ps.sid, ']');
+//						console.log(' . . matched', ps.found, ' [', ps.sid, ']');
 						st_length = ps.found.length;
 						st_obj = ps;
 					}
 					else {
-						console.log(' . . [no] mas', ps.found, ' [', ps.sid, ']');
+//						console.log(' . . [no] mas', ps.found, ' [', ps.sid, ']');
 					}
 					/**
 					 * @TODO
@@ -198,7 +198,7 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 					 *
 					 *
 					 *
-					 * 
+					 *
 					 */
 				});
 
@@ -210,7 +210,7 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 
 
 				}
-			});		
+			});
 		}
 
 		let analysis = groupStationsByLocation(stations, results);
@@ -235,8 +235,8 @@ async function getStationLinesRegex(lines, station_id_regex_only) {
 	let conjunctions = [' ', 'between', 'and', 'until', 'to', 'end (at)?', '\\((QNS|BKLYN)\\)'];
 	let stationregex = [];
 	let boros = ['Qs', 'Mn', 'Bx', 'Bk', 'SI'];
-	let station_id_regex = '(\\[' 
-		+ mtaRegEx.convertArrayToRegexOr(boros) 
+	let station_id_regex = '(\\['
+		+ mtaRegEx.convertArrayToRegexOr(boros)
 		+ '[0-9]{1,5}\\-[A-z0-9]{1,5}\\])';
 
 	//	/(?:(?:\s|between|and|until|to|end\s(?:at)?)*\s*(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\]))*)*/
@@ -277,7 +277,7 @@ function groupStationsByLocation(line, stations) {
 	for (let i in stations) {
 
 		results.push({
-			key: i, 
+			key: i,
 			line_distance: Object.keys(line).indexOf(i),
 			name: line[i],
 			boro: i.substr(0,2),
@@ -290,7 +290,7 @@ function groupStationsByLocation(line, stations) {
 		 *   - Distance
 		 *   - Boro
 		 *   - Distance from other stations
-		 * 
+		 *
 		 */
 	};
 
@@ -331,7 +331,7 @@ function getTrainById (id) {
 			return 'C';
 		case 'MTA NYCT_E':
 			return 'E';
-		
+
 		case 'MTA NYCT_N':
 			return 'N';
 		case 'MTA NYCT_Q':
@@ -365,7 +365,7 @@ function getTrainById (id) {
 		case 'MTA NYCT_FS':
 		case 'MTA NYCT_GS':
 			return 'S';
-		
+
 		case 'MTA NYCT_SI':
 			return 'SIR';
 
@@ -397,5 +397,3 @@ module.exports = {
 // 		- If going Express
 // 		- If going local
 // 	- Determine switch points
-
-

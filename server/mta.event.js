@@ -321,7 +321,7 @@ function getMessageAlternateInstructions(text) {
 		return results[0].trim();
 	}
 
-	console.warn('Can\'t parse alternate instructions in ---', text);
+//	console.warn('Can\'t parse alternate instructions in ---', text);
 	return null;
 }
 
@@ -350,7 +350,7 @@ function getMessagePlannedWorkDate(text) {
 		return dateResults[0].trim();
 	}
 
-	console.warn('Can\'t parse event dates in ---', text);
+//	console.warn('Can\'t parse event dates in ---', text);
 	return null;
 }
 
