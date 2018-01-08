@@ -8,8 +8,8 @@ let Header = require('./header').Header;
 // Config
 const api = require('../../../config/settings');
 
- const endpoint = 'subway/status';
-// const endpoint = 'subway/status/archive/15';
+// const endpoint = 'subway/status';
+ const endpoint = 'subway/status/archive/15';
 
 /**
  * The main app container.
@@ -35,7 +35,7 @@ class App extends React.Component {
     console.log(' ---- The environment is: [', process.env.NODE_ENV, '] ------');
 
     let e = api[process.env.NODE_ENV];
-    let url = e.protocol + e.host + ':' + e.port 
+    let url = e.protocol + e.host + ':' + e.port
       + e.endpoint_prefix + '/' + endpoint;
 
     console.log(' ---- The environment API: [', url, '] ------');
@@ -63,11 +63,11 @@ class App extends React.Component {
 
     return (
       <div key={_.uniqueId('card')}>
-        <Header 
+        <Header
           age={this.state.age}
           status={this.state.status}
           numEvents={this.state.events.length}/>
-        
+
         {Object.keys(this.state.events).map(key =>
             <EventList
               key={_.uniqueId('eventList-')}

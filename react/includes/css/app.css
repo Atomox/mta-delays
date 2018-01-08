@@ -16,10 +16,10 @@ span.line {
 }
 
 .line strong {
-  background: #999; 
+  background: #999;
   color: #fff;
-  -moz-border-radius: 50%; 
-  -webkit-border-radius: 50%; 
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
   border-radius: 50%;;
 
   width: 1.5em;
@@ -32,12 +32,25 @@ span.line {
   align-items: center;
 }
 
+.route-change {
+	padding-bottom: 1rem;
+	border-bottom: 1px dashed #eee;
+}
+
+.station {
+	color: #666;
+	border-bottom: 1px solid #ddd;
+}
+
+.station-list-line .station {
+	margin: .3rem;
+}
 
 /**
  *
  *   FIGURE OUT CIRCLE Subway div.
  *
- * 
+ *
 div.line {
   background:red;
   margin:auto;

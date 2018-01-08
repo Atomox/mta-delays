@@ -2,6 +2,10 @@ let React = require('react');
 let _ = require('lodash');
 
 let Card = require('./card');
+let RouteChange = require('./routechange').RouteChange;
+let StationList = require('./stations').StationList;
+let Station = require('./stations').Station;
+let TrainLine = require('./trains').TrainLine;
 let mta = require('../includes/mta.subway').mtaSubway;
 
 class EventList extends React.Component {
@@ -17,7 +21,7 @@ class EventList extends React.Component {
 		for (let i in e.line) {
 			let line = mta.getlineById(e.line[i].line);
 			let dir = e.line[i].dir;
-			
+
 			if (!trains[line]) {
 				trains[line] = {line: line, dir: dir,};
 			}
@@ -30,7 +34,7 @@ class EventList extends React.Component {
 
 		return (
 
-			<Card key="event-list" id={e.id} 
+			<Card key="event-list" id={e.id}
 				header={e.type}
 				headerSubtitle={e.type}
 				headerClass={titleClass}>
@@ -49,36 +53,25 @@ class EventList extends React.Component {
 				}
 				</h3>
 				<h5>{
-					(e.detail.type_detail) 
+					(e.detail.type_detail)
 						? e.detail.type_detail.join(' | ')
 						: ''}</h5>
-			    <p>{e.detail.message}</p>
+
+					{ (e.detail.route_change)
+						? <RouteChange routeInfo={e.detail.route_change} stations={e.detail.stations} />
+						: null }
+
+					<p>{e.detail.message}</p>
 
 			    <StationList stations={e.detail.stations} />
 
 			    <small>
-			    	{(e.planned === true) 
+			    	{(e.planned === true)
 			    		? e.detail.durration
 			    		: new Date(e.date.start).toString()
 			    	}</small>
 			    </div>
 			</Card>
-		);
-	}
-}
-
-
-class TrainLine extends React.Component {
-
-	render() {
-		return (
-			<span className="line">
-				<strong>
-					{this.props.line}
-				</strong>
-
-				{(this.props.dir !== 'both') ? this.props.dir : null}
-			</span>
 		);
 	}
 }
@@ -97,28 +90,6 @@ class StatusMessage extends React.Component {
 	}
 }
 
-
-class StationList extends React.Component {
-
-	render() {
-		if (Object.keys(this.props.stations).length === 0) {	
-			return null; 
-		}
-		console.log(this.props.stations);
-
-		return (<div key={_.uniqueId('stations-')}>
-			<em>Stations (alpha) | </em>
-			{
-			(Object.keys(this.props.stations).map(line => {
-				return mta.getlineById(line) 
-					+ ' :' + Object.keys(this.props.stations[line].stations).map( (val) => {
-						return this.props.stations[line].stations[val];
-					}).join(', ');
-			})).join(' --- ')
-			}
-		</div>);
-	}
-}
 
 module.exports = {
 	EventList
