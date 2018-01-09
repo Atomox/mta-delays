@@ -41,6 +41,9 @@ const taxonomy = {
 		'fire_activity': [
 			'FDNY activity',
 		],
+		'water condition': [
+			'water condition',
+		],
 		'mechanical_problems': [
 			'mechanical problems',
 		],
@@ -49,7 +52,7 @@ const taxonomy = {
 			'track condition',
 		],
 		'switch_problems': ['switch problems'],
-		
+
 
 		// Diversions.
 		'operate_sections': [
@@ -79,6 +82,7 @@ const taxonomy = {
 			'run local',
 		],
 		'route_change': [
+			'trains are stopping on',
 			'trains are stopping along',
 			'route changes',
 			'Trains are rerouted',

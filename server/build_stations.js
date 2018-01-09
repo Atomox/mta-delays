@@ -246,6 +246,9 @@ function stationAliases(name, boro) {
 				'36 St (Queens)',
 				'36 St (Qns)',
 			],
+			'Court Sq': [
+				'Court Sq/23rd St',
+			]
 		},
 
 
