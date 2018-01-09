@@ -32,7 +32,10 @@ describe ('Detect Train Lines', () => {
 		it ('Route Change -- Bypassed Stations', () => { });
 	});
 
-	describe.skip('MTAD-006 -- Detect Stations from Alternate Line', () => {});
+	describe('MTAD-006 -- Detect Stations from Alternate Line', () => {
+
+		routeTestByTag('Off-Line Stations Should Map', ['MTAD-006'], ['MTAD-014']);
+	});
 	describe.skip('MTAD-009 -- Split Service Route Change', () => {});
 	describe.skip('MTAD-010 -- Route Change, then end.', () => {
 
@@ -58,7 +61,13 @@ describe ('Detect Train Lines', () => {
 
 
 function testStationLineRerouteObject(event) {
-	return mtaStatus.getStationsInEventMessage(event.line, event.message)
+
+	// Get a train lines in main message.
+	// Add them to the lines set for station parsing.
+	let lines = mtaStatus.getMessageTrainLines(event.message);
+	lines = _.union(event.line,lines);
+
+	return mtaStatus.getStationsInEventMessage(lines, event.message)
 
 		.then( data => mtaStatus.getRouteChange(data.parsed_message, event.line, true))
 		.then( data => {

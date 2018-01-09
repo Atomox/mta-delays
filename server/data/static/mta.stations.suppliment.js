@@ -5,8 +5,13 @@ const name_problems = {
 		'Bk32-R36',
 	],
 
+	'59 St - Columbus Circle': [
+		'Mn614-A24',
+		'Mn614-125',
+	],
+
 // '59 St':
-	
+
 // "59 St"
 // "5 Av-59 St"
 // "57 St-7 Av"

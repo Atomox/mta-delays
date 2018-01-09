@@ -51,15 +51,15 @@ let event_messages = {
 				ad_message: null,
 				route_change: {
 					tag: ['AB-overC-end'],
-					message: "Some southbound [2] and [3] trains end at [Mn327-137] Some southbound [2] and [3] trains are stopping along the [1] line from [Mn327-137] to then end. Southbound [4] and [5] trains end at [Mn414-420]",
-					message_mod: "Some southbound [2] and [3] trains end at [Mn327-137] Some southbound [2] and [3] trains are stopping along the [1] line from [Mn327-137] to then end. Southbound [4] and [5] trains end at [Mn414-420]",
+					message: "Some southbound [2] and [3] trains end at [Mn327-137] Some southbound [2] and [3] trains are stopping along the [1] line from [Mn327-137] to [Mn635-142] then end. Southbound [4] and [5] trains end at [Mn414-420]",
+					message_mod: "Some southbound [2] and [3] trains end at [Mn327-137] Some southbound [2] and [3] trains are stopping along the [1] line from [Mn327-137] to [Mn635-142] then end. Southbound [4] and [5] trains end at [Mn414-420]",
 					trains: [ ],
 					route: [
 						{
 							lines: ["2","3"],
 							along: "1",
 							from: "Mn327-137",
-							to: "South Ferry",
+							to: "Mn635-142",
 						},
 					],
 				new_stations: [ ],
@@ -974,7 +974,40 @@ let event_messages = {
 							}
 						],
 					}
-				}
+				},
+				{
+					type: null,
+					type_detail: [
+						"shuttle_bus",
+						"no_trains_partial"
+					],
+					time: null,
+					durration: "Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9",
+					message: "[C] No trains between W 4 St and Euclid Av [A] [E] trains and [SB] buses provide alternate service Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9 [C] service operates between 168 St and W 4 St , and via the [F] to/from 2 Av , the last stop . [A] trains make all [C] stops between Utica Av and Euclid Av. [SB] Buses make all [C] stops between Jay St-MetroTech and Utica Av. Travel Alternatives [TP] For Spring, Canal, and Chambers Sts , take the [E] instead. Transfer between trains at W 4 St. For Fulton St , use the nearby World Trade Center [E] Station . Transfer between trains at W 4 St. For High St , use the nearby York St [F] station instead. [SB] Buses make all stops between Jay St-MetroTech and Utica Av . Transfer between [A] and [C] trains at W 4 St. Transfer between [A] trains and shuttle buses at Jay St-MetroTech and/or Utica Av . Show Shuttle Bus Stops Station Shuttle Bus Stop Jay St-MetroTech [ad] [A] [F] [R] Jay St at Willoughby St Hoyt-Schermerhorn Sts [G] Schermerhorn St at Bond St Lafayette Av Lafayette Av at Ft Greene Pl (to Utica Av) Fulton St at S Portland Av (to Utica Av) Fulton St at Ft Greene Pl (to Jay St-MetroTech) Fulton St at Greene Av (to Jay St-MetroTech) Clinton-Washington Avs Fulton St at Clinton Av Franklin Av [ad] [S] Fulton St at Franklin Av Nostrand Av Fulton St at Nostrand Av Kingston-Throop Avs Fulton St at Kingston Av Utica Av [ad] [A] Fulton St at Stuyvesant Av Note: Late night Lefferts Shuttle replaced by [A] service between Utica Av and Lefferts Blvd.",
+					message_station_parse: "[C] No trains between [Mn167-A32] and [Bk188-A55] [A] [E] trains and [SB] buses provide alternate service Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9 [C] service operates between [Mn605-A09] and [Mn167-A32] , and via the [F] to/from 2 Av , the last stop . [A] trains make all [C] stops between [Bk181-A48] and [Bk188-A55]. [SB] Buses make all [C] stops between [Bk636-A41] and [Bk181-A48]. Travel Alternatives [TP] For Spring, Canal, and [Mn624-A36]s , take the [E] instead. Transfer between trains at W 4 St. For [Mn628-A38] , use the nearby World Trade Center [E] Station . Transfer between trains at W 4 St. For [Bk173-A40] , use the nearby York St [F] station instead. [SB] Buses make all stops between [Bk636-A41] and Utica Av . Transfer between [A] and [C] trains at W 4 St. Transfer between [A] trains and shuttle buses at Jay St-MetroTech and/or Utica Av . Show Shuttle Bus Stops Station Shuttle Bus Stop Jay St-MetroTech [ad] [A] [F] [R] Jay St at Willoughby St [Bk175-A42] [G] Schermerhorn St at Bond St [Bk176-A43] [Bk176-A43] at Ft Greene Pl (to Utica Av) [Mn628-A38] at S Portland Av (to Utica Av) Fulton St at Ft Greene Pl (to Jay St-MetroTech) Fulton St at Greene Av (to Jay St-MetroTech) [Bk177-A44] Fulton St at Clinton Av [Bk627-A45] [ad] [S] Fulton St at [Bk627-A45] [Bk179-A46] Fulton St at [Bk179-A46] [Bk180-A47] Fulton St at Kingston Av Utica Av [ad] [A] Fulton St at Stuyvesant Av Note: Late night Lefferts Shuttle replaced by [A] service between Utica Av and Lefferts Blvd.",
+					stations: {},
+					line: [
+						"MTA NYCT_C"
+					],
+					route_change: {
+						tag: ['A-overC','A-overC-thenD'],
+						message: "[C] service operates between [Mn605-A09] and [Mn167-A32] , and via the [F] to/from 2 Av , the last stop.",
+						trains: [
+							"C"
+						],
+						route: [
+							{
+								lines: [
+								"C"
+								],
+								along: "F",
+								from: "Mn167-A32",
+								to: "Bk26-R30"
+							}
+						],
+					},
+					message_formula: "[-SUMMARY-] [-DATES-] [C] service operates between 168 St and W 4 St , and via the [F] to/from 2 Av , the last stop . [A] trains make all [C] stops between Utica Av and Euclid Av. [SB] Buses make all [C] stops between Jay St-MetroTech and Utica Av. [-ALT-INSTRUCT-]"
+				},
 		],
 
 		complex: [

@@ -181,6 +181,7 @@ async function formatSingleStatusEvent(event, lines, summary) {
 			message_station_parse: event,
 			stations: {},
 			trains: [],
+			train_context: [],
 		};
 
 		// Determine if the event type has more detail.
@@ -200,15 +201,21 @@ async function formatSingleStatusEvent(event, lines, summary) {
 		// Break out any alternate route information from the body.
 		e.alt_instructions = getMessageAlternateInstructions(event);
 
+		// Get a train lines in main message.
+		// Add them to the lines set for station parsing.
+		e.train_context = getMessageTrainLines(event);
+
 		// Get all line names, then filter a distinct set.
-		e.trains = lines
+		e.trains = _.union(lines
 			.map((val) => val.line)
-			.filter((value, index, self) => self.indexOf(value) === index);
+			.filter((value, index, self) => self.indexOf(value) === index));
+
+		e.train_context = _.union(e.trains,e.train_context);
 
 
 		// Get all stations per line. Also get a formatted message, with station names
 		// substituted with their IDs, for easier parsing of line and route changes.
-		let station_result = await getStationsInEventMessage(lines, e.message, e.message_station_parse);
+		let station_result = await getStationsInEventMessage(e.train_context, e.message, e.message_station_parse);
 		e.stations = station_result.stations;
 		e.message_station_parse = station_result.parsed_message;
 
@@ -260,6 +267,24 @@ async function getStationsInEventMessage(lines, message, parsed_message) {
 	}
 
 	return result;
+}
+
+
+/**
+ * Find all train lines in passed text,
+ * and return a distinct list of results, in train key format (MTA NYCT_2)
+ */
+function getMessageTrainLines(text) {
+
+	let train_pattern = /\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SH)\]/ig;
+
+	let results = {};
+	do {
+    m = train_pattern.exec(text);
+    if (m) {	results[m[1]] = m[1]; }
+	} while (m);
+
+	return Object.keys(results).map( i => 'MTA NYCT_' + results[i] );
 }
 
 
@@ -528,6 +553,7 @@ module.exports = {
 	parseStatusFeed,
 	getMessageAlternateInstructions,
 	getMessagePlannedWorkDate,
+	getMessageTrainLines,
 	getMessageAction,
 	getMessageDateTime,
 	getMessageRouteChange,

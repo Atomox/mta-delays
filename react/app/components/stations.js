@@ -49,7 +49,8 @@ const Station = (props) => {
 			if (props.stations && props.stations[key]) {
 				let stations = props.stations[key].stations;
 				let results = (stations[id]) ? {	name: stations[id], id: id}	: null;
-				if (results !== null) {
+
+        if (results !== null) {
 					needle = results;
 					return;
 				}

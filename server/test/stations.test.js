@@ -20,14 +20,14 @@ describe('Parse Stations', function() {
 	describe('Parse Stations on the [R Line]', () => {
 
 		it ('Should Identify stations in a message on the R Line.', () => {
-			
+
 			let promises = r_train_msg.map( event => {
 				return mtaStations.matchRouteStationsMessage('R', event.message)
 					.then( stations => {
 						expect(Object.values(stations.stations)).to.have.members(event.stations);
 					});
 			});
-			
+
 			return Promise.all(promises);
 		});
 	});
@@ -42,7 +42,7 @@ describe('Parse Stations', function() {
 				return mtaStatus.
 					getStationsInEventMessage(event.line, event.message)
 					.then( data => {
-						
+
 						let results = false;
 						let mocha_msg = event.message;
 
@@ -65,7 +65,7 @@ describe('Parse Stations', function() {
 						throw new Error(err);
 					});
 			});
-			
+
 			return Promise.all(promises);
 		});
 	});

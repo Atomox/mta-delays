@@ -27,12 +27,12 @@ class RouteChange extends React.Component {
 
 			let from = (<Station
 					stations={this.props.stations}
-					line={r.lines}
+					line={_.union([r.along],r.lines)}
 					sid={r.from}/>
 			);
 			let to = (<Station
 					stations={this.props.stations}
-					line={r.lines}
+					line={_.union([r.along],r.lines)}
 					sid={r.to}/>
 			);
 
