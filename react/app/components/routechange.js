@@ -1,13 +1,13 @@
-let React = require('react');
-let _ = require('lodash');
+import React from'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
-let mta = require('../includes/mta.subway').mtaSubway;
-let Station = require('./stations').Station;
-let TrainLine = require('./trains').TrainLine;
+import { mtaSubway as mta } from '../includes/mta.subway';
+import { Station } from './stations';
+import { TrainLine} from './trains';
+
 
 class RouteChange extends React.Component {
-
-  // this.props.routeInfo
 
   render() {
 		console.log(this.props.routeInfo);
@@ -48,6 +48,10 @@ class RouteChange extends React.Component {
 	}
 }
 
+RouteChange.propTypes = {
+  routeInfo: PropTypes.any.isRequired,
+  stations: PropTypes.any.isRequired,
+};
 
 
 module.exports = {

@@ -1,12 +1,14 @@
-let React = require('react');
-let _ = require('lodash');
+import React from 'react';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
 
-let Card = require('./card');
-let RouteChange = require('./routechange').RouteChange;
-let StationList = require('./stations').StationList;
-let Station = require('./stations').Station;
-let TrainLine = require('./trains').TrainLine;
-let mta = require('../includes/mta.subway').mtaSubway;
+import Card from './card';
+import { RouteChange } from './routechange';
+import { StationList } from './stations';
+import { Station } from './stations';
+import { TrainLine } from './trains';
+import { mtaSubway as mta } from '../includes/mta.subway';
+
 
 class EventList extends React.Component {
 
@@ -63,7 +65,8 @@ class EventList extends React.Component {
 
 					<p>{e.detail.message}</p>
 
-			    <StationList stations={e.detail.stations} />
+					{(e.detail.stations)
+						? <StationList stations={e.detail.stations} /> : ''}
 
 			    <small>
 			    	{(e.planned === true)
@@ -77,18 +80,9 @@ class EventList extends React.Component {
 }
 
 
-class StatusMessage extends React.Component {
-
-	render() {
-
-		let type = this.props.type;
-
-		return (
-			<li>
-			</li>
-		);
-	}
-}
+EventList.propTypes = {
+  event: PropTypes.any.isRequired,
+};
 
 
 module.exports = {

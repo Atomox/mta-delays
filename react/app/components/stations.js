@@ -1,12 +1,14 @@
-let React = require('react');
-let _ = require('lodash');
+import React from 'react';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
 
-let mta = require('../includes/mta.subway').mtaSubway;
+import { mtaSubway as mta } from '../includes/mta.subway';
 
 class StationList extends React.Component {
 
 	render() {
 		if (Object.keys(this.props.stations).length === 0) {
+        console.log(this.props.stations);
 			return null;
 		}
 
@@ -33,6 +35,11 @@ class StationList extends React.Component {
     );
 	}
 }
+
+StationList.propTypes = {
+  stations: PropTypes.any.isRequired,
+
+};
 
 const Station = (props) => {
 
@@ -69,6 +76,11 @@ const Station = (props) => {
 		</span>
 	);
 }
+
+Station.propTypes = {
+  line: PropTypes.any.isRequired,
+  sid: PropTypes.string.isRequired,
+};
 
 module.exports = {
   StationList,
