@@ -159,6 +159,8 @@ function stationAliases(name, boro) {
 				'Columbus Circle',
 			],
 			'47-50 Sts - Rockefeller Ctr': [
+				'47-50 St-Rockefeller Ctr',
+				'47-50 Sts/Rockefeller Ctr',
 				'47-50 Sts',
 				'Rockefeller Ctr',
 			],
@@ -169,11 +171,18 @@ function stationAliases(name, boro) {
 				'Herald Square',
 				'Herald Sq',
 			],
+			'96 St': [
+				'96 At-2 Av',
+				'96 St-2 Av',
+			],
 			'14 St - Union Sq': [
 				'14 St - Union Sq',
 				'Union Square',
 				'Union Sq',
 				'14 St',
+			],
+			'Lexington Av/63 St': [
+				'Lexington/63 St',
 			],
 			'42 St - Port Authority Bus Terminal': [
 				'42 St-Port Authority',
