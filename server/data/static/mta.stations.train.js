@@ -245,6 +245,15 @@ let routes = {
 		'Bk359-247',  // "Flatbush Av - Brooklyn College"
 
 	],
+	'6D': [
+		/**
+		 *
+		 * @TODO
+		 *
+		 *
+		 *
+		 */
+	],
 	6: [
 
 		// "Pelham" -- "Bx"
@@ -288,6 +297,22 @@ let routes = {
 		'Mn409-638',  // "Spring St"
 		'Mn623-639',  // "Canal St"
 		'Mn622-640',  // "Brooklyn Bridge - City Hall"
+
+	],
+	'7D': [
+		/**
+		 *
+		 *  @TODO
+		 *
+		 *
+		 */
+
+
+
+
+
+
+
 
 	],
 	7: [

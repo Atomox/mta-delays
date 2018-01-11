@@ -488,11 +488,11 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 							// If 1 or 3, then set [0].to as [1].from.
 							// If this is not a station, then it is a (to || to/from),
 							// which means only 1 line. (scenario #3)
-/**							if (item.indexOf('to') !== -1) {
+							if (item.indexOf('to') !== -1) {
 								route_pair.route[j].from = route_pair.route[j-1].to;
 								route_pair.route[j].to = unwrapTrain(item);
 							}
-	*/
+	
 							if (!c.results[i+1]) {
 								route_pair.route[j].from = route_pair.route[j-1].to;
 								route_pair.route[j].to = unwrapTrain(item);
@@ -552,7 +552,9 @@ async function getMessageRouteChange(text, lines, station_ids_in_text) {
 	// Parse Route Changes ([R] trains are running along the [F] line from...)
 //	let workDatePattern = /(((((Some|northbound|southbound|and)\s*)*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(trains(\s*are)?\s*(reroute[d]?|stopping|run(ning)? via (the)?)|(then)?\s*(stopping)?\s*(over|along)\s*(the)?)){1}(\s*(trains|both\s*directions|line(s)?|travel(ing)?|are|(on|in|between|along|long|from|to|via)\s*(the)?|then|end at|\,|\.)*\s*(\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 
-	let workDatePattern = /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\s|are)*(?:reroute[d]?|stopping|run(?:ning)? via (?:the)?)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?))(?:\s*(?:trains|both\s*directions|line[s]?|travel(?:ing)?|are|(?:on|in|between|along|long|from|to|via)\s*(?:the)?|then|end\s*(?:at)|\,|\.)*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
+	let workDatePattern = /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\sare)?\s*(?:reroute[d]?|stopping|run(?:ning)? via (?:the)?|traveling)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?|(?:service operates)))(?:\s*(?:trains|both\s*directions|line[s]?|travel(?:ing)?|are|(and\s)?(?:on|in|between|along|long|from|to|via)\s*(?:the)?|then|end\s*(?:at)|\,|\.)*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
+
+	// /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\s|are)*(?:reroute[d]?|stopping|run(?:ning)? via (?:the)?)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?|(?:service operates)))(?:\s*(?:trains|both\s*directions|line[s]?|travel(?:ing)?|are|(?:on|in|between|along|long|from|to|via)\s*(?:the)?|then|end\s*(?:at)|\,|\.)*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 
 	// The regex suffix, where the stations regex should be inserted before.
 	let suffix_wrapper = ')*)+';

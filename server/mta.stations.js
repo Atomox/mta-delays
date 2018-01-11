@@ -232,12 +232,14 @@ async function getStationLinesRegex(lines, station_id_regex_only) {
 	let regexSpace = '\\s*';
 	let stations = {};
 						// (\s*( |between|and|until|to|end (at)?)*\s)
-	let conjunctions = [' ', 'between', 'and', 'until', 'to', 'end (at)?', '\\((QNS|BKLYN)\\)'];
+	let conjunctions = [' ', 'between', 'and', 'until', 'to(\s*\\/\s*from)?', 'end (at)?', '\\((QNS|BKLYN)\\)', 'express'];
 	let stationregex = [];
 	let boros = ['Qs', 'Mn', 'Bx', 'Bk', 'SI'];
 	let station_id_regex = '(\\['
 		+ mtaRegEx.convertArrayToRegexOr(boros)
 		+ '[0-9]{1,5}\\-[A-z0-9]{1,5}\\])';
+
+	// (?:(?:(?:\s|between|and|until|to(\s*\/from\s*)?|end\s(?:at)?|express)*\s*(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\]))*)*
 
 	//	/(?:(?:\s|between|and|until|to|end\s(?:at)?)*\s*(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\]))*)*/
 
