@@ -10,34 +10,53 @@ import { TrainLine} from './trains';
 class RouteChange extends React.Component {
 
   render() {
-		console.log(this.props.routeInfo);
 
 		let routes = this.props.routeInfo.route.map(r => {
-			let trains = r.lines.map(t => {
-					return <TrainLine
-						key={_.uniqueId('train-' + mta.getlineById(t))}
-						line={mta.getlineById(t)}
-						dir='both' />;
-			});
+      try {
 
-			let along = (<TrainLine
-				key={_.uniqueId('train-' + mta.getlineById(r.along))}
-				line={mta.getlineById(r.along)}
-				dir={'both'} />);
+        let line_change = true;
 
-			let from = (<Station
-					stations={this.props.stations}
-					line={_.union([r.along],r.lines)}
-					sid={r.from}/>
-			);
-			let to = (<Station
-					stations={this.props.stations}
-					line={_.union([r.along],r.lines)}
-					sid={r.to}/>
-			);
+        // Along null is running on same line between stations.
+        if (r.along == null) {
+          r.along = r.lines[0];
+          line_change = false;
+        }
 
-			return (<div key={_.uniqueId()}>{trains} via the {along} from {from} until {to}.</div>
-			);
+  			let trains = r.lines.map(t => {
+  					return <TrainLine
+  						key={_.uniqueId('train-' + mta.getlineById(t))}
+  						line={mta.getlineById(t)}
+  						dir='both' />;
+  			});
+
+  			let along = (line_change) ? (<TrainLine
+  				key={_.uniqueId('train-' + mta.getlineById(r.along))}
+  				line={mta.getlineById(r.along)}
+  				dir={'both'} />) : 'run between';
+
+  			let from = (<Station
+  					stations={this.props.stations}
+  					line={_.union([r.along],r.lines)}
+  					sid={r.from}/>
+  			);
+  			let to = (<Station
+  					stations={this.props.stations}
+  					line={_.union([r.along],r.lines)}
+  					sid={r.to}/>
+  			);
+
+  			return (
+          <div key={_.uniqueId()}>
+            {trains}
+            {(line_change) ? 'via the' : 'run'}
+            {(line_change) ? along : ''} from {from} until {to}.
+          </div>
+  			);
+      }
+      catch (err) {
+        console.error('Problem with route change: ', r);
+      }
+
 		});
 
 		return (

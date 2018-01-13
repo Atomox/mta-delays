@@ -3,6 +3,7 @@ const taxonomy = {
 	incident_types: {
 		// Incidents
 		'service_resumed': [
+			'resumed making stops',
 			'service has resumed',
 			'following an earlier incident',
 			'resumed service',
@@ -145,6 +146,9 @@ const taxonomy = {
 			'STATION ENHANCEMENTS',
 		],
 		'electrical_improvements': ['ELECTRICAL IMPROVEMENTS'],
+		'electrical_repairs': [
+			'electrical repairs'
+		],
 		'track_maintenance': [
 			'TRACK MAINTENANCE',
 			'TRACK REPLACEMENT',

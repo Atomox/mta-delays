@@ -59,9 +59,11 @@ class EventList extends React.Component {
 						? e.detail.type_detail.join(' | ')
 						: ''}</h5>
 
-					{ (e.detail.route_change)
+					{ (e.detail.route_change
+						&& typeof e.detail.route_change.route == 'object'
+						&& e.detail.route_change.route.length > 0)
 						? <RouteChange routeInfo={e.detail.route_change} stations={e.detail.stations} />
-						: null }
+						: '' }
 
 					<p>{e.detail.message}</p>
 

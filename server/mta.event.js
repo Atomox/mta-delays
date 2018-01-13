@@ -383,7 +383,7 @@ function getMessagePlannedWorkDate(text) {
 async function getRouteChange(text, lines, station_ids_in_text) {
 	let c = await getMessageRouteChange(text, lines, station_ids_in_text);
 
-	let reroute_pattern = /(Some\s)?(Northbound|Southbound)?\s*\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:trains(?:\sare\srerouted\s)?)|(?:[^\[\]]*(service operates between|No service between)\s*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]))?)[^\[\]]*(?:(?:and|then)? (?:via|along|over)+ the|\s)+\[([A-Z0-9])\][^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:[,\s]*)(?:(?:(?:and|then)? (?:via|along|over)+ the|\s)+(\[(?!\3\4)[A-Z0-9]\])?[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)(?:[^\[\]]*(?:(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])))?)?/i;
+	let reroute_pattern = /(Some\s)?(Northbound|Southbound)?\s*\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:trains(?:\sare\srerouted\s)?)|(?:[^\[\]]*(service operates between|No service between)\s*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]))?)[^\[\]]*(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+\[([A-Z0-9])\][^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:[,\s]*)(?:(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+(\[(?!\3\4)[A-Z0-9]\])?[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)(?:[^\[\]]*(?:(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])))?)?/i;
 
 	// /\[([A-Z0-9])\](?:\s|[^\[\]])*(?:\[([A-Z0-9])\](?:\s)*)?(?:\s|[^\[\]])*\[([A-Z0-9])\](?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(?:(\[(?!\1\2)[A-Z0-9]\])?(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:(?:\s|[^\[\]])*((\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])))?)?/i;
 
@@ -415,8 +415,8 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 			// Replace the pattern.
 			if (c.results[0] && c.results[3]) {
 				// First line in message == second reroute line, then we might be overreaching our SINGLE MESSAGE.
-				if (c.results[1] === c.results[11]) {
-					console.warn('\n\n\n\nWe should replace part of this message! We may be stealing part of another message!\n\n\n\n\n');
+				if (c.results[3] === c.results[11]) {
+					console.warn('\n\n\n\nWe should replace part of this message! We may be stealing part of another message!',c.results ,'\n\n\n\n\n');
 				}
 
 				c.message_mod = c.message_mod.replace(c.results[0],'[-- route-match --]');
@@ -453,7 +453,7 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 					if (!route_pair.route[j]) {
 						route_pair.route.push({
 							allTrains: (c.results[1]) ? false : true,
-							dir: (c.results[2] ? c.results[2] : null),
+							dir: (c.results[2] ? c.results[2].toLowerCase() : null),
 							lines: [],
 							along: null,
 							from: null,
@@ -492,7 +492,7 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 								route_pair.route[j].from = route_pair.route[j-1].to;
 								route_pair.route[j].to = unwrapTrain(item);
 							}
-	
+
 							if (!c.results[i+1]) {
 								route_pair.route[j].from = route_pair.route[j-1].to;
 								route_pair.route[j].to = unwrapTrain(item);
@@ -552,7 +552,7 @@ async function getMessageRouteChange(text, lines, station_ids_in_text) {
 	// Parse Route Changes ([R] trains are running along the [F] line from...)
 //	let workDatePattern = /(((((Some|northbound|southbound|and)\s*)*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(trains(\s*are)?\s*(reroute[d]?|stopping|run(ning)? via (the)?)|(then)?\s*(stopping)?\s*(over|along)\s*(the)?)){1}(\s*(trains|both\s*directions|line(s)?|travel(ing)?|are|(on|in|between|along|long|from|to|via)\s*(the)?|then|end at|\,|\.)*\s*(\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 
-	let workDatePattern = /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\sare)?\s*(?:reroute[d]?|stopping|run(?:ning)? via (?:the)?|traveling)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?|(?:service operates)))(?:\s*(?:trains|both\s*directions|line[s]?|travel(?:ing)?|are|(and\s)?(?:on|in|between|along|long|from|to|via)\s*(?:the)?|then|end\s*(?:at)|\,|\.)*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
+	let workDatePattern = /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\sare)?\s*(?:reroute[d]?|stopping|run(?:ning)? via (?:the)?|traveling)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?|(?:service operates(\sin\stwo\ssections[\s0-9\:\.]*)?)))(?:(\s|[1-9]\.)*(?:trains|both\s*directions|line[s]?|travel(?:ing)?|are|(and\s)?(?:on|in|between|along|long|from|to|via)\s*(?:the)?|then(?:\send)?|end\s*(?:at)|\,|\.)*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 
 	// /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\s|are)*(?:reroute[d]?|stopping|run(?:ning)? via (?:the)?)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?|(?:service operates)))(?:\s*(?:trains|both\s*directions|line[s]?|travel(?:ing)?|are|(?:on|in|between|along|long|from|to|via)\s*(?:the)?|then|end\s*(?:at)|\,|\.)*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 

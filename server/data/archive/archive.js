@@ -31,6 +31,12 @@ let archive_status = {
 		'mta_status.35.complex_e_f_delays',
 		'mta_status.36',
 		'mta_status.37.f-over-g_23-reroute',
+		'mta_status.38.reroute_multiple_planned_svc',
+		'mta_status.39.morning_route_changes_investigation',
+		'mta_status.40.bdfq_reroute_rushhour',
+		'mta_status.41.misidentified_47-50_st_station',
+		'mta_status.42.morning_commute_major_reroute_plus_96-st_spelling_errors',
+		'mta_status.43.complicated_D_line_reroute_planned',
 	],
 	path: './data/archive/',
 };

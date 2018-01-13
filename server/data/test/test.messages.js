@@ -900,7 +900,7 @@ let event_messages = {
 				],
 				route_change: {
 					tag: ['A-overC-D-overE'],
-					message: "Southbound [2] trains are stopping along the [5] line from [Bx603-222] to [Bk337-234]. Some northbound [3] trains are stopping along the [1] line from [Mn310-120] to [Mn305-115] then Some northbound [3] trains end at [Mn611-127]. Some southbound [3] trains end at [Mn441-227].",
+					message: "Southbound [2] trains are stopping along the [5] line from [Bx603-222] to [Bk337-234]. Some northbound [3] trains are stopping along the [1] line from [Mn310-120] to [Mn305-115] then end. Some northbound [3] trains end at [Mn611-127]. Some southbound [3] trains end at [Mn441-227].",
 					trains: [
 						"2",
 						"3"

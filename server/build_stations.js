@@ -251,6 +251,9 @@ function stationAliases(name, boro) {
 			'Jamaica - Van Wyck': [
 				'Van Wyck',
 			],
+			'Jamaica - 179 St': [
+				'179 St',
+			],
 			'36 St': [
 				'36 St (Queens)',
 				'36 St (Qns)',
