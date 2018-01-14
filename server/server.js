@@ -13,7 +13,7 @@ const archive = require('./data/archive/archive');
 
 
 // How long before we refresh the feeds?
-const cacheMinutes = false;
+const cacheMinutes = 1;
 
 const port = 8100;
 
