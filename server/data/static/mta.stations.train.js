@@ -1025,6 +1025,11 @@ let routes = {
 		'Mn107-M23',  // "Broad St"
 
 	],
+	S: [
+		// "Lexington - Shuttle" -- "Mn"
+		'Mn611-902',  // "Times Sq - 42 St"
+		'Mn610-901',  // "Grand Central - 42 St"
+	],
 };
 
 

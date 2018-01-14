@@ -53,11 +53,14 @@ async function parseStatusFeed(feedObject) {
 		let t = feedObject.events;
 
 		for (let o in t) {
-			my_body.events.push(await parseSingleEvent(t[o]));
+			try {
+				my_body.events.push(await parseSingleEvent(t[o]));
+			}
+			catch (err)  {
+				console.error('\n\n', '<!> ERROR Parsing event, ', err, '\n\n')
+			}
 		}
 	}
-
-
 
 	return my_body;
 }
@@ -82,32 +85,48 @@ async function parseSingleEvent(event) {
 		severity: null,
 		source: null,
 	};
+	try {
+		e.id = event.SituationNumber[0].trim();
+		e.type = event.ReasonName[0].trim();
+		e.planned = (event.Planned[0] === 'true') ? true : false;
+		e.summary = event.Summary[0]._;
+		e.detail = cleanStatusText(event.LongDescription[0]);
+		e.type_detail = event.Consequences[0].Consequence[0].Condition[0];
+		e.severity = event.Consequences[0].Consequence[0].Severity[0];
 
-	e.id = event.SituationNumber[0].trim();
-	e.type = event.ReasonName[0].trim();
-	e.planned = (event.Planned[0] === 'true') ? true : false;
-	e.summary = event.Summary[0]._;
-	e.detail = cleanStatusText(event.LongDescription[0]);
-	e.type_detail = event.Consequences[0].Consequence[0].Condition[0];
-	e.severity = event.Consequences[0].Consequence[0].Severity[0];
+		e.date.fetched = event.CreationTime[0];
+		e.date.start = event.PublicationWindow[0].StartTime[0];
+		e.date.end = (event.PublicationWindow[0].EndTime) ? event.PublicationWindow[0].EndTime[0] : null;
 
-	e.date.fetched = event.CreationTime[0];
-	e.date.start = event.PublicationWindow[0].StartTime[0];
-	e.date.end = (event.PublicationWindow[0].EndTime) ? event.PublicationWindow[0].EndTime[0] : null;
+		// Parse out lines.
+		let k = event.Affects[0].VehicleJourneys[0].AffectedVehicleJourney;
+		for (let j in k) {
+			e.line.push({ line: k[j].LineRef[0].trim(), dir: k[j].DirectionRef[0].trim()});
+		}
 
-	// Parse out lines.
-	let k = event.Affects[0].VehicleJourneys[0].AffectedVehicleJourney;
-	for (let j in k) {
-		e.line.push({ line: k[j].LineRef[0].trim(), dir: k[j].DirectionRef[0].trim()});
+		if (event.Source[0].SourceType[0] != 'directReport') {
+			e.source = event.Source[0].SourceType[0];
+			console.warn('NEW SOURCE TYPE:', event.Source[0].SourceType[0]);
+		}
+
+		/**
+		 *
+		 * @TODO
+		 *   *
+		 *   *
+		 *
+		 */
+
+		if (e.id == 'MTA NYCT_175990') {
+			console.log('\n\n\n', '...HERE IT COMES...', '\n\n\n');
+		}
+
+		e.detail = await parseDetailMessage(e.detail, e.summary, e.line);
+
 	}
-
-	if (event.Source[0].SourceType[0] != 'directReport') {
-		e.source = event.Source[0].SourceType[0];
-		console.warn('NEW SOURCE TYPE:', event.Source[0].SourceType[0]);
+	catch (err) {
+		console.error('\n\n <!> Error during Message Assembly: ', err ,'\n\n');
 	}
-
-
-	e.detail = await parseDetailMessage(e.detail, e.summary, e.line);
 
 	return e;
 }
@@ -134,6 +153,10 @@ async function parseDetailMessage(status, summary, lines) {
  *   A cleaner string.
  */
 function cleanStatusText(text) {
+
+	if (!text) {
+		console.error('\n\n', '<!> Expecting text to clean.');
+	}
 
 	// Clean up the tags and newlines.
 	text = text.replace(/(?:\r\n|\r|\n)/g, '');
@@ -166,64 +189,73 @@ function cleanStatusText(text) {
  */
 async function formatSingleStatusEvent(event, lines, summary) {
 
-	event = event.trim();
-
 	let  e = null;
 
-	if (event) {
-		e = {
-			type: null,
-			type_detail: null,
-			time: null,
-			durration: null,
-			message: event,
-			message_raw: event,
-			message_station_parse: event,
-			stations: {},
-			trains: [],
-			train_context: [],
-		};
+	try {
+		if (!event) {
+			throw new Error('Expecting an event, but found none!');
+		}
 
-		// Determine if the event type has more detail.
-		e.type_detail = getMessageAction(event);
+		event = event.trim();
 
-		// Get an interruption time
-		e.time = getMessageDateTime(event);
+		if (event) {
+			e = {
+				type: null,
+				type_detail: null,
+				time: null,
+				durration: null,
+				message: event,
+				message_raw: event,
+				message_station_parse: event,
+				stations: {},
+				trains: [],
+				train_context: [],
+			};
 
-		// Get a scheduled time from the body. (Planned Work)
-		e.durration = getMessagePlannedWorkDate(event);
+			// Determine if the event type has more detail.
+			e.type_detail = getMessageAction(event);
 
+			// Get an interruption time
+			e.time = getMessageDateTime(event);
 
-		// Get AD note (always at the bottom).
-		// <!> Must run before Travel Alt, which WILL match this.
-		e.ad_message = getMessageADNote(event);
-
-		// Break out any alternate route information from the body.
-		e.alt_instructions = getMessageAlternateInstructions(event);
-
-		// Get a train lines in main message.
-		// Add them to the lines set for station parsing.
-		e.train_context = getMessageTrainLines(event);
-
-		// Get all line names, then filter a distinct set.
-		e.trains = _.union(lines
-			.map((val) => val.line)
-			.filter((value, index, self) => self.indexOf(value) === index));
-
-		e.train_context = _.union(e.trains,e.train_context);
+			// Get a scheduled time from the body. (Planned Work)
+			e.durration = getMessagePlannedWorkDate(event);
 
 
-		// Get all stations per line. Also get a formatted message, with station names
-		// substituted with their IDs, for easier parsing of line and route changes.
-		let station_result = await getStationsInEventMessage(e.train_context, e.message, e.message_station_parse);
-		e.stations = station_result.stations;
-		e.message_station_parse = station_result.parsed_message;
+			// Get AD note (always at the bottom).
+			// <!> Must run before Travel Alt, which WILL match this.
+			e.ad_message = getMessageADNote(event);
+
+			// Break out any alternate route information from the body.
+			e.alt_instructions = getMessageAlternateInstructions(event);
+
+			// Get a train lines in main message.
+			// Add them to the lines set for station parsing.
+			e.train_context = getMessageTrainLines(event);
+
+			// Get all line names, then filter a distinct set.
+			e.trains = _.union(lines
+				.map((val) => val.line)
+				.filter((value, index, self) => self.indexOf(value) === index));
+
+			e.train_context = _.union(e.trains,e.train_context);
 
 
-		e.route_change = await getRouteChange(e.message_station_parse, e.trains, true);
+			// Get all stations per line. Also get a formatted message, with station names
+			// substituted with their IDs, for easier parsing of line and route changes.
+			let station_result = await getStationsInEventMessage(e.train_context, e.message, e.message_station_parse);
+			e.stations = station_result.stations;
+			e.message_station_parse = station_result.parsed_message;
 
-		e.message_formula = prepareEventMessage(e.message, e, true, summary);
-		e.message = prepareEventMessage(e.message, e, false);
+
+			e.route_change = await getRouteChange(e.message_station_parse, e.trains, true);
+
+			e.message_formula = prepareEventMessage(e.message, e, true, summary);
+			e.message = prepareEventMessage(e.message, e, false);
+		}
+	}
+	catch (err) {
+		console.log('\n\n', '<!> Error During Format Single Event: ', err, '\n\n');
 	}
 
 	return e;
@@ -261,7 +293,7 @@ async function getStationsInEventMessage(lines, message, parsed_message) {
 //			console.log('\n\n', my_l,'---', result.stations[my_l].stations);
 		}
 		catch (err) {
-			console.warn('Error while fetching stations in event msg: ', err);
+			console.warn('\n\n', '<!> Error while fetching stations in event msg: ', err, '\n\n');
 			continue;
 		}
 	}
@@ -381,9 +413,14 @@ function getMessagePlannedWorkDate(text) {
 
 
 async function getRouteChange(text, lines, station_ids_in_text) {
+
+	if (!text) {
+		console.error('\n\n\n\n <!> NO TEXT PASSED TO ROUTE CHANGE!!!\n\n\n\n');
+	}
+
 	let c = await getMessageRouteChange(text, lines, station_ids_in_text);
 
-	let reroute_pattern = /(Some\s)?(Northbound|Southbound)?\s*\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:trains(?:\sare\srerouted\s)?)|(?:[^\[\]]*(service operates between|No service between)\s*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]))?)[^\[\]]*(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+\[([A-Z0-9])\][^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:[,\s]*)(?:(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+(\[(?!\3\4)[A-Z0-9]\])?[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)(?:[^\[\]]*(?:(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])))?)?/i;
+	let reroute_pattern = /(Some\s)?(Northbound|Southbound)?\s*\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:trains(?:\sare\srerouted\s)?)|(?:[^\[\]]*(service\s*operates\s*b\s*etween|No\s*service\s* b\s*etween)\s*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]))?)[^\[\]]*(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+\[([A-Z0-9])\][^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:[,\s]*)(?:(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+(\[(?!\3\4)[A-Z0-9]\])?[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)(?:[^\[\]]*(?:(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])))?)?/i;
 
 	// /\[([A-Z0-9])\](?:\s|[^\[\]])*(?:\[([A-Z0-9])\](?:\s)*)?(?:\s|[^\[\]])*\[([A-Z0-9])\](?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(?:(\[(?!\1\2)[A-Z0-9]\])?(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:(?:\s|[^\[\]])*((\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])))?)?/i;
 
@@ -410,7 +447,6 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 
 			// Only makes passes until our regex comes up blank.
 			if (c.results === false) {	break;	}
-
 
 			// Replace the pattern.
 			if (c.results[0] && c.results[3]) {
@@ -523,6 +559,9 @@ async function getRouteChange(text, lines, station_ids_in_text) {
 			}
 		}
 	}
+	else {
+		console.log(' -- No Route Change For: ', text,'\n');
+	}
 
 	return c;
 }
@@ -552,7 +591,7 @@ async function getMessageRouteChange(text, lines, station_ids_in_text) {
 	// Parse Route Changes ([R] trains are running along the [F] line from...)
 //	let workDatePattern = /(((((Some|northbound|southbound|and)\s*)*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(trains(\s*are)?\s*(reroute[d]?|stopping|run(ning)? via (the)?)|(then)?\s*(stopping)?\s*(over|along)\s*(the)?)){1}(\s*(trains|both\s*directions|line(s)?|travel(ing)?|are|(on|in|between|along|long|from|to|via)\s*(the)?|then|end at|\,|\.)*\s*(\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 
-	let workDatePattern = /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\sare)?\s*(?:reroute[d]?|stopping|run(?:ning)? via (?:the)?|traveling)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?|(?:service operates(\sin\stwo\ssections[\s0-9\:\.]*)?)))(?:(\s|[1-9]\.)*(?:trains|both\s*directions|line[s]?|travel(?:ing)?|are|(and\s)?(?:on|in|between|along|long|from|to|via)\s*(?:the)?|then(?:\send)?|end\s*(?:at)|\,|\.)*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
+	let workDatePattern = /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\sare)?\s*(?:reroute[d]?|stopping|run(?:ning)? via (?:the)?|traveling)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?|(?:service operates(\sin\stwo\ssections[\s0-9\:\.]*|\s*b\s*etween)?)))(?:(\s|[1-9]\.)*(?:trains|both\s*directions|line[s]?|travel(?:ing)?|are|(and\s)?(?:on|in|b\s*etween|along|long|from|to|via)\s*(?:the)?|then(?:\send)?|end\s*(?:at)|\,|\.)*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 
 	// /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\s|are)*(?:reroute[d]?|stopping|run(?:ning)? via (?:the)?)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?|(?:service operates)))(?:\s*(?:trains|both\s*directions|line[s]?|travel(?:ing)?|are|(?:on|in|between|along|long|from|to|via)\s*(?:the)?|then|end\s*(?:at)|\,|\.)*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 

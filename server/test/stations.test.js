@@ -32,7 +32,7 @@ describe('Parse Stations', function() {
 		});
 	});
 
-	describe('Build Stations Object', () => {
+	describe.skip('Build Stations Object', () => {
 		it ('Should match the Stations Object', () => {
 
 			let promises = event_messages.normal.map( event => {

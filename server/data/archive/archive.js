@@ -20,7 +20,7 @@ let archive_status = {
 		'mta_status.24',
 		'mta_status.25',
 		'mta_status.26',
-		'mta_status.27',
+		'mta_status.27.weekend_d_train_reroute_plus_typo',
 		'mta_status.28.storm_prep',
 		'mta_status.29.storm_prep_ended_early',
 		'mta_status.30.storm_closing_msgs_like_crazy',

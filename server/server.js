@@ -36,8 +36,8 @@ app.get(['/subway/status', '/subway/status/archive/:id'], (req, resp, next) => {
 
 	let req_file = mta_status_file;
 	if (typeof req.params.id !== 'undefined') {
-		console.log('Requesting archive: ', req.params.id);
-		console.log(archive.archive_status);
+		console.log(' -- [', 'Requesting archive: ', req.params.id, '] --');
+
 		if (archive.archive_status.files[req.params.id]) {
 			req_file = archive.archive_status.path + archive.archive_status.files[req.params.id];
 			my_cache_time = false;

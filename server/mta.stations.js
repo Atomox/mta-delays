@@ -363,6 +363,7 @@ function getTrainById (id) {
 		case 'MTA NYCT_Z':
 			return 'Z';
 
+		case 'MTA NYCT_S':
 		case 'MTA NYCT_H':
 		case 'MTA NYCT_FS':
 		case 'MTA NYCT_GS':
