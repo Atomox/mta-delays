@@ -32,6 +32,71 @@ let event_messages = {
 			{
 				type: null,
 				type_detail: [
+					"route_change",
+				],
+				tag: ["MTAD-014", "MTAD-001"],
+				time: null,
+				durration: '9:45 PM to 11:45 PM, Mon to Thu, Jan 15 - 18',
+				message: '9:45 PM to 11:45 PM, Mon to Thu, Jan 15 - 18 No [R] trains between Bay Ridge-95 St and 36 St, Brooklyn, due to track maintenance. Take free shuttle buses and the [N]. [R] service operates between 71 Av and 36 St, and via the [D] to/from 9 Av, the last stop. For 45 St, 53 St, and 59 St, take the [N] via transfer at 36 St. Free shuttle buses make all [R] stops between 59 St and Bay Ridge-95 St. Transfer between the [N] and shuttle buses at 59 St. 11:45 PM to 5 AM, Mon to Fri, Jan 15 - 19 No [R] trains running, due to track maintenance. Take free shuttle buses and the [N]. For service between Whitehall St and 59 St, take the [N]. Free shuttle buses make all [R] stops between 59 St and Bay Ridge-95 St. Transfer between the [N] and shuttle buses at 59 St. [AD] These service changes affect one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
+				route_change: {
+					tag: ['A-operates-then-overC'],
+					message: "[R] service operates between [Qs261-G08] and [Bk32-R36], and via the [D] to/from [Bk59-B12],",
+					trains: ['R'],
+					route: [
+						{
+							lines: ["R"],
+							along: null,
+							from: 'Qs261-G08',
+							to: 'Bk32-R36',
+						},
+						{
+							lines: ["R"],
+							along: "D",
+							from: 'Bk32-R36',
+							to: 'Bk59-B12',
+						},
+					],
+				},
+				line: [
+					'MTA NYCT_R',
+				],
+			},
+			{
+				type: null,
+				type_detail: [
+					"route_change",
+				],
+				tag: ["MTAD-014", "MTAD-001", 'MTAD-013'],
+				time: null,
+				durration: 'WEEKEND 6:15 AM to 11:45 PM, Sat, Jan 13 8 AM to 10 PM, Sun, Jan 14',
+				message: 'WEEKEND 6:15 AM to 11:45 PM, Sat, Jan 13 8 AM to 10 PM, Sun, Jan 14 No [M] trains between Essex St and Broadway Junction, due to track replacement. Take the [J] instead. NIGHTS 9 PM to 12 midnight, Friday, Jan 12 No [M] trains between 71 Av and Essex St, due to signal improvements. Take the [E][R]. [M] service operates between Broadway Junction and Essex St, and is rerouted via the [J] to/from Chambers St. Trains stop at Bowery and Canal St. For B\'way-Lafayette St and stations along 6 Av, use nearby [N]/[Q]/[R] stations on Broadway. Transfer at Roosevelt Av [E]/[R], Times Sq-42 St/Port Authority [E]/[R], and/or Canal St M/R. All times until April 30, 2018 No [M] trains between Myrtle-Wyckoff Avs and Myrtle Av (Broadway), due to viaduct reconstruction. Take free shuttle buses. [M] service operates in two sections: 1. Between Essex St and Myrtle Av, and via the [J] to/from Broadway Junction, days/evenings*. 2. Between Metropolitan Av and Myrtle-Wyckoff Avs (trains run every 20 minutes, Sat and Sun, from 7:30 AM to 9:30 AM). Free shuttle buses operate between Myrtle-Wyckoff Avs and Myrtle Av. *Suspended this weekend. [AD] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
+				parsed_message: 'WEEKEND 6:15 AM to 11:45 PM, Sat, Jan 13 8 AM to 10 PM, Sun, Jan 14 No [M] trains between [Mn625-M18] and [Bk621-J27], due to track replacement. Take the [J] instead. NIGHTS 9 PM to 12 midnight, Friday, Jan 12 No [M] trains between [Qs261-G08] and [Mn625-M18], due to signal improvements. Take the [E][R]. [M] service operates between [Qs4-R05] Junction and Essex St, and is rerouted via the [J] to/from [Mn622-M21]. Trains stop at [Mn103-M19] and [Mn623-M20]. For [Mn619-D21] and stations along 6 Av, use nearby [N]/[Q]/[R] stations on Broadway. Transfer at [Qs616-G14] [E]/[R], Times Sq-[Mn611-A27] [E]/[R], and/or [Mn169-A34] M/R. All times until April 30, 2018 No [M] trains between [Bk630-M08] and [Bk97-M11] (Broadway), due to viaduct reconstruction. Take free shuttle buses. [M] service operates in two sections: 1. Between Essex St and [Bk97-M11], and via the [J] to/from Broadway Junction, days/evenings*. 2. Between Metropolitan Av and Myrtle-Wyckoff Avs (trains run every 20 minutes, Sat and Sun, from 7:30 AM to 9:30 AM). Free shuttle buses operate between Myrtle-Wyckoff Avs and Myrtle Av. *Suspended this weekend. [AD] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
+				route_change: {
+					tag: ['A-operates-then-overC'],
+					message: "[M] service operates between Broadway Junction and Essex St, and is rerouted via the [J] to/from Chambers St.",
+					trains: ['M'],
+					route: [
+						{
+							lines: ["M"],
+							along: null,
+							from: '',
+							to: '',
+						},
+						{
+							lines: ["M"],
+							along: "J",
+							from: '',
+							to: '',
+						},
+					],
+				},
+				line: [
+					'MTA NYCT_M',
+				],
+			},
+			{
+				type: null,
+				type_detail: [
 					"injury",
 					"route_change",
 					"no_trains_partial"
@@ -53,7 +118,7 @@ let event_messages = {
 					tag: ['AB-overC-end'],
 					message: "Some southbound [2] and [3] trains end at [Mn327-137] Some southbound [2] and [3] trains are stopping along the [1] line from [Mn327-137] to [Mn635-142] then end. Southbound [4] and [5] trains end at [Mn414-420]",
 					message_mod: "Some southbound [2] and [3] trains end at [Mn327-137] Some southbound [2] and [3] trains are stopping along the [1] line from [Mn327-137] to [Mn635-142] then end. Southbound [4] and [5] trains end at [Mn414-420]",
-					trains: [ ],
+					trains: ['2','3'],
 					route: [
 						{
 							lines: ["2","3"],
@@ -369,11 +434,37 @@ let event_messages = {
 			},
 			{
 				type: 'PlannedWork',
-				type_detail: null,
+				type_detail: [
+					'route_change',
+				],
 				time: '',
+				tag: ["MTAD-014", "MTAD-001"],
 				durration: 'Late Nights, 9:30 PM to 5 AM, Mon to Fri, Dec 11 - 15',
 				message: 'TRACK MAINTENANCE [2] No trains between Franklin Av and Flatbush Av [SB] Free shuttle buses provide alternate service Late Nights, 9:30 PM to 5 AM, Mon to Fri, Dec 11 - 15 [2] service operates between 241 St and Franklin Av, and via the [4] to/from Utica Av. [SB] Buses operate between Franklin Av and Flatbush Av, making stops at Nostrand Av, President St, Sterling St, Winthrop St, Church Av, Beverly Rd and Newkirk Av. Transfer between trains and [SB] buses at Franklin Av. Travel Alternatives [TP] Show Shuttle Bus Stops Station Shuttle Bus Stop Franklin Av  [2] [4] Eastern Pkwy at Franklin Av Nostrand Av [4] Nostrand Av at Eastern Pkwy (to Flatbush Av) Eastern Pkwy at Nostrand Av (to Franklin Av) President St Nostrand Av at Carroll St (to Flatbush Av) New York Av at Carroll St (to Franklin Av) Sterling St Nostrand Av at Lefferts Av (to Flatbush Av) New York Av at Empire Blvd (to Franklin Av) Winthrop St Nostrand Av at Winthrop St (to Flatbush Av) New York Av at Winthrop St (to Franklin Av) Church Av Nostrand Av at Church Av (to Flatbush Av) New York Av at Church Av (to Franklin Av) Beverly Rd Nostrand Av at Beverly Rd (to Flatbush Av) New York Av at Beverly Rd (to Franklin Av) Newkirk Av Nostrand Av at Newkirk Av (to Flatbush Av) New York Av at Avenue D (to Franklin Av) Flatbush Av Nostrand Av at Flatbush Av [ad]  This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.',
 				alt_instructions: 'Transfer between trains and [SB] buses at Franklin Av. Travel Alternatives [TP] Show Shuttle Bus Stops Station Shuttle Bus Stop Franklin Av  [2] [4] Eastern Pkwy at Franklin Av Nostrand Av [4] Nostrand Av at Eastern Pkwy (to Flatbush Av) Eastern Pkwy at Nostrand Av (to Franklin Av) President St Nostrand Av at Carroll St (to Flatbush Av) New York Av at Carroll St (to Franklin Av) Sterling St Nostrand Av at Lefferts Av (to Flatbush Av) New York Av at Empire Blvd (to Franklin Av) Winthrop St Nostrand Av at Winthrop St (to Flatbush Av) New York Av at Winthrop St (to Franklin Av) Church Av Nostrand Av at Church Av (to Flatbush Av) New York Av at Church Av (to Franklin Av) Beverly Rd Nostrand Av at Beverly Rd (to Flatbush Av) New York Av at Beverly Rd (to Franklin Av) Newkirk Av Nostrand Av at Newkirk Av (to Flatbush Av) New York Av at Avenue D (to Franklin Av) Flatbush Av Nostrand Av at Flatbush Av',
+				route_change: {
+					tag: ['A-operates-then-overC'],
+					message: "[2] service operates between [Bx416-201] and [Bk626-239], and via the [4] to/from [Bk345-250]. [SB]",
+					trains: [	"2"	],
+					route: [
+						{
+							lines: ["2"],
+							along: null,
+							from: 'Bx416-201',
+							to: 'Bk626-239',
+						},
+						{
+							lines: ["2"],
+							along: "4",
+							from: 'Bk626-239',
+							to: 'Bk345-250',
+						}
+					],
+				},
+				line: [
+					{ line: 'MTA NYCT_2'},
+					{ line: 'MTA NYCT_4'},
+				],
 			},
 			{
 				type: 'PlannedWork',
@@ -393,11 +484,45 @@ let event_messages = {
 			},
 			{
 				type: 'PlannedWork',
-				type_detail: null,
+				type_detail: [
+					'route_change',
+				],
+				tag: ["MTAD-014", "MTAD-001"],
 				time: 'Transfer between [A] trains and [SB] buses at Beach 90 St .',
 				durration: 'Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4',
 				message: 'TRACK REPLACEMENT [A] No trains between Broad Channel and Mott Av [SB] Free shuttle buses provide alternate service Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4 [A] service operates between 207 St and Broad Channel , and replace the [S] to/from Beach 116 St . [SB] Buses make stops at Beach 90 , Beach 67 , Beach 60 , Beach 44 , Beach 36 , Beach 25 Sts and Mott Av . &bull; Transfer between [A] trains and [SB] buses at Beach 90 St . Show Shuttle Bus Stops Station Shuttle Bus Stop Bus Mott Av Beach 22 St at Station Entrance &mdash; Beach 25 St Beach Channel Dr at Beach 25 St &mdash; Beach 36 St Beach Channel Dr at Beach 35 St (to Mott Av) Q22 Beach Channel Dr at 36 St (to Beach 90 St) Q22 Beach 44 St Beach Channel Dr at Beach 44 St Q22 Beach 60 St Beach Channel Dr at Beach 59 St Q22 Beach 67 St Beach Channel Dr at Beach 67 St Q22 Beach 90 St [A] Rockaway Beach Blvd at Beach 88 St Q22 Note: Service to/from Lefferts Blvd is not affected. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.',
 				alt_instructions: 'Transfer between [A] trains and [SB] buses at Beach 90 St . Show Shuttle Bus Stops Station Shuttle Bus Stop Bus Mott Av Beach 22 St at Station Entrance &mdash; Beach 25 St Beach Channel Dr at Beach 25 St &mdash; Beach 36 St Beach Channel Dr at Beach 35 St (to Mott Av) Q22 Beach Channel Dr at 36 St (to Beach 90 St) Q22 Beach 44 St Beach Channel Dr at Beach 44 St Q22 Beach 60 St Beach Channel Dr at Beach 59 St Q22 Beach 67 St Beach Channel Dr at Beach 67 St Q22 Beach 90 St [A] Rockaway Beach Blvd at Beach 88 St Q22 Note: Service to/from Lefferts Blvd is not affected.',
+/**
+				route_change: {
+					tag: ['A-operates-then-overC'],
+					message: "[A] service operates between 207 St and Broad Channel , and replace the [S] to/from Beach 116 St",
+					trains: [
+						"A"
+					],
+					route: [
+						{
+							lines: [
+								"A"
+							],
+							along: null,
+							from: '',
+							to: '',
+						},
+						{
+							lines: [
+							"A"
+							],
+							along: "S",
+							from: "",
+							to: ""
+						}
+					],
+				},
+*/
+				lines: [
+					'MTA NYCT_A',
+					'MTA NYCT_S'
+				],
 			},
 			{
 				type: 'PlannedWork',
@@ -704,7 +829,7 @@ let event_messages = {
 				message_station_parse: "SIGNAL IMPROVEMENTS [F] Service is rerouted in Manhattan and Brooklyn[A] [C] [D] [N] [R] trains and [SB] free shuttle buses provide alternate service Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15 No [F] service at [Mn224-B10] , [Mn225-D15] , [Mn609-D16] , [Mn228-D18] , [Mn601-D19] , [Mn167-A32] , [Mn619-D21] , [Mn232-F14] , [Mn625-F15]/Essex St , [Mn234-F16] , and [Bk235-F18] . [F] service operates b etween [Qs254-F01] and [Mn223-B08], and via the [Q] to/from Atlantic Av-Barclays Ctr (skipping DeKalb Av, days and evenings), and via the [D] to/from [Bk58-D43] . Trains run express in Manhattan all weekend . [D]* trains are rerouted via the [A] in Manhattan and replace the [F] in Brooklyn between [Bk636-A41] and [Bk58-D43] . [SB] Buses operate along two routes: 1. Between [Mn167-A32] and [Mn234-F16] , stopping at [Mn619-D21], [Mn232-F14] and [Mn625-F15]/Essex St. 2. Between [Bk636-A41] and [Bk235-F18] . Show Shuttle Bus Stops Station Bus Stop Bus W 4 St [ad] [A] [C] [D] [E] 6 Av at W 3 St M55 B'way-Lafayette St Houston St at Lafayette St (to East Broadway) M21 Houston St at Broadway (to W 4 St) M21 2 Av Houston St at 1 Av M21 Delancey St/Essex St [J] Delancey St at Essex St (to East Broadway) B39 Essex St at Delancey St (to W 4 St) M9 East Broadway Essex St at Straus Square M9 York St Jay St at York St B67 Jay St-MetroTech [ad] [A] [C] [D] [N] [R] Jay St at Willoughby St B26 Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [A] [C] [D] [N] or [R]. Transfer between [F] ([Q] platform) and [A] [C] [D] [N] or [R] trains at 42 St-Port Authority/Times Sq-42 St. Transfer between [F] ([Q] platform) and [N] [R] trains at Canal St. Transfer between [D] and [N] [R] trains at Jay St-MetroTech. Affected Station Alternate Station/Service [Mn224-B10] [Bk240-F24] or 5 Av/53 St [E] [Mn225-D15] [Bk240-F24] or 5 Av/53 St [E] 49 St [N] [Q] local , [R] | [ad] uptown only 50 St (B'way) [1] [2] local 50 St (8 Av) [A] local , [C] [E] | [ad] downtown only [Mn609-D16] [7] (5 Av) Times Sq-42 St [1] [2] [3] [7] [F] [N] [Q] [R] [S] | [ad] 42 St/Port Authority [A] [C] [D] [E] | [ad] [Mn607-D17] [ad] [F] [N] [Q] [R] 34 St-Penn Station [1] [2] [3] | [ad] [Mn228-D18] 23 St [N] [Q] local , [R] 23 St [1] [2] local [Mn601-D19] [1] [2] [3] (7 Av) or [L] (8 Av) | [ad] B'way-Lafayette St [ad] [SB] and Bleecker St [4] local , [6] | [ad] 2 Av [SB] Delancey St/Essex St [J] and [SB] East Broadway [SB] York St [SB] and nearby High St [A] [C] [D] Jay St MetroTech [ad] [SB] and [D] [N] [R] For Brooklyn [F] stations between Jay St-MetroTech and Stillwell Av , take the [D] instead. Key Transfer Stations 59 St-Columbus Circle [ad] [A] [C] [D] and [1] [2] local Times Sq-42 St/42 St-Port Authority [ad] (Passageway not accessible) [1] [2] [3] [7] [F] [N] [Q] [R] [S] [A] [C] [D] [E] 14 St-Union Sq [ad] (L, N, F, Q, R only) [4] [6] and [F] [N] [Q] [R] Canal St [ad] (4, 6 only) [4] local , [6] [J] [F] [N] [Q] [R] Jay St-MetroTech [ad] [A] [C] [D] [N] [R] and [SB] [Bk608-F23]-9 St [D] [G] [N] [R] | [F] late night only *This detour has taken into account additional planned service changes. Reminder: During late nights, all alternate stations are served, though not all lines run. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 				route_change: {
 					tag: ['A-operates-then-overC-thenD'],
-					message: "[F] service operates b etween [Qs254-F01] and [Mn223-B08], and via the [Q] to/from [Bk617-235] (skipping [Bk26-R30], days and evenings), and via the [D] to/from [Bk58-D43] .",
+					message: "[F] service operates b etween [Qs254-F01] and [Mn223-B08], and via the [Q] to/from [Bk617-235] (skipping [Bk26-R30], days and evenings), and via the [D] to/from [Bk58-D43] . Trains trains are rerouted via the [A] in along",
 					trains: ['F'],
 					route: [
 						{
@@ -797,7 +922,7 @@ let event_messages = {
 				durration: "Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15",
 				message: "SIGNAL IMPROVEMENTS [D] Service is rerouted in Manhattan and Brooklyn[F] [N] [Q] [R] trains and [SB] free shuttle buses provide alternate service Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15 No [D] service at 7 Av , 47-50 Sts , 42 St-Bryant Pk , 34 St-Herald Sq , B\'way-Lafayette St and Grand St . [D] service operates b etween 205 St and 59 St-Columbus Circle, and via the [A] express to/from Jay St-MetroTech , and via the [F] to/from Stillwell Av . [F]* trains are rerouted via the [Q] express in Manhattan and replace the [D] in Brooklyn between Atlantic Av-Barclays Ctr and Stillwell Av . [SB] Buses operate between W 4 St and Grand St , stopping at B\'way-Lafayette St . Show Shuttle Bus Stops Station Bus Stop Bus W 4 St [ad] [A] [C] [D] [E] 6 Av at W 3 St M55 B\'way-Lafayette St Houston St at Broadway M21 Grand St Grand St at Chrystie St -- Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [F] [N] [Q] or [R]. Transfer between [D] and [F] [N] [Q] [R] trains at 42 St-Port Authority/Times Sq-42 St. Transfer between [D] and [N]* [R] trains at Jay St-MetroTech and 4 Av-9 St. Affected Station Alternate Station/Service 7 Av [E] 47-50 Sts 7 Av or 5 Av/53 St [E] 49 St [N] [Q] local , [R] | [ad] uptown only 50 St (B\'way) [1] [2] local 50 St (8 Av) [A] local , [C] [E] | [ad] downtown only 42 St-Bryant Pk [7] (5 Av) Times Sq-42 St [1] [2] [3] [7] [F] [N] [Q] [R] [S] | [ad] 42 St/Port Authority [A] [C] [D] [E] | [ad] 34 St-Herald Sq [ad] [F] [N] [Q] [R] 34 St-Penn Station [1] [2] [3] | [ad] B\'way-Lafayette St [SB] Grand St [SB], nearby Bowery [J] Station For Brooklyn [D] stations between Atlantic Av-Barclays Ctr and Stillwell Av , take the [F] instead. Key Transfer Stations 59 St-Columbus Circle [ad] [A] [C] [D] and [1] [2] local Times Sq-42 St/42 St-Port Authority [ad] ( Passageway not accessible ) [1] [2] [3] [7] [F] [N] [Q] [R] [S] [A] [C] [D] [E] W 4 St-Wash Sq [ad] [A] [C] [D] [E] and [SB] Fulton St [ad] [4] [5] [A] [C] [D] [J] Jay St-MetroTech [ad] [A] [C] [D] [N] [R] and [SB] 4 Av-9 St [D] [G] [N] [R] | [F] late night only *This detour has taken into account additional planned service changes. Reminders: During late night, all alternate stations are served, though not all lines run. Manhattan-bound [F] platforms at Avenue X, Avenue U, Avenue P, Avenue N, Bay Pkwy and Avenue I are closed for renovation. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 				route_change: {
-					tag: ['A-operates-then-overC-thenD', 'A-viaC-inBoro-replaceD'],
+					tag: ['A-operates-then-overC-thenD', 'A-viaC-inBoro-replaceD', 'A-operates-then-overC'],
 					message: '[D] service operates b etween [Bx210-D01] and [Mn614-A24], and via the [A] express to/from [Bk636-A41] , and via the [F] to/from [Bk58-D43] . [F] trains are rerouted via the [Q]', // express in Manhattan and replace the [D] in Brooklyn between [Bk617-R31] and [Bk58-D43] .
 					trains: ['D'],
 					route: [
@@ -1012,33 +1137,50 @@ let event_messages = {
 					type: null,
 					type_detail: [
 						"shuttle_bus",
-						"no_trains_partial"
+						"no_trains_partial",
+						"route_change",
 					],
+					tag: ["MTAD-014", "MTAD-001"],
 					time: null,
 					durration: "Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9",
 					message: "[C] No trains between W 4 St and Euclid Av [A] [E] trains and [SB] buses provide alternate service Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9 [C] service operates between 168 St and W 4 St , and via the [F] to/from 2 Av , the last stop . [A] trains make all [C] stops between Utica Av and Euclid Av. [SB] Buses make all [C] stops between Jay St-MetroTech and Utica Av. Travel Alternatives [TP] For Spring, Canal, and Chambers Sts , take the [E] instead. Transfer between trains at W 4 St. For Fulton St , use the nearby World Trade Center [E] Station . Transfer between trains at W 4 St. For High St , use the nearby York St [F] station instead. [SB] Buses make all stops between Jay St-MetroTech and Utica Av . Transfer between [A] and [C] trains at W 4 St. Transfer between [A] trains and shuttle buses at Jay St-MetroTech and/or Utica Av . Show Shuttle Bus Stops Station Shuttle Bus Stop Jay St-MetroTech [ad] [A] [F] [R] Jay St at Willoughby St Hoyt-Schermerhorn Sts [G] Schermerhorn St at Bond St Lafayette Av Lafayette Av at Ft Greene Pl (to Utica Av) Fulton St at S Portland Av (to Utica Av) Fulton St at Ft Greene Pl (to Jay St-MetroTech) Fulton St at Greene Av (to Jay St-MetroTech) Clinton-Washington Avs Fulton St at Clinton Av Franklin Av [ad] [S] Fulton St at Franklin Av Nostrand Av Fulton St at Nostrand Av Kingston-Throop Avs Fulton St at Kingston Av Utica Av [ad] [A] Fulton St at Stuyvesant Av Note: Late night Lefferts Shuttle replaced by [A] service between Utica Av and Lefferts Blvd.",
 					message_station_parse: "[C] No trains between [Mn167-A32] and [Bk188-A55] [A] [E] trains and [SB] buses provide alternate service Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9 [C] service operates between [Mn605-A09] and [Mn167-A32] , and via the [F] to/from 2 Av , the last stop . [A] trains make all [C] stops between [Bk181-A48] and [Bk188-A55]. [SB] Buses make all [C] stops between [Bk636-A41] and [Bk181-A48]. Travel Alternatives [TP] For Spring, Canal, and [Mn624-A36]s , take the [E] instead. Transfer between trains at W 4 St. For [Mn628-A38] , use the nearby World Trade Center [E] Station . Transfer between trains at W 4 St. For [Bk173-A40] , use the nearby York St [F] station instead. [SB] Buses make all stops between [Bk636-A41] and Utica Av . Transfer between [A] and [C] trains at W 4 St. Transfer between [A] trains and shuttle buses at Jay St-MetroTech and/or Utica Av . Show Shuttle Bus Stops Station Shuttle Bus Stop Jay St-MetroTech [ad] [A] [F] [R] Jay St at Willoughby St [Bk175-A42] [G] Schermerhorn St at Bond St [Bk176-A43] [Bk176-A43] at Ft Greene Pl (to Utica Av) [Mn628-A38] at S Portland Av (to Utica Av) Fulton St at Ft Greene Pl (to Jay St-MetroTech) Fulton St at Greene Av (to Jay St-MetroTech) [Bk177-A44] Fulton St at Clinton Av [Bk627-A45] [ad] [S] Fulton St at [Bk627-A45] [Bk179-A46] Fulton St at [Bk179-A46] [Bk180-A47] Fulton St at Kingston Av Utica Av [ad] [A] Fulton St at Stuyvesant Av Note: Late night Lefferts Shuttle replaced by [A] service between Utica Av and Lefferts Blvd.",
 					stations: {},
-					line: [
-						"MTA NYCT_C"
-					],
 					route_change: {
-						tag: ['A-overC','A-overC-thenD'],
-						message: "[C] service operates between [Mn605-A09] and [Mn167-A32] , and via the [F] to/from 2 Av , the last stop.",
+						tag: ['A-operates-then-overC'],
+						message: '[C] service operates between [Mn605-A09] and [Mn167-A32] , and via the [F] to/from [Mn232-F14] ,',
 						trains: [
 							"C"
 						],
 						route: [
 							{
 								lines: [
+									"C"
+								],
+								along: null,
+								from: 'Mn605-A09',
+								to: 'Mn167-A32',
+							},
+							{
+								lines: [
 								"C"
 								],
 								along: "F",
 								from: "Mn167-A32",
-								to: "Bk26-R30"
+								to: "Mn232-F14"
 							}
 						],
 					},
+					line: [
+						{
+							line: "MTA NYCT_C",
+							dir: "1"
+						},
+						{
+							line: "MTA NYCT_C",
+							dir: "0"
+						}
+					],
 					message_formula: "[-SUMMARY-] [-DATES-] [C] service operates between 168 St and W 4 St , and via the [F] to/from 2 Av , the last stop . [A] trains make all [C] stops between Utica Av and Euclid Av. [SB] Buses make all [C] stops between Jay St-MetroTech and Utica Av. [-ALT-INSTRUCT-]"
 				},
 		],

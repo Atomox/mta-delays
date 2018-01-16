@@ -1029,6 +1029,18 @@ let routes = {
 		// "Lexington - Shuttle" -- "Mn"
 		'Mn611-902',  // "Times Sq - 42 St"
 		'Mn610-901',  // "Grand Central - 42 St"
+
+		// "Rockaway" -- "Qs"
+		'Qs199-H04',  // "Broad Channel"
+		'Qs200-H12',  // "Beach 90 St"
+		'Qs201-H13',  // "Beach 98 St"
+		'Qs202-H14',  // "Beach 105 St"
+		'Qs203-H15',  // "Rockaway Park - Beach 116 St"
+
+		// "Franklin Shuttle" -- "Bk"
+		'Bk627-S01',  // "Franklin Av"
+		'Bk141-S03',  // "Park Pl"
+		'Bk626-S04',  // "Botanic Garden"
 	],
 };
 

@@ -42,7 +42,7 @@ describe ('Detect Train Lines', () => {
 
 
 	describe('MTAD-014 -- Line Operate Between, then Route Change', () => {
-		routeTestByTag('A-operates-then-overC', ['MTAD-0014'], null, ['A-operates-then-overC']);
+		routeTestByTag('A-operates-then-overC', ['MTAD-014'], null, ['A-operates-then-overC']);
 		routeTestByTag('A-operates-then-overC-thenD', ['MTAD-014'], null, ['A-operates-then-overC-thenD']);
 	});
 });
@@ -67,12 +67,23 @@ function testStationLineRerouteObject(event) {
 
 	return mtaStatus.getStationsInEventMessage(lines, event.message)
 		.then( data => (data.parsed_message) ? data : Promise.reject(event.message + 'has no stations!!!') )
-		.then( data => mtaStatus.getRouteChange(data.parsed_message, event.line, true))
+		.then( data => {
+			let m = mtaStatus.getRouteChange(data.parsed_message, event.line, true);
+			m.original_data = data;
+			return m;
+		})
 		.then( data => {
 			if (!data) {
 				console.error('\n\n\nNO ROUTE, but expected: ', event);
 			}
+			// Find a route in the first place.
 			expect(data, event.message).to.have.property('route');
+
+			if (data.message !== event.route_change.message) {
+				console.error('\n\n\n', data,'\n\n');
+			}
+
+			// Make sure the parsed message matches the expected.
 			expect(data.message).to.equal(event.route_change.message);
 
 			event.route_change.route.map( (change, i) => {

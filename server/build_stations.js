@@ -195,6 +195,9 @@ function stationAliases(name, boro) {
 				'Broadway-Lafayette',
 				'B\'way-Lafayette',
 			],
+			'Essex St': [
+				'Essex St',
+			],
 			'34 St - Penn Station': [
 				'Penn Station',
 				'34 St',
@@ -274,6 +277,9 @@ function stationAliases(name, boro) {
 				'Barclays Ctr',
 				'Atlantic Av-Barclays Ctr',
 			],
+			'Broadway Jct': [
+				'Broadway Junction',
+			],
 			'Coney Island - Stillwell Av': [
 				'Stillwell Av',
 				'Coney Island',
@@ -285,9 +291,16 @@ function stationAliases(name, boro) {
 			'36 St': [
 				'36 St (Bklyn)',
 			],
+			'Crown Hts - Utica Av': [
+				'Utica Av',
+			],
 		},
 
 		Bx: {
+			'Wakefield - 241 St': [
+				'241 St',
+				'Wakefield',
+			],
 			'Norwood - 205 St': [
 				'Norwood',
 				'205 St',
