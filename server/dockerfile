@@ -10,10 +10,11 @@ RUN npm install forever -g
 RUN mkdir -p /usr/src/server
 WORKDIR /usr/src/server
 
-RUN mkdir data \
-	&& touch data/mta_status.xml \
-	&& touch data/mta_status.json \
-	&& touch data/mta_stations.final.json 
+RUN mkdir data && mkdir data/generated \
+	&& touch data/generated/mta_status.xml \
+	&& touch data/generated/mta_status.json \
+	&& touch data/generated/mta_stations.compiled.json
+	
 
 # Install dependencies
 COPY package.json .

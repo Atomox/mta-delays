@@ -237,7 +237,7 @@ async function getStationLinesRegex(lines, station_id_regex_only) {
 	let boros = ['Qs', 'Mn', 'Bx', 'Bk', 'SI'];
 	let station_id_regex = '(\\['
 		+ mtaRegEx.convertArrayToRegexOr(boros)
-		+ '[0-9]{1,5}\\-[A-z0-9]{1,5}\\])';
+		+ '[0-9]{1,5}\\-[A-z0-9]{1,5}\\])(?:\\,?\\sthe\\slast\\sstop)?';
 
 	// (?:(?:(?:\s|between|and|until|to(\s*\/from\s*)?|end\s(?:at)?|express)*\s*(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\]))*)*
 
