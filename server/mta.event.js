@@ -109,18 +109,6 @@ async function parseSingleEvent(event) {
 			console.warn('NEW SOURCE TYPE:', event.Source[0].SourceType[0]);
 		}
 
-		/**
-		 *
-		 * @TODO
-		 *   *
-		 *   *
-		 *
-		 */
-
-		if (e.id == 'MTA NYCT_175990') {
-			console.log('\n\n\n', '...HERE IT COMES...', '\n\n\n');
-		}
-
 		e.detail = await parseDetailMessage(e.detail, e.summary, e.line);
 
 	}
@@ -280,6 +268,21 @@ async function getStationsInEventMessage(lines, message, parsed_message) {
 		stations: {},
 		parsed_message: (parsed_message) ? parsed_message : message,
 	};
+
+	/**
+   *
+	 *  @TODO
+	 *   *
+	 *   *  We should allow a list to be passed in 2 steps:
+   *   *    1. Primary lines
+	 *   *    2. Supplimentary lines
+	 *   *
+	 *   *    - This way, stations with the most context are processed first.
+	 *   *    @see MTAD-013
+	 *   *
+	 *
+	 */
+
 
 
 	for (let l in lines) {

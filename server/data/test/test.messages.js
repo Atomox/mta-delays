@@ -69,7 +69,7 @@ let event_messages = {
 				tag: ["MTAD-014", "MTAD-001", 'MTAD-013'],
 				time: null,
 				durration: 'WEEKEND 6:15 AM to 11:45 PM, Sat, Jan 13 8 AM to 10 PM, Sun, Jan 14',
-				message: 'WEEKEND 6:15 AM to 11:45 PM, Sat, Jan 13 8 AM to 10 PM, Sun, Jan 14 No [M] trains between Essex St and Broadway Junction, due to track replacement. Take the [J] instead. NIGHTS 9 PM to 12 midnight, Friday, Jan 12 No [M] trains between 71 Av and Essex St, due to signal improvements. Take the [E][R]. [M] service operates between Broadway Junction and Essex St, and is rerouted via the [J] to/from Chambers St. Trains stop at Bowery and Canal St. For B\'way-Lafayette St and stations along 6 Av, use nearby [N]/[Q]/[R] stations on Broadway. Transfer at Roosevelt Av [E]/[R], Times Sq-42 St/Port Authority [E]/[R], and/or Canal St M/R. All times until April 30, 2018 No [M] trains between Myrtle-Wyckoff Avs and Myrtle Av (Broadway), due to viaduct reconstruction. Take free shuttle buses. [M] service operates in two sections: 1. Between Essex St and Myrtle Av, and via the [J] to/from Broadway Junction, days/evenings*. 2. Between Metropolitan Av and Myrtle-Wyckoff Avs (trains run every 20 minutes, Sat and Sun, from 7:30 AM to 9:30 AM). Free shuttle buses operate between Myrtle-Wyckoff Avs and Myrtle Av. *Suspended this weekend. [AD] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
+				message: 'WEEKEND 6:15 AM to 11:45 PM, Sat, Jan 13 8 AM to 10 PM, Sun, Jan 14 No [M] trains between Essex St and Broadway Junction, due to track replacement. Take the [J] instead. NIGHTS 9 PM to 12 midnight, Friday, Jan 12 No [M] trains between 71 Av and Essex St, due to signal improvements. Take the [E][R]. [M] service operates between Broadway Junction and Essex St, and is rerouted via the [J] to/from Chambers St. Trains stop at Bowery and Canal St. For B\'way-Lafayette St and stations along 6 Av, use nearby [N][Q][R] stations on Broadway. Transfer at Roosevelt Av [E]/[R], Times Sq-42 St/Port Authority [E]/[R], and/or Canal St M/R. All times until April 30, 2018 No [M] trains between Myrtle-Wyckoff Avs and Myrtle Av (Broadway), due to viaduct reconstruction. Take free shuttle buses. [M] service operates in two sections: 1. Between Essex St and Myrtle Av, and via the [J] to/from Broadway Junction, days/evenings*. 2. Between Metropolitan Av and Myrtle-Wyckoff Avs (trains run every 20 minutes, Sat and Sun, from 7:30 AM to 9:30 AM). Free shuttle buses operate between Myrtle-Wyckoff Avs and Myrtle Av. *Suspended this weekend. [AD] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
 				parsed_message: 'WEEKEND 6:15 AM to 11:45 PM, Sat, Jan 13 8 AM to 10 PM, Sun, Jan 14 No [M] trains between [Mn625-M18] and [Bk621-J27], due to track replacement. Take the [J] instead. NIGHTS 9 PM to 12 midnight, Friday, Jan 12 No [M] trains between [Qs261-G08] and [Mn625-M18], due to signal improvements. Take the [E][R]. [M] service operates between [Qs4-R05] Junction and Essex St, and is rerouted via the [J] to/from [Mn622-M21]. Trains stop at [Mn103-M19] and [Mn623-M20]. For [Mn619-D21] and stations along 6 Av, use nearby [N]/[Q]/[R] stations on Broadway. Transfer at [Qs616-G14] [E]/[R], Times Sq-[Mn611-A27] [E]/[R], and/or [Mn169-A34] M/R. All times until April 30, 2018 No [M] trains between [Bk630-M08] and [Bk97-M11] (Broadway), due to viaduct reconstruction. Take free shuttle buses. [M] service operates in two sections: 1. Between Essex St and [Bk97-M11], and via the [J] to/from Broadway Junction, days/evenings*. 2. Between Metropolitan Av and Myrtle-Wyckoff Avs (trains run every 20 minutes, Sat and Sun, from 7:30 AM to 9:30 AM). Free shuttle buses operate between Myrtle-Wyckoff Avs and Myrtle Av. *Suspended this weekend. [AD] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
 				route_change: {
 					tag: ['A-operates-then-overC'],
@@ -1182,6 +1182,52 @@ let event_messages = {
 						}
 					],
 					message_formula: "[-SUMMARY-] [-DATES-] [C] service operates between 168 St and W 4 St , and via the [F] to/from 2 Av , the last stop . [A] trains make all [C] stops between Utica Av and Euclid Av. [SB] Buses make all [C] stops between Jay St-MetroTech and Utica Av. [-ALT-INSTRUCT-]"
+				},
+				{
+					type: null,
+					type_detail: [
+						"service_ends_early",
+						"running_local",
+						"route_change",
+						"track_maintenance"
+					],
+					tag: ["MTAD-014", "MTAD-001"],
+					time: null,
+					durration: "Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25",
+					message: "TRACK MAINTENANCE [M] Service ends early between 71 Av and Essex St [E] [F] [R] trains provide alternate service Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25 [M] service operates between Essex St and Myrtle Av and via the [J] to/from Broadway Junction. [M] shuttle service operates between Metropolitan Av and Myrtle Wyckoff Avs . Travel Alternatives [TP] [R] trains make all [M] stops between 71 Av and Queens Plaza. [E] trains make all [M] stops between Queens Plaza and Broadway-Lafayette St*. [F] trains make all [M] stops between 47-50 Sts and Delancey St/Essex St. Transfer between [E] [F] and [R] trains at Roosevelt Av or 34 St-Herald Sq. Transfer between [F] and [M] trains at Delancey St/Essex St. *This detour has taken into account additional planned service changes. Note: [E] and [F] trains run local in both directions in Queens after 10 PM. Please use the following guide to arrive at your station before end of service. To 71 Av: To Broadway Junction: Broadway Junction 8:43 PM 71 Av 8:30 PM Myrtle Av 8:53 PM Roosevelt Av 8:40 PM Essex St 9:05 PM Queens Plaza 8:51 PM W 4 St 9:11 PM 47-50 Sts 8:59 PM 47-50 Sts 9:19 PM B'way-Lafayette St 9:09 PM Reminder: No [M] service between Myrtle-Wyckoff Avs and Myrtle Av. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+					message_station_parse: "TRACK MAINTENANCE [M] Service ends early between [Qs261-G08] and [Mn625-M18] [E] [F] [R] trains provide alternate service Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25 [M] service operates between [Mn625-M18] and [Bk97-M11] and via the [J] to/from [Bk621-J27]. [M] shuttle service operates between Metropolitan Av and [Bk630-M08] . Travel Alternatives [TP] [R] trains make all [M] stops between [Qs261-G08] and [Qs273-G21]. [E] trains make all [M] stops between [Qs273-G21] and [Mn619-D21]*. [F] trains make all [M] stops between [Mn225-D15] and [Mn625-F15]/Essex St. Transfer between [E] [F] and [R] trains at [Qs616-G14] or [Mn607-D17]. Transfer between [F] and [M] trains at Delancey St/Essex St. *This detour has taken into account additional planned service changes. Note: [E] and [F] trains run local in both directions in Queens after 10 PM. Please use the following guide to arrive at your station before end of service. To [Qs261-G08]: To Broadway Junction: Broadway Junction 8:43 PM [Qs261-G08] 8:30 PM [Bk97-M11] 8:53 PM [Qs616-G14] 8:40 PM Essex St 9:05 PM [Qs273-G21] 8:51 PM [Mn167-A32] 9:11 PM 47-[Mn162-A25]s 8:59 PM [Mn225-D15] 9:19 PM B'way-Lafayette St 9:09 PM Reminder: No [M] service between Myrtle-Wyckoff Avs and Myrtle Av. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+					trains: [
+						"MTA NYCT_M"
+					],
+					ad_message: "[ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+					alt_instructions: "Travel Alternatives [TP] [R] trains make all [M] stops between 71 Av and Queens Plaza. [E] trains make all [M] stops between Queens Plaza and Broadway-Lafayette St*. [F] trains make all [M] stops between 47-50 Sts and Delancey St/Essex St. Transfer between [E] [F] and [R] trains at Roosevelt Av or 34 St-Herald Sq. Transfer between [F] and [M] trains at Delancey St/Essex St. *This detour has taken into account additional planned service changes. Note: [E] and [F] trains run local in both directions in Queens after 10 PM. Please use the following guide to arrive at your station before end of service. To 71 Av: To Broadway Junction: Broadway Junction 8:43 PM 71 Av 8:30 PM Myrtle Av 8:53 PM Roosevelt Av 8:40 PM Essex St 9:05 PM Queens Plaza 8:51 PM W 4 St 9:11 PM 47-50 Sts 8:59 PM 47-50 Sts 9:19 PM B'way-Lafayette St 9:09 PM Reminder: No [M] service between Myrtle-Wyckoff Avs and Myrtle Av.",
+					route_change: {
+						tag: ['A-operates-then-overC'],
+						message: "[M] service operates between [Mn625-M18] and [Bk97-M11] and via the [J] to/from [Bk621-J27]. [M] service operates between",
+						trains: ["M"],
+						route: [
+							{
+								allTrains: true,
+								dir: null,
+								lines: ["M"],
+								along: null,
+								from: "Mn625-M18",
+								to: "Bk97-M11"
+							},
+							{
+								allTrains: true,
+								dir: null,
+								lines: ["M"],
+								along: "J",
+								from: "Bk97-M11",
+								to: "Bk621-J27"
+							}
+						],
+					},
+					line: [
+						{ line: "MTA NYCT_M", dir: "1" },
+						{	line: "MTA NYCT_M", dir: "0" }
+					],
 				},
 		],
 
