@@ -126,11 +126,32 @@ async function getRouteStationsArray(line, include_stats) {
 }
 
 
-async function matchRouteStationsMessage(line, message, processed_message) {
+/**
+ * Match a single line's stations against the text of an event message.
+ *
+ * @param [string] line
+ *   The ID of a single line. Should be in the form: MTA NYCT_4.
+ * @param [string] message
+ *   The haystack where we'll search for our stations.
+ * @param [string] processed_message
+ *   The alternate (preferred) haystack, already partially processed.
+ * @param [object][array] problems
+ *   Our result set of problem stations. We accumulate problem matches
+ *   over subsiquent calls for all lines before finalizing them,
+ *   so we may make the correct match. These are any previous results,
+ *   which we can append to. They generate here,
+ *   but are not finalized in this function.
+ *
+ * @return [object]
+ *   List of found stations, a list of found problems (including any passed in),
+ *   and a parsed message with matches replaced with station tokens.
+ */
+async function matchRouteStationsMessage(line, message, processed_message, problems) {
 	try {
-
+		line_id = line;
 		line = getTrainById(line);
 
+		// Get all stations for this line.
 		let stations = await getRouteStationsArray(line, true);
 
 		// Get problem stations we should replace first.
@@ -138,9 +159,7 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 
 		let results = {};
 		let result_message = (processed_message) ? processed_message : message;
-
-		// Dump problem stations here.  We'll determine the best match after the loop.
-		let problem_results = {};
+		let problem_results = (problems) ? problems : {};
 
 		// Search each station.
 		for (let s in stations) {
@@ -151,7 +170,6 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 			// Problem stations get stored and compared after this process finishes. Until then, we don't count them as a final match.
 			if (problem_stations[stations[s].common]) {
 				if (res_re !== false) {
-//					console.log('\n >>', stations[s].common, ' -- found in problem stations!\n');
 
 					// Init empty station common name in array.
 					if (!problem_results[stations[s].common]) { problem_results[stations[s].common] = []; }
@@ -162,6 +180,7 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 							name: stations[s].name,
 							found: res_re,
 							sid: s,
+							line: line_id
 						}
 					);
 				}
@@ -170,7 +189,8 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 				// Check station ID against message.
 				if (res_re !== false) {
 					results[s] = res_re;
-					result_message = result_message.replace(res_re, (match) => '[' + s +']' );
+					// Str.split().join() will replace all occurances, unlike str.replace().
+					result_message = result_message.split(res_re).join('[' + s +']');
 				}
 			}
 		}
@@ -188,6 +208,24 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 }
 
 
+/**
+ * Find all stations in the passed message, in context of passed lines.
+ *
+ * @param [array] lines
+ *   Stations from these lines will be included within the station search.
+ * @param [string] message
+ *   The haystack string where we'll search for these lines' stations.
+ *   We'll also replace each result with a station token within the message,
+ *   and include this in our results.
+ * @param [string] processed_message
+ *   An existing message with placeholders/processing already done.
+ *   We'll default to this haystack, if present. Otherwise, we'll make our own,
+ *   using [message] as a starter.
+ *
+ * @return object
+ *   A list of stations, keyed by line, that we found. Also, a parsed message
+ *   with station tolkens replacing the names of any we could find.
+ */
 async function matchAllLinesRouteStationsMessage(lines, message, processed_message) {
 
 	if (!processed_message) { processed_message = message; }
@@ -195,51 +233,24 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
 	let result = {
 		stations: {},
 		parsed_message: (processed_message) ? processed_message : message,
+		problems: {},
 	};
-
-	/**
-	 *
-	 *
-	 *  @TODO
-	 *   *
-	 *   *
-	 *   *
-	 *   *     IN PROGRESS -- REFACTOR
-	 *   *
-	 *   *       - MOVING PROBLEM STATIONS OUT OF PROCESS
-	 *   *       - MOVING match lines into stations array.
-	 *   *       - Check tests. Should be 4 failing, not 12!
-	 *   *       - Looks like stations are not returning as expected.
-	 *   *
-	 *   *       @SEE getStationsInEventMessage in mta.events.
-	 *   *
-	 *   *
-	 *   *
-	 *   *
-	 *   *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 */
+	let problems = {};
 
 	for (let l in lines) {
 		try {
 			let line = unwrapLineObject((lines[l]));
 
-			let rs = await matchRouteStationsMessage(line, message, result.parsed_message);
+			// Match normal stations, and collect matched problem stations.
+			let rs = await matchRouteStationsMessage(line, message, result.parsed_message, problems);
 
-			// Return results.
-			let problem_process = processProblemStations (rs.problems, rs.stations, rs.processed_message);
-			rs.processed_message = problem_process.message;
-			rs.stations = problem_process.results;
-			rs.analysis = groupStationsByLocation(rs.stations, rs.results);
+			// Keep track of accumulating problem stations.
+			// We won't process until all lines have completed.
+			problems = rs.problems;
+			result.parsed_message = rs.processed_message;
 
 			// Get an stations related to this line.
-			result.stations[line] = rs;
-			result.parsed_message = rs.processed_message;
+			result.stations[line] = {stations: rs.stations};
 		}
 		catch (err) {
 			console.warn('\n\n', '<!> Error while fetching stations in event msg: ', err, '\n\n');
@@ -247,18 +258,43 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
 		}
 	}
 
-	return result;
+	// Now, examine any problem stations, and include them in the results.
+	return processProblemStations (problems, result.stations, result.parsed_message);
 }
 
 
+/**
+ * Unwrap a train from any object syntax, if necessary.
+ *
+ * E.G. {line: 'MTA NYCT_6', dir: 0} becomes 'MTA NYCT_6'.
+ */
 function unwrapLineObject (line) {
 	return (line.line) ? line.line : line;
 }
 
 
+/**
+ * Given a list of matched stations known to cause problems,
+ * evaluate the matched stations, and determine the most complete match.
+ *
+ * @param [object][arrays] problem_results
+ *   A list of problem stations, keyed by common name.
+ *   Each entry has a regex match, name, station ID and line ID.
+ * @param [object] results
+ *   Results of a prior station message parse. This should be the
+ *   complete set of stations, keyed by [line].stations => []. Winning problem
+ *   stations will be appended to the winning line's list of stations.
+ * @param [string] message
+ *   Our haystack, the message, where we should replace any matches
+ *   with a station token, and return alongside the results.
+ *
+ * @return [object]
+ *   All resulting winning stations (including passed in non-problem results),
+ *   along with the parsed messages.
+ */
 function processProblemStations (problem_results, results, message) {
+
 	if (Object.keys(problem_results).length > 0 ) {
-//			console.log('\n\n ------ Problem Stations: ', problem_results, '\n\n\n');
 
 		Object.keys(problem_results).map( (key, i) => {
 
@@ -269,28 +305,46 @@ function processProblemStations (problem_results, results, message) {
 			problem_results[key].map( ps => {
 
 				if (ps.found.length > st_length) {
-//						console.log(' . . matched', ps.found, ' [', ps.sid, ']');
 					st_length = ps.found.length;
 					st_obj = ps;
 				}
-				// else { console.log(' . . [no] mas', ps.found, ' [', ps.sid, ']'); }
 				/** @TODO -- If the length is ==, include multiple. */
 			});
 
 			if (st_obj !== null) {
-				results[st_obj.sid] = st_obj.found;
-				message = message.replace(st_obj.found, (match) => '[' + st_obj.sid +']' );
-//					console.log('\n <!> ~~~~~~~~ PROBLEM REPORT: \'', key, '\'on ', line, 'line Matched:', st_obj, '\n', 'in: ', message);
+				// Make sure there is a place to put the result, if not already set.
+				if (!results[st_obj.line]) { results[st_obj.line] = {stations: []}; }
+
+				// Push the winner back into it's line's stations list.
+				results[st_obj.line].stations[st_obj.sid] = st_obj.found;
+
+				// Add station tokens to the already parsed message.
+				message = message.split(st_obj.found).join('[' + st_obj.sid +']');
 			}
 		});
 	}
 	return {
-		results: results,
-		message: message,
+		stations: results,
+		parsed_message: message,
 	}
 }
 
 
+/**
+ * Get regex for matching station tokens and suppliment structure.
+ *
+ * This is for use with the route_change regex.
+ *
+ * @params [array] lines
+ *   If station_id_regex_only was not true, we'll include all station ID regex
+ *   in our results.
+ * @params [boolean] station_id_regex_only
+ *   If false, we'll include regex of all stations in the passed [lines].
+ *
+ * @return [regex]
+ *   A regex with station token matching, (optional) station names,
+ *   and some supplimentary search regex to go along with station tokens.
+ */
 async function getStationLinesRegex(lines, station_id_regex_only) {
 	let regexSpace = '\\s*';
 	let stations = {};
@@ -300,11 +354,9 @@ async function getStationLinesRegex(lines, station_id_regex_only) {
 	let boros = ['Qs', 'Mn', 'Bx', 'Bk', 'SI'];
 	let station_id_regex = '(\\['
 		+ mtaRegEx.convertArrayToRegexOr(boros)
-		+ '[0-9]{1,5}\\-[A-z0-9]{1,5}\\])(?:\\,?\\sthe\\slast\\sstop)?';
+		+ '[0-9]{1,5}\\-[A-z0-9]{1,5}\\])(?:\\,?\\sthe\\slast\\sstop)?\\.?';
 
-	// (?:(?:(?:\s|between|and|until|to(\s*\/from\s*)?|end\s(?:at)?|express)*\s*(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\]))*)*
-
-	//	/(?:(?:\s|between|and|until|to|end\s(?:at)?)*\s*(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\]))*)*/
+	// (?:(?:(?:\s|between|and|until|to(?:\s*\/from\s*)?|end\s(?:at)?|express)*\s*(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])(?:\,?\sthe last stop)?\.?)*)*
 
 	// Assemble line
 	stationregex.push(station_id_regex);
