@@ -264,44 +264,7 @@ async function formatSingleStatusEvent(event, lines, summary) {
  *   [parsed_message] contains the original message, with all stations matches replaced by their ID, wrapped in [].
  */
 async function getStationsInEventMessage(lines, message, parsed_message) {
-	let result = {
-		stations: {},
-		parsed_message: (parsed_message) ? parsed_message : message,
-	};
-
-	/**
-   *
-	 *  @TODO
-	 *   *
-	 *   *  We should allow a list to be passed in 2 steps:
-   *   *    1. Primary lines
-	 *   *    2. Supplimentary lines
-	 *   *
-	 *   *    - This way, stations with the most context are processed first.
-	 *   *    @see MTAD-013
-	 *   *
-	 *
-	 */
-
-
-
-	for (let l in lines) {
-		try {
-			let my_l = (lines[l].line) ? lines[l].line : lines[l];
-
-			// Get an stations related to this line.
-			result.stations[my_l] = await mtaStations.matchRouteStationsMessage(my_l, message, result.parsed_message);
-			result.parsed_message = result.stations[my_l].processed_message;
-
-//			console.log('\n\n', my_l,'---', result.stations[my_l].stations);
-		}
-		catch (err) {
-			console.warn('\n\n', '<!> Error while fetching stations in event msg: ', err, '\n\n');
-			continue;
-		}
-	}
-
-	return result;
+	return await mtaStations.matchAllLinesRouteStationsMessage(lines, message, parsed_message);
 }
 
 

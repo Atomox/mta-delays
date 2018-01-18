@@ -864,6 +864,42 @@ let event_messages = {
 				],
 			},
 			{
+				type: null,
+				type_detail: [
+					"service_ends_early",
+					"running_local",
+					"route_change"
+				],
+				tag: ["MTAD-001", "MTAD-004", "MTAD-010", "MTAD-013"],
+				time: null,
+				durration: "Late Nights, 9:30 PM to 5 AM, Mon to Fri, Jan 15 - 19 Jan 22 - 26",
+				message: "FASTRACK PROGRAM [A] Trains run local and are rerouted between 59 St-Columbus Circle and Jay St-MetroTech [C] Service ends early - Take the [A] instead [E] Trains are rerouted in Manhattan Late Nights, 9:30 PM to 5 AM, Mon to Fri, Jan 15 - 19 Jan 22 - 26 [A] Trains make local stops and are rerouted in both directions as follows: Via the [D] between 59 St-Columbus Circle and 34 St-Herald Sq. Via the [F] between 34 St-Herald Sq and Jay St-MetroTech. [E] Trains are rerouted in both directions in Manhattan as follows: Via the [M] between 5 Av/53 St and 34 St-Herald Sq. Via the [F] between 34 St-Herald Sq and 2 Av, the last stop. Travel Alternatives [TP] Use nearby [1] [2] stations on 7 Av or [D] [F] stations on 6 Av. Affected Station Alternate Station/Service 7 Av [A] [D] 50 St [1] [2]* 57 St-7 Av [N] [Q] [R] [W] 50 St 50 St [1] [2]* 49 St [ad] (northbound) [N] [Q]* [R] [W] 47-50 Sts [ad] [A] [D] [E] [F] 42 St/Port Authority Times Sq-42 St [ad] [1] [2] [3] [7] [N] [Q] [R][W] 34 St-Penn Station (8 Av) 34 St-Penn Station (7 Av) [ad] [1] [2] [3] 34 St-Herald Sq [ad] [A] [D] [E] [F] [N] [Q] [R] [W] 23 St 23 St [1] [2]* 23 St (6 Av) [A] [E] [F] 14 St [ad] [L] (8 Av) -- Connect with [A] [D] [E] [F] at 6 Av or [4] [6] [N] [Q] [R] at 14 St-Union Sq [ad] W 4 St [ad] [A] [D] [E] [F] Christopher St [1] [2]* Spring St Houston St [1] [2]* Prince St [N] [Q]* [R] [W] W 4 St [ad] [A] [D] [E] [F] Canal St Canal St [1] [2]* Canal St [ad] [4] local [6] | [J] [N] [Q] [R] Chambers St Chambers St [ad] [1] [2] [3] Park Place [2] [3] City Hall [R] [W] World Trade Center Park Place [2] [3] Cortlandt St [ad] [R] [W] nearby Fulton St [ad] [2] [3] [4] [J] Fulton St [ad] [2] [3] [4] [J] Cortlandt St [ad] [R] [W] High St York St [A] [F] Key Transfer Stations 59 St-Columbus Circle [ad] [A] [D] and [1] [2]* 47-50 Sts [ad] [A] [D] and [E] [F] 34 St-Herald Sq [ad] [A] [D] [E] [F] and [N] [Q] [R] [W] 14 St [F] [1] [2] [3] (7 Av) and [A] [E] [F] (6 Av)",
+				message_station_parse: "FASTRACK PROGRAM [A] Trains run local and are rerouted between [Mn614-A24] and [Bk636-A41] [C] Service ends early - Take the [A] instead [E] Trains are rerouted in Manhattan Late Nights, 9:30 PM to 5 AM, Mon to Fri, Jan 15 - 19 Jan 22 - 26 [A] Trains make local stops and are rerouted in both directions as follows: Via the [D] between [Mn614-A24] and [Mn164-A28]-Herald Sq. Via the [F] between [Mn164-A28]-Herald Sq and [Bk636-A41]. [E] Trains are rerouted in both directions in Manhattan as follows: Via the [M] between [Mn276-F12] and [Mn164-A28]-Herald Sq. Via the [F] between [Mn318-128]-Herald Sq and [Mn232-F14], the last stop. Travel Alternatives [TP] Use nearby [1] [2] stations on [Mn277-D14] or [D] [F] stations on [Mn601-L02]. Affected Station Alternate Station/Service [Mn277-D14] [A] [D] [Mn162-A25] [1] [2]* [Mn224-B10]-[Bk240-F24] [N] [Q] [R] [W] [Mn162-A25] [Mn316-126] [1] [2]* [Mn10-R15] [ad] (northbound) [N] [Q]* [R] [W] [Mn225-D15] [ad] [A] [D] [E] [F] [Mn611-A27] Times Sq-[Mn611-127] [ad] [1] [2] [3] [7] [N] [Q] [R][W] [Mn318-128]-Penn Station ([Bk71-N02]) [Mn318-128]-Penn Station ([Bk41-D25]) [ad] [1] [2] [3] [Mn607-D17] [ad] [A] [D] [E] [F] [N] [Q] [R] [W] [Mn165-A30] [Mn165-A30] [1] [2]* [Mn320-130] (6 Av) [A] [E] [F] [Mn618-A31] [ad] [L] ([Mn618-L01]) -- Connect with [A] [D] [E] [F] at 6 Av or [4] [6] [N] [Q] [R] at [Mn618-A31]-Union Sq [ad] [Mn167-A32] [ad] [A] [D] [E] [F] Christopher St [1] [2]* [Mn168-A33] [Mn324-134] [1] [2]* [Mn17-R22] [N] [Q]* [R] [W] [Mn167-A32] [ad] [A] [D] [E] [F] [Mn169-A34] [Mn169-A34] [1] [2]* [Mn169-A34] [ad] [4] local [6] | [J] [N] [Q] [R] [Mn624-A36] [Mn624-A36] [ad] [1] [2] [3] [Mn624-228]ace [2] [3] [Mn20-R24] [R] [W] [Mn624-E01] [Mn624-228]ace [2] [3] [Mn328-138] [ad] [R] [W] nearby [Mn628-A38] [ad] [2] [3] [4] [J] [Mn628-A38] [ad] [2] [3] [4] [J] [Mn21-R25] [ad] [R] [W] [Bk173-A40] [Bk235-F18] [A] [F] Key Transfer Stations [Mn614-125] [ad] [A] [D] and [1] [2]* 47-[Bk61-B14]s [ad] [A] [D] and [E] [F] [Mn607-D17] [ad] [A] [D] [E] [F] and [N] [Q] [R] [W] [Mn618-A31] [F] [1] [2] [3] (7 Av) and [A] [E] [F] (6 Av)",
+				route_change: {
+					tag: ['A-overC-thenD', 'A-overC-thenD-end'],
+					message: "[A] Trains make local stops and are rerouted in both directions as follows: Via the [D] between [Mn614-A24] and [Mn164-A28]-Herald Sq. Via the [F] between [Mn164-A28]-Herald Sq and [Bk636-A41]. [E] Trains are rerouted in both directions in Manhattan as follows: Via the [M] between [Mn276-F12] and [Mn164-A28]-Herald Sq. Via the [F] between [Mn318-128]-Herald Sq and [Mn232-F14], the last stop.",
+					trains: ["E"],
+					route: [
+						{
+							allTrains: true,
+							dir: null,
+							lines: ["E"],
+							along: "M",
+							from: "Mn276-F12",
+							to: "Mn164-A28"
+						}
+					],
+				},
+				line: [
+					{ line: "MTA NYCT_A", dir: "0"},
+					{	line: "MTA NYCT_A",	dir: "1"},
+					{	line: "MTA NYCT_C",	dir: "0"},
+					{	line: "MTA NYCT_C", dir: "1"},
+					{	line: "MTA NYCT_E",	dir: "1"},
+					{	line: "MTA NYCT_E",	dir: "0"}
+				],
+			},
+			{
 				type: 'ServiceChange',
 				type_detail: [
 					"delays",

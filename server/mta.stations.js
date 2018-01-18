@@ -140,7 +140,7 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 		let result_message = (processed_message) ? processed_message : message;
 
 		// Dump problem stations here.  We'll determine the best match after the loop.
-		let problem_st_lengths = {};
+		let problem_results = {};
 
 		// Search each station.
 		for (let s in stations) {
@@ -149,13 +149,15 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 			let res_re = mtaRegEx.matchRegexString(stations[s].regex, message);
 
 			// Problem stations get stored and compared after this process finishes. Until then, we don't count them as a final match.
-			if (problem_stations[stations[s].name]) {
+			if (problem_stations[stations[s].common]) {
 				if (res_re !== false) {
-					if (!problem_st_lengths[stations[s].name]) {
-						problem_st_lengths[stations[s].name] = [];
-					}
+//					console.log('\n >>', stations[s].common, ' -- found in problem stations!\n');
 
-					problem_st_lengths[stations[s].name].push(
+					// Init empty station common name in array.
+					if (!problem_results[stations[s].common]) { problem_results[stations[s].common] = []; }
+
+					// Push onto the problem list.
+					problem_results[stations[s].common].push(
 						{
 							name: stations[s].name,
 							found: res_re,
@@ -173,57 +175,118 @@ async function matchRouteStationsMessage(line, message, processed_message) {
 			}
 		}
 
-		if (Object.keys(problem_st_lengths).length > 0 ) {
-
-			Object.keys(problem_st_lengths).map( (key, i) => {
-
-				let st_length = 0;
-				let st_obj = null;
-
-				// Find the longest match, and choose that one.
-				problem_st_lengths[key].map( ps => {
-
-					if (ps.found.length > st_length) {
-//						console.log(' . . matched', ps.found, ' [', ps.sid, ']');
-						st_length = ps.found.length;
-						st_obj = ps;
-					}
-					else {
-//						console.log(' . . [no] mas', ps.found, ' [', ps.sid, ']');
-					}
-					/**
-					 * @TODO
-					 *   If the length is ==, include multiple.
-					 *
-					 *
-					 *
-					 *
-					 *
-					 */
-				});
-
-				if (st_obj !== null) {
-					results[st_obj.sid] = st_obj.found;
-					result_message = result_message.replace(st_obj.found, (match) => '[' + st_obj.sid +']' );
-
-//					console.log('\n <!> ~~~~~~~~ PROBLEM REPORT: \'', key, '\'on ', line, 'line Matched:', st_obj, '\n', 'in: ', message);
-
-
-				}
-			});
-		}
-
-		let analysis = groupStationsByLocation(stations, results);
-
 		return {
 			processed_message: result_message,
 			stations: results,
-			analysis: analysis,
+			problems: problem_results,
 		};
 	}
 	catch(err) {
 		throw new Error('Error parsing message for stations: ' + err);
 		return results;
+	}
+}
+
+
+async function matchAllLinesRouteStationsMessage(lines, message, processed_message) {
+
+	if (!processed_message) { processed_message = message; }
+
+	let result = {
+		stations: {},
+		parsed_message: (processed_message) ? processed_message : message,
+	};
+
+	/**
+	 *
+	 *
+	 *  @TODO
+	 *   *
+	 *   *
+	 *   *
+	 *   *     IN PROGRESS -- REFACTOR
+	 *   *
+	 *   *       - MOVING PROBLEM STATIONS OUT OF PROCESS
+	 *   *       - MOVING match lines into stations array.
+	 *   *       - Check tests. Should be 4 failing, not 12!
+	 *   *       - Looks like stations are not returning as expected.
+	 *   *
+	 *   *       @SEE getStationsInEventMessage in mta.events.
+	 *   *
+	 *   *
+	 *   *
+	 *   *
+	 *   *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 */
+
+	for (let l in lines) {
+		try {
+			let line = unwrapLineObject((lines[l]));
+
+			let rs = await matchRouteStationsMessage(line, message, result.parsed_message);
+
+			// Return results.
+			let problem_process = processProblemStations (rs.problems, rs.stations, rs.processed_message);
+			rs.processed_message = problem_process.message;
+			rs.stations = problem_process.results;
+			rs.analysis = groupStationsByLocation(rs.stations, rs.results);
+
+			// Get an stations related to this line.
+			result.stations[line] = rs;
+			result.parsed_message = rs.processed_message;
+		}
+		catch (err) {
+			console.warn('\n\n', '<!> Error while fetching stations in event msg: ', err, '\n\n');
+			continue;
+		}
+	}
+
+	return result;
+}
+
+
+function unwrapLineObject (line) {
+	return (line.line) ? line.line : line;
+}
+
+
+function processProblemStations (problem_results, results, message) {
+	if (Object.keys(problem_results).length > 0 ) {
+//			console.log('\n\n ------ Problem Stations: ', problem_results, '\n\n\n');
+
+		Object.keys(problem_results).map( (key, i) => {
+
+			let st_length = 0,
+					st_obj = null;
+
+			// Find the longest match, and choose that one.
+			problem_results[key].map( ps => {
+
+				if (ps.found.length > st_length) {
+//						console.log(' . . matched', ps.found, ' [', ps.sid, ']');
+					st_length = ps.found.length;
+					st_obj = ps;
+				}
+				// else { console.log(' . . [no] mas', ps.found, ' [', ps.sid, ']'); }
+				/** @TODO -- If the length is ==, include multiple. */
+			});
+
+			if (st_obj !== null) {
+				results[st_obj.sid] = st_obj.found;
+				message = message.replace(st_obj.found, (match) => '[' + st_obj.sid +']' );
+//					console.log('\n <!> ~~~~~~~~ PROBLEM REPORT: \'', key, '\'on ', line, 'line Matched:', st_obj, '\n', 'in: ', message);
+			}
+		});
+	}
+	return {
+		results: results,
+		message: message,
 	}
 }
 
@@ -385,6 +448,7 @@ module.exports = {
 	getTrainRoute,
 	getTrainById,
 	getRouteStationsArray,
+	matchAllLinesRouteStationsMessage,
 	matchRouteStationsMessage,
 	groupStationsByLocation,
 	getStationLinesRegex,

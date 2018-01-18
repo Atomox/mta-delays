@@ -89,6 +89,7 @@ mtaApi.getSubwayStations(mta_stations_file)
 			});
 
 			r.regex = mtaRegEx.convertArrayToRegexOr(all_alias);
+			r.common = stationCommonName(r.name, r.boro);
 
 			// Assign our new key to the station.
 			r.key = key;
@@ -132,6 +133,69 @@ mtaApi.getSubwayStations(mta_stations_file)
 });
 
 
+function stationCommonName(name, boro) {
+	const alias = {
+		Mn: {
+
+			// 96
+			'96 St': '96 St',
+
+			// 59
+			'59 St - Columbus Circle': '59 St',
+
+			// 42
+			'Times Sq - 42 St': '42 St',
+			'Grand Central - 42 St': '42 St',
+			'42 St - Port Authority Bus Terminal': '42 St',
+			'42 St - Bryant Pk': '42 St',
+
+			// 34
+			'34 St - Herald Sq': '34 St',
+			'34 St - Penn Station': '34 St',
+
+			// 14
+			'14 St - Union Sq': '14 St',
+			'Lexington Av/63 St': '63 St',
+			'Lexington Av/53 St': '53 St',
+		},
+
+		Qs: {
+			'Astoria - Ditmars Blvd': 'Ditmars Blvd',
+			'Jackson Hts - Roosevelt Av': '74th',
+			'Briarwood - Van Wyck Blvd': 'Briarwood',
+			'Kew Gardens - Union Tpke': 'Union Tpke',
+			'Forest Hills - 71 Av': '71 Av',
+			'Jamaica Center - Parsons/Archer': 'Parsons Blvd',
+			'Sutphin Blvd - Archer Av - JFK Airport': 'Sutphin Blvd',
+			'Jamaica - Van Wyck': 'Van Wyck',
+			'Jamaica - 179 St': '179 St',
+			'Court Sq': '23rd St',
+		},
+
+
+		Bk: {
+			'Atlantic Av - Barclays Ctr': 'Barclays Center',
+			'Broadway Jct': 'Broadway Junction',
+			'Coney Island - Stillwell Av': 'Stillwell Av',
+			'36 St': '36 St',
+			'Crown Hts - Utica Av': 'Utica Av',
+		},
+
+		Bx: {
+			'Wakefield - 241 St': '241 St',
+			'Norwood - 205 St': '205 St',
+			'161 St - Yankee Stadium': '161 St',
+		},
+		SI: {
+			
+		}
+	};
+
+	// Either the common name, otherwise, use the proper name.
+	return (alias[boro][name]) ? alias[boro][name] : name;
+}
+
+
 function stationAliases(name, boro) {
 	const alias = {
 		Mn: {
@@ -170,6 +234,11 @@ function stationAliases(name, boro) {
 			'34 St - Herald Sq': [
 				'Herald Square',
 				'Herald Sq',
+				'34 St',
+			],
+			'34 St - Penn Station': [
+				'Penn Station',
+				'34 St',
 			],
 			'96 St': [
 				'96 At-2 Av',
@@ -197,10 +266,6 @@ function stationAliases(name, boro) {
 			],
 			'Essex St': [
 				'Essex St',
-			],
-			'34 St - Penn Station': [
-				'Penn Station',
-				'34 St',
 			],
 			'World Trade Center': [
 				'World Trade Ctr',

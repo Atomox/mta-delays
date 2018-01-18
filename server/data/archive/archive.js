@@ -37,6 +37,8 @@ let archive_status = {
 		'mta_status.41.misidentified_47-50_st_station',
 		'mta_status.42.morning_commute_major_reroute_plus_96-st_spelling_errors',
 		'mta_status.43.complicated_D_line_reroute_planned',
+		'mta_status.45.franklyn_St_shuttle_incident',
+		'mta_status.46.a_e_single_status_major_reroute',
 	],
 	path: './data/archive/',
 };

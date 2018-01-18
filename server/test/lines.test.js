@@ -38,6 +38,7 @@ describe ('Detect Train Lines', () => {
 	describe.skip('MTAD-009 -- Split Service Route Change', () => {});
 	describe('MTAD-010 -- Route Change, then end.', () => {
 		routeTestByTag('AB-overC-end', ['MTAD-001'], null, ['AB-overC-end']);
+		routeTestByTag('A-overC-thenD-end', ['MTAD-001'], null, ['A-overC-thenD-end']);
 	});
 
 

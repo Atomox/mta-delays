@@ -4,7 +4,11 @@ const name_problems = {
 		'Qs272-G20',
 		'Bk32-R36',
 	],
-
+	'34 St': [
+		'Mn607-R17', // Herald Square
+		'Mn164-A28', // Penn Station
+		'Mn471-726', // 11 Av Hudson Yards
+	],
 	'59 St - Columbus Circle': [
 		'Mn614-A24',
 		'Mn614-125',
