@@ -1,5 +1,5 @@
-MTA Interruption Feeds
-A simple API that interprets MTA interruption messaging.
+# MTA Interruption Feeds
+A simple API that interprets MTA Subway Disruption Messaging.
 
 We take minimal messaging from the MTA, and parse out useful information, like route changes, station identification, event tagging, and more!
 
