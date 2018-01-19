@@ -81,9 +81,7 @@ turns into this:
      {
        allTrains: true,
        dir: null,
-       lines: [
-       "A"
-       ],
+       lines: ["A"],
        along: "D",
        from: "Mn614-A24",
        to: "Mn607-D17"
@@ -91,9 +89,7 @@ turns into this:
      {
        allTrains: true,
        dir: null,
-       lines: [
-         "A"
-       ],
+       lines: ["A"],
        along: "F",
        from: "Mn607-D17",
        to: "Bk636-A41"
@@ -101,9 +97,7 @@ turns into this:
      {
        allTrains: true,
        dir: null,
-       lines: [
-         "E"
-       ],
+       lines: ["E"],
        along: "M",
        from: "Mn276-F12",
        to: "Mn607-D17"
@@ -111,9 +105,7 @@ turns into this:
      {
        allTrains: true,
        dir: null,
-       lines: [
-         "E"
-       ],
+       lines: ["E"],
        along: "F",
        from: "Mn607-D17",
        to: "Mn232-F14"
