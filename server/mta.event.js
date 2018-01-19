@@ -109,7 +109,7 @@ async function parseSingleEvent(event) {
 			console.warn('NEW SOURCE TYPE:', event.Source[0].SourceType[0]);
 		}
 
-		e.detail = await parseDetailMessage(e.detail, e.summary, e.line);
+		e.detail = await parseDetailMessage(e.detail, e.summary, e.line, e.id);
 
 	}
 	catch (err) {
@@ -120,12 +120,12 @@ async function parseSingleEvent(event) {
 }
 
 
-async function parseDetailMessage(status, summary, lines) {
+async function parseDetailMessage(status, summary, lines, id) {
 
 	// Clean it up.
 	status = cleanStatusText(decode(status));
 
-	status = await formatSingleStatusEvent(status, lines, summary);
+	status = await formatSingleStatusEvent(status, lines, summary, id);
 
 	return status;
 }
@@ -175,7 +175,7 @@ function cleanStatusText(text) {
  * @return {object}
  *   An event object.
  */
-async function formatSingleStatusEvent(event, lines, summary) {
+async function formatSingleStatusEvent(event, lines, summary, id) {
 
 	let  e = null;
 
@@ -559,7 +559,7 @@ async function getMessageRouteChange(text, lines, station_ids_in_text) {
 	// Parse Route Changes ([R] trains are running along the [F] line from...)
 //	let workDatePattern = /(((((Some|northbound|southbound|and)\s*)*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(trains(\s*are)?\s*(reroute[d]?|stopping|run(ning)? via (the)?)|(then)?\s*(stopping)?\s*(over|along)\s*(the)?)){1}(\s*(trains|both\s*directions|line(s)?|travel(ing)?|are|(on|in|between|along|long|from|to|via)\s*(the)?|then|end at|\,|\.)*\s*(\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 
-	let workDatePattern = /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\s*make\slocal\sstops\sand)?(?:\sare)?\s*(?:reroute[d]?(?:(?:\s*in both directions)?)?|stopping|run(?:ning)? via (?:the)?|traveling)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?|(?:service operates(?:\sin\stwo\ssections[\s0-9\:\.]*|\s*b\s*etween)?)))(?:(\s|[1-9]\.)*(?:both\s*directions|in\s*(?:Manhattan|Brooklyn|Queens|the Bronx|staten Island)?|as follows\:|line[s]?|travel(?:ing)?|are|(?:and\s)?(?:on|in|b\s*etween|along|long|from|to|via)\s*(?:the)?|then(?:\send)?|end\s*(?:at)|\,|\.|\(\s*skipping[^\(\)]*\))*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
+	let workDatePattern = /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\s*make\slocal\sstops\sand)?(?:\sare)?\s*(?:reroute[d]?(?:(?:\s*in both directions)?)?|stopping|run(?:ning)? via (?:the)?|traveling)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*the|(?:then|trains)\s*end\s*(?:at)?|(?:service operates(?:\sin\stwo\ssections[\s0-9\:\.]*|\s*b\s*etween)?)))(?:(\s|[1-9]\.)*(?:(?:and)?\sis\srerouted|both\s*directions|in\s*(?:Manhattan|Brooklyn|Queens|the Bronx|staten Island)?|as follows\:|line[s]?|travel(?:ing)?|are|(?:and\s)?(?:on|in|b\s*etween|along|long|from|to|via)\s*(?:the)?|then(?:\send)?|end\s*(?:at)|\,|\.|\(\s*skipping[^\(\)]*\))*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 
 //	 /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\sare)?\s*(?:reroute[d]?|stopping|run(?:ning)? via (?:the)?|traveling)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?|(?:service operates(\sin\stwo\ssections[\s0-9\:\.]*|\s*b\s*etween)?)))(?:(\s|[1-9]\.)*(?:trains|both\s*directions|line[s]?|travel(?:ing)?|are|(and\s)?(?:on|in|b\s*etween|along|long|from|to|via)\s*(?:the)?|then(?:\send)?|end\s*(?:at)|\,|\.|\(\s*skipping[^\(\)]*\))*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
 
