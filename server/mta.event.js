@@ -16,6 +16,10 @@ const mtaStations = require('./mta.stations');
 const mtaRegEx = require('./includes/regex');
 const mtaTaxonomy = require('./data/static/mta.taxonomy');
 
+
+const GLOBAL_DEBUG_ID = 'MTA NYCT_176407';
+
+
 function checkReports(response) {
 
 	let timestamp = response.Siri.ServiceDelivery[0].ResponseTimestamp[0];
@@ -66,10 +70,12 @@ async function parseStatusFeed(feedObject) {
 }
 
 
+/**
+ * Given an event message, prepare a single event's complete structure.
+ */
 async function parseSingleEvent(event) {
 
 	let e = {
-
 		id: null,
 		type: null,
 		planned: false,
@@ -120,14 +126,12 @@ async function parseSingleEvent(event) {
 }
 
 
+/**
+ * Decode, prepare and parse the event.
+ */
 async function parseDetailMessage(status, summary, lines, id) {
-
-	// Clean it up.
 	status = cleanStatusText(decode(status));
-
-	status = await formatSingleStatusEvent(status, lines, summary, id);
-
-	return status;
+	return await formatSingleStatusEvent(status, lines, summary, id);
 }
 
 
@@ -169,15 +173,15 @@ function cleanStatusText(text) {
 /**
  * Gather info on a single status event.
  *
- * @param  {string} event
+ * @param [string] event
  *   The text for a single event.
  *
- * @return {object}
- *   An event object.
+ * @return [object|null]
+ *   An event object, or [null].
  */
 async function formatSingleStatusEvent(event, lines, summary, id) {
 
-	let  e = null;
+	let e = null;
 
 	try {
 		if (!event) {
@@ -204,11 +208,10 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 			e.type_detail = getMessageAction(event);
 
 			// Get an interruption time
-			e.time = getMessageDateTime(event);
+			e.time = null;
 
 			// Get a scheduled time from the body. (Planned Work)
 			e.durration = getMessagePlannedWorkDate(event);
-
 
 			// Get AD note (always at the bottom).
 			// <!> Must run before Travel Alt, which WILL match this.
@@ -225,9 +228,7 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 			e.trains = _.union(lines
 				.map((val) => val.line)
 				.filter((value, index, self) => self.indexOf(value) === index));
-
 			e.train_context = _.union(e.trains,e.train_context);
-
 
 			// Get all stations per line. Also get a formatted message, with station names
 			// substituted with their IDs, for easier parsing of line and route changes.
@@ -235,9 +236,17 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 			e.stations = station_result.stations;
 			e.message_station_parse = station_result.parsed_message;
 
+			// Route Change Processing.
+			e.route_change = await getRouteChange(e.message_station_parse, e.trains, id);
 
-			e.route_change = await getRouteChange(e.message_station_parse, e.trains, true);
+			// Debug Message.
+			if (id == GLOBAL_DEBUG_ID) {
+				console.log('\n\n', event);
+				console.log('\n\n', e.message_station_parse);
+				console.log('\n\n', e.route_change, '\n\n');
+			}
 
+			// Finalize main message.
 			e.message_formula = prepareEventMessage(e.message, e, true, summary);
 			e.message = prepareEventMessage(e.message, e, false);
 		}
@@ -286,111 +295,123 @@ function getMessageTrainLines(text) {
 }
 
 
+/**
+ * Strip out supplimentary messaging from the main message text.
+ *
+ * @params [string] message
+ *   The message.
+ * @params [object] status
+ *   The object with all the data to replace.
+ * @params [boolean] use_placeholder
+ *   Should we put a token in place of the removed item?
+ * @params [string] summary
+ *   The summary from the event, which often is repeated in the message body.
+ *
+ * @returns [string]
+ *   The original message, sans any removed items.
+ */
 function prepareEventMessage(message, status, use_placeholder, summary) {
-
-//	console.log('\n\n Handling Message Cleanup\n', message);
-
-	// Pull the original message out of there.
-	if (summary) {
-//		console.log(' > Replacing summary message...\n', summary);
-		message = message.replace(summary, (use_placeholder) ? '[-SUMMARY-]' : '');
-	}
-
-	// Remove the original message out of there.
-	if (status.durration !== null) {
-//		console.log(' > Replacing Durration message...\n', status.durration);
-		message = message.replace(status.durration, (use_placeholder) ? '[-DATES-]' : '');
-	}
-
-	// Remove the alternate directions.
-	if (status.alt_instructions !== null) {
-//		console.log(' > Replacing Alt Instructions message...\n', status.alt_instructions);
-		message = message.replace(status.alt_instructions, (use_placeholder) ? '[-ALT-INSTRUCT-]' : '');
-	}
-
-	if (status.ad_message !== null) {
-//		console.log(' > Replacing AD message...\n', status.ad_message);
-		message = message.replace(status.ad_message, (use_placeholder) ? '[-AD-MESSAGE-]' : '');
-	}
-
+	if (summary) {	message = message.replace(summary, (use_placeholder) ? '[-SUMMARY-]' : ''); }
+	if (status.durration !== null) { message = message.replace(status.durration, (use_placeholder) ? '[-DATES-]' : ''); }
+	if (status.alt_instructions !== null) { message = message.replace(status.alt_instructions, (use_placeholder) ? '[-ALT-INSTRUCT-]' : ''); }
+	if (status.ad_message !== null) {	message = message.replace(status.ad_message, (use_placeholder) ? '[-AD-MESSAGE-]' : ''); }
 
 	return message.trim();
 }
 
 
-function getMessageDateTime(text) {
-	let DatePattern = /(?=<span\s*class="DateStyle"\s*>(.*)<\/span>)/gi;
-	let dateResults = text.split(DatePattern);
-	return (dateResults[1]) ? dateResults[1].trim() : null;
-}
-
-
+/**
+ * Find any alternate directions messaging.
+ *
+ * E.G. "As an alternative, take..."
+ *
+ * @param [string] text
+ *   The event message.
+ *
+ * @return [string|null]
+ *   A matched [TP]/Travel Alternative string. Otherwise, [null].
+ */
 function getMessageAlternateInstructions(text) {
-
-	// In Progress -- Reduction For service to these stations
-//	let alternateInstructionPattern = /((\[TP\]|(\b(For\s*service\s*(to|from)|use\s*(nearby)?|take\s*the|Transfer\s*(to|between)?|Travel\s*Alternatives|As\s*an\s*alternative\s*(?:customers\s*may\s*)take\s*the)\b))+((\s*((stations|these stations|trains|transfer\s*to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\.\/\:\;&\(\)\*]*)*)?)*(\s*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*\s*)*)+/i;
-
 	let alternateInstructionPattern = /((\[TP\]|(\b(For\s*service\s*(to|from)|use\s*(nearby)?|take\s*the|Transfer\s*(to|between)?|Travel\s*Alternatives|As\s*an\s*alternative\s*(?:customers\s*may\s*)take\s*the)\b))+((\s*((stations|these stations|trains|transfer\s*to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\'\.\/\:\;&\(\)\*]*)*)?)*(\s*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]|(\[(ad)\]))*\s*)*)+/i;
 
 	// We must remove the Ad note suppliment before we can perform a TP match.
 	let ad_message = getMessageADNote(text);
-	if (ad_message !== null) {
-		text = text.replace(ad_message, '');
-	}
+	if (ad_message !== null) {	text = text.replace(ad_message, ''); }
 
 	let results = text.match(alternateInstructionPattern);
 
-	if (results && results[0]) {
-		return results[0].trim();
-	}
-
-//	console.warn('Can\'t parse alternate instructions in ---', text);
-	return null;
+	return (results && results[0])
+		? results[0].trim()
+		: null;
 }
 
 
+/**
+ * Find any Accessability/ADA [AD] messaging.
+ *
+ * This is messaging about disruptions to stations that comply to the
+ * Americans with Disabilities Act. (ramps and elevators, mostly)
+ *
+ * @param [string] text
+ *   The event message.
+ *
+ * @return [string|null]
+ *   A matched [AD] string. Otherwise, [null].
+ */
 function getMessageADNote(text) {
-
-	// let adPattern = /\[ad\](\s*[a-zA-Z0-9\-\.\/\:\;&\(\)\*\,]*)*/i;
 	let adPattern = /\[ad\](\s*This\s*service\s*change\s*affects)\s*(\s*[\'\|a-zA-Z0-9\-\.\/\:\;&\(\)\*\,]+)+/i;
 	let results = text.match(adPattern);
 
-	if (results && results[0]) {
-		return results[0].trim();
-	}
-
-	return null;
+	return (results && results[0])
+ 		? results[0].trim()
+		: null;
 }
 
 
+/**
+ * Find any work dates in planned work messaging.
+ *
+ * @param [string] text
+ *   The event message.
+ *
+ * @return [string|null]
+ *   A work-date string. Otherwise, [null].
+ */
 function getMessagePlannedWorkDate(text) {
-	// In Progress -- Reduction
 	let workDatePattern = /(\b(Weekend[s]?|Late Night[s]?|Night[s]?|Day[s]?|Late Evening[s]?|Evening[s]?|All times|Until)\b\s*,?(\s*((([0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(AM|PM)\s*)|([0-9]{1,2}\s*(-\s*[0-9]{1,2})?\s*(20[0-9]{2})?)?|(20[0-9]{2}))?\s*[,-]?\s*((Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|beginning(\sat)?|further\snotice|and|including)|(Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter|Holiday[s]?))?\s*(\,|&bull\;|&|\*|\;)?\s*)*\s*)+/i;
 
 	let dateResults = text.match(workDatePattern);
 
-	if (dateResults && dateResults[0]) {
-		return dateResults[0].trim();
-	}
-
-//	console.warn('Can\'t parse event dates in ---', text);
-	return null;
+	return (dateResults && dateResults[0])
+		? dateResults[0].trim()
+		: null;
 }
 
 
-async function getRouteChange(text, lines, station_ids_in_text) {
+/**
+ * Given a message, find any route change messaging in there,
+ * and break it out into a route object.
+ *
+ * @param [string] text
+ *   An string with event messaging. All stations should have been converted to
+ *   station tokens, like [Qs-10-R23].
+ * @param [array] lines
+ *   @depricated
+ * @param [string] id
+ *   ID of current event, for debugging purposes.
+ *
+ * @return [object]
+ *   A route change object, including parsed message, lines and rotue objects.
+ */
+async function getRouteChange(text, lines, id) {
 
-	if (!text) {
-		console.error('\n\n\n\n <!> NO TEXT PASSED TO ROUTE CHANGE!!!\n\n\n\n');
-	}
+	if (!text) { console.error('\n\n\n <!> NO TEXT PASSED TO ROUTE CHANGE!!!\n\n\n');}
 
-	let c = await getMessageRouteChange(text, lines, station_ids_in_text);
+	let c = await getMessageRouteChange(text);
 
-	let reroute_pattern = /(Some\s)?(Northbound|Southbound)?\s*\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:trains(?:\sare\srerouted)?)|(?:[^\[\]]*(service\s*operates\s*b\s*etween|No\s*service\s*b\s*etween)\s*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]))?)[^\[\]]*(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+\[([A-Z0-9])\][^\/\[\]]*(to\/from|to|\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:)[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s*\(skipping.*\)\s*)?[\.,\s]*(?:(?:(?:and|then)?\s*(?:stopping\s)?(?:via|along|over)+ the|\s)+(\[(?!\3\4)[A-Z0-9]\])?[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)(?:[^\[\]]*(?:(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[\.]?))?)?/i
+	if (id == GLOBAL_DEBUG_ID) { console.log('\n\n -- Parse 1st Pass --', c, '\n\n'); }
 
-//	 /(Some\s)?(Northbound|Southbound)?\s*\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:trains(?:\sare\srerouted\s)?)|(?:[^\[\]]*(service\s*operates\s*b\s*etween|No\s*service\s*b\s*etween)\s*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]))?)[^\[\]]*(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+\[([A-Z0-9])\][^\/\[\]]*(to\/from|to|\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:)[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s*\(skipping.*\)\s*)?(?:[,\s]*)(?:(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+(\[(?!\3\4)[A-Z0-9]\])?[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)(?:[^\[\]]*(?:(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])))?)?/i;
-
-	// /\[([A-Z0-9])\](?:\s|[^\[\]])*(?:\[([A-Z0-9])\](?:\s)*)?(?:\s|[^\[\]])*\[([A-Z0-9])\](?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s|[^\[\]])*(?:(\[(?!\1\2)[A-Z0-9]\])?(?:\s|[^\[\]])*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:(?:\s|[^\[\]])*((\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])))?)?/i;
+	let reroute_pattern = /(Some\s)?(Northbound|Southbound)?\s*\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:trains(?:\s*are\s*rerouted)?)|(?:[^\[\]]*(service\s*operates\s*b\s*etween|No\s*service\s*b\s*etween)\s*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]))?)[^\[\]]*(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+\[([A-Z0-9])\][^\/\[\]]*(to\/from|to|\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:)[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s*\(skipping.*\)\s*)?[\.,\s]*(?:(?:(?:and|then)?\s*(?:stopping\s)?(?:via|along|over)+ the|\s)+(\[(?!\3\4)[A-Z0-9]\])?[^\[\]]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)(?:[^\[\]]*(?:(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[\.]?))?)?/i;
 
 	function unwrapTrain(train) {
 		if (!train) { return train; };
@@ -542,26 +563,16 @@ async function getRouteChange(text, lines, station_ids_in_text) {
  *   The haystack.
  * @param  {array} lines
  *   The train lines, by original ID.
- * @param  {boolean} station_ids_in_text
- *   TRUE if the find sations function was run against this message,
- *   and all station names have been replaces by ID placeholders,
- *   like: [Qs123-ID]. This prevents us from running heavier regex with
- *   all stations in the lines.
  *
  * @return {text | false}
  *   If found, we return the matched rout change message.
  */
-async function getMessageRouteChange(text, lines, station_ids_in_text) {
+async function getMessageRouteChange(text) {
 
 	// Get stations in each line, as a giant regex.
-	let stations = await mtaStations.getStationLinesRegex(lines, station_ids_in_text);
+	let stations = await mtaStations.getStationLinesRegex();
 
-	// Parse Route Changes ([R] trains are running along the [F] line from...)
-//	let workDatePattern = /(((((Some|northbound|southbound|and)\s*)*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(trains(\s*are)?\s*(reroute[d]?|stopping|run(ning)? via (the)?)|(then)?\s*(stopping)?\s*(over|along)\s*(the)?)){1}(\s*(trains|both\s*directions|line(s)?|travel(ing)?|are|(on|in|between|along|long|from|to|via)\s*(the)?|then|end at|\,|\.)*\s*(\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
-
-	let workDatePattern = /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\s*make\slocal\sstops\sand)?(?:\sare)?\s*(?:reroute[d]?(?:(?:\s*in both directions)?)?|stopping|run(?:ning)? via (?:the)?|traveling)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*the|(?:then|trains)\s*end\s*(?:at)?|(?:service operates(?:\sin\stwo\ssections[\s0-9\:\.]*|\s*b\s*etween)?)))(?:(\s|[1-9]\.)*(?:(?:and)?\sis\srerouted|both\s*directions|in\s*(?:Manhattan|Brooklyn|Queens|the Bronx|staten Island)?|as follows\:|line[s]?|travel(?:ing)?|are|(?:and\s)?(?:on|in|b\s*etween|along|long|from|to|via)\s*(?:the)?|then(?:\send)?|end\s*(?:at)|\,|\.|\(\s*skipping[^\(\)]*\))*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
-
-//	 /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\sare)?\s*(?:reroute[d]?|stopping|run(?:ning)? via (?:the)?|traveling)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*(?:the)?|(?:then|trains)\s*end\s*(?:at)?|(?:service operates(\sin\stwo\ssections[\s0-9\:\.]*|\s*b\s*etween)?)))(?:(\s|[1-9]\.)*(?:trains|both\s*directions|line[s]?|travel(?:ing)?|are|(and\s)?(?:on|in|b\s*etween|along|long|from|to|via)\s*(?:the)?|then(?:\send)?|end\s*(?:at)|\,|\.|\(\s*skipping[^\(\)]*\))*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*)*)+/;
+	let workDatePattern = /((?:(?:(?:(?:Some|northbound|southbound|and)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]\s*)*(?:trains(?:\s*(?:make|run)\s*local(?:\s*stops)?\s*and)?(?:\s*are)?\s*(?:reroute[d]?(?:(?:\s*in\s*both\s*directions)?)?|stopping|run(?:ning)?\s*via (?:the)?|traveling)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*the|(?:then|trains)\s*end\s*(?:at)?|(?:service operates(?:\sin\stwo\ssections[\s0-9\:\.]*|\s*b\s*etween)?)))(?:(\s|[1-9]\.)*(?:(?:and)?\sis\srerouted|both\s*directions|in\s*(?:Manhattan|Brooklyn|Queens|the Bronx|staten Island)?|as follows\:|line[s]?|travel(?:ing)?|are|(?:and\s)?(?:on|in|b\s*etween|along|long|from|to|via)\s*(?:the)?|then(?:\send)?|end\s*(?:at)|\,|\.|\(\s*skipping[^\(\)]*\))*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*(?:(?:(?:\s|between|and|until|to(?:\s*\/from\s*)?|end\s(?:at)?|express)*\s*(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])(?:\,?\sthe last stop)?\.?)*)*)*)+/;
 
 	// The regex suffix, where the stations regex should be inserted before.
 	let suffix_wrapper = ')*)+';
@@ -587,6 +598,15 @@ async function getMessageRouteChange(text, lines, station_ids_in_text) {
 }
 
 
+/**
+ * Parse the event message for any keywords we can use to tag the event.
+ *
+ * @param [string] text
+ *   The event message.
+ *
+ * @return [array|null]
+ *   An array of matched tags (DISTINCT). Otherwise, [null].
+ */
 function getMessageAction(text) {
 
 	let my_status = [];
@@ -613,7 +633,6 @@ module.exports = {
 	getMessagePlannedWorkDate,
 	getMessageTrainLines,
 	getMessageAction,
-	getMessageDateTime,
 	getMessageRouteChange,
 	getRouteChange,
 	getStationsInEventMessage,

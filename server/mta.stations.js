@@ -336,16 +336,13 @@ function processProblemStations (problem_results, results, message) {
  * This is for use with the route_change regex.
  *
  * @params [array] lines
- *   If station_id_regex_only was not true, we'll include all station ID regex
- *   in our results.
- * @params [boolean] station_id_regex_only
- *   If false, we'll include regex of all stations in the passed [lines].
+ *   If passed, we'll include all station ID regex in our results.
  *
  * @return [regex]
  *   A regex with station token matching, (optional) station names,
  *   and some supplimentary search regex to go along with station tokens.
  */
-async function getStationLinesRegex(lines, station_id_regex_only) {
+async function getStationLinesRegex(lines) {
 	let regexSpace = '\\s*';
 	let stations = {};
 						// (\s*( |between|and|until|to|end (at)?)*\s)
@@ -361,7 +358,9 @@ async function getStationLinesRegex(lines, station_id_regex_only) {
 	// Assemble line
 	stationregex.push(station_id_regex);
 
-	if (station_id_regex_only !== true) {
+	// @TODO -- Only used by mocha, so we should kill this.
+	// @DEPRICATED
+	if (lines) {
 		for (let l in lines) {
 			// Convert ID to line letter/number
 			let n = getTrainById(lines[l]);
