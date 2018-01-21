@@ -1,5 +1,5 @@
 before_install: cd server
-before_script: npm run stations
+before_script: mkdir data/generated && touch mta.stations.compiled && npm run stations
 
 language: node_js
 
