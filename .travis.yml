@@ -1,4 +1,6 @@
 before_install: cd server
+before_script: npm run stations
+
 language: node_js
 
 # Test on the latest stable release.
