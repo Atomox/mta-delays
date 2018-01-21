@@ -1,3 +1,4 @@
+before_install: cd server
 language: node_js
 
 # Test on the latest stable release.
