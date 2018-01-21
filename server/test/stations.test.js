@@ -10,6 +10,7 @@ let mtaStations = require('../mta.stations');
 let mtaRegEx = require('../includes/regex');
 
 // Test Data
+let tests = require('./mta.test');
 let stations = require('../data/test/test.stations').stations.names;
 let r_train_msg = require('../data/test/test.messages').train_line.R;
 let event_messages = require('../data/test/test.messages').event_messages.structured;
@@ -19,96 +20,22 @@ describe('Parse Stations', function() {
 
 	describe('MTAD-005 -- Test Individual Lines', () => {
 
-		it('R Line', () => {
-
-			/**
-			 * Restructure data using the tag system. This way,
-			 * we get properly formatted messaging, and reusability.
-			 *
-			 *
-			 * routeTestByTag(r_train_msg, callback, 'R', ['MTAD-001']);
-			 * routeTestByTag(f_train_msg, callback, 'F', ['MTAD-001']);
-			 *
-			 * callback: ()
-			 */
-
-			let promises = r_train_msg.map( event => {
-				return mtaStations.matchAllLinesRouteStationsMessage(['R'], event.message)
-					.then( stations => {
-						expect(Object.values(stations.stations['R'].stations)).to.have.members(event.stations);
-					});
-			});
-
-			return Promise.all(promises);
-		});
+		tests.stationTestByTag(r_train_msg, checkIndividualLine, 'R Line -- General', [], ['MTAD-004']);
+//		tests.stationTestByTag(r_train_msg, checkIndividualLine, 'R Line -- Mistaken Identity', ['MTAD-004']);
 	});
 
 	describe('MTAD-025 -- General Station Tests', () => {
-		it ('Should match the Stations Object', () => {
 
-			let promises = event_messages.normal.map( event => {
-				// Only process Route Changes.
-				if (!event.type_detail || !event.stations || !event.line) { return;}
+		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Basic Stations Check');
 
-				return mtaStations.
-					matchAllLinesRouteStationsMessage(event.line, event.message)
-					.then( data => {
-
-						let results = false;
-						let mocha_msg = event.message;
-
-						for (let l in event.stations) {
-							results = true;
-
-							// Make sure our results had an entry for this line before
-							// we access that property, and a general error is thrown.
-							expect(data.stations).to.have.property(l);
-
-							let msg = '[' + l + '] ' + event.message;
-							let stations_expected = Object.keys(event.stations[l].stations);
-							let stations_found = Object.keys(data.stations[l].stations);
-
-							// Message to help find data culprate.
-							msg = '[' +stations_found.join(',') + '] <--> [' + stations_expected.join(',') + '] ' + msg;
-
-							expect(stations_found, msg).to.have.members(stations_expected);
-						}
-
-						expect(results, 'Event should have at least one station -- ' + mocha_msg + event.line).to.equal(true);
-					})
-					.catch(err => {
-						throw new Error(err);
-					});
-			});
-
-			return Promise.all(promises);
-		});
 
 		describe('Parse Strings with Special Characters', () => {
-			it ('Should match [simple names]', () => {
-				Object.keys(stations.simple).map( i => {
-					let res = mtaRegEx.matchStringsWithSpecialChars(i, stations.simple[i]);
-					expect(res).to.equal(i);
-				});
-			});
-			it ('Should match [names] with [mismatched-whitespace]', () => {
-				Object.keys(stations.hyphen).map( i => {
-					let res = mtaRegEx.matchStringsWithSpecialChars(i, stations.hyphen[i]);
-					expect(res).to.equal(stations.hyphen[i]);
-				});
-			});
-			it.skip ('Should *not* match [shorter names] with [longer ones].', () => {
-				Object.keys(stations.mistaken_identity).map( i => {
-					let res = mtaRegEx.matchStringsWithSpecialChars(i, stations.mistaken_identity[i]);
-					expect(res).to.not.equal(i);
-				});
-			});
-			it.skip ('Should match [abreviated names] with [full station names].', () => {
-				Object.keys(stations.nomDePlume).map( i => {
-					let res = mtaRegEx.matchStringsWithSpecialChars(i, stations.nomDePlume[i]);
-					expect(res).to.equal(i);
-				});
-			});
+
+			tests.basicTest(stations.simple, checkStationWithSpecialChar, 'Should match [simple names]');
+
+			tests.basicTest(stations.hyphen, checkStationWithSpecialChar, 'Should match [names] with [mismatched-whitespace]');
+
+			tests.basicTest(stations.mistaken_identity, checkStationWithSpecialCharNegative, 'Should *not* match [shorter names] with [longer ones].');
 		});
 	});
 
@@ -119,6 +46,15 @@ describe('Parse Stations', function() {
 		});
 	});
 
+	describe.skip('MTAD-027 -- Match Abreviations with Original Stations', () => {
+
+		it('Jackson Hts - Roosevelt Av --> Jackson Heights-Roosevelt Av', () => {});
+		// @TODO -- This should be converted to normal tagged messages, like r-train above, since we handle problem stations differently than when this test was written.
+		//
+		//			tests.basicTest(stations.nomDePlume, checkStationWithSpecialChar, 'Should match [abreviated names] with [full station names].');
+
+	});
+
 	describe.skip('MTAD-026 -- Stations for Multiple Lines', () => {
 		it('Lines share Station', () => { });
 	});
@@ -127,3 +63,62 @@ describe('Parse Stations', function() {
 		it('36 St', () => { });
 	});
 });
+
+
+function checkStationWithSpecialChar(i, data) {
+	let res = mtaRegEx.matchStringsWithSpecialChars(i, data[i]);
+	expect(res).to.equal(data[i]);
+}
+
+
+function checkStationWithSpecialCharNegative(i, data) {
+	let res = mtaRegEx.matchStringsWithSpecialChars(i, data[i]);
+	expect(res).to.not.equal(data[i]);
+}
+
+
+// Object.keys(stations.hyphen).map( i => {
+// 	let res = mtaRegEx.matchStringsWithSpecialChars(i, stations.hyphen[i]);
+// 	expect(res).to.equal(stations.hyphen[i]);
+// });
+
+
+function checkIndividualLine(event) {
+	return mtaStations.matchAllLinesRouteStationsMessage(['R'], event.message)
+		.then( stations => {
+			expect(Object.values(stations.stations['R'].stations)).to.have.members(event.stations);
+		});
+}
+
+
+function CheckStationsListForExpected (event) {
+	return mtaStations.
+		matchAllLinesRouteStationsMessage(event.line, event.message)
+		.then( data => {
+
+			let results = false;
+			let mocha_msg = event.message;
+
+			for (let l in event.stations) {
+				results = true;
+
+				// Make sure our results had an entry for this line before
+				// we access that property, and a general error is thrown.
+				expect(data.stations).to.have.property(l);
+
+				let msg = '[' + l + '] ' + event.message;
+				let stations_expected = Object.keys(event.stations[l].stations);
+				let stations_found = Object.keys(data.stations[l].stations);
+
+				// Message to help find data culprate.
+				msg = '[' +stations_found.join(',') + '] <--> [' + stations_expected.join(',') + '] ' + msg;
+
+				expect(stations_found, msg).to.have.members(stations_expected);
+			}
+
+			expect(results, 'Event should have at least one station -- ' + mocha_msg + event.line).to.equal(true);
+		})
+		.catch(err => {
+			throw new Error(err);
+		});
+}

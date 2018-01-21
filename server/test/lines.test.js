@@ -3,6 +3,7 @@ let expect = require('chai').expect;
 let _ = require('lodash');
 
 // Project files & test data.
+let tests = require('./mta.test');
 let mtaStatus = require('../mta.event');
 let mtaStations = require('../mta.stations');
 let event_messages = require('../data/test/test.messages').event_messages.structured;
@@ -10,18 +11,20 @@ let event_messages = require('../data/test/test.messages').event_messages.struct
 
 describe ('Detect Train Lines', () => {
 
+	let m = event_messages.normal;
+	let c = testStationLineRerouteObject;
+
 	describe('MTAD-001 -- Line Changes', () => {
 
-		routeTestByTag('[Basic Route Changes] Should Map', ['MTAD-001'], ['MTAD-004', 'MTAD-006', 'MTAD-011', "MTAD-014"]);
+		tests.routeTestByTag(m,c,'[Basic Route Changes] Should Map', ['MTAD-001'], ['MTAD-004', 'MTAD-006', 'MTAD-011', "MTAD-014"]);
 
 		describe('Route Patterns', () => {
-
-			routeTestByTag('A-overC', ['MTAD-001'], null, ['A-overC']);
-			routeTestByTag('A-overC-thenD', ['MTAD-001'], null, ['A-overC-thenD']);
-			routeTestByTag('AB-overC', ['MTAD-001'], null, ['AB-overC']);
-			routeTestByTag('A-overC-D-overE', ['MTAD-001'], null, ['A-overC-D-overE']);
-			routeTestByTag('AB-overC-D-overE', ['MTAD-001'], null, ['AB-overC-D-overE']);
-//			routeTestByTag('Multiple Patterns', ['MTAD-001'], null, '#any-two');
+			tests.routeTestByTag(m,c,'A-overC', ['MTAD-001'], null, ['A-overC']);
+			tests.routeTestByTag(m,c,'A-overC-thenD', ['MTAD-001'], null, ['A-overC-thenD']);
+			tests.routeTestByTag(m,c,'AB-overC', ['MTAD-001'], null, ['AB-overC']);
+			tests.routeTestByTag(m,c,'A-overC-D-overE', ['MTAD-001'], null, ['A-overC-D-overE']);
+			tests.routeTestByTag(m,c,'AB-overC-D-overE', ['MTAD-001'], null, ['AB-overC-D-overE']);
+//		tests.routeTestByTag(m,c,'Multiple Patterns', ['MTAD-001'], null, '#any-two');
 
 		});
 	});
@@ -33,18 +36,18 @@ describe ('Detect Train Lines', () => {
 	});
 
 	describe('MTAD-006 -- Detect Stations from Alternate Line', () => {
-		routeTestByTag('Off-Line Stations Should Map', ['MTAD-006'], ['MTAD-014']);
+		tests.routeTestByTag(m,c,'Off-Line Stations Should Map', ['MTAD-006'], ['MTAD-014']);
 	});
 	describe.skip('MTAD-009 -- Split Service Route Change', () => {});
 	describe('MTAD-010 -- Route Change, then end.', () => {
-		routeTestByTag('AB-overC-end', ['MTAD-001'], null, ['AB-overC-end']);
-		routeTestByTag('A-overC-thenD-end', ['MTAD-001'], null, ['A-overC-thenD-end']);
+		tests.routeTestByTag(m,c,'AB-overC-end', ['MTAD-001'], null, ['AB-overC-end']);
+		tests.routeTestByTag(m,c,'A-overC-thenD-end', ['MTAD-001'], null, ['A-overC-thenD-end']);
 	});
 
 
 	describe('MTAD-014 -- Line Operate Between, then Route Change', () => {
-		routeTestByTag('A-operates-then-overC', ['MTAD-014'], null, ['A-operates-then-overC']);
-		routeTestByTag('A-operates-then-overC-thenD', ['MTAD-014'], null, ['A-operates-then-overC-thenD']);
+		tests.routeTestByTag(m,c,'A-operates-then-overC', ['MTAD-014'], null, ['A-operates-then-overC']);
+		tests.routeTestByTag(m,c,'A-operates-then-overC-thenD', ['MTAD-014'], null, ['A-operates-then-overC-thenD']);
 	});
 });
 
@@ -111,85 +114,4 @@ function testStationLineRerouteObject(event) {
 				}
 			});
 		});
-}
-
-function routeTestByTag(description, main_tags, omit_tags, route_tags) {
-	let counter = 0;
-	let total = event_messages.normal.length;
-	let m = [];
-
-	// Get tests to run:
-	let my_tests = event_messages.normal.map( event => {
-		if (filterTest(event, 'route_change',	main_tags, omit_tags)) {
-			if (!route_tags || filterTestSubsection(event, 'route_change', route_tags)) {
-				counter++;
-				m.push(event);
-			}
-		}
-	});
-
-	// Add the # of events to the description.
-	description = description + '  ' + '(' + counter + '/' + total + ')';
-
-	it (description, () => {
-		let promises = m.map( event => testStationLineRerouteObject(event) );
-		return Promise.all(promises);
-	});
-}
-
-function filterTestSubsection(obj, property, tags, omit) {
-	return (obj[property] && obj[property].hasOwnProperty('tag'))
-		? filterTags(obj[property].tag, tags, omit)
-		: false;
-}
-
-function filterTags(tags, include, exclude) {
-	// If tags, make sure all exist.
-	if (Array.isArray(include)) {
-		for (let t in include) {
-			if (tags.indexOf(include[t]) === -1) {	return false; }
-		}
-	}
-	else if (typeof include == 'String' && include.indexOf('#' === 0)) {
-		if (include == '#any-two' && tags.lenght < 2) {	return false;	}
-	}
-
-	// If omit tags, make sure none exist.
-	if (Array.isArray(exclude)) {
-		for (let t in exclude) {
-			if (tags.indexOf(exclude[t]) !== -1) {	return false; }
-		}
-	}
-
-	return true;
-}
-
-function filterTest(event, type, tags, omit) {
-
-	// event must be an object.
-	if (!event) {	return false;	}
-
-	// If filters by tag, we must have a non-empty tags property.
-	if (typeof tags == 'object' && tags && tags.length > 0 && !event.tag) {
-			return false;
-	}
-
-	switch (type) {
-		case 'route_change':
-			if (!event.type_detail
-				|| event.type_detail.indexOf('route_change') === -1
-				|| !event.route_change) {
-					return false;
-				}
-				break;
-
-		default:
-				// skip
-				break;
-	}
-
-	if (filterTags(event.tag, tags, omit) === false) {	return false;	}
-
-//	console.log(' <!!!!> ', 'Message found without ', omit ,' and with', tags, '\nActual tags:', event.tag);
-	return true;
 }
