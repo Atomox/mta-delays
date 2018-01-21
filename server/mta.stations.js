@@ -149,7 +149,7 @@ async function getRouteStationsArray(line, include_stats) {
 async function matchRouteStationsMessage(line, message, processed_message, problems) {
 	try {
 		line_id = line;
-		line = getTrainById(line);
+		line = getTrainById(line_id);
 
 		// Get all stations for this line.
 		let stations = await getRouteStationsArray(line, true);
@@ -239,7 +239,7 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
 
 	for (let l in lines) {
 		try {
-			let line = unwrapLineObject((lines[l]));
+			let line = unwrapLineObject(lines[l], false);
 
 			// Match normal stations, and collect matched problem stations.
 			let rs = await matchRouteStationsMessage(line, message, result.parsed_message, problems);
@@ -268,8 +268,12 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
  *
  * E.G. {line: 'MTA NYCT_6', dir: 0} becomes 'MTA NYCT_6'.
  */
-function unwrapLineObject (line) {
-	return (line.line) ? line.line : line;
+function unwrapLineObject (line, translate_ids) {
+	line = (line.line) ? line.line : line;
+	if (line.indexOf('MTA NYCT' !== -1) && translate_ids == true) {
+		line = getTrainById(line);
+	}
+	return line;
 }
 
 

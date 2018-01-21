@@ -125,6 +125,8 @@ const taxonomy = {
 			'weather conditions',
 		],
 		'event': [
+			'Women\'s March',
+			'crowd conditions',
 			'New Year\'s Eve',
 			'Celebrations',
 		],
