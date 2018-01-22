@@ -110,8 +110,7 @@ function filterTest(event, type, tags, omit) {
 				break;
 
     case 'stations':
-      if (!event.type_detail
-        || !event.stations
+      if (!event.stations
         || !event.line) { return false; }
         break;
 

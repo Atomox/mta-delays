@@ -18,18 +18,12 @@ let event_messages = require('../data/test/test.messages').event_messages.struct
 
 describe('Parse Stations', function() {
 
-	describe('MTAD-005 -- Test Individual Lines', () => {
+	describe('General Station Tests', () => {
 
-		tests.stationTestByTag(r_train_msg, checkIndividualLine, 'R Line -- General', [], ['MTAD-004']);
-//		tests.stationTestByTag(r_train_msg, checkIndividualLine, 'R Line -- Mistaken Identity', ['MTAD-004']);
-	});
-
-	describe('MTAD-025 -- General Station Tests', () => {
-
-		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Basic Stations Check');
+		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Basic Stations Check', [], ['MTAD-026']);
 
 
-		describe('Parse Strings with Special Characters', () => {
+		describe('Special Character Names', () => {
 
 			tests.basicTest(stations.simple, checkStationWithSpecialChar, 'Should match [simple names]');
 
@@ -46,13 +40,28 @@ describe('Parse Stations', function() {
 		});
 	});
 
-	describe.skip('MTAD-027 -- Match Abreviations with Original Stations', () => {
+	describe('MTAD-027 -- Match Abreviations with Original Stations', () => {
+
+		tests.stationTestByTag(stations.nomDePlume, CheckStationsListForExpected, 'Alternate/Alias Names');
 
 		it('Jackson Hts - Roosevelt Av --> Jackson Heights-Roosevelt Av', () => {});
 		// @TODO -- This should be converted to normal tagged messages, like r-train above, since we handle problem stations differently than when this test was written.
 		//
 		//			tests.basicTest(stations.nomDePlume, checkStationWithSpecialChar, 'Should match [abreviated names] with [full station names].');
-
+		/**
+		 *
+		 * @TODO
+		 *   *
+		 *   * Find event data for this test-case,
+		 *   * tag it was MTAD-027,
+		 *   * and execute tests here.
+		 *   *
+		 *   *
+		 *   *
+		 *
+		 *
+		 *
+		 */
 	});
 
 	describe.skip('MTAD-026 -- Stations for Multiple Lines', () => {
@@ -61,6 +70,13 @@ describe('Parse Stations', function() {
 
 	describe.skip('MTAD-004 -- Identify Multiple Stations with the same name.', () => {
 		it('36 St', () => { });
+	});
+
+
+	describe('MTAD-005 -- Test Individual Lines', () => {
+
+		tests.stationTestByTag(r_train_msg, checkIndividualLine, 'R Line -- General', [], ['MTAD-004']);
+//		tests.stationTestByTag(r_train_msg, checkIndividualLine, 'R Line -- Mistaken Identity', ['MTAD-004']);
 	});
 });
 

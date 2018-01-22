@@ -187,7 +187,7 @@ function stationCommonName(name, boro) {
 			'161 St - Yankee Stadium': '161 St',
 		},
 		SI: {
-			
+
 		}
 	};
 
@@ -207,6 +207,10 @@ function stationAliases(name, boro) {
 				'W 4 St-Wash Sq',
 				'W 4 St-Washington Sq',
 				'W 4 St-Washington Square',
+			],
+			'34 St - 11 Av': [
+				'34 St-Hudson Yards',
+				'Hudson Yards',
 			],
 			'Times Sq - 42 St':[
 				'Times Square - 42 St',
