@@ -268,6 +268,9 @@ function stationAliases(name, boro) {
 				'Broadway-Lafayette',
 				'B\'way-Lafayette',
 			],
+			'Brooklyn Bridge - City Hall': [
+				'Brooklyn Bridge',
+			],
 			'Essex St': [
 				'Essex St',
 			],
@@ -332,7 +335,18 @@ function stationAliases(name, boro) {
 			],
 			'Court Sq': [
 				'Court Sq/23rd St',
-			]
+			],
+			'Ozone Park - Lefferts Blvd': [
+				'Ozone Park',
+				'Lefferts Blvd',
+			],
+		 	'Far Rockaway - Mott Av': [
+				'Far Rockaway',
+				'Mott Av',
+			],
+			'Middle Village - Metropolitan Av': [
+				'Metropolitan Av',
+			],
 		},
 
 
@@ -363,6 +377,9 @@ function stationAliases(name, boro) {
 			'Crown Hts - Utica Av': [
 				'Utica Av',
 			],
+			'Canarsie - Rockaway Pkwy': [
+				'Rockaway Pkwy',
+			],
 		},
 
 		Bx: {
@@ -373,6 +390,10 @@ function stationAliases(name, boro) {
 			'Norwood - 205 St': [
 				'Norwood',
 				'205 St',
+			],
+			'Eastchester - Dyre Av': [
+				'Dyre Av',
+				'Eastchester',
 			],
 			'161 St - Yankee Stadium': [
 				'161 St',
