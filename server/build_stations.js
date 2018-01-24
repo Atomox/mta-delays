@@ -258,6 +258,7 @@ function stationAliases(name, boro) {
 				'Lexington/63 St',
 			],
 			'42 St - Port Authority Bus Terminal': [
+				'42 St/Port Authority-Bus Terminal',
 				'42 St-Port Authority',
 				'Port Authority',
 				'PABT',
@@ -282,6 +283,9 @@ function stationAliases(name, boro) {
 			'Lexington Av/53 St': [
 				'Lex/53 St',
 				'53/Lex',
+			],
+			'Inwood - 207 St': [
+				'207 St',
 			],
 		},
 
@@ -333,12 +337,22 @@ function stationAliases(name, boro) {
 				'36 St (Queens)',
 				'36 St (Qns)',
 			],
+			'Mets - Willets Point': [
+				'Willets Point',
+				'Willets Pt',
+			],
+			'Woodside - 61 St': [
+				'61 St-Woodside',
+			],
 			'Court Sq': [
 				'Court Sq/23rd St',
 			],
 			'Ozone Park - Lefferts Blvd': [
 				'Ozone Park',
 				'Lefferts Blvd',
+			],
+			'Rockaway Park - Beach 116 St': [
+				'Beach 116 St',
 			],
 		 	'Far Rockaway - Mott Av': [
 				'Far Rockaway',
@@ -362,6 +376,9 @@ function stationAliases(name, boro) {
 			],
 			'Broadway Jct': [
 				'Broadway Junction',
+			],
+			'Flatbush Av - Brooklyn College': [
+				'Flatbush Av',
 			],
 			'Coney Island - Stillwell Av': [
 				'Stillwell Av',
@@ -398,6 +415,12 @@ function stationAliases(name, boro) {
 			'161 St - Yankee Stadium': [
 				'161 St',
 				'Yankee Stadium',
+			],
+			'E 143 St - St Mary\'s St': [
+				'E 143 St',
+			],
+			'Westchester Sq - E Tremont Av': [
+				'Westchester Sq',
 			],
 		},
 		SI: {},

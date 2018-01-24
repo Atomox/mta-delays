@@ -205,6 +205,95 @@ let stations = {
 					{ line: 'MTA NYCT_M' }
 				],
 			},
+			{
+				source: { id: 'MTA NYCT_fdb2c0f8-5931-4f1a-983f-a15fd69a93e1', archive: 1 },
+				message: 'signal problems at 61 St-Woodside.',
+				stations: {
+					'MTA NYCT_7': {
+						stations: {
+							'Qs456-712': 'Woodside - 61 St'
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_7' }
+				],
+			},
+/**
+			{
+				source: { id: 'MTA NYCT_d0283bcc-95e1-47e8-9e44-e2628314fdcd', archive: 2 },
+				message: '[A] [C] and [E] trains are bypassing 42 St/Port Authority-Bus Terminal in both directions.',
+				stations: {
+					'MTA NYCT_E': {
+						stations: {
+							'Mn611-A27': '42 St - Port Authority Bus Terminal'
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_E' }
+				],
+			},
+*/
+			{
+				source: { id: 'MTA NYCT_173983', archive: 3 },
+				message: 'E 143 St, Westchester Sq - E Tremont Av',
+				stations: {
+					'MTA NYCT_6': {
+						stations: {
+							'Bx374-616': 'E 143 St - St Mary\'s St',
+							'Bx363-604': 'Westchester Sq - E Tremont Av',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_6' }
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_173363', archive: 3 },
+				message: 'For service to these stations, take the [7] to Willets Point and transfer to',
+				stations: {
+					'MTA NYCT_7': {
+						stations: {
+							'Qs448-702': 'Mets - Willets Point'
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_7' }
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_174679', archive: 3 },
+				message: '[A] service operates between 207 St ... and via the [S] to/from Beach 116 St',
+				stations: {
+					'MTA NYCT_A': {
+						stations: {
+							'Mn143-A02': 'Inwood - 207 St',
+							'Qs203-H15': 'Rockaway Park - Beach 116 St',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_A' }
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_173350', archive: 4 },
+				message: 'TRACK MAINTENANCE [2] Flatbush Av-bound trains skip',
+				stations: {
+					'MTA NYCT_2': {
+						stations: {
+							'Bk359-247': 'Flatbush Av - Brooklyn College'
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_2' }
+				],
+			},
+
 
 /**
 			{
