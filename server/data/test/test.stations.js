@@ -293,6 +293,87 @@ let stations = {
 					{ line: 'MTA NYCT_2' }
 				],
 			},
+			{
+				source: { id: 'MTA NYCT_173333', archive: 6 },
+				message: 'trains skip 66 St, 59 St and 50 St Late Nights',
+				stations: {
+					'MTA NYCT_1': {
+						stations: {
+							'Mn314-124': '66 St - Lincoln Center',
+							'Mn614-125': '59 St - Columbus Circle',
+							'Mn316-126': '50 St',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_1' }
+				],
+			},
+/**
+			{
+				source: { id: 'MTA NYCT_173336', archive: 6 },
+				message: 'TRACK MAINTENANCE [3] Service operates between 148 St and 34 St-Penn Station.',
+				stations: {
+					'MTA NYCT_3': {
+						stations: {
+							'Mn318-128': '34 St - Penn Station',
+							'Mn436-301': 'Harlem - 148 St',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_3' }
+				],
+			},
+*/
+			{
+				source: { id: 'MTA NYCT_174565', archive: 6 },
+				message: 'TRACK MAINTENANCE [A] Inwood-bound trains run express from Broadway Junction to Hoyt-Schermerhorn',
+				stations: {
+					'MTA NYCT_A': {
+						stations: {
+							'Mn143-A02': 'Inwood - 207 St',
+							'Bk175-A42': 'Hoyt - Schermerhorn Sts',
+							'Bk621-A51': 'Broadway Junction',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_A' }
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_175372', archive: 6 },
+				message: 'Jamaica-bound trains skip Fort Hamilton Pkwy , 15 St-Prospect Park and 4 Av-9 St',
+				stations: {
+					'MTA NYCT_F': {
+						stations: {
+							'Bk241-F25': '15 St-Prospect Park',
+							'Bk242-F26': 'Fort Hamilton Pkwy',
+							'Bk608-F23': '4 Av',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_F' }
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_173660', archive: 6 },
+				message: 'Buses make all stops in Brooklyn, between ... and 95 St-Bay Ridge.',
+				stations: {
+					'MTA NYCT_R': {
+						stations: {
+							'Bk39-R45': 'Bay Ridge - 95 St',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_R' }
+				],
+			},
+
+
 
 
 /**

@@ -199,18 +199,33 @@ function stationCommonName(name, boro) {
 function stationAliases(name, boro) {
 	const alias = {
 		Mn: {
-			'W 4 St': [
-				'W 4 St',
-				'W 4th St',
-				'West 4th St',
-				'West 4 St',
-				'W 4 St-Wash Sq',
-				'W 4 St-Washington Sq',
-				'W 4 St-Washington Square',
+
+			'Inwood - 207 St': [
+				'Inwood',
+				'207 St',
 			],
-			'34 St - 11 Av': [
-				'34 St-Hudson Yards',
-				'Hudson Yards',
+			'Harlem - 148 St': [
+				'148 St',
+			],
+			'96 St': [
+				'96 At-2 Av',
+				'96 St-2 Av',
+			],
+			'66 St - Lincoln Center': [
+				'66 St',
+			],
+			'Lexington Av/63 St': [
+				'Lexington/63 St',
+			],
+			'59 St - Columbus Circle': [
+				'59 St',
+				'Columbus Circle',
+			],
+			'47-50 Sts - Rockefeller Ctr': [
+				'47-50 St-Rockefeller Ctr',
+				'47-50 Sts/Rockefeller Ctr',
+				'47-50 Sts',
+				'Rockefeller Ctr',
 			],
 			'Times Sq - 42 St':[
 				'Times Square - 42 St',
@@ -223,17 +238,19 @@ function stationAliases(name, boro) {
 				'Grand Central',
 				'42 St',
 			],
-			'59 St - Columbus Circle': [
-				'Columbus Circle',
-			],
-			'47-50 Sts - Rockefeller Ctr': [
-				'47-50 St-Rockefeller Ctr',
-				'47-50 Sts/Rockefeller Ctr',
-				'47-50 Sts',
-				'Rockefeller Ctr',
-			],
 			'42 St - Bryant Pk': [
 				'Bryant Pk',
+			],
+			'42 St - Port Authority Bus Terminal': [
+				'42 St/Port Authority-Bus Terminal',
+				'42 St-Port Authority',
+				'Port Authority',
+				'PABT',
+				'42 St',
+			],
+			'34 St - 11 Av': [
+				'34 St-Hudson Yards',
+				'Hudson Yards',
 			],
 			'34 St - Herald Sq': [
 				'Herald Square',
@@ -244,25 +261,20 @@ function stationAliases(name, boro) {
 				'Penn Station',
 				'34 St',
 			],
-			'96 St': [
-				'96 At-2 Av',
-				'96 St-2 Av',
-			],
 			'14 St - Union Sq': [
 				'14 St - Union Sq',
 				'Union Square',
 				'Union Sq',
 				'14 St',
 			],
-			'Lexington Av/63 St': [
-				'Lexington/63 St',
-			],
-			'42 St - Port Authority Bus Terminal': [
-				'42 St/Port Authority-Bus Terminal',
-				'42 St-Port Authority',
-				'Port Authority',
-				'PABT',
-				'42 St',
+			'W 4 St': [
+				'W 4 St',
+				'W 4th St',
+				'West 4th St',
+				'West 4 St',
+				'W 4 St-Wash Sq',
+				'W 4 St-Washington Sq',
+				'W 4 St-Washington Square',
 			],
 			'Broadway-Lafayette St': [
 				'B\'way-Lafayette St',
@@ -283,9 +295,6 @@ function stationAliases(name, boro) {
 			'Lexington Av/53 St': [
 				'Lex/53 St',
 				'53/Lex',
-			],
-			'Inwood - 207 St': [
-				'207 St',
 			],
 		},
 
@@ -365,6 +374,9 @@ function stationAliases(name, boro) {
 
 
 		Bk: {
+			'4 Av': [
+				'4 Av-9 St',
+			],
 			'9 St': [
 				'4 Av-9 St',
 			],
@@ -379,6 +391,9 @@ function stationAliases(name, boro) {
 			],
 			'Flatbush Av - Brooklyn College': [
 				'Flatbush Av',
+			],
+			'Hoyt - Schermerhorn Sts': [
+				'Hoyt-Schermerhorn',
 			],
 			'Coney Island - Stillwell Av': [
 				'Stillwell Av',
@@ -396,6 +411,9 @@ function stationAliases(name, boro) {
 			],
 			'Canarsie - Rockaway Pkwy': [
 				'Rockaway Pkwy',
+			],
+			'Bay Ridge - 95 St': [
+				'95 St-Bay Ridge',
 			],
 		},
 
