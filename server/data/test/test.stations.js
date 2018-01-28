@@ -454,6 +454,219 @@ let stations = {
 			},
 */
 		],
+		sharedStation: [
+			{
+				message: 'Jackson Heights-Roosevelt Av',
+				stations: {
+					'MTA NYCT_F': {
+						stations: {
+							'Qs616-G14': 'Jackson Hts - Roosevelt Av'
+						}
+					},
+					'MTA NYCT_E': {
+						stations: {
+							'Qs616-G14': 'Jackson Hts - Roosevelt Av'
+						}
+					},
+					'MTA NYCT_R': {
+						stations: {
+							'Qs616-G14': 'Jackson Hts - Roosevelt Av'
+						}
+					},
+					'MTA NYCT_M': {
+						stations: {
+							'Qs616-G14': 'Jackson Hts - Roosevelt Av'
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_F' },
+					{ line: 'MTA NYCT_E' },
+					{ line: 'MTA NYCT_R' },
+					{ line: 'MTA NYCT_M' },
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_d0283bcc-95e1-47e8-9e44-e2628314fdcd', archive: 2 },
+				message: '[A] [C] and [E] trains are bypassing 42 St/Port Authority-Bus Terminal in both directions.',
+				stations: {
+					'MTA NYCT_A': {
+						stations: {
+							'Mn611-A27': '42 St - Port Authority Bus Terminal'
+						}
+					},
+					'MTA NYCT_C': {
+						stations: {
+							'Mn611-A27': '42 St - Port Authority Bus Terminal'
+						}
+					},
+					'MTA NYCT_E': {
+						stations: {
+							'Mn611-A27': '42 St - Port Authority Bus Terminal'
+						}
+					},
+				},
+				line: [
+					{ line: 'MTA NYCT_A' },
+					{ line: 'MTA NYCT_C' },
+					{ line: 'MTA NYCT_E' },
+				],
+			},
+			{
+				source: { id: '', archive: 0 },
+				message: '[1] [2] [3] [N] [R] [Q] [W] and [7] trains are bypassing Times Sq-42 St in both directions, [A] [C] and [E] trains are bypassing 42 St/Port Authotiy.',
+				stations: {
+					'MTA NYCT_1': {
+						stations: {
+							'Mn611-127': 'Times Sq - 42 St'
+						}
+					},
+					'MTA NYCT_2': {
+						stations: {
+							'Mn611-127': 'Times Sq - 42 St'
+						}
+					},
+					'MTA NYCT_3': {
+						stations: {
+							'Mn611-127': 'Times Sq - 42 St'
+						}
+					},
+					'MTA NYCT_7': {
+						stations: {
+							'Mn611-725': 'Times Sq - 42 St'
+						}
+					},
+					'MTA NYCT_N': {
+						stations: {
+							'Mn611-R16': 'Times Sq - 42 St',
+						}
+					},
+					'MTA NYCT_Q': {
+						stations: {
+							'Mn611-R16': 'Times Sq - 42 St',
+						}
+					},
+					'MTA NYCT_R': {
+						stations: {
+							'Mn611-R16': 'Times Sq - 42 St',
+						}
+					},
+					'MTA NYCT_W': {
+						stations: {
+							'Mn611-R16': 'Times Sq - 42 St',
+						}
+					},
+					'MTA NYCT_S': {
+						stations: {
+							'Mn611-902': 'Times Sq - 42 St',
+						}
+					},
+					'MTA NYCT_C': {
+						stations: {
+							// Should not match.
+						}
+					},
+				},
+				line: [
+					{ line: 'MTA NYCT_1' },
+					{ line: 'MTA NYCT_2' },
+					{ line: 'MTA NYCT_3' },
+					{ line: 'MTA NYCT_N' },
+					{ line: 'MTA NYCT_Q' },
+					{ line: 'MTA NYCT_R' },
+					{ line: 'MTA NYCT_W' },
+					{ line: 'MTA NYCT_7' },
+					{ line: 'MTA NYCT_S' },
+					{ line: 'MTA NYCT_C' }
+				],
+			},
+			{
+				source: { id: null, archive: null },
+				message: 'Because of some candy on the tracks at Broadway Junction',
+				stations: {
+					'MTA NYCT_A': {
+						stations: {
+							'Bk621-A51': 'Broadway Jct',
+						}
+					},
+					'MTA NYCT_C': {
+						stations: {
+							'Bk621-A51': 'Broadway Jct',
+						}
+					},
+					'MTA NYCT_J': {
+						stations: {
+							'Bk621-J27': 'Broadway Jct',
+						}
+					},
+					'MTA NYCT_Z': {
+						stations: {
+							'Bk621-J27': 'Broadway Jct',
+						}
+					},
+					'MTA NYCT_L': {
+						stations: {
+							'Bk621-L22': 'Broadway Jct',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_A' },
+					{ line: 'MTA NYCT_C' },
+					{ line: 'MTA NYCT_J' },
+					{ line: 'MTA NYCT_Z' },
+					{ line: 'MTA NYCT_L' },
+				],
+			},
+			{
+				source: { id: '', archive: 0 },
+				message: '[2],[4],[5] No trains between 149 St-Grand Concourse',
+				stations: {
+					'MTA NYCT_4': {
+						stations: {
+							'Bx603-415': '149 St - Grand Concourse',
+						}
+					},
+					'MTA NYCT_2': {
+						stations: {
+							'Bx603-222': '149 St - Grand Concourse',
+						}
+					},
+					'MTA NYCT_5': {
+						stations: {
+							'Bx603-222': '149 St - Grand Concourse',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_4' },
+					{ line: 'MTA NYCT_2' },
+					{ line: 'MTA NYCT_5' },
+				],
+			},
+/**
+			{
+				source: { id: '', archive: 0 },
+				message: '',
+				stations: {
+					'MTA NYCT_': {
+						stations: {
+							'': ''
+						}
+					},
+					'MTA NYCT_': {
+						stations: {
+							'': ''
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_' },
+					{ line: 'MTA NYCT_' },
+				],
+			},
+*/
+		],
 	},
 };
 

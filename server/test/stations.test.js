@@ -64,8 +64,8 @@ describe('Parse Stations', function() {
 		 */
 	});
 
-	describe.skip('MTAD-026 -- Stations for Multiple Lines', () => {
-		it('Lines share Station', () => { });
+	describe('MTAD-026 -- Stations for Multiple Lines', () => {
+		tests.stationTestByTag(stations.sharedStation, CheckStationsListForExpected, 'Lines share Station');
 	});
 
 	describe.skip('MTAD-004 -- Identify Multiple Stations with the same name.', () => {
