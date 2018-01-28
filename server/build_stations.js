@@ -140,6 +140,10 @@ function stationCommonName(name, boro) {
 			// 96
 			'96 St': '96 St',
 
+			// 86
+
+			// 72
+
 			// 59
 			'59 St - Columbus Circle': '59 St',
 
@@ -185,6 +189,8 @@ function stationCommonName(name, boro) {
 			'Wakefield - 241 St': '241 St',
 			'Norwood - 205 St': '205 St',
 			'161 St - Yankee Stadium': '161 St',
+			'149 St - Grand Concourse': '149 St',
+			'E 149 St': '149 St',
 		},
 		SI: {
 
@@ -235,6 +241,10 @@ function stationAliases(name, boro) {
 			'81 St - Museum of Natural History': [
 				'81 St',
 				'Museum of Natural History',
+			],
+			'68 St - Hunter College': [
+				'68 St',
+				'Hunter College',
 			],
 			'66 St - Lincoln Center': [
 				'66 St',
@@ -395,6 +405,10 @@ function stationAliases(name, boro) {
 				'Sutphin Blvd',
 				'Sutphin/Archer',
 			],
+			'85 St - Forest Pkwy': [
+				'85 St',
+				'Forest Pkwy',
+			],
 			'Jamaica - Van Wyck': [
 				'Van Wyck',
 			],
@@ -405,18 +419,37 @@ function stationAliases(name, boro) {
 				'36 St (Queens)',
 				'36 St (Qns)',
 			],
+			'Flushing - Main St': [
+				'Flushing',
+				'Main St'
+			],
 			'Mets - Willets Point': [
 				'Willets Point',
 				'Willets Pt',
+			],
+			'103 St - Corona Plaza': [
+				'103 St',
+			],
+			'90 St - Elmhurst Av': [
+				'90 St'
+			],
+			'82 St - Jackson Hts': [
+				'82 St',
 			],
 			'74 St - Broadway': [
 				'74 St',
 			],
 			'Woodside - 61 St': [
+				'61 St',
 				'61 St-Woodside',
 			],
 			'Court Sq': [
 				'Court Sq/23rd St',
+			],
+			'Vernon Blvd - Jackson Av': [
+				'Vernon - Jackson',
+				'Vernon Blvd',
+				'Jackson Av' // Also in Bx
 			],
 			'Ozone Park - Lefferts Blvd': [
 				'Ozone Park',
@@ -475,7 +508,9 @@ function stationAliases(name, boro) {
 			'Bedford - Nostrand Avs': [
 
 			],
-
+			'Botanic Garden': [
+				'Botanical Garden',
+			],
 			'Kingston - Throop Avs': [
 				'Throop Av',
 			],
@@ -491,6 +526,7 @@ function stationAliases(name, boro) {
 			],
 			'Flatbush Av - Brooklyn College': [
 				'Flatbush Av',
+				'Brooklyn College',
 			],
 			'W 8 St - NY Aquarium': [
 				'W 8 St',
@@ -542,9 +578,19 @@ function stationAliases(name, boro) {
 				'Dyre Av',
 				'Eastchester',
 			],
+			'Bedford Park Blvd - Lehman College': [
+				'Bedford Park Blvd',
+				'Lehman College'
+			],
 			'161 St - Yankee Stadium': [
 				'161 St',
 				'Yankee Stadium',
+			],
+			'149 St - Grand Concourse': [
+				'149 St',
+			],
+			'138 St - Grand Concourse': [
+				'138 St',
 			],
 			'E 143 St - St Mary\'s St': [
 				'E 143 St',
@@ -552,6 +598,12 @@ function stationAliases(name, boro) {
 			'Westchester Sq - E Tremont Av': [
 				'Westchester Sq',
 			],
+			'Morrison Av- Sound View': [
+				'Morrison Av - Sound View',
+				'Morrison Av',
+				'SOund View',
+			],
+
 		},
 		SI: {},
 	};
