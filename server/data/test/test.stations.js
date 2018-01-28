@@ -219,7 +219,6 @@ let stations = {
 					{ line: 'MTA NYCT_7' }
 				],
 			},
-/**
 			{
 				source: { id: 'MTA NYCT_d0283bcc-95e1-47e8-9e44-e2628314fdcd', archive: 2 },
 				message: '[A] [C] and [E] trains are bypassing 42 St/Port Authority-Bus Terminal in both directions.',
@@ -234,7 +233,6 @@ let stations = {
 					{ line: 'MTA NYCT_E' }
 				],
 			},
-*/
 			{
 				source: { id: 'MTA NYCT_173983', archive: 3 },
 				message: 'E 143 St, Westchester Sq - E Tremont Av',
@@ -309,7 +307,6 @@ let stations = {
 					{ line: 'MTA NYCT_1' }
 				],
 			},
-/**
 			{
 				source: { id: 'MTA NYCT_173336', archive: 6 },
 				message: 'TRACK MAINTENANCE [3] Service operates between 148 St and 34 St-Penn Station.',
@@ -325,7 +322,6 @@ let stations = {
 					{ line: 'MTA NYCT_3' }
 				],
 			},
-*/
 			{
 				source: { id: 'MTA NYCT_174565', archive: 6 },
 				message: 'TRACK MAINTENANCE [A] Inwood-bound trains run express from Broadway Junction to Hoyt-Schermerhorn',
@@ -372,10 +368,75 @@ let stations = {
 					{ line: 'MTA NYCT_R' }
 				],
 			},
-
-
-
-
+			{
+				source: { id: 'MTA NYCT_175347', archive: 51 },
+				message: 'free shuttle buses operate between Myrtle-Wyckoff Av and Myrtle Av',
+				stations: {
+					'MTA NYCT_M': {
+						stations: {
+							'Bk97-M11': 'Myrtle Av',
+							'Bk630-M08': 'Myrtle-Wyckoff Avs',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_M' }
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_177077', archive: 51 },
+				message: 'For service to 67 Av, 63 Dr, Woodhaven Blvd, Grand Av and Elmhurst Av, take the [R] to Roosevelt Av and transfer to a Forest Hills-bound [R].',
+				stations: {
+					'MTA NYCT_R': {
+						stations: {
+							'Qs262-G09': '67 Av',
+							'Qs263-G10': '63 Dr - Rego Park',
+							'Qs264-G11': 'Woodhaven Blvd',
+							'Qs265-G12': 'Grand Av - Newtown',
+							'Qs266-G13': 'Elmhurst Av',
+							'Qs616-G14': 'Roosevelt Av',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_R' }
+				],
+			},
+			{
+				source: { id: '', archive: 'test_messages' },
+				message: '[2] service operates between 241 St and Franklin Av, and via the [4] to/from Utica Av.',
+				stations: {
+					'MTA NYCT_2': {
+						stations: {
+							'Bx416-201': 'Wakefield - 241 St',
+							'Bk626-239': 'Franklin Av',
+						}
+					},
+					'MTA NYCT_4': {
+						stations: {
+							'Bk626-239': 'Franklin Av',
+							'Bk345-250': 'Crown Hts - Utica Av',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_2' },
+					{ line: 'MTA NYCT_4' }
+				],
+			},
+			{
+				message: '[1] Downtown trains skip 59 St',
+				stations: {
+					'MTA NYCT_1': {
+						stations: {
+							'Mn614-125': '59 St - Columbus Circle'
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_1' }
+				],
+			},
 /**
 			{
 				source: { id: '', archive: 0 },
@@ -389,21 +450,6 @@ let stations = {
 				},
 				line: [
 					{ line: 'MTA NYCT_' }
-				],
-			},
-*/
-/**
-			{
-				message: '[1] Downtown trains skip 59 St',
-				stations: {
-					'MTA NYCT_1': {
-						stations: {
-							'Mn614-125': '59 St - Columbus Circle'
-						}
-					}
-				},
-				line: [
-					{ line: 'MTA NYCT_1' }
 				],
 			},
 */

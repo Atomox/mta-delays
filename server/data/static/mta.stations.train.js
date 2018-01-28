@@ -579,7 +579,6 @@ let routes = {
 		'Qs279-G06',  // "Sutphin Blvd - Archer Av - JFK Airport"
 		'Qs280-G07',  // "Jamaica - Van Wyck"
 		'Qs258-F05',  // "Briarwood - Van Wyck Blvd"
-		'Qs258-F05',
 		'Qs259-F06',
 		'Qs260-F07',
 		'Qs261-G08', // "Forest Hills - 71 Av"
@@ -921,7 +920,7 @@ let routes = {
 		'Qs273-G21', // Queens Plaza
 
 		// 'Astoria':
-		'Mn613-629',
+		'Mn613-R11', // Lexington Av/59 St
 		'Mn8-R13',
 
 		// 'Broadway - Brighton':

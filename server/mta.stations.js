@@ -1,3 +1,5 @@
+'use strict';
+
 const mtaApi = require('./svc/mta/subway/mta.api');
 const mtaRegEx = require('./includes/regex');
 
@@ -148,7 +150,7 @@ async function getRouteStationsArray(line, include_stats) {
  */
 async function matchRouteStationsMessage(line, message, processed_message, problems) {
 	try {
-		line_id = line;
+		let line_id = line;
 		line = getTrainById(line_id);
 
 		// Get all stations for this line.
@@ -236,6 +238,9 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
 		problems: {},
 	};
 	let problems = {};
+	let debugLines = lines.map(l => getTrainById(unwrapLineObject(l, false)));
+
+//	console.log('\n', '1.', '[', debugLines.join(','), '] -- ', message);
 
 	for (let l in lines) {
 		try {
@@ -257,6 +262,10 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
 			continue;
 		}
 	}
+
+//	console.log('2.', '[', debugLines.join(','), ']',
+//		result.stations, ' --- Problems: ', (problems) ? 'yes': 'no', '\n',
+//		'Prob: ', problems);
 
 	// Now, examine any problem stations, and include them in the results.
 	return processProblemStations (problems, result.stations, result.parsed_message);
@@ -300,33 +309,41 @@ function processProblemStations (problem_results, results, message) {
 
 	if (Object.keys(problem_results).length > 0 ) {
 
+//		console.log('\n >>> ', problem_results, '\n');
+
 		Object.keys(problem_results).map( (key, i) => {
 
 			let st_length = 0,
-					st_obj = null;
+					st_obj = [];
 
 			// Find the longest match, and choose that one.
 			problem_results[key].map( ps => {
 
-				if (ps.found.length > st_length) {
+				if (ps.found.length >= st_length) {
 					st_length = ps.found.length;
-					st_obj = ps;
+					if (!st_obj[st_length]) { st_obj[st_length] = []; }
+					st_obj[st_length].push(ps);
 				}
-				/** @TODO -- If the length is ==, include multiple. */
 			});
 
-			if (st_obj !== null) {
-				// Make sure there is a place to put the result, if not already set.
-				if (!results[st_obj.line]) { results[st_obj.line] = {stations: []}; }
+			if (st_obj[st_length]) {
 
-				// Push the winner back into it's line's stations list.
-				results[st_obj.line].stations[st_obj.sid] = st_obj.found;
+				st_obj[st_length].map(stObj => {
+					// Make sure there is a place to put the result, if not already set.
+					if (!results[stObj.line]) { results[stObj.line] = {stations: []}; }
 
-				// Add station tokens to the already parsed message.
-				message = message.split(st_obj.found).join('[' + st_obj.sid +']');
+					// Push the winner back into it's line's stations list.
+					results[stObj.line].stations[stObj.sid] = stObj.found;
+
+					// Add station tokens to the already parsed message.
+					message = message.split(stObj.found).join('[' + stObj.sid +']');
+				});
 			}
 		});
+
+//		console.log('\nFinal: ', results, '\n', message, '\n\n');
 	}
+
 	return {
 		stations: results,
 		parsed_message: message,

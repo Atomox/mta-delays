@@ -122,12 +122,12 @@ function CheckStationsListForExpected (event) {
 				// we access that property, and a general error is thrown.
 				expect(data.stations).to.have.property(l);
 
-				let msg = '[' + l + '] ' + event.message;
+				let msg = '[' + l + '] -- ' + event.message;
 				let stations_expected = Object.keys(event.stations[l].stations);
 				let stations_found = Object.keys(data.stations[l].stations);
 
 				// Message to help find data culprate.
-				msg = '[' +stations_found.join(',') + '] <--> [' + stations_expected.join(',') + '] ' + msg;
+				msg = '[' +stations_found.join(',') + '] <--> [' + stations_expected.join(',') + '] -- ' + msg;
 
 				expect(stations_found, msg).to.have.members(stations_expected);
 			}

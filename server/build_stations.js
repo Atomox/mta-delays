@@ -200,26 +200,69 @@ function stationAliases(name, boro) {
 	const alias = {
 		Mn: {
 
+			'Marble Hill - 225 St': [
+				'Marble Hill',
+				'225 St',
+			],
 			'Inwood - 207 St': [
 				'Inwood',
 				'207 St',
 			],
+			'168 St - Washington Hts': [
+				'168 St'
+			],
+			'163 St - Amsterdam Av': [
+				'163 St',
+			],
 			'Harlem - 148 St': [
 				'148 St',
+			],
+			'137 St - City College': [
+				'137 St',
+			],
+			'116 St - Columbia University': [
+				'Columbia University',
+				'116 St',
+			],
+			'Cathedral Pkwy (110 St)': [
+				'110 St',
+				'Cathedral Pkwy',
 			],
 			'96 St': [
 				'96 At-2 Av',
 				'96 St-2 Av',
 			],
+			'81 St - Museum of Natural History': [
+				'81 St',
+				'Museum of Natural History',
+			],
 			'66 St - Lincoln Center': [
 				'66 St',
 			],
+			'Roosevelt Island': [
+				'Roosevelt Is',
+			],
 			'Lexington Av/63 St': [
 				'Lexington/63 St',
+				'63 St/Lex',
+				'63/Lexington Av'
+			],
+			'Lexington Av/59 St': [
+				'Lexington Av/59 St',
+				'59 St-Lex Av',
+				'59/Lex',
+				'59 St-Lexington Av',
+			],
+			'59 St': [
+				// 4/5/6 Line
 			],
 			'59 St - Columbus Circle': [
 				'59 St',
 				'Columbus Circle',
+			],
+			'Lexington Av/53 St': [
+				'Lex/53 St',
+				'53/Lex',
 			],
 			'47-50 Sts - Rockefeller Ctr': [
 				'47-50 St-Rockefeller Ctr',
@@ -267,6 +310,9 @@ function stationAliases(name, boro) {
 				'Union Sq',
 				'14 St',
 			],
+			'8 St - NYU': [
+				'8 St',
+			],
 			'W 4 St': [
 				'W 4 St',
 				'W 4th St',
@@ -275,6 +321,10 @@ function stationAliases(name, boro) {
 				'W 4 St-Wash Sq',
 				'W 4 St-Washington Sq',
 				'W 4 St-Washington Square',
+			],
+			'Christopher St - Sheridan Sq': [
+				'Christopher St',
+				'Sheridan Sq',
 			],
 			'Broadway-Lafayette St': [
 				'B\'way-Lafayette St',
@@ -285,20 +335,22 @@ function stationAliases(name, boro) {
 				'Brooklyn Bridge',
 			],
 			'Essex St': [
-				'Essex St',
+				'Delancy St/Essex St',
 			],
 			'World Trade Center': [
 				'World Trade Ctr',
 				'World Trade',
 				'WTC',
 			],
-			'Lexington Av/53 St': [
-				'Lex/53 St',
-				'53/Lex',
+			'Park Pl': [
+				'Park Place'
 			],
 		},
 
 		Qs: {
+			'21 St - Queensbridge': [
+				'Queensbridge',
+			],
 			'Astoria - Ditmars Blvd': [
 				'Ditmars Blvd',
 			],
@@ -322,6 +374,13 @@ function stationAliases(name, boro) {
 				'71/Continental',
 				'71 Av',
 				'Forest Hills 71st',
+			],
+			'63 Dr - Rego Park': [
+				'63 Dr',
+				'Rego Park',
+			],
+			'Grand Av - Newtown': [
+				'Grand Av',
 			],
 			'Queens Plaza': [
 				'Qns Plza'
@@ -350,6 +409,9 @@ function stationAliases(name, boro) {
 				'Willets Point',
 				'Willets Pt',
 			],
+			'74 St - Broadway': [
+				'74 St',
+			],
 			'Woodside - 61 St': [
 				'61 St-Woodside',
 			],
@@ -360,6 +422,12 @@ function stationAliases(name, boro) {
 				'Ozone Park',
 				'Lefferts Blvd',
 			],
+			'Aqueduct - N Conduit Av': [
+				'N Conduit Av',
+			],
+			'Howard Beach - JFK Airport': [
+				'Howard Beach',
+			],
 			'Rockaway Park - Beach 116 St': [
 				'Beach 116 St',
 			],
@@ -369,6 +437,7 @@ function stationAliases(name, boro) {
 			],
 			'Middle Village - Metropolitan Av': [
 				'Metropolitan Av',
+				'Middle Village',
 			],
 		},
 
@@ -380,33 +449,65 @@ function stationAliases(name, boro) {
 			'9 St': [
 				'4 Av-9 St',
 			],
+			'Smith - 9 Sts': [
+				'Smith St',
+				'Smith St - 9 St',
+			],
 			'Atlantic Av - Barclays Ctr': [
 				'Atlantic Av-Barclays Center',
 				'Barclays Center',
 				'Barclays Ctr',
 				'Atlantic Av-Barclays Ctr',
 			],
+			'15 St - Prospect Park': [
+				'15 St',
+			],
 			'Broadway Jct': [
 				'Broadway Junction',
 			],
-			'Flatbush Av - Brooklyn College': [
-				'Flatbush Av',
+			'Myrtle - Wyckoff Avs': [
+				'Myrtle-Wyckoff Av',
+			],
+			'Myrtle - Willoughby Avs': [
+				'Myrtle - Willoughby Av',
+				'Willoughby Av',
+			],
+			'Bedford - Nostrand Avs': [
+
+			],
+
+			'Kingston - Throop Avs': [
+				'Throop Av',
+			],
+			'Sutter Av - Rutland Rd': [
+				'Rutland Rd',
 			],
 			'Hoyt - Schermerhorn Sts': [
 				'Hoyt-Schermerhorn',
 			],
-			'Coney Island - Stillwell Av': [
-				'Stillwell Av',
-				'Coney Island',
+			'Eastern Pkwy - Brooklyn Museum': [
+				'Eastern Pkwy',
+				'Brooklyn Museum',
+			],
+			'Flatbush Av - Brooklyn College': [
+				'Flatbush Av',
 			],
 			'W 8 St - NY Aquarium': [
 				'W 8 St',
 				'NY Aquarium',
 			],
+			'Coney Island - Stillwell Av': [
+				'Stillwell Av',
+				'Coney Island',
+			],
 			'36 St': [
 				'36 St (Bklyn)',
 			],
+			'59 St': [
+				'59 St (Bklyn)',
+			],
 			'Crown Hts - Utica Av': [
+				'Crown Hts - Utica Av',
 				'Utica Av',
 			],
 			'Canarsie - Rockaway Pkwy': [
@@ -414,10 +515,15 @@ function stationAliases(name, boro) {
 			],
 			'Bay Ridge - 95 St': [
 				'95 St-Bay Ridge',
+				'95 St',
 			],
 		},
 
 		Bx: {
+			'Van Cortlandt Park - 242 St': [
+				'Van Cortlandt Park',
+				'242 St',
+			],
 			'Wakefield - 241 St': [
 				'241 St',
 				'Wakefield',
@@ -425,6 +531,12 @@ function stationAliases(name, boro) {
 			'Norwood - 205 St': [
 				'Norwood',
 				'205 St',
+			],
+			'Allerton Av': [
+				'Allerton'
+			],
+			'West Farms Sq - E Tremont Av': [
+				'West Farms Sq'
 			],
 			'Eastchester - Dyre Av': [
 				'Dyre Av',
