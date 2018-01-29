@@ -8,6 +8,7 @@ const name_problems = {
 		'Mn607-R17', // Herald Square
 		'Mn164-A28', // Penn Station
 		'Mn471-726', // 11 Av Hudson Yards
+		'Mn318-128', // 1/2/3 Penn Station (7 Ave)
 	],
 	'42 St': [
 		'Mn611-A27', // Port Authority

@@ -1,5 +1,7 @@
 'use strict';
 
+const _ = require('lodash');
+
 const mtaApi = require('./svc/mta/subway/mta.api');
 const mtaRegEx = require('./includes/regex');
 
@@ -167,34 +169,42 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 		for (let s in stations) {
 
 			// Check station name regex against the message.
-			let res_re = mtaRegEx.matchRegexString(stations[s].regex, message);
+			let res_re = mtaRegEx.matchRegexString(stations[s].regex, message, true, true);
 
-			// Problem stations get stored and compared after this process finishes. Until then, we don't count them as a final match.
-			if (problem_stations[stations[s].common]) {
-				if (res_re !== false) {
+			// If there were no results, move on.
+			if (res_re === false ) { continue; }
 
+			// Regex returns extras along with the results when in global/greedy mode.
+ 			delete res_re.input;
+ 			delete res_re.index;
+			// Get a unique list of matches.
+ 			res_re = _.uniq(res_re.map( r => r.trim()));
+
+			res_re.map( m => {
+				// Problem stations get stored and compared after this process finishes. Until then, we don't count them as a final match.
+				if (problem_stations[stations[s].common]) {
 					// Init empty station common name in array.
-					if (!problem_results[stations[s].common]) { problem_results[stations[s].common] = []; }
+					if (!problem_results[stations[s].common]) {
+						problem_results[stations[s].common] = [];
+					}
 
 					// Push onto the problem list.
 					problem_results[stations[s].common].push(
 						{
 							name: stations[s].name,
-							found: res_re,
+							found: m,
 							sid: s,
 							line: line_id
 						}
 					);
 				}
-			}
-			else {
-				// Check station ID against message.
-				if (res_re !== false) {
-					results[s] = res_re;
+				else {
+					// Check station ID against message.
+					results[s] = m;
 					// Str.split().join() will replace all occurances, unlike str.replace().
-					result_message = result_message.split(res_re).join('[' + s +']');
+					result_message = result_message.split(m).join('[' + s +']');
 				}
-			}
+			});
 		}
 
 		return {
@@ -240,11 +250,12 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
 	let problems = {};
 	let debugLines = lines.map(l => getTrainById(unwrapLineObject(l, false)));
 
-//	console.log('\n', '1.', '[', debugLines.join(','), '] -- ', message);
-
 	for (let l in lines) {
 		try {
 			let line = unwrapLineObject(lines[l], false);
+
+			// Lines may have multiple directions, but only 1 pass is needed.
+			if (result.stations[line]) { continue; }
 
 			// Match normal stations, and collect matched problem stations.
 			let rs = await matchRouteStationsMessage(line, message, result.parsed_message, problems);
@@ -262,10 +273,6 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
 			continue;
 		}
 	}
-
-//	console.log('2.', '[', debugLines.join(','), ']',
-//		result.stations, ' --- Problems: ', (problems) ? 'yes': 'no', '\n',
-//		'Prob: ', problems);
 
 	// Now, examine any problem stations, and include them in the results.
 	return processProblemStations (problems, result.stations, result.parsed_message);
@@ -309,39 +316,58 @@ function processProblemStations (problem_results, results, message) {
 
 	if (Object.keys(problem_results).length > 0 ) {
 
-//		console.log('\n >>> ', problem_results, '\n');
-
 		Object.keys(problem_results).map( (key, i) => {
 
 			let st_length = 0,
-					st_obj = [];
+					st_obj = [],
+					st_lines = {};
 
 			// Find the longest match, and choose that one.
 			problem_results[key].map( ps => {
 
-				if (ps.found.length >= st_length) {
+				// Sort matches by length, and add a list of train lines.
+				if (ps.found.length > 2) {
 					st_length = ps.found.length;
 					if (!st_obj[st_length]) { st_obj[st_length] = []; }
+					st_lines[ps.line] = ps.line;
 					st_obj[st_length].push(ps);
 				}
 			});
 
-			if (st_obj[st_length]) {
+			if (st_obj.length > 0) {
+				let lines_found = {};
 
-				st_obj[st_length].map(stObj => {
-					// Make sure there is a place to put the result, if not already set.
-					if (!results[stObj.line]) { results[stObj.line] = {stations: []}; }
+				// Loop through in reverse order.
+				Object.keys(st_obj).reverse().map( i => {
 
-					// Push the winner back into it's line's stations list.
-					results[stObj.line].stations[stObj.sid] = stObj.found;
+					// Could be empty elements.
+					if (!Array.isArray(st_obj[i]) || st_obj[i].length <= 0) {	return; }
 
-					// Add station tokens to the already parsed message.
-					message = message.split(stObj.found).join('[' + stObj.sid +']');
+					// Have we found all lines?
+					if (Object.keys(lines_found).length == Object.keys(st_lines).length ) {
+						return;
+					}
+
+					// Check the next longest results for matches.
+					st_obj[i].map(stObj => {
+						// Only allow one result per line.
+						if (lines_found[stObj.line]) { return; }
+
+						// Make sure there is a place to put the result, if not already set.
+						if (!results[stObj.line]) { results[stObj.line] = {stations: []}; }
+
+						// Push the winner back into it's line's stations list.
+						results[stObj.line].stations[stObj.sid] = stObj.found;
+
+						// Add station tokens to the already parsed message.
+						message = message.split(stObj.found).join('[' + stObj.sid +']');
+
+						// Mark this line as found.
+						lines_found[stObj.line] = stObj.line;
+					});
 				});
 			}
 		});
-
-//		console.log('\nFinal: ', results, '\n', message, '\n\n');
 	}
 
 	return {

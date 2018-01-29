@@ -4,7 +4,7 @@
 function replaceSpace(word) {
 	return word.replace(/(\s)+/gi, (match, offset, string) => {
   	return '\\s*';
-  });	
+  });
 }
 
 function wrapNumberBounds(word) {
@@ -58,7 +58,7 @@ function prepareRexExNameString(name) {
 	// Wrap text/word parens () -- DO THIS FIRST!
 	v = wrapWrappers(v);
 
-	// Detect numbers.	
+	// Detect numbers.
 	v = wrapNumberBounds(v);
 
 	// Wrap Separators.
@@ -74,7 +74,7 @@ function prepareRexExNameString(name) {
 function matchStringsWithSpecialChars(needle, haystack) {
 	let v = needle;
 
-	// Detect numbers.	
+	// Detect numbers.
 	v = wrapNumberBounds(v);
 
 	// Wrap Separators.
@@ -86,20 +86,25 @@ function matchStringsWithSpecialChars(needle, haystack) {
 	return matchRegexString(v, haystack);
 }
 
-function matchRegexString(pattern, haystack, return_all) {
-	
+function matchRegexString(pattern, haystack, return_all, greedy) {
+
 	if (!haystack) {
 		return false;
 	}
 
-	let re = new RegExp(pattern,"i");
+	let flags = 'i';
+	if (greedy === true) {
+		flags = flags + 'g';
+	}
+
+	let re = new RegExp(pattern,flags);
 	let result = haystack.match(re);
 
 	if (return_all === true && result !== null) {
 		return result;
 	}
 
-	return (result !== null && result[0]) 
+	return (result !== null && result[0])
 		? result[0].trim()
 		: false;
 }

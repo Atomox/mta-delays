@@ -311,6 +311,8 @@ function stationAliases(name, boro) {
 				'34 St',
 			],
 			'34 St - Penn Station': [
+//				'34 St - Penn Station (8 Av)',
+//				'34 St - Penn Station (7 Av)',
 				'Penn Station',
 				'34 St',
 			],

@@ -33,38 +33,19 @@ describe('Parse Stations', function() {
 		});
 	});
 
-	describe.skip('MTAD-013 -- Multiple Lines Mistaken Identity Occurs', () => {
-		it('Common Roots cause Mistaken Identity of Stations.', () => {
-			// 34 St -- Herald Square / Penn Station / Hundson Yards
-			// 42 St -- Times Square / Port Authority / Bryant Park / Grand Central
-		});
+	describe('MTAD-013 -- Multiple Lines Mistaken Identity Occurs', () => {
+
+		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Common roots cause mistaken station identity.', ['MTAD-013']);
+
 	});
 
 	describe('MTAD-027 -- Match Abreviations with Original Stations', () => {
 
 		tests.stationTestByTag(stations.nomDePlume, CheckStationsListForExpected, 'Alternate/Alias Names');
-
-		it('Jackson Hts - Roosevelt Av --> Jackson Heights-Roosevelt Av', () => {});
-		// @TODO -- This should be converted to normal tagged messages, like r-train above, since we handle problem stations differently than when this test was written.
-		//
-		//			tests.basicTest(stations.nomDePlume, checkStationWithSpecialChar, 'Should match [abreviated names] with [full station names].');
-		/**
-		 *
-		 * @TODO
-		 *   *
-		 *   * Find event data for this test-case,
-		 *   * tag it was MTAD-027,
-		 *   * and execute tests here.
-		 *   *
-		 *   *
-		 *   *
-		 *
-		 *
-		 *
-		 */
 	});
 
 	describe('MTAD-026 -- Stations for Multiple Lines', () => {
+
 		tests.stationTestByTag(stations.sharedStation, CheckStationsListForExpected, 'Lines share Station');
 	});
 
@@ -76,7 +57,7 @@ describe('Parse Stations', function() {
 	describe('MTAD-005 -- Test Individual Lines', () => {
 
 		tests.stationTestByTag(r_train_msg, checkIndividualLine, 'R Line -- General', [], ['MTAD-004']);
-//		tests.stationTestByTag(r_train_msg, checkIndividualLine, 'R Line -- Mistaken Identity', ['MTAD-004']);
+
 	});
 });
 
