@@ -91,6 +91,7 @@ let event_messages = {
 					],
 				},
 				line: [
+					'MTA NYCT_N',
 					'MTA NYCT_M',
 				],
 			},

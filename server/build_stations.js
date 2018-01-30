@@ -179,7 +179,7 @@ function stationCommonName(name, boro) {
 
 		Bk: {
 			'Atlantic Av - Barclays Ctr': 'Barclays Center',
-			'Broadway Jct': 'Broadway Junction',
+			'Broadway Jct': 'Broadway',
 			'Coney Island - Stillwell Av': 'Stillwell Av',
 			'36 St': '36 St',
 			'Crown Hts - Utica Av': 'Utica Av',

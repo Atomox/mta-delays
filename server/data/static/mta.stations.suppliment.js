@@ -21,9 +21,24 @@ const name_problems = {
 		'Mn610-723', // Grand Central 7
 		'Mn610-901', // Grand Central S
 	],
+	'50 St': [
+		'Mn225-D15', // 47-50 Sts - Rockefeller Ctr
+		'Mn162-A25', // 50 St C/E
+		'Mn316-126', // 50 St 1
+		'Bk61-B14', // 50 St BK D
+		'Bk70-B23', // Bay 50 St
+	],
 	'59 St - Columbus Circle': [
 		'Mn614-A24',
 		'Mn614-125',
+	],
+	'Broadway': [
+		'Bk621-J27', // Broadway Jct
+		'Bk621-L22',
+		'Bk621-A51',
+		'Qs4-R05',   // Broadway (Astoria)
+		'Mn619-D21', // Broadway-Lafayette St
+		'Bk286-G30', // Broadway
 	],
 
 //	'Clinton - Washington Avs': [
