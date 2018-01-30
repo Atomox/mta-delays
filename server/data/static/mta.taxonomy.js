@@ -57,7 +57,8 @@ const taxonomy = {
 
 		// Diversions.
 		'operate_sections': [
-			'operates in two sections,'
+			'operates in two sections',
+			'operate in two sections',
 		],
 		'shuttle_bus': [
 			'[SB]',

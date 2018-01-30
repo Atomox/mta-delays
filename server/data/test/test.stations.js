@@ -561,11 +561,13 @@ let stations = {
 							'Mn611-902': 'Times Sq - 42 St',
 						}
 					},
+/**
 					'MTA NYCT_C': {
 						stations: {
 							// Should not match.
 						}
 					},
+*/
 				},
 				line: [
 					{ line: 'MTA NYCT_1' },
