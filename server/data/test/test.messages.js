@@ -867,10 +867,10 @@ let event_messages = {
 					"route_change",
 					"track_maintenance"
 				],
-				tag: ["MTAD-001", "MTAD-014", "MTAD-027"],
+				tag: ["MTAD-001", "MTAD-014", "MTAD-024", "MTAD-027"],
 				durration: "Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8",
-				message: "TRACK MAINTENANCE [E] No trains between W 4 St and World Trade Center [A] [C] trains provide alternate service Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8 [E] service operates between Jamaica Center and W 4 St , and via the [F] to/from 2 Av . For Spring St*, Canal St and World Trade Center (Chambers St), take the [A] or [C] instead. Transfer between trains at W 4 St. *Please review [A] [C] advisories for additional information that may affect your trip.",
-				message_station_parse: "TRACK MAINTENANCE [E] No trains between [Mn167-A32] and [Mn624-E01] [A] [C] trains provide alternate service Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8 [E] service operates between [Qs278-G05] and [Mn167-A32], and via the [F] to/from [Mn232-F14] . For [Mn168-A33]*, [Mn169-A34] and [Mn624-E01] ([Mn624-A36]), take the [A] or [C] instead. Transfer between trains at [Mn167-A32]. *Please review [A] [C] advisories for additional information that may affect your trip.",
+				message: "TRACK MAINTENANCE [E] No trains between W  4 St and World Trade Center [A] [C] trains provide alternate service Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8 [E] service operates between Jamaica Center and W 4 St , and via the [F] to/from 2 Av . For Spring St*, Canal St and World Trade Center (Chambers St), take the [A] or [C] instead. Transfer between trains at W 4 St. *Please review [A] [C] advisories for additional information that may affect your trip.",
+				message_station_parse: "TRACK MAINTENANCE [E] No trains between [Mn167-A32] and [Mn624-E01] [A] [C] trains provide alternate service Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8 [E] service operates between [Qs278-G05] and [Mn167-A32] , and via the [F] to/from [Mn232-F14] . For [Mn168-A33]*, [Mn169-A34] and [Mn624-E01] ([Mn624-A36]), take the [A] or [C] instead. Transfer between trains at [Mn167-A32]. *Please review [A] [C] advisories for additional information that may affect your trip.",
 				route_change: {
 					tag: ['A-operates-then-overC'],
 					message: "[E] service operates between [Qs278-G05] and [Mn167-A32] , and via the [F] to/from [Mn232-F14] .",
@@ -892,7 +892,9 @@ let event_messages = {
 				},
 				line: [
 					{ line: "MTA NYCT_E", dir: "0" },
-					{ line: "MTA NYCT_E", dir: "1" }
+					{ line: "MTA NYCT_E", dir: "1" },
+					{ line: "MTA NYCT_F", dir: "1" },
+					{ line: "MTA NYCT_A", dir: "1" }
 				],
 			},
 			{

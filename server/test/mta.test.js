@@ -21,6 +21,25 @@ function routeTestByTag(repository, callback, description, main_tags, omit_tags,
 }
 
 
+function stationMessageTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
+  let counter = 0;
+	let total = repository.length;
+	let m = [];
+
+	// Get tests to run:
+	let my_tests = repository.map( event => {
+		if (filterTest(event, 'station_msg',	main_tags, omit_tags)) {
+			if (!route_tags || filterTestSubsection(event, 'stations', route_tags)) {
+				counter++;
+				m.push(event);
+			}
+		}
+	});
+
+  return setupTest(description, counter, total, m, callback);
+}
+
+
 function stationTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
   let counter = 0;
 	let total = repository.length;
@@ -109,6 +128,11 @@ function filterTest(event, type, tags, omit) {
 				}
 				break;
 
+		case 'station_msg':
+      if (!event.message_station_parse
+        || !event.line) { return false; }
+        break;
+
     case 'stations':
       if (!event.stations
         || !event.line) { return false; }
@@ -128,5 +152,6 @@ function filterTest(event, type, tags, omit) {
 module.exports = {
   routeTestByTag,
   stationTestByTag,
+	stationMessageTestByTag,
   basicTest,
 };

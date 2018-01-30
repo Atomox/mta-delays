@@ -49,6 +49,11 @@ describe('Parse Stations', function() {
 		tests.stationTestByTag(stations.sharedStation, CheckStationsListForExpected, 'Lines share Station');
 	});
 
+	describe('MTAD-024 -- Multiple Spellings for a Station', () => {
+
+		tests.stationMessageTestByTag(event_messages.normal, CheckStationsParseMessageForExpected, 'Multiple Spellings Check', ['MTAD-024']);
+	});
+
 	describe.skip('MTAD-004 -- Identify Multiple Stations with the same name.', () => {
 		it('36 St', () => { });
 	});
@@ -84,6 +89,25 @@ function checkIndividualLine(event) {
 	return mtaStations.matchAllLinesRouteStationsMessage(['R'], event.message)
 		.then( stations => {
 			expect(Object.values(stations.stations['R'].stations)).to.have.members(event.stations);
+		});
+}
+
+
+function CheckStationsParseMessageForExpected (event) {
+	return mtaStations.
+		matchAllLinesRouteStationsMessage(event.line, event.message)
+		.then( data => {
+
+			let results = false;
+			let mocha_msg = event.message;
+
+			data.parsed_message = data.parsed_message.replace(/\s/g, " ").trim();
+			event.message_station_parse = event.message_station_parse.replace(/\s/g, " ").trim();
+			expect(data.parsed_message.length, 'Lengths should be the same').to.equal(event.message_station_parse.length);
+			expect(data.parsed_message).to.equal(event.message_station_parse);
+		})
+		.catch(err => {
+			throw new Error(err);
 		});
 }
 
