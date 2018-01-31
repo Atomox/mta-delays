@@ -8,8 +8,8 @@ let Header = require('./header').Header;
 // Config
 const api = require('../../../config/settings');
 
- const endpoint = 'subway/status';
-// const endpoint = 'subway/status/archive/15'; // 15 (route change) 27 (d/f crazy route change)
+// const endpoint = 'subway/status';
+ const endpoint = 'subway/status/archive/43'; // 15 (route change) 27 (d/f crazy route change)
 
 /**
  * The main app container.

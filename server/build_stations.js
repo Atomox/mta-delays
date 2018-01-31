@@ -333,6 +333,7 @@ function stationAliases(name, boro) {
 				'W 4 St-Wash Sq',
 				'W 4 St-Washington Sq',
 				'W 4 St-Washington Square',
+				'West 4 St-Washington Square',
 			],
 			'Christopher St - Sheridan Sq': [
 				'Christopher St',
