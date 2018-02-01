@@ -411,7 +411,9 @@ async function getRouteChange(text, lines, id) {
 
 	if (id == GLOBAL_DEBUG_ID) { console.log('\n\n -- Parse 1st Pass --', c, '\n\n'); }
 
-	let reroute_pattern = /(Some\s)?(Northbound|Southbound)?\s*\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:trains(?:\s*are\s*rerouted)?)|(?:[^`\[\]]*(service\s*operates\s*b\s*etween|No\s*service\s*b\s*etween)\s*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]))?)[^\[\]`]*(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+\[([A-Z0-9])\][^\/\[\]`]*(to\/from|to|\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:)[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s*\(skipping.*\)\s*)?[\.,\s]*(?:(?:(?:and|then)?\s*(?:stopping\s)?(?:via|along|over)+ the|\s)+(\[(?!\3\4)[A-Z0-9]\])?[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)(?:[^\[\]`]*(?:(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[\.]?))?)?/i;
+	let reroute_pattern = /(Some)?\s*(Northbound|Southbound|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b.*\b[\s-]bound)?\s*\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(Northbound|Southbound|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b.*\b[\s-]bound)?\s*(?:(?:trains(?:\s*are\s*(?:rerouted)?)?)|(?:[^`\[\]]*(service\s*operates\s*b\s*etween|No\s*service\s*b\s*etween)\s*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]))?)[^\[\]`]*(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+(?:\[([A-Z0-9])\]|run(?:ning)?\s*(express|local))[^\/\[\]`]*(to\/from|to|\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:)[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s*\(skipping.*\)\s*)?[\.,\s]*(?:(?:(?:and|then)?\s*(?:stopping\s)?(?:via|along|over)+ the|\s)+(\[(?!\3\4)[A-Z0-9]\])?[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)(?:[^\[\]`]*(?:(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[\.]?))?)?/i;
+
+	// @TODO -- Normal Route Change Detect /(Some\s)?(Northbound|Southbound)?\s*\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:trains(?:\s*are\s*rerouted)?)|(?:[^`\[\]]*(service\s*operates\s*b\s*etween|No\s*service\s*b\s*etween)\s*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]))?)[^\[\]`]*(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+\[([A-Z0-9])\][^\/\[\]`]*(to\/from|to|\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:)[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s*\(skipping.*\)\s*)?[\.,\s]*(?:(?:(?:and|then)?\s*(?:stopping\s)?(?:via|along|over)+ the|\s)+(\[(?!\3\4)[A-Z0-9]\])?[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)(?:[^\[\]`]*(?:(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[\.]?))?)?/i;
 
 	function unwrapTrain(train) {
 		if (!train) { return train; };
@@ -452,6 +454,21 @@ async function getRouteChange(text, lines, id) {
 			// 1: All/Some
 			// 2: Northbound/Southbound
 			// 3,4: Affected Lines
+			// 5. Direction
+			// 6: Message (unimportant)
+			// 7,8: Operating between these stations (own line)
+			// 9: Reroute Line 1
+			// 10: express/local
+			// 11,12: Rereoute 1 stations
+			// 13: Reroute line 2
+			// 14, 15: Rereoute 2 stations.
+			//
+			//
+			// @TODO -- OLD:
+			// 0: FULL Match
+			// 1: All/Some
+			// 2: Northbound/Southbound
+			// 3,4: Affected Lines
 			// 5: Message (unimportant)
 			// 6,7: Operating between these stations (own line)
 			// 8: Reroute Line 1
@@ -472,13 +489,23 @@ async function getRouteChange(text, lines, id) {
 				// Second: 11-13
 
 				c.results.map((item, i) => {
-					if (i == 0 || !item) { return; };
-					let j = (i <= 7 ) ? 0 : (i <= 10) ? 1 : 2;
+
+					// When we have express, 9 will be empty, but we need to execute logic in 9.
+					if (i == 9 && !item && c.results[10]) {
+						/**
+						 *
+						 * @TODO....
+						 *
+						 */
+					}
+					else if (i == 0 || !item) { return; };
+					let j = (i <= 8 ) ? 0 : (i <= 12) ? 1 : 2;
 
 					if (!route_pair.route[j]) {
 						route_pair.route.push({
 							allTrains: (c.results[1]) ? false : true,
 							dir: (c.results[2] ? c.results[2].toLowerCase() : null),
+							exp_lcl: null,
 							lines: [],
 							along: null,
 							from: null,
@@ -487,10 +514,11 @@ async function getRouteChange(text, lines, id) {
 					}
 					switch (i) {
 						case 1:
-							// Some trains? We chekc for SOME, so if matched, then FALSE.
+							// Some trains? We check for SOME, so if matched, then FALSE.
 							route_pair.route[j].allTrains == (item) ? false : true;
 							break;
 						case 2:
+						case 5:
 							// Direction of trains?
 							route_pair.route[j].dir == item;
 							break;
@@ -501,9 +529,9 @@ async function getRouteChange(text, lines, id) {
 							route_pair.route[j].lines.push(unwrapTrain(item));
 							break;
 
-						case 6: // from
-						case 9:
-						case 12:
+						case 7: // from
+						case 11:
+						case 14:
 							route_pair.route[j].from = unwrapTrain(item);
 
 							// Possible structures:
@@ -524,18 +552,23 @@ async function getRouteChange(text, lines, id) {
 							}
 							break;
 
-						case 8:  // First reroute
-						case 11: // Second reroute
-							route_pair.route[j].along = unwrapTrain(item);
+						case 9:  // First reroute
+						case 13: // Second reroute
+							route_pair.route[j].along = (item) ? unwrapTrain(item) : null;
 							route_pair.route[j].lines = route_pair.route[j-1].lines;
 							break;
 
-						case 7:
-						case 10:
-						case 13:
+						case 8:
+						case 12:
+						case 15:
 							route_pair.route[j].to = unwrapTrain(item);
 							route_pair.route[j].to = unwrapTrain(item);
 							break;
+
+						case 10:
+						 	route_pair.route[j].exp_lcl = (item) ? item : null;
+							break;
+
 					}
 				});
 
