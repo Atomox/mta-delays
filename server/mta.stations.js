@@ -316,6 +316,11 @@ function processProblemStations (problem_results, results, message) {
 
 	if (Object.keys(problem_results).length > 0 ) {
 
+//		console.log(
+//			'\n\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~',
+//			'\n', problem_results, '\n',
+//			'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n');
+
 		Object.keys(problem_results).map( (key, i) => {
 
 			let st_length = 0,
@@ -341,17 +346,32 @@ function processProblemStations (problem_results, results, message) {
 				Object.keys(st_obj).reverse().map( i => {
 
 					// Could be empty elements.
-					if (!Array.isArray(st_obj[i]) || st_obj[i].length <= 0) {	return; }
+					if (!Array.isArray(st_obj[i]) || st_obj[i].length <= 0) {
+						console.log(i, ' <!> COULD BE EMPTY.');
+						return; }
+
+/**
+	@TODO -- If a single line matches MULTIPLE station names, we shouldn't bail early!
 
 					// Have we found all lines?
 					if (Object.keys(lines_found).length == Object.keys(st_lines).length ) {
+						console.log(i, ' <!> WE GOT EVERYTHING.');
 						return;
 					}
-
+*/
 					// Check the next longest results for matches.
 					st_obj[i].map(stObj => {
+						/**
+						 * @TODO -- If a single line matches MULTIPLE station names, we shouldn't bail early!
+						 *
+						 * PROBLEM:
+						 * 'No [R] trains between Bay Ridge-95 St and 36 St, Brooklyn, due to track maintenance.
+						 * Take free shuttle buses and the [N]. [R] service operates between 71 Av and 36 St,
+						 * and via the [D] to/from 9 Av, the last stop.',
+						 */
 						// Only allow one result per line.
 						if (lines_found[stObj.line]) { return; }
+
 
 						// Make sure there is a place to put the result, if not already set.
 						if (!results[stObj.line]) { results[stObj.line] = {stations: []}; }

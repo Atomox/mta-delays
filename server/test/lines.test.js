@@ -29,8 +29,11 @@ describe ('Detect Train Lines', () => {
 		});
 	});
 
-	describe('MTAD-002 -- Running Local', () => {	});
-	describe.skip('MTAD-003 -- Map Stations from Route Change', () => {
+	describe('MTAD-002 -- Running Local / Express', () => {
+		tests.routeTestByTag(m,c,'[Running Express/Local] Should Map', ['MTAD-002']);
+
+	});
+	describe('MTAD-003 -- Map Stations from Route Change', () => {
 		it ('Route Change -- New Stations', () => {});
 		it ('Route Change -- Bypassed Stations', () => { });
 	});
@@ -72,6 +75,9 @@ function testStationLineRerouteObject(event) {
 	return mtaStatus.getStationsInEventMessage(lines, event.message)
 		.then( data => (data.parsed_message) ? data : Promise.reject(event.message + 'has no stations!!!') )
 		.then( data => {
+			// Debug Parse Stations Message.
+			// console.log('\n\n', data, '\n\n');
+
 			let m = mtaStatus.getRouteChange(data.parsed_message, event.line, true);
 			m.original_data = data;
 			return m;
@@ -86,6 +92,8 @@ function testStationLineRerouteObject(event) {
 			if (data.message !== event.route_change.message) {
 				console.error('\n\n\n', data,'\n\n');
 			}
+
+// console.log('\n\n', data, '\n\n');
 
 			// Make sure the parsed message matches the expected.
 			expect(data.message).to.equal(event.route_change.message);
