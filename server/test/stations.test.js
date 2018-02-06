@@ -64,6 +64,26 @@ describe('Parse Stations', function() {
 		tests.stationTestByTag(r_train_msg, checkIndividualLine, 'R Line -- General', [], ['MTAD-004']);
 
 	});
+
+	describe.skip('MTAD-029 -- 36 St Stations', () => {
+		/**
+		 *
+		 * @TODO -- Need to write proper Tests.
+		 *   *
+		 *   * 1. Comb through data in stations.
+		 *   * 2. Write proper test to make sure we:
+		 *   *    a. match the right stations
+		 *   *    b. Replace all instances with tokens.
+		 *   *
+		 *   *
+		 *   *
+		 *   *
+		 *
+		 *
+		 *
+		 */
+		tests.basicTest(stations['36st'], checkStationWithSpecialChar, 'Should match proper 36 St.');
+	});
 });
 
 

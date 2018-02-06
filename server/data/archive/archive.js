@@ -49,6 +49,7 @@ let archive_status = {
 		'mta_status.54.weekday_morning_A_S_delays',
 		'mta_status.55.herald_sq_switch_problems',
 		'mta_status.56.weeknight',
+		'mta_status.57.2018-02-05_-_weeknight_planned_work',
 	],
 	path: './data/archive/',
 };

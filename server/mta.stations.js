@@ -334,7 +334,7 @@ function processProblemStations (problem_results, results, message) {
 				if (ps.found.length > 2) {
 					st_length = ps.found.length;
 					if (!st_obj[st_length]) { st_obj[st_length] = []; }
-					st_lines[ps.line] = ps.line;
+					st_lines[ps.line] = ps;
 					st_obj[st_length].push(ps);
 				}
 			});
@@ -369,9 +369,11 @@ function processProblemStations (problem_results, results, message) {
 						 * Take free shuttle buses and the [N]. [R] service operates between 71 Av and 36 St,
 						 * and via the [D] to/from 9 Av, the last stop.',
 						 */
-						// Only allow one result per line.
-						if (lines_found[stObj.line]) { return; }
-
+						// Only allow one station per line, but allow multiple variations of that line.
+						if (lines_found[stObj.line]
+							&& lines_found[stObj.line].sid !== stObj.sid) {
+								return;
+						}
 
 						// Make sure there is a place to put the result, if not already set.
 						if (!results[stObj.line]) { results[stObj.line] = {stations: []}; }
@@ -383,7 +385,7 @@ function processProblemStations (problem_results, results, message) {
 						message = message.split(stObj.found).join('[' + stObj.sid +']');
 
 						// Mark this line as found.
-						lines_found[stObj.line] = stObj.line;
+						lines_found[stObj.line] = stObj;
 					});
 				});
 			}

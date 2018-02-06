@@ -454,6 +454,7 @@ let stations = {
 			},
 */
 		],
+
 		sharedStation: [
 			{
 				message: 'Jackson Heights-Roosevelt Av',
@@ -669,6 +670,262 @@ let stations = {
 			},
 */
 		],
+
+		'36st': [
+			{
+				source: { id: '', archive: 0 },
+
+				// Should replace 36 St, Brooklyn AND 36 St
+				message: 'No [R] trains between ... 36 St, Brooklyn, due to track maintenance. [R] service operates between 71 Av and 36 St, and via the [D] ...',
+				stations: {
+					'MTA NYCT_R': {
+						stations: {
+							'Bk32-R36': '36 St',
+						}
+					}
+				},
+				line: [
+					 	{ line: 'MTA NYCT_R', },
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_a3749ab2-cb3e-48c6-a58a-f74726aa2936', archive: 6 },
+
+				// Should replace 36 St, Brooklyn AND 36 St
+				message: 'Southbound [E] and [F] trains are running with delays because of a rail condition at 36 St (Queens).',
+				stations: {
+					'MTA NYCT_R': {
+						stations: {
+							'Bk32-R36': '36 St',
+						}
+					}
+				},
+				line: [
+					 	{ line: 'MTA NYCT_R', },
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_380e324e-31ab-4890-aa90-47f7e7e60677', archive: 15 },
+
+				// Should replace 36 St, Brooklyn AND 36 St
+				message: 'Some southbound [R] trains are stopping along the [F] line from 36 St (Qns) to ...',
+				stations: {
+					'MTA NYCT_R': {
+						stations: {
+							'Qs272-G20': '36 St',
+						}
+					}
+				},
+				line: [
+					 	{ line: 'MTA NYCT_R', },
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_3a382636-b7c8-435d-8ca3-2ae51393268d', archive: 17 },
+				message: 'Northbound [D] and [N] trains are running with delays because of a sick passenger at 36 St (BKLYN).',
+				stations: {
+					'MTA NYCT_D': {
+						stations: {
+							'Bk32-R36': '36 St',
+						}
+					},
+					'MTA NYCT_N': {
+						stations: {
+							'Bk32-R36': '36 St',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_D' },
+					{ line: 'MTA NYCT_N' }
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_175195', archive: 22 },
+				message: '[F] trains run local in Queens, Manhattan-bound [E] [F] trains make local stops at ... 36 St.',
+				stations: {
+					'MTA NYCT_E': {
+						stations: {
+							'Qs272-G20': '36 St',
+						}
+					},
+					'MTA NYCT_F': {
+						stations: {
+							'Qs272-G20': '36 St',
+						}
+					},
+				},
+				line: [
+					{ line: 'MTA NYCT_E' },
+					{ line: 'MTA NYCT_F' },
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_9d5e8bb2-fff8-403a-85f5-917eb80c0d76', archive: 24 },
+				message: 'Northbound [N] trains are running local from 59 St (Bklyn) to 36 St (Bklyn) because of the weather conditions.',
+				stations: {
+					'MTA NYCT_N': {
+						stations: {
+							'Bk32-R36': '36 St',
+							'Bk35-R41': '59 St',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_N' }
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_78c4ecec-1ca7-43d4-9cea-1edb9c7c2c29', archive: 28 },
+				message: 'Broadway Junction bound [M] trains are stopping along the [F] line from 36 St (QNS) to ... ',
+				stations: {
+					'MTA NYCT_M': {
+						stations: {
+							'Qs272-G20': '36 St',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_M' }
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_176107', archive: 31 },
+				message: 'SIGNAL MAINTENANCE [R] Bay Ridge-bound trains run express from ... to 59 St, Brooklyn ... Trains stop at 36 St. For service to ..., take the [R] to 36 St and transfer to ... For service from these stations, take the [N] or [R] to 36 St and transfer to a Bay Ridge-bound [R].',
+				stations: {
+					'MTA NYCT_R': {
+						stations: {
+							'Bk32-R36': '36 St',
+							'Bk35-R41': '59 St',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_R' }
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_f665b032-fca1-4121-8032-616da357047d', archive: 32 },
+				message: 'There is no [B] train service between Coney Island-Stillwell Av and Bedford Park Blvd in both directions.There is no [D] train service between ... and 36 St (Bklyn) in both directions.',
+				stations: {
+					'MTA NYCT_D': {
+						stations: {
+							'Bk32-R36': '36 St',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_D' }
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_178432', archive: 36 },
+				message: 'PRIORITY REPAIRS [D] Coney Island-bound trains are rerouted in Manhattan and Brooklyn. Travel Alternatives [TP] For ... For service to ... , transfer at 36 St to a Manhattan-bound [D] [N] or [R].',
+				stations: {
+					'MTA NYCT_D': {
+						stations: {
+							'Bk32-R36': '36 St',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_D' }
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_176101', archive: 36 },
+				message: 'SIGNAL MAINTENANCE [N] Coney Island-bound trains run express from ... to 59 St, Brooklyn. Trains stop at 36 St.',
+				stations: {
+					'MTA NYCT_N': {
+						stations: {
+							'Bk32-R36': '36 St',
+							'Bk35-R41': '59 St',
+						}
+					},
+					'MTA NYCT_R': {
+						stations: {
+							'Bk32-R36': '36 St',
+							'Bk35-R41': '59 St',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_N' },
+					{ line: 'MTA NYCT_R' }
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_176626', archive: 39 },
+				message: 'STATION IMPROVEMENTS [R] Forest Hills-bound trains run express from 59 St, Brooklyn to Canal St via the Manhattan Bridge. Trains stop at 36 St and Atlantic Av-Barclays Ctr.',
+				stations: {
+					'MTA NYCT_': {
+						stations: {
+							'Bk32-R36': '36 St',
+							'Bk35-R41': '59 St',
+							'Bk617-R31': 'Atlantic Av - Barclays Ctr',
+							'Mn623-Q01': 'Canal St',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_' }
+				],
+			},
+			{
+				source: { id: 'MTA NYCT_176800', archive: 40 },
+				message: 'TRACK MAINTENANCE [E] ...-bound trains run local from Roosevelt Av to Queens Plaza Trains stop at ... 36 Sts.',
+				stations: {
+					'MTA NYCT_E': {
+						stations: {
+							'Qs616-G14': 'Jackson Hts - Roosevelt Av',
+							'Qs273-G21': 'Queens Plaza',
+							'Qs272-G20': '36 St',
+						}
+					},
+					'MTA NYCT_F': {
+						stations: {
+							'Qs616-G14': 'Jackson Hts - Roosevelt Av',
+							'Qs272-G20': '36 St',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_E' },
+					{ line: 'MTA NYCT_F' }
+				],
+			},
+			{
+				source: { id: '', archive: 45 },
+				message: 'TRACK MAINTENANCE [R] No trains between 36 St, Brooklyn and 95 St [R] service operates between 71 Av and 36 St , Brooklyn and via the [D] to/from 9 Av, evenings . For late night service between Whitehall St and 59 St , Brooklyn',
+				stations: {
+					'MTA NYCT_': {
+						stations: {
+							'': ''
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_' }
+				],
+			},
+			/**
+						{
+							source: { id: '', archive: 0 },
+							message: '',
+							stations: {
+								'MTA NYCT_': {
+									stations: {
+										'': ''
+									}
+								}
+							},
+							line: [
+								{ line: 'MTA NYCT_' }
+							],
+						},
+			*/
+		],
+
 	},
 };
 

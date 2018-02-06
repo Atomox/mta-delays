@@ -40,19 +40,19 @@ let event_messages = {
 				message: '9:45 PM to 11:45 PM, Mon to Thu, Jan 15 - 18 No [R] trains between Bay Ridge-95 St and 36 St, Brooklyn, due to track maintenance. Take free shuttle buses and the [N]. [R] service operates between 71 Av and 36 St, and via the [D] to/from 9 Av, the last stop. For 45 St, 53 St, and 59 St, take the [N] via transfer at 36 St. Free shuttle buses make all [R] stops between 59 St and Bay Ridge-95 St. Transfer between the [N] and shuttle buses at 59 St. 11:45 PM to 5 AM, Mon to Fri, Jan 15 - 19 No [R] trains running, due to track maintenance. Take free shuttle buses and the [N]. For service between Whitehall St and 59 St, take the [N]. Free shuttle buses make all [R] stops between 59 St and Bay Ridge-95 St. Transfer between the [N] and shuttle buses at 59 St. [AD] These service changes affect one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
 				route_change: {
 					tag: ['A-operates-then-overC'],
-					message: "[R] service operates between [Qs261-G08] and [Qs272-G20], and via the [D] to/from [Bk59-B12], the last stop.",
+					message: "[R] service operates between [Qs261-G08] and [Bk32-R36], and via the [D] to/from [Bk59-B12], the last stop.",
 					trains: ['R'],
 					route: [
 						{
 							lines: ["R"],
 							along: null,
 							from: 'Qs261-G08',
-							to: 'Qs272-G20',
+							to: 'Bk32-R36',
 						},
 						{
 							lines: ["R"],
 							along: "D",
-							from: 'Qs272-G20',
+							from: 'Bk32-R36',
 							to: 'Bk59-B12',
 						},
 					],
@@ -1410,7 +1410,7 @@ let event_messages = {
 						"no_trains_partial",
 						"signal_maintenance"
 					],
-					tag: ['MTAD-001', "MTAD-002", 'MTAD-009'],
+					tag: ['MTAD-001', /*"MTAD-002",*/ 'MTAD-009'],
 					time: null,
 					durration: "Weekend, 11:30 PM Fri to 5 AM Mon, Jan 26 - 29",
 					message: "SIGNAL MAINTENANCE [D] Service operates in two sections and is rerouted in Manhattan[F] [N] [Q] [R] trains and [SB] free shuttle buses provide alternate service Weekend, 11:30 PM Fri to 5 AM Mon, Jan 26 - 29 No [D] service at 7 Av , 47-50 Sts , 42 St-Bryant Pk , 34 St-Herald Sq , Grand St and DeKalb Av . [D] service operates in two sections: 1. Between 205 St and B'way-Lafayette St, and via the [F] to/from 2 Av, the last stop Trains run via the [A] local in both directions between 125 St and W 4 St. 2. Between Atlantic Av-Barclays Ctr and Stillwell Av Trains skip Union St, 4 Av-9 St, Prospect Av and 25 St in both directions. [SB] Buses operate between W 4 St and Grand St , stopping at B'way-Lafayette St . Show Shuttle Bus Stops Station Bus Stop Bus W 4 St [ad] [A] [C] [D] [E] [F] 6 Av at W 3 St M55 B'way-Lafayette St [ad] [D] [F] Houston St at Broadway M21 Grand St Grand St at Chrystie St -- Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [N] or [Q]. Transfer between [D] and [N] [Q] trains via the passageway at Times Sq-42 St/Port Authority. In Brooklyn, transfer between [D] and [N] [Q] trains at Atlantic Av-Barclays Ctr. Transfer between [N] [Q] and [F] at 34 St-Herald Sq. For 7 Av , take the [E] via transfer at Times Sq-42 St/Port Authority. For 47-50 Sts , 42 St-Bryant Pk and 34 St-Herald Sq take the [F]. Transfer between [D] and [F] trains at W 4 St. Transfer between [N] [Q] and [F] trains at 34 St-Herald Sq. For Grand St , take a [SB] bus via transfer at W 4 St or B'way-Lafayette St. For DeKalb Av , take the [N] [Q] or [R] instead via transfer at Atlantic Av-Barclays Ctr or Times Sq-42 St/Port Authority. For Union St , 4 Av-9 St, Prospect Av and 25 St , take the [N] or [R] instead. Transfer between [D] and [N] [R] trains at 36 St. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
