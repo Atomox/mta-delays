@@ -66,7 +66,7 @@ let event_messages = {
 				type_detail: [
 					"route_change",
 				],
-				tag: ["MTAD-014", "MTAD-001", 'MTAD-013'],
+				tag: ["MTAD-014", "MTAD-001", "MTAD-009", 'MTAD-013'],
 				time: null,
 				durration: 'WEEKEND 6:15 AM to 11:45 PM, Sat, Jan 13 8 AM to 10 PM, Sun, Jan 14',
 				message: 'WEEKEND 6:15 AM to 11:45 PM, Sat, Jan 13 8 AM to 10 PM, Sun, Jan 14 No [M] trains between Essex St and Broadway Junction, due to track replacement. Take the [J] instead. NIGHTS 9 PM to 12 midnight, Friday, Jan 12 No [M] trains between 71 Av and Essex St, due to signal improvements. Take the [E][R]. [M] service operates between Broadway Junction and Essex St, and is rerouted via the [J] to/from Chambers St. Trains stop at Bowery and Canal St. For B\'way-Lafayette St and stations along 6 Av, use nearby [N][Q][R] stations on Broadway. Transfer at Roosevelt Av [E]/[R], Times Sq-42 St/Port Authority [E]/[R], and/or Canal St M/R. All times until April 30, 2018 No [M] trains between Myrtle-Wyckoff Avs and Myrtle Av (Broadway), due to viaduct reconstruction. Take free shuttle buses. [M] service operates in two sections: 1. Between Essex St and Myrtle Av, and via the [J] to/from Broadway Junction, days/evenings*. 2. Between Metropolitan Av and Myrtle-Wyckoff Avs (trains run every 20 minutes, Sat and Sun, from 7:30 AM to 9:30 AM). Free shuttle buses operate between Myrtle-Wyckoff Avs and Myrtle Av. *Suspended this weekend. [AD] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
@@ -635,7 +635,7 @@ let event_messages = {
 					"no_trains_partial",
 					"electrical_improvements"
 				],
-				tag: ["MTAD-001", "MTAD-011"],
+				tag: ["MTAD-001", "MTAD-009", "MTAD-011"],
 				time: null,
 				durration: "Late Nights, 9:30 PM to 5 AM, Wed to Fri, Dec 27 - 29",
 				message: "ELECTRICAL IMPROVEMENTS [4] No trains between 149 St-Grand Concourse and 125 St[SB] Free shuttle buses provide alternate service Late Nights, 9:30 PM to 5 AM, Wed to Fri, Dec 27 - 29 [TP] [4] service operates in two sections: 1. Between 149 St-Grand Concourse and Woodlawn . 2. Between Crown Hts/New Lots Av and 125 St and via the [6] to/from 3 Av-138 St. [SB] Buses operate between 149 St-Grand Concourse and 3 Av-138 St , stopping at 138 St-Grand Concourse. Transfer between trains and [SB] buses at 149 St-Grand Concourse and/or 3 Av-138 St. Station Shuttle Bus Stop 149 St-Grand Concourse [2] [4] Grand Concourse at 149 St 138 St-Grand Concourse Grand Concourse at 138 St 3 Av-138 St [4] [6] Lincoln Av at 138 St [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
@@ -1410,7 +1410,7 @@ let event_messages = {
 						"no_trains_partial",
 						"signal_maintenance"
 					],
-					tag: ['MTAD-001', /*"MTAD-002",*/ 'MTAD-009'],
+					tag: ['MTAD-001', /*"MTAD-002",*/ "MTAD-009", 'MTAD-009'],
 					time: null,
 					durration: "Weekend, 11:30 PM Fri to 5 AM Mon, Jan 26 - 29",
 					message: "SIGNAL MAINTENANCE [D] Service operates in two sections and is rerouted in Manhattan[F] [N] [Q] [R] trains and [SB] free shuttle buses provide alternate service Weekend, 11:30 PM Fri to 5 AM Mon, Jan 26 - 29 No [D] service at 7 Av , 47-50 Sts , 42 St-Bryant Pk , 34 St-Herald Sq , Grand St and DeKalb Av . [D] service operates in two sections: 1. Between 205 St and B'way-Lafayette St, and via the [F] to/from 2 Av, the last stop Trains run via the [A] local in both directions between 125 St and W 4 St. 2. Between Atlantic Av-Barclays Ctr and Stillwell Av Trains skip Union St, 4 Av-9 St, Prospect Av and 25 St in both directions. [SB] Buses operate between W 4 St and Grand St , stopping at B'way-Lafayette St . Show Shuttle Bus Stops Station Bus Stop Bus W 4 St [ad] [A] [C] [D] [E] [F] 6 Av at W 3 St M55 B'way-Lafayette St [ad] [D] [F] Houston St at Broadway M21 Grand St Grand St at Chrystie St -- Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [N] or [Q]. Transfer between [D] and [N] [Q] trains via the passageway at Times Sq-42 St/Port Authority. In Brooklyn, transfer between [D] and [N] [Q] trains at Atlantic Av-Barclays Ctr. Transfer between [N] [Q] and [F] at 34 St-Herald Sq. For 7 Av , take the [E] via transfer at Times Sq-42 St/Port Authority. For 47-50 Sts , 42 St-Bryant Pk and 34 St-Herald Sq take the [F]. Transfer between [D] and [F] trains at W 4 St. Transfer between [N] [Q] and [F] trains at 34 St-Herald Sq. For Grand St , take a [SB] bus via transfer at W 4 St or B'way-Lafayette St. For DeKalb Av , take the [N] [Q] or [R] instead via transfer at Atlantic Av-Barclays Ctr or Times Sq-42 St/Port Authority. For Union St , 4 Av-9 St, Prospect Av and 25 St , take the [N] or [R] instead. Transfer between [D] and [N] [R] trains at 36 St. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
@@ -1565,6 +1565,83 @@ let event_messages = {
 				message: '[5] There is no service between Eastchester-Dyre Av and E 180 St in both directions because of ongoing signal problems at Eastchester-Dyre Av.Our crews are on scene working to fix it, we will follow up soon. There are free [SB] shuttle buses at the following bus stops:Toward Eastchester-Dyre Av:On Morris Park Av at E180 St - Bx21 StopOn Morris Park Av at Hone Av - Bx21 StopOn Williamsbridge Rd at Lydig AvOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn E Gunhill Rd at Knapp St - Bx28 StopOn Boston Rd at Baychester Av - Bx30 StopOn Dyre Av at Light St - Bx18 StopToward E 180 St:On Dyre Av at Light St - Bx18 StopOn Boston Rd at Baychester Av - Bx30 StopOn E Gunhill Rd at DeWitt Pl - Bx28 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Lydig AvOn Morris Park Av at Hone Av - Bx21 StopOn Morris Park Av at E180 St - Bx21 Stop',
 				alt_instructions: 'There are free [SB] shuttle buses at the following bus stops:Toward Eastchester-Dyre Av:On Morris Park Av at E180 St - Bx21 StopOn Morris Park Av at Hone Av - Bx21 StopOn Williamsbridge Rd at Lydig AvOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn E Gunhill Rd at Knapp St - Bx28 StopOn Boston Rd at Baychester Av - Bx30 StopOn Dyre Av at Light St - Bx18 StopToward E 180 St:On Dyre Av at Light St - Bx18 StopOn Boston Rd at Baychester Av - Bx30 StopOn E Gunhill Rd at DeWitt Pl - Bx28 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Lydig AvOn Morris Park Av at Hone Av - Bx21 StopOn Morris Park Av at E180 St - Bx21 Stop',
 			},
+      {
+        id: "MTA NYCT_173343",
+        date: { start: "2017-12-12T00:00:00-05:00",},
+        type_detail: [
+          "operate_sections",
+          "track_maintenance"
+        ],
+        tag: ['MTAD-009'],
+        durration: "Late Nights, 12:01 AM to 5 AM, Tue to Fri, Dec 12 - 15",
+        message: "TRACK MAINTENANCE [4] Service operates in two sections: 1. Between Woodlawn and 125 St 2. Between 125 St and New Lots Av Late Nights, 12:01 AM to 5 AM, Tue to Fri, Dec 12 - 15 Transfer at 125 St to continue your trip. Note: Trains from Manhattan skip 138 St-Grand Concourse.",
+        message_station_parse: "TRACK MAINTENANCE [4] Service operates in two sections: 1. Between [Bx378-401] and [Mn392-621] 2. Between [Mn392-621] and New Lots Av Late Nights, 12:01 AM to 5 AM, Tue to Fri, Dec 12 - 15 Transfer at [Mn392-621] to continue your trip. Note: Trains from Manhattan skip [Bx391-416].",
+        route_change: {
+          message: "[4] Service operates in two sections: 1. Between [Bx378-401] and [Mn392-621] 2. Between [Mn392-621]",
+          trains: [ ],
+          route: [ ],
+        },
+
+        line: [
+          { line: "MTA NYCT_4", dir: "0" },
+          { line: "MTA NYCT_4", dir: "1" }
+        ],
+      },
+      {
+      id: "MTA NYCT_173647",
+      date: {start: "2017-12-11T00:00:00-05:00"},
+      type_detail: [
+        "operate_sections",
+        "service_ends_early",
+        "route_change",
+        "no_trains_partial"
+      ],
+      tag: ['MTAD-009'],
+      durration: "Late Nights, 9:30 PM to 5 AM, Mon to Fri, Dec 11 - 15",
+      message: "FASTRACK PROGRAM [N] No trains in Manhattan [Q] Trains are rerouted in Manhattan [R] Service ends early in Manhattan and Queens Late Nights, 9:30 PM to 5 AM, Mon to Fri, Dec 11 - 15 [N] service operates in two sections : 1. Between Stillwell Av and Atlantic Av-Barclays Ctr , and via the [R] to/from Court St 2. Between Queensboro Plaza and Ditmars Blvd [Q] service operates between Stillwell Av and 96 St , and is rerouted as follows: Via the [D] between DeKalb Av and 47-50 Sts . Via the [F] between 47-50 Sts and Lexington Av/63 St . [W] service ends early. Travel Alternatives [TP] Take the [2] [4] [A] [D] [F] [Q] for service between Brooklyn and Manhattan. Take the [7] for service between Manhattan and Queens. Take the [M] and local [E] for service in Queens. Affected Station Nearby Station Whitehall St Bowling Green [4] [5] | [ad] South Ferry [1] | [ad] Rector St Rector St [1] Wall St [4] [5] Cortlandt St Fulton St [2] [3] [4] [5] [A] [C] [J] | [ad] City Hall Park Place [2] [3] Brooklyn Bridge [4] [5] [6] | [ad] Canal St [4] local , [6] Grand St [B] [D] [Q] Prince St Bleecker St/B'way-Lafayette St [4] local , [6] [B] [D] [F] [M] [Q] | [ad] Spring St [4] local , [6] 8 St-NYU Astor Pl [4] local , [6] 14 St-Union Sq [4] [6] [L] 14 St [F] 23 St 23 St [F] 23 St [4] local , [6] | [ad] 23 St [1] [2] local 28 St 28 St [4] local , [6] 28 St [1] [2] local 34 St-Herald Sq [B] [D] [F] [Q] | [ad] 34 St-Penn Station [1] [2] [3] | [ad] Times Sq-42 St/Port Authority [1] [2] [3] [7] [A] [C] [E] | [ad] (Passageway not accessible) 5 Av/42 St-Bryant Pk [7] [B] [D] [F] [M] [Q] 49 St 50 St [1] [2] local 47-50 Sts [B] [D] [F] [M] [Q] | [ad] 57 St-7 Av 7 Av [B] [D] [E] 5 Av/59 St 57 St [F] [Q] 59 St [4] [5] [6] 5 Av/53 St [E] [M] Lexington Av/59 St [4] [5] [6] Lexington Av/53 St [E] [M] | [ad] Lexington Av/63 St [F] [Q] | [ad] Key Transfer Stations Atlantic Av-Barclays Ctr [ad] [2] [3] [4] [B] [D] [N] [Q] [R] Jay St-MetroTech [ad] [A] [C] [F] [N] Court St/Borough Hall [2] [3] [4] [N] [ad] 2 , 3 , northbound 4 and 5 Bleecker St/ B'way-Lafayette St [ad] [4] local , [6] [B] [D] [F] [M] [Q] Times Sq-42 St/Port Authority [ad] (Passageway not accessible) [1] [2] [3] [7] [A] [C] [E] 5 Av/42 St-Bryant Pk [7] [B] [D] [F] [M] [Q] Queensboro Plaza [7] [N] Reminder: During late nights, all alternate stations are served, though not all lines run. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+      message_station_parse: "FASTRACK PROGRAM [N] No trains in Manhattan [Q] Trains are rerouted in Manhattan [R] Service ends early in Manhattan and Queens Late Nights, 9:30 PM to 5 AM, Mon to Fri, Dec 11 - 15 [N] service operates in two sections : 1. Between [Bk58-D43] and [Bk617-R31] , and via the [R] to/from [Bk620-R28] 2. Between [Qs461-718] and [Qs1-R01] [Q] service operates between [Bk58-D43] and [Mn475-Q05] , and is rerouted as follows: Via the [D] between [Bk26-R30] and [Mn225-D15] . Via the [F] between [Mn225-D15] and [Mn223-B08] . [W] service ends early. Travel Alternatives [TP] Take the [2] [4] [A] [D] [F] [Q] for service between Brooklyn and Manhattan. Take the [7] for service between Manhattan and Queens. Take the [M] and local [E] for service in Queens. Affected Station Nearby Station [Mn635-R27] [Mn414-420] [4] [5] | [ad] [Mn635-142] [1] | [ad] [Mn22-R26] [Mn22-R26] [1] [Mn333-230] [4] [5] [Mn21-R25] [Mn628-229] [2] [3] [4] [5] [A] [C] [J] | [ad] [Mn20-R24] [Mn624-228] [2] [3] [Mn622-640] [4] [5] [6] | [ad] [Mn623-R23] [4] local , [6] [Mn231-D22] [B] [D] [Q] [Mn17-R22] [Mn619-637]/[Mn619-D21] [4] local , [6] [B] [D] [F] [M] [Q] | [ad] [Mn409-638] [4] local , [6] [Mn16-R21] [Mn407-636] [4] local , [6] [Mn602-R20] [4] [6] [L] [Mn602-R20] [F] [Mn14-R19] [Mn14-R19] [F] [Mn14-R19] [4] local , [6] | [ad] [Mn14-R19] [1] [2] local [Mn13-R18] [Mn13-R18] [4] local , [6] [Mn13-R18] [1] [2] local [Mn607-R17] [B] [D] [F] [Q] | [ad] [Mn318-128] [1] [2] [3] | [ad] Times Sq-[Mn611-A27] [1] [2] [3] [7] [A] [C] [E] | [ad] (Passageway not accessible) [Mn609-724]/[Mn609-D16] [7] [B] [D] [F] [M] [Q] [Mn10-R15] [Mn316-126] [1] [2] local [Mn225-D15] [B] [D] [F] [M] [Q] | [ad] [Mn9-R14] [Bk41-D25] [B] [D] [E] [Mn8-R13] [Mn224-B10] [F] [Q] [Bk35-R41] [4] [5] [6] [Mn609-724]/[Bk34-R40] [E] [M] [Mn613-R11] [4] [5] [6] Lexington Av/[Bk34-R40] [E] [M] | [ad] [Mn223-B08] [F] [Q] | [ad] Key Transfer Stations [Bk617-R31] [ad] [2] [3] [4] [B] [D] [N] [Q] [R] [Bk636-R29] [ad] [A] [C] [F] [N] [Bk620-R28]/[Bk620-232] [2] [3] [4] [N] [ad] 2 , 3 , northbound 4 and 5 [Mn619-637]/ [Mn619-D21] [ad] [4] local , [6] [B] [D] [F] [M] [Q] Times Sq-[Mn611-A27] [ad] (Passageway not accessible) [1] [2] [3] [7] [A] [C] [E] [Mn609-724]/[Mn609-D16] [7] [B] [D] [F] [M] [Q] [Qs461-718] [7] [N] Reminder: During late nights, all alternate stations are served, though not all lines run. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+      route_change: {
+        message: "[Q] Trains are rerouted in Manhattan [R] ``` [N] service operates in two sections : 1. Between [Bk58-D43] and [Bk617-R31] , and via the [R] to/from [Bk620-R28] 2. Between [Qs461-718] and [Qs1-R01] [Q] service operates between [Bk58-D43] and [Mn475-Q05] , and is rerouted as follows: Via the [D] between [Bk26-R30] and [Mn225-D15] . Via the [F] between [Mn225-D15] and [Mn223-B08] . [W]",
+        trains: ["Q"],
+        route: [
+          {
+            allTrains: true,
+            dir: null,
+            exp_lcl: null,
+            lines: ["Q"],
+            along: null,
+            from: "Bk58-D43",
+            to: "Mn475-Q05"
+          },
+          {
+            allTrains: true,
+            dir: null,
+            exp_lcl: null,
+            lines: ["Q"],
+            along: "D",
+            from: "Bk26-R30",
+            to: "Mn225-D15"
+          },
+          {
+            allTrains: true,
+            dir: null,
+            exp_lcl: null,
+            lines: [ "Q" ],
+            along: "F",
+            from: "Mn225-D15",
+            to: "Mn223-B08"
+          }
+        ],
+      },
+      line: [
+          { line: "MTA NYCT_N", dir: "1" },
+          { line: "MTA NYCT_N", dir: "0" },
+          { line: "MTA NYCT_Q", dir: "1" },
+          { line: "MTA NYCT_Q", dir: "0" },
+          { line: "MTA NYCT_R", dir: "1" },
+          { line: "MTA NYCT_R", dir: "0" }
+        ],
+      },
 		],
 	},
 

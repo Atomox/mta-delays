@@ -607,7 +607,9 @@ function stationAliases(name, boro) {
 				'Morrison Av',
 				'SOund View',
 			],
-
+			'Bedford Park Blvd': [
+				'Bedford Pk Blvd',
+			],
 		},
 		SI: {},
 	};
