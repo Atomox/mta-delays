@@ -1,0 +1,328 @@
+{
+  "Siri": {
+    "$": {
+      "xmlns:ns2": "http://www.ifopt.org.uk/acsb",
+      "xmlns": "http://www.siri.org.uk/siri",
+      "xmlns:ns4": "http://datex2.eu/schema/1_0/1_0",
+      "xmlns:ns3": "http://www.ifopt.org.uk/ifopt"
+    },
+    "ServiceDelivery": [
+      {
+        "ResponseTimestamp": [
+          "2018-01-30T19:50:02.4556481-05:00"
+        ],
+        "SituationExchangeDelivery": [
+          {
+            "ResponseTimestamp": [
+              "2018-01-30T19:50:02.4556481-05:00"
+            ],
+            "Status": [
+              "true"
+            ],
+            "Situations": [
+              {
+                "PtSituationElement": [
+                  {
+                    "CreationTime": [
+                      "2018-01-30T19:41:36.453-05:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_414838e1-e5f6-4cb6-8531-30c3080d0086"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2018-01-30T19:40:00-05:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "Southbound [4] and [5] trains are running with delays because of signal problems at 86 St.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "Southbound [4] and [5] trains are running with delays because of signal problems at<STRONG> 86 St</STRONG>.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "Southbound [4] and [5] trains are running with delays because of signal problems at 86 St."
+                    ],
+                    "Planned": [
+                      "false"
+                    ],
+                    "ReasonName": [
+                      "Delays"
+                    ],
+                    "MessagePriority": [
+                      "2"
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_4"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_5"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "delayed"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "CreationTime": [
+                      "2018-01-30T19:46:24.263-05:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_75932f37-66cf-4c87-aa44-b3ee2e0ab5ad"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2018-01-30T18:57:00-05:00"
+                        ],
+                        "EndTime": [
+                          "2018-01-30T19:22:26.37-05:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "[B] and [D] trains have service changes and delays because of switch problems at 34 St-Herald Square.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "[B] and [D] trains are stopping along the [A] line in both directions between West 4 St-Washington Square and 59 St-Columbus Circle.Southbound [B] and [D] trains are stopping along the [F] line from West 4 St-Washington Square to Coney Island-Stillwell Av and end. Some southbound [F] trains are stopping along the [E] line from Jackson Heights-Roosevelt Av to Queens Plaza, then over the [G] line from Court Square to Bergen St. These service changes are because of switch problems at 34 St-Herald Sq.Expect delays in [A][B][C][D][E][F][G][M][R] train service in both directions.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "[B] and [D] trains are stopping along the [A] line in both directions between West 4 St-Washington Square and 59 St-Columbus Circle.Southbound [B] and [D] trains are stopping along the [F] line from West 4 St-Washington Square to Coney Island-Stillwell Av and end. Some southbound [F] trains are stopping along the [E] line from Jackson Heights-Roosevelt Av to Queens Plaza, then over the [G] line from Court Square to Bergen St. These service changes are because of switch problems at 34 St-Herald Sq.Expect delays in [A][B][C][D][E][F][G][M][R] train service in both directions."
+                    ],
+                    "Planned": [
+                      "false"
+                    ],
+                    "ReasonName": [
+                      "Delays"
+                    ],
+                    "MessagePriority": [
+                      "2"
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_A"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_A"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_B"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_B"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_C"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_C"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_D"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_D"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_E"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_E"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_F"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_F"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_M"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_M"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_R"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_R"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "delayed"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
