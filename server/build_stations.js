@@ -489,6 +489,10 @@ function stationAliases(name, boro) {
 				'Smith St',
 				'Smith St - 9 St',
 			],
+			'Jay St - MetroTech': [
+				'Jay St - Metro Tech',
+				'MatroTech',
+			],
 			'Atlantic Av - Barclays Ctr': [
 				'Atlantic Av-Barclays Center',
 				'Barclays Center',
