@@ -117,7 +117,7 @@ let event_messages = {
 				ad_message: null,
 				route_change: {
 					tag: ['AB-overC-end'],
-					message: "Some southbound [2] and [3] trains end at [Mn327-137] ``` Some southbound [2] and [3] trains are stopping along the [1] line from [Mn327-137] to [Mn635-142] then end. Southbound [4] and [5] trains end at [Mn414-420]",
+					message: "Some southbound [2] and [3] trains end at [Mn327-137] or [Mn333-230]. Some southbound [2] and [3] trains are stopping along the [1] line from [Mn327-137] to [Mn635-142] then end. Southbound [4] and [5] trains end at [Mn414-420] or [Mn622-640].",
 					trains: ['2','3'],
 					route: [
 						{
@@ -277,7 +277,9 @@ let event_messages = {
 						}
 					},
 					'MTA NYCT_4': {
-						stations: {}
+						stations: {
+              'Bk341-238': 'Eastern Pkwy-Brooklyn Museum',
+            }
 					},
 					'MTA NYCT_5': {
 						stations: {}
@@ -451,7 +453,7 @@ let event_messages = {
 				alt_instructions: 'Transfer between trains and [SB] buses at Franklin Av. Travel Alternatives [TP] Show Shuttle Bus Stops Station Shuttle Bus Stop Franklin Av  [2] [4] Eastern Pkwy at Franklin Av Nostrand Av [4] Nostrand Av at Eastern Pkwy (to Flatbush Av) Eastern Pkwy at Nostrand Av (to Franklin Av) President St Nostrand Av at Carroll St (to Flatbush Av) New York Av at Carroll St (to Franklin Av) Sterling St Nostrand Av at Lefferts Av (to Flatbush Av) New York Av at Empire Blvd (to Franklin Av) Winthrop St Nostrand Av at Winthrop St (to Flatbush Av) New York Av at Winthrop St (to Franklin Av) Church Av Nostrand Av at Church Av (to Flatbush Av) New York Av at Church Av (to Franklin Av) Beverly Rd Nostrand Av at Beverly Rd (to Flatbush Av) New York Av at Beverly Rd (to Franklin Av) Newkirk Av Nostrand Av at Newkirk Av (to Flatbush Av) New York Av at Avenue D (to Franklin Av) Flatbush Av Nostrand Av at Flatbush Av',
 				route_change: {
 					tag: ['A-operates-then-overC'],
-					message: "[2] service operates between [Bx416-201] and [Bk626-239], and via the [4] to/from [Bk345-250]. [SB]",
+					message: "[2] service operates between [Bx416-201] and [Bk626-239], and via the [4] to/from [Bk345-250].",
 					trains: [	"2"	],
 					route: [
 						{
@@ -686,7 +688,7 @@ let event_messages = {
 				ad_message: "[ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
         route_change: {
           tag: ['A-1-operates-2-operates-then-viaC'],
-          message: "[4] service operates in two sections: 1. Between [Bx603-415] and [Bx378-401]. 2. Between [Bk352-257] and [Mn392-621] and via the [6] to/from [Bx377-619].",
+          message: "[TP] [4] service operates in two sections: 1. Between [Bx603-222|Bx603-415] and [Bx378-401] . 2. Between [Bk345-250]/[Bk352-257] and [Mn439-225] and via the [6] to/from [Bx377-619].",
           trains:["4"],
           route: [
             {
@@ -1042,7 +1044,7 @@ let event_messages = {
 				},
 				route_change: {
 					tag: ['A-overC-thenD', 'A-overC-thenD-end'],
-					message: "[A] Trains run local and are rerouted between [Mn614-A24] and [Bk636-A41] [C] ``` [E] Trains are rerouted in Manhattan ``` [A] Trains make local stops and are rerouted in both directions as follows: Via the [D] between [Mn614-A24] and [Mn607-D17]. Via the [F] between [Mn607-D17] and [Bk636-A41]. [E] Trains are rerouted in both directions in Manhattan as follows: Via the [M] between [Mn276-F12] and [Mn607-D17]. Via the [F] between [Mn607-D17] and [Mn232-F14], the last stop. Travel",
+					message: "[A] Trains run local and are rerouted between [Mn614-A24] and [Bk636-A41] [C] ``` [E] Trains are rerouted in Manhattan ``` [A] Trains make local stops and are rerouted in both directions as follows: Via the [D] between [Mn614-A24] and [Mn607-D17|Mn607-R17]. Via the [F] between [Mn607-D17|Mn607-R17] and [Bk636-A41]. [E] Trains are rerouted in both directions in Manhattan as follows: Via the [M] between [Mn276-F12] and [Mn607-D17|Mn607-R17]. Via the [F] between [Mn607-D17|Mn607-R17] and [Mn232-F14], the last stop. Travel",
 					trains: ["E", "A"],
 					route: [
 						{
@@ -1284,7 +1286,7 @@ let event_messages = {
 				],
 				route_change: {
 					tag: ['A-overC-D-overE'],
-					message: "Southbound [2] trains are stopping along the [5] line from [Bx603-222] to [Bk337-234]. Some northbound [3] trains are stopping along the [1] line from [Mn310-120] to [Mn305-115] then end. Some northbound [3] trains end at [Mn611-127]. Some southbound [3] trains end at [Mn441-227].",
+					message: "Southbound [2] trains are stopping along the [5] line from [Bx603-222|Bx603-415] to [Bk337-234]. Some northbound [3] trains are stopping along the [1] line from [Mn310-120] to [Mn305-115] then end. Some northbound [3] trains end at [Mn611-127]. Some southbound [3] trains end at [Mn441-227].",
 					trains: [
 						"2",
 						"3"

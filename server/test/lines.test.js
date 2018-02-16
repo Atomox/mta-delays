@@ -81,7 +81,7 @@ function testStationLineRerouteObject(event) {
 		.then( data => (data.parsed_message) ? data : Promise.reject(event.message + 'has no stations!!!') )
 		.then( data => {
 			// Debug Parse Stations Message.
-			// console.log('\n\n', data, '\n\n');
+//			console.log('\n\n', data, '\n\n');
 
 			let m = mtaStatus.getRouteChange(data.parsed_message, event.line, true);
 			m.original_data = data;

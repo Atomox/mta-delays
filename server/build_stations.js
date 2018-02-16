@@ -191,6 +191,8 @@ function stationCommonName(name, boro) {
 			'161 St - Yankee Stadium': '161 St',
 			'149 St - Grand Concourse': '149 St',
 			'E 149 St': '149 St',
+			'138 St - Grand Concourse': '138 St',
+			'3 Av - 138 St': '138 St',
 		},
 		SI: {
 
@@ -553,6 +555,8 @@ function stationAliases(name, boro) {
 			'Crown Hts - Utica Av': [
 				'Crown Hts - Utica Av',
 				'Utica Av',
+				'Crown Hts',
+				'Crown Heights',
 			],
 			'Canarsie - Rockaway Pkwy': [
 				'Rockaway Pkwy',

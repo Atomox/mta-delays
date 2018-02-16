@@ -52,6 +52,9 @@ let archive_status = {
 		'mta_status.57.2018-02-05_-_weeknight_planned_work',
 		'mta_status.58.tuesday_morning_polic_activity',
 		'mta_status.59.morning_snow_and_delays',
+		'mta_status.60.weekend_-_fire_activty_and_route_change',
+		'mta_status.61.wednesday_morning_delays',
+		'mta_status.62.thursday_night-no_trains_between_qns_plza_jackson_hts',
 	],
 	path: './data/archive/',
 };

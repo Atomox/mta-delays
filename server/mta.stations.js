@@ -103,21 +103,29 @@ async function getStationsByLine() {
 }
 
 
-function getTrainRoute(line) {
+function getTrainRoute(line, include_all_times) {
 	if (!trainRoutes[line]) {	return Promise.reject(line + ' Line unavailable'); }
 
+	// If all lines are to be included,
+	// then merge in any found alternate time routes for this line.
+	let route = trainRoutes[line];
+
+	if (include_all_times === true && trainRoutes[line+'LN']) {
+		route = _.union(route, trainRoutes[line+'LN']);
+	}
+
 	return new Promise( (resolve, reject) => {
-		getStations(trainRoutes[line])
-		.then(data => Promise.resolve(filterStations(data, trainRoutes[line])) )
+		getStations()
+		.then(data => Promise.resolve(filterStations(data, route)) )
 		.then(data => resolve(data))
 		.catch(err => reject('Error fetching train route... ' + err) );
 	});
 }
 
 
-async function getRouteStationsArray(line, include_stats) {
+async function getRouteStationsArray(line, include_stats, include_late_night) {
 	try {
-		let data = await getTrainRoute(line);
+		let data = await getTrainRoute(line, true);
 		let my_result = {};
 		data.map( value => my_result[value.key] = (include_stats === true)
 			? value
@@ -156,7 +164,7 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 		line = getTrainById(line_id);
 
 		// Get all stations for this line.
-		let stations = await getRouteStationsArray(line, true);
+		let stations = await getRouteStationsArray(line, true, true);
 
 		// Get problem stations we should replace first.
 		let stations_first = problem_stations;
@@ -359,8 +367,11 @@ function processProblemStations (problem_results, results, message) {
 						return;
 					}
 */
+					let length_found_stations = [],
+						length_token_found = '';
+
 					// Check the next longest results for matches.
-					st_obj[i].map(stObj => {
+					st_obj[i].map( (stObj, j) => {
 						/**
 						 * @TODO -- If a single line matches MULTIPLE station names, we shouldn't bail early!
 						 *
@@ -374,6 +385,7 @@ function processProblemStations (problem_results, results, message) {
 							&& lines_found[stObj.line].sid !== stObj.sid) {
 								return;
 						}
+//						console.log('\n\n', i, '--', stObj);
 
 						// Make sure there is a place to put the result, if not already set.
 						if (!results[stObj.line]) { results[stObj.line] = {stations: []}; }
@@ -381,12 +393,28 @@ function processProblemStations (problem_results, results, message) {
 						// Push the winner back into it's line's stations list.
 						results[stObj.line].stations[stObj.sid] = stObj.found;
 
-						// Add station tokens to the already parsed message.
-						message = message.split(stObj.found).join('[' + stObj.sid +']');
+						// Store these until after we parse all of the same length.
+						length_found_stations.push(stObj.sid);
+
+						/**
+						 * @TODO -- What happens if this doesn't match the previous.
+						 *
+						 * Is that possible?
+						 */
+						length_token_found = stObj.found;
 
 						// Mark this line as found.
 						lines_found[stObj.line] = stObj;
 					});
+
+					if (length_found_stations.length > 0) {
+						// Did we have one or more results?
+						let length_token = '[' + _.uniq(length_found_stations).join('|') + ']';
+
+						// Add station tokens to the already parsed message.
+						message = message.split(length_token_found).join(length_token);
+					}
+
 				});
 			}
 		});
