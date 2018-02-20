@@ -41,7 +41,7 @@ describe ('Detect Train Lines', () => {
 	describe('MTAD-006 -- Detect Stations from Alternate Line', () => {
 		tests.routeTestByTag(m,c,'Off-Line Stations Should Map', ['MTAD-006'], ['MTAD-014']);
 	});
-	describe.skip('MTAD-009 -- Split Service Route Change', () => {
+	describe('MTAD-009 -- Split Service Route Change', () => {
 		tests.routeTestByTag(m,c,'A-1-operates-then-viaC-viaD-2-operates', ['MTAD-009'], null, ['A-1-operates-then-viaC-viaD-2-operates']);
 		tests.routeTestByTag(m,c,'A-1-operates-then-viaC-2-operates', ['MTAD-009'], null, ['A-1-operates-then-viaC-2-operates']);
 		tests.routeTestByTag(m,c,'A-1-operates-2-operates-then-viaC', ['MTAD-009'], null, ['A-1-operates-2-operates-then-viaC']);

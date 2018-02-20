@@ -50,6 +50,13 @@ const name_problems = {
 		'Mn619-D21', // Broadway-Lafayette St
 		'Bk286-G30', // Broadway
 	],
+	'Canal St': [
+		'Mn623-R23',
+		'Mn623-M20',
+		'Mn169-A34',
+		'Mn325-135',
+		'Mn623-639',
+	],
 
 //	'Clinton - Washington Avs': [
 //		'Bk177-A44',
