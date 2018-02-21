@@ -719,6 +719,37 @@ let event_messages = {
         },
 			},
 			{
+				id: "MTA NYCT_ce219234-4a05-4cb6-9902-61247a462a1b",
+				type: "Service Change",
+				date: { fetched: "2018-02-21T08:58:55.31-05:00", },
+				type_detail: [
+					"delays",
+					"illness",
+					"no_trains_partial",
+					'route_change',
+				],
+				tag: ['MTAD-001'],
+				message: "Southbound [2] trains will end at Chambers St.Southbound [3] trains are running along the [1] line from Chambers St to South Ferry.These service changes are because of a sick passenger at Clark St.Expect delays in [1], [2] and [3] train service.",
+				message_station_parse: "Southbound [2] trains will end at [Mn327-137].Southbound [3] trains are running along the [1] line from [Mn327-137] to [Mn635-142].These service changes are because of a sick passenger at [Bk334-231].Expect delays in [1], [2] and [3] train service.",
+				line: [
+				 	{ line: "MTA NYCT_1" },
+					{ line: "MTA NYCT_3" }
+				],
+				route_change: {
+					tag: ['A-overC'],
+					message: "Southbound [3] trains are running along the [1] line from [Mn327-137] to [Mn635-142].",
+					trains: ['3'],
+					route: [
+						{
+							lines: ['3'],
+							along: "1",
+							from: 'Mn327-137',
+							to: 'Mn635-142',
+						},
+					],
+				},
+			},
+			{
 				type: 'ServiceChange',
 				type_detail: [
 					"delays",
