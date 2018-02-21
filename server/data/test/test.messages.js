@@ -453,7 +453,7 @@ let event_messages = {
 				alt_instructions: 'Transfer between trains and [SB] buses at Franklin Av. Travel Alternatives [TP] Show Shuttle Bus Stops Station Shuttle Bus Stop Franklin Av  [2] [4] Eastern Pkwy at Franklin Av Nostrand Av [4] Nostrand Av at Eastern Pkwy (to Flatbush Av) Eastern Pkwy at Nostrand Av (to Franklin Av) President St Nostrand Av at Carroll St (to Flatbush Av) New York Av at Carroll St (to Franklin Av) Sterling St Nostrand Av at Lefferts Av (to Flatbush Av) New York Av at Empire Blvd (to Franklin Av) Winthrop St Nostrand Av at Winthrop St (to Flatbush Av) New York Av at Winthrop St (to Franklin Av) Church Av Nostrand Av at Church Av (to Flatbush Av) New York Av at Church Av (to Franklin Av) Beverly Rd Nostrand Av at Beverly Rd (to Flatbush Av) New York Av at Beverly Rd (to Franklin Av) Newkirk Av Nostrand Av at Newkirk Av (to Flatbush Av) New York Av at Avenue D (to Franklin Av) Flatbush Av Nostrand Av at Flatbush Av',
 				route_change: {
 					tag: ['A-operates-then-overC'],
-					message: "[2] service operates between [Bx416-201] and [Bk626-239], and via the [4] to/from [Bk345-250].",
+					message: "[2] service operates between [Bx416-201] and [Bk626-239], and via the [4] to/from [Bk345-250]. [SB]",
 					trains: [	"2"	],
 					route: [
 						{
@@ -688,7 +688,7 @@ let event_messages = {
 				ad_message: "[ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
         route_change: {
           tag: ['A-1-operates-2-operates-then-viaC'],
-          message: "[4] __operates-section-1__ Between [Bx603-222|Bx603-415] and [Bx378-401] . ```[4] __operates-section-2__ Between [Bk345-250]/[Bk352-257] and [Mn439-225] and via the [6] to/from [Bx377-619].",
+          message: "[4] __operates-section-1__ Between [Bx603-222|Bx603-415] and [Bx378-401] . ```[4] __operates-section-2__ Between [Bk345-250]/[Bk352-257] and [Mn439-225] and via the [6] to/from [Bx377-619]. [SB]",
           trains:["4"],
           route: [
             {
