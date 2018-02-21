@@ -55,6 +55,9 @@ let archive_status = {
 		'mta_status.60.weekend_-_fire_activty_and_route_change',
 		'mta_status.61.wednesday_morning_delays',
 		'mta_status.62.thursday_night-no_trains_between_qns_plza_jackson_hts',
+		'mta_status.63.saturday-planned-work',
+		'mta_status.64.holiday_weeknight',
+		'mta_status.65.weekday_morning_problems',
 	],
 	path: './data/archive/',
 };
