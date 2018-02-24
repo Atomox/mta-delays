@@ -14,9 +14,11 @@ class RouteChange extends React.Component {
 		let routes = this.props.routeInfo.route.map(r => {
       try {
 
-        let line_change = true;
-        let lcl = false;
-        let exp = false;
+        let line_change = true,
+          lcl = false,
+          exp = false,
+          pre = null,
+          action = null;
 
 
         // Along null is running on same line between stations.
@@ -33,12 +35,12 @@ class RouteChange extends React.Component {
           }
         }
 
-  			let trains = r.lines.map(t => {
-  					return <TrainLine
-  						key={_.uniqueId('train-' + mta.getlineById(t))}
-  						line={mta.getlineById(t)}
-  						dir='both' />;
-  			});
+  			let trains = r.lines.map(t => (
+          <TrainLine
+  					key={_.uniqueId('train-' + mta.getlineById(t))}
+  					line={mta.getlineById(t)}
+  					dir='both' />
+          ));
 
   			let along = (line_change)
           ? (<TrainLine
@@ -58,16 +60,18 @@ class RouteChange extends React.Component {
   					sid={r.to}/>
   			);
 
+        if (line_change) {      action = 'via the'; }
+//        else if (r.section) {   action = 'section ' + r.section; }
+        else if (lcl || exp) {  action = 'run ' + r.exp_lcl; }
+        else {                  action = 'run'; }
+
+        pre = (r.section) ? '(' + r.section + ')' : null;
+
+        console.log(r.lines, r);
+
   			return (
           <div key={_.uniqueId()}>
-            {trains}
-            {(line_change)
-              ? 'via the'
-              : (lcl || exp)
-                ? 'run ' + r.exp_lcl
-                :'run'
-            }
-            {(line_change) ? along : ''} from {from} until {to}.
+            { pre } { trains } { action } { line_change && along } from {from} until {to}.
           </div>
   			);
       }

@@ -58,6 +58,8 @@ let archive_status = {
 		'mta_status.63.saturday-planned-work',
 		'mta_status.64.holiday_weeknight',
 		'mta_status.65.weekday_morning_problems',
+		'mta_status.66.weeknight_work_multiple_sections',
+		'mta_status.67.friday_afternoon_planned_work',
 	],
 	path: './data/archive/',
 };
