@@ -471,7 +471,7 @@ async function getRouteChange(text, lines, id) {
 	let c = await getMessageRouteChange(text),
 			op,
 			operate_sections = false,
-			reroute_pattern = /(Some)?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b.*\b[\s-]bound)?\s*\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b.*\b[\s-]bound)?\s*(?:(?:trains(?:\s*are\s*(?:rerouted)?)?)|(?:([^`\[\]]*service\s*operates\s*b\s*etween|[^`\[\]]*No\s*service\s*b\s*etween|\[__operates-section-[0-9]__\]\s*(?:between)?)\s*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])[^\[\]`]*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])))[^\[\]`]*(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s*)+(?:\[((?!\3\4)[A-Z0-9])\]|run(?:ning)?\s*(express|local))[^\/\[\]`]*(to\/from|to|\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])(?:)[^\[\]`]*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])(?:\s*\(skipping.*\)\s*)?[\.,\s]*(?:(?:(?:and|then)?\s*(?:stopping\s)?(?:via|along|over)+ the|\s)+(\[(?!\3\4)[A-Z0-9]\])?[^\[\]`]*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\]|to\/from|to)(?:[^\[\]`]*(?:(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])[\.]?))?)?/i,
+			reroute_pattern = /((Some)?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b.*\b[\s-]bound)?\s*\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b.*\b[\s-]bound)?\s*(?:(?:trains(?:\s*are\s*(?:rerouted)?)?)|(?:([^`\[\]]*service\s*operates\s*b\s*etween|[^`\[\]]*No\s*service\s*b\s*etween|\[__operates-section-[0-9]__\]\s*(?:between)?)\s*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])[^\[\]`]*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])))[^\[\]`]*)((?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s*)+(?:\[((?!\3\4)[A-Z0-9])\]|run(?:ning)?\s*(express|local))[^\/\[\]`]*(to\/from|to|\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])(?:)[^\[\]`]*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])(?:\s*\(skipping.*\)\s*)?[\.,\s]*)((?:(?:(?:and|then)?\s*(?:stopping\s)?(?:via|along|over)+ the|\s)+(\[(?!\3\4)[A-Z0-9]\])?[^\[\]`]*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\]|to\/from|to)(?:[^\[\]`]*(?:(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])[\.]?))?)?)/i,
 			operate_sections_pattern = /\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:\[__operates-section-([0-9])__\]\s*(?:between)?)\s*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])[^\[\]`]*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\]))+/i;
 
 	// @TODO -- Normal Route Change Detect /(Some\s)?(Northbound|Southbound)?\s*\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:trains(?:\s*are\s*rerouted)?)|(?:[^`\[\]]*(service\s*operates\s*b\s*etween|No\s*service\s*b\s*etween)\s*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]))?)[^\[\]`]*(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+\[([A-Z0-9])\][^\/\[\]`]*(to\/from|to|\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:)[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s*\(skipping.*\)\s*)?[\.,\s]*(?:(?:(?:and|then)?\s*(?:stopping\s)?(?:via|along|over)+ the|\s)+(\[(?!\3\4)[A-Z0-9]\])?[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)(?:[^\[\]`]*(?:(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[\.]?))?)?/i;
@@ -534,21 +534,22 @@ async function getRouteChange(text, lines, id) {
 				}
 
 				// Normal Route Change Match.
-				else if (c.results[0] && c.results[3]) {
+				else if (c.results[0] && c.results[4]) {
 					// First line in message == second reroute line, then we might be overreaching our SINGLE MESSAGE.
-					if (c.results[3] === c.results[11]) {
+					if (c.results[4] === c.results[15]) {
 						console.warn('\n\n\n\nWe should replace part of this message! We may be stealing part of another message!',c.results ,'\n\n\n\n\n');
 					}
 
 					// Check the results, and add them if we find anything valid.
-					let my_results = await processRouteChangeResults(c.results);
+					let my_results = await processRouteChangeResults(c.results, c.message_mod);
 					if (my_results.route && my_results.route.length > 0) {
 						my_results.route.map(m => c.route.push(m) );
 						c.trains = _.uniq(c.trains.concat(my_results.trains));
+						c.message_mod = my_results.message_mod;
 					}
 
 					// Removed the match from the picture, so we can move on in the next iteration.
-					c.message_mod = c.message_mod.replace(c.results[0],'[-- route-match --]');
+//					c.message_mod = c.message_mod.replace(c.results[0],'[-- route-match --]');
 				}
 			}
 		}
@@ -574,17 +575,18 @@ async function getRouteChange(text, lines, id) {
  *   2 arrays: route (all matches as route_objects),
  *   and trains (all lines found).
  */
-async function processRouteChangeResults(regex_match) {
+async function processRouteChangeResults(regex_match, message_mod) {
 
 //	console.log('\n -- ', regex_match, '\n\n');
 
 	let results = {
 		route: [],
 		trains: [],
+		message_mod: message_mod
 	};
 
 	// Did we have at least one train match? (Normal)
-	if (regex_match[3] !== undefined) {
+	if (regex_match[4] !== undefined) {
 
 		let section = null,
 			route_pair = {
@@ -593,27 +595,30 @@ async function processRouteChangeResults(regex_match) {
 
 		// Positions:
 		// 0: FULL Match
-		// 1: All/Some
-		// 2: Northbound/Southbound
-		// 3,4: Affected Lines
-		// 5. Direction
-		// 6: Message (unimportant)
-		// 7,8: Operating between these stations (own line)
-		// 9: Reroute Line 1
-		// 10: express/local
-		// 11,12: Rereoute 1 stations
-		// 13: Reroute line 2
-		// 14, 15: Rereoute 2 stations.
+		// 1: Pattern 1 Match
+		// 2: All/Some
+		// 3: Northbound/Southbound
+		// 4,5: Affected Lines
+		// 6. Direction
+		// 7: Message (unimportant)
+		// 8,9: Operating between these stations (own line)
+		// 10: Pattern 2 Match
+		// 11: Reroute Line 1
+		// 12: express/local
+		// 13,14: Rereoute 1 stations
+		// 15: Pattern 3 Match
+		// 16: Reroute line 2
+		// 17, 18: Rereoute 2 stations.
 
 		// Possible Routes Start at:
-		// Operates: 7,8
-		// First: 9-12
-		// Second: 13-15
+		// Operates: 8,9
+		// First: 10-14
+		// Second: 15-18
 
 		regex_match.map((item, i) => {
 
 			// When we have express, 9 will be empty, but we need to execute logic in 9.
-			if (i == 9 && !item && regex_match[10]) {
+			if (i == 11 && !item && regex_match[12]) {
 				/**
 				 *
 				 * @TODO....
@@ -621,7 +626,7 @@ async function processRouteChangeResults(regex_match) {
 				 */
 			}
 			else if (i == 0 || !item) { return; };
-			let j = (i <= 8 ) ? 0 : (i <= 12) ? 1 : 2;
+			let j = (i <= 9 ) ? 0 : (i <= 14) ? 1 : 2;
 
 			if (!route_pair.route[j]) {
 				route_pair.route.push({
@@ -637,31 +642,39 @@ async function processRouteChangeResults(regex_match) {
 			}
 			switch (i) {
 				case 1:
+				case 10:
+				case 15:
+					route_pair.route[j].parsed = item;
+					break;
+
+				case 2:
 					// Some trains? We check for SOME, so if matched, then FALSE.
 					route_pair.route[j].allTrains == (item) ? false : true;
 					break;
-				case 2:
-				case 5:
+
+				case 3:
+				case 6:
 					// Direction of trains?
 					route_pair.route[j].dir == item;
 					break;
-				case 3:  // Operates between, so along = self
-				case 4:
+
+				case 4:  // Operates between, so along = self
+				case 5:
 					// Affected Lines.
 					results.trains.push(unwrapTrain(item));
 					route_pair.route[j].lines.push(unwrapTrain(item));
 					break;
 
-				case 6:
+				case 7:
 					if (item.indexOf('[__operates-section-') !== -1) {
 						section = item.split('[__operates-section-')[1].substring(0,1);
 						route_pair.route[j].section = section;
 					}
 					break;
 
-				case 7: // from
-				case 11:
-				case 14:
+				case 8: // from
+				case 13:
+				case 17:
 					route_pair.route[j].from = unwrapTrain(item);
 
 					// Possible structures:
@@ -682,32 +695,54 @@ async function processRouteChangeResults(regex_match) {
 					}
 					break;
 
-				case 9:  // First reroute
-				case 13: // Second reroute
+				case 11:  // First reroute
+				case 16: // Second reroute
 					route_pair.route[j].along = (item) ? unwrapTrain(item) : null;
 					route_pair.route[j].lines = route_pair.route[j-1].lines;
 					break;
 
-				case 8:
-				case 12:
-				case 15:
+				case 9:
+				case 14:
+				case 18:
 					route_pair.route[j].to = unwrapTrain(item);
 					route_pair.route[j].to = unwrapTrain(item);
 					break;
 
-				case 10:
+				case 12:
 					route_pair.route[j].exp_lcl = (item) ? item : null;
 					break;
 
 			}
 		});
 
+		let match_flag_last = false;
+
 		// Push the results onto our final guy.
 		for (let t in route_pair.route) {
 			let r = route_pair.route[t];
+
 			if (r.from && r.to && r.lines.length > 0) {
 				let res = await analyzeStationArray(r);
+
+				// Removed the match from the picture, so we can move on in the next iteration.
+				results.message_mod = results.message_mod.replace(r.parsed,'[-- route-match ' + t + ' --]');
+
+				// Sometimes the first match will not have enough info to be saved,
+				// because the next route object contains the rest of it. In this case,
+				// when we hit a match in t = 1, go back to t = 0,
+				// and replace the match.
+				if (t === '1' && match_flag_last === false) {
+					// Removed the match from the picture, so we can move on in the next iteration.
+					results.message_mod = results.message_mod.replace(route_pair.route[t-1].parsed,'[-- route-match ' + (t-1) + ' --]');
+
+					res.parsed = route_pair.route[t-1].parsed + res.parsed;
+				}
+
 				results.route.push(res);
+				match_flag_last = true;
+			}
+			else {
+				match_flag_last = false;
 			}
 		};
 	}
