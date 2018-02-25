@@ -1635,6 +1635,15 @@ let event_messages = {
 								to: "Mn232-F14",
 								section: 1
 							},
+							{
+								allTrains: true,
+								dir: null,
+								lines: ["D"],
+								along: "A",
+								from: "Mn153-A15",
+								to: "Mn167-A32",
+								section: 1
+							},
               {
 								allTrains: true,
 								dir: null,
@@ -1642,7 +1651,7 @@ let event_messages = {
 								along: null,
 								from: "Bk617-R31",
 								to: "Bk58-D43",
-								section: 2
+								section: 2,
 							}
 						]
 					},

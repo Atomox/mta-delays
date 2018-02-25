@@ -42,10 +42,10 @@ describe ('Detect Train Lines', () => {
 		tests.routeTestByTag(m,c,'Off-Line Stations Should Map', ['MTAD-006'], ['MTAD-014']);
 	});
 	describe('MTAD-009 -- Split Service Route Change', () => {
-		tests.routeTestByTag(m,c,'A-1-operates-then-viaC-viaD-2-operates', ['MTAD-009'], null, ['A-1-operates-then-viaC-viaD-2-operates']);
-		tests.routeTestByTag(m,c,'A-1-operates-then-viaC-2-operates', ['MTAD-009'], null, ['A-1-operates-then-viaC-2-operates']);
-		tests.routeTestByTag(m,c,'A-1-operates-2-operates-then-viaC', ['MTAD-009'], null, ['A-1-operates-2-operates-then-viaC']);
 		tests.routeTestByTag(m,c,'A-1-operates-2-operates', ['MTAD-009'], null, ['A-1-operates-2-operates']);
+		tests.routeTestByTag(m,c,'A-1-operates-then-viaC-2-operates', ['MTAD-009'], null, ['A-1-operates-then-viaC-2-operates']);
+		tests.routeTestByTag(m,c,'A-1-operates-then-viaC-viaD-2-operates', ['MTAD-009'], null, ['A-1-operates-then-viaC-viaD-2-operates']);
+		tests.routeTestByTag(m,c,'A-1-operates-2-operates-then-viaC', ['MTAD-009'], null, ['A-1-operates-2-operates-then-viaC']);
 	});
 	describe('MTAD-010 -- Route Change, then end.', () => {
 		tests.routeTestByTag(m,c,'AB-overC-end', ['MTAD-001'], null, ['AB-overC-end']);
