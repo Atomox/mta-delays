@@ -547,10 +547,18 @@ async function getRouteChange(text, lines, id) {
 						c.trains = _.uniq(c.trains.concat(my_results.trains));
 						c.message_mod = my_results.message_mod;
 					}
-
-					// Removed the match from the picture, so we can move on in the next iteration.
-//					c.message_mod = c.message_mod.replace(c.results[0],'[-- route-match --]');
 				}
+			}
+
+			if (c.route.length > 1) {
+				// c.route.map()
+				//
+				// @TODO -- Order results by line.
+				//
+				//    If we have multiple results, order them by:
+				//    	1. c.route[i].lines,
+				//    	2. c.route[i].section
+				//
 			}
 		}
 
@@ -630,8 +638,8 @@ async function processRouteChangeResults(regex_match, message_mod) {
 
 			if (!route_pair.route[j]) {
 				route_pair.route.push({
-					allTrains: (regex_match[1]) ? false : true,
-					dir: (regex_match[2] ? regex_match[2].toLowerCase() : null),
+					allTrains: (regex_match[2]) ? false : true,
+					dir: (regex_match[3] ? regex_match[3].toLowerCase() : null),
 					exp_lcl: null,
 					lines: [],
 					along: null,
@@ -649,13 +657,13 @@ async function processRouteChangeResults(regex_match, message_mod) {
 
 				case 2:
 					// Some trains? We check for SOME, so if matched, then FALSE.
-					route_pair.route[j].allTrains == (item) ? false : true;
+					route_pair.route[j].allTrains = (item) ? false : true;
 					break;
 
 				case 3:
 				case 6:
 					// Direction of trains?
-					route_pair.route[j].dir == item;
+					route_pair.route[j].dir = item;
 					break;
 
 				case 4:  // Operates between, so along = self

@@ -65,7 +65,11 @@ class RouteChange extends React.Component {
         else if (lcl || exp) {  action = 'run ' + r.exp_lcl; }
         else {                  action = 'run'; }
 
-        pre = (r.section) ? '(' + r.section + ')' : null;
+        pre = (r.section) ? '(' + r.section + ')' : '';
+
+        if (r.allTrains === false) {
+          pre += ' ' + 'Some';
+        }
 
         console.log(r.lines, r);
 
