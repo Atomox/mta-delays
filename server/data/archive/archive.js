@@ -60,6 +60,9 @@ let archive_status = {
 		'mta_status.65.weekday_morning_problems',
 		'mta_status.66.weeknight_work_multiple_sections',
 		'mta_status.67.friday_afternoon_planned_work',
+		'mta_status.68.friday_night_planned_work',
+		'mta_status.69.thursday_morning_planned_work',
+		'mta_status.70.weeknight_planned_work',
 	],
 	path: './data/archive/',
 };
