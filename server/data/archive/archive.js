@@ -63,6 +63,10 @@ let archive_status = {
 		'mta_status.68.friday_night_planned_work',
 		'mta_status.69.thursday_morning_planned_work',
 		'mta_status.70.weeknight_planned_work',
+		'mta_status.71.friday_morning_reroutes',
+		'mta_status.72.March-03-weekend_planned_work',
+		'mta_status.73.sunday_night_-_person_struck_by_train',
+		'mta_status.74.March_5_-_monday_morning_interruptions_and_planned_work',
 	],
 	path: './data/archive/',
 };
