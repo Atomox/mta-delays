@@ -63,7 +63,8 @@ class RouteChange extends React.Component {
           ? r.in
           : null;
 
-        if (line_change) {      action = 'via the'; }
+        if (r.action === 'replace') { action = 'replace the'; }
+        else if (line_change) {      action = 'via the'; }
 //        else if (r.section) {   action = 'section ' + r.section; }
         else if (lcl || exp) {  action = 'run ' + r.exp_lcl; }
         else {                  action = 'run'; }
