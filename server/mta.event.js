@@ -683,7 +683,6 @@ async function processRouteChangeResults(regex_match, message_mod) {
 				case 8: // from
 				case 13:
 				case 17:
-					route_pair.route[j].from = unwrapTrain(item);
 
 					// Possible structures:
 					// 1. A over B  from [station] to [station] then C to [station],
@@ -695,6 +694,13 @@ async function processRouteChangeResults(regex_match, message_mod) {
 					if (item.indexOf('to') !== -1) {
 						route_pair.route[j].from = route_pair.route[j-1].to;
 						route_pair.route[j].to = unwrapTrain(item);
+					}
+					else if (item.indexOf('express') !== -1
+						|| item.indexOf('local') !== -1) {
+						route_pair.route[j].exp_lcl = (item) ? item : null;
+					}
+					else {
+						route_pair.route[j].from = unwrapTrain(item);
 					}
 
 					if (!regex_match[i+1]) {
@@ -712,8 +718,15 @@ async function processRouteChangeResults(regex_match, message_mod) {
 				case 9:
 				case 14:
 				case 18:
-					route_pair.route[j].to = unwrapTrain(item);
-					route_pair.route[j].to = unwrapTrain(item);
+					if (item.indexOf('Manhattan') !== -1
+						|| item.indexOf('Queens') !== -1
+						|| item.indexOf('Brooklyn') !== -1
+						|| item.indexOf('the Bronx') !== -1) {
+						route_pair.route[j].in = item;
+					}
+					else {
+						route_pair.route[j].to = unwrapTrain(item);
+					}
 					break;
 
 				case 12:
@@ -729,7 +742,7 @@ async function processRouteChangeResults(regex_match, message_mod) {
 		for (let t in route_pair.route) {
 			let r = route_pair.route[t];
 
-			if (r.from && r.to && r.lines.length > 0) {
+			if (((r.from && r.to) || r.in) && r.lines.length > 0) {
 				let res = await analyzeStationArray(r);
 
 				// Removed the match from the picture, so we can move on in the next iteration.
@@ -846,6 +859,7 @@ async function analyzeStationArray(r) {
 	let keys = ['from', 'to'];
 
 	for (let i in keys) {
+		if (!r[keys[i]]) { continue; }
 		// Analyze stations with multiples
 		if (r[keys[i]].indexOf('|') !== -1) {
 			r[keys[i]] = r[keys[i]].split('|');

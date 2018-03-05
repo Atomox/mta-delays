@@ -59,6 +59,9 @@ class RouteChange extends React.Component {
   					line={_.union([r.along],r.lines)}
   					sid={r.to}/>
   			);
+        let boro_general = (r.in)
+          ? r.in
+          : null;
 
         if (line_change) {      action = 'via the'; }
 //        else if (r.section) {   action = 'section ' + r.section; }
@@ -75,7 +78,16 @@ class RouteChange extends React.Component {
 
   			return (
           <div key={_.uniqueId()}>
-            { pre } { trains } { action } { line_change && along } from {from} until {to}.
+            { pre } { trains } { action } { line_change && along }
+
+            { // No stations, just "in Boro".
+              boro_general &&
+              <span>in { boro_general }. </span> }
+
+            { // Normal Stations from/to.
+              !boro_general &&
+              <span>from {from} until {to}.</span> }
+
           </div>
   			);
       }
