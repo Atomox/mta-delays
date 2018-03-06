@@ -2406,6 +2406,107 @@
                         ]
                       }
                     ]
+                  },
+                  {
+                    "CreationTime": [
+                      "2018-03-05T21:32:44.527-05:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_63dfdc1a-b2a9-4fc3-9381-ceb4bcee0747"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2018-03-05T16:03:00-05:00"
+                        ],
+                        "EndTime": [
+                          "2018-03-05T22:00:00-05:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "[D], [N] and [R] train service has resumed following earlier signal problems at 36 (Bklyn).",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "Southbound D trains are running local from Atlantic Av-Barclays Ctr to 36 St (Bklyn). Some southbound N are stopping along the Q line from DeKalb Av to Coney Island-Stillwell Av Southbound N trains are stopping along the R line running local from Canal St to 59 St (Bklyn). These service changes are because of signal problems at 36 St (Bklyn). Expect delays in D, N, Q and R train service.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "Southbound [D] trains are running local from Atlantic Av-Barclays Ctr to 36 St (Bklyn). Some southbound [N] are stopping along the [Q] line from DeKalb Av to Coney Island-Stillwell Av Southbound [N] trains are stopping along the [R] line running local from Canal St to 59 St (Bklyn). These service changes are because of signal problems at 36 St (Bklyn). Expect delays in [D], [N], [Q] and [R] train service."
+                    ],
+                    "Planned": [
+                      "false"
+                    ],
+                    "ReasonName": [
+                      "Delays"
+                    ],
+                    "MessagePriority": [
+                      "2"
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_D"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_N"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_R"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "delayed"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }

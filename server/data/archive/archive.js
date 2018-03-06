@@ -67,6 +67,7 @@ let archive_status = {
 		'mta_status.72.March-03-weekend_planned_work',
 		'mta_status.73.sunday_night_-_person_struck_by_train',
 		'mta_status.74.March_5_-_monday_morning_interruptions_and_planned_work',
+		'mta_status.75.Monday_Weeknight_-_Planned_Work',
 	],
 	path: './data/archive/',
 };

@@ -351,6 +351,8 @@ function stationAliases(name, boro) {
 			],
 			'Essex St': [
 				'Delancy St/Essex St',
+				'Delancey-Essex Sts',
+				'Delancey-Essex St',
 			],
 			'World Trade Center': [
 				'World Trade Ctr',
@@ -550,6 +552,7 @@ function stationAliases(name, boro) {
 				'36 St , Brooklyn',
 			],
 			'59 St': [
+				'59 St , Brooklyn',
 				'59 St (Bklyn)',
 			],
 			'Crown Hts - Utica Av': [
