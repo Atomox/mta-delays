@@ -138,6 +138,85 @@ async function getRouteStationsArray(line, include_stats, include_late_night) {
 }
 
 
+function prepareBunchedStationNames(txt) {
+	if (!txt || typeof txt !== 'string'
+	|| (txt.indexOf('Sts') === -1 && txt.indexOf('Avs') === -1)) {
+		return txt;
+	}
+
+//	console.log('\n\n\n', 'We *may* have bunching STS or AVS!', '\n');
+
+	let bunch_pattern = /(?:(?:\b[A-Z0-9\-]+\b\s*)(?:,|and)\s*)+(?:\b[A-Z0-9\-]*\b)\s*(Sts|Avs)/i,
+		conjunction_pattern = /\b(?:and)\b/i,
+		replace_holder = txt;
+
+	for (let i = 0; i < 6; i++) {
+
+		let matches = mtaRegEx.matchRegexString(bunch_pattern, replace_holder, true),
+			original_match = matches[0],
+			target = (matches[1]) ? matches[1] : null,
+			found_conjunction = false;
+
+		if (!target) {
+			break;
+		}
+
+		let results = [];
+
+		matches = matches[0];
+
+		// Remove Avs or Sts from the results, so we can append all equally later.
+		matches = matches.replace(target, '');
+
+		// Remove any conjunctions, and treat like a comma.
+		if (matches.search(conjunction_pattern) !== -1) {
+			found_conjunction = true;
+			matches = matches.replace(conjunction_pattern, ',');
+		}
+
+		results = matches.split(',').map( s => {
+			s = s.trim();
+
+			// If we snipped a piece of another station at the beginning,
+			// include it, but do not change it.
+			if (['st', 'av', 'pl', 'pkwy', 'blvd'].indexOf(s.toLowerCase()) !== -1 ) {
+				return s;
+			}
+			// Sts in normal name.
+			else if (['47-50', '174-175', '182-183', 'delancey-essex', 'hoyt-schermerhorn', 'smith-9'].indexOf(s.toLowerCase()) !== -1 ) {
+				return s + ' ' + 'Sts';
+			}
+			// Avs in normal name
+			else if (['myrtle-wyckoff', 'clinton-washington', 'kingston-throop', 'myrtle-willoughby', 'bedford-nostrand', ''].indexOf(s.toLowerCase()) !== -1 ) {
+				return s + ' ' + 'Avs';
+			}
+			else {
+				if (target.toLowerCase() === 'sts') { s = s + ' ' + 'St'; }
+				if (target.toLowerCase() === 'avs') { s = s + ' ' + 'Av'; }
+				return s;
+			}
+		});
+
+//		console.log('\n', ' - Group', i, ': ', results);
+		results = results.join(', ');
+
+//		console.log('\n', ' - Before: ', '\n', replace_holder, '\n');
+//		console.log('\n', ' - Target: ', original_match);
+//		console.log('\n', ' - Replace: ', results);
+
+		txt = txt.replace(original_match, results);
+		replace_holder = replace_holder.replace(original_match, '[--match-' + i + '--]');
+
+//		console.log('\n', ' - Tokens: ', '\n', replace_holder, '\n');
+	}
+
+//	console.log('\n', ' - Final: ', '\n', txt, '\n\n\n');
+
+
+	return txt;
+}
+
+
 /**
  * Match a single line's stations against the text of an event message.
  *
@@ -249,6 +328,10 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 async function matchAllLinesRouteStationsMessage(lines, message, processed_message) {
 
 	if (!processed_message) { processed_message = message; }
+
+	// Do any prep to unravel bunched station/street names,
+	// like '42, 33, 23, and 14 Sts'.
+	processed_message = prepareBunchedStationNames(processed_message);
 
 	let result = {
 		stations: {},

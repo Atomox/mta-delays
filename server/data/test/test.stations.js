@@ -929,6 +929,46 @@ let stations = {
 	},
 };
 
+/**
+
+All examples up to archive #55.
+
+---NO---
+- between DeKalb Av and 47-50 Sts No at 7 Av , 47-50 Sts (NO)
+- No trains between Bedford-Nostrand Avs and Church Av
+- trains skip 170 St, 174-175 Sts and 182-183 Sts
+- trains skip 170 St and 174-175 Sts
+
+---PROBLEMA---
+-[F] service at 21 St-Queensbridge , Roosevelt Island , Lexington Av/63 St , 57, 47-50 Sts , 42 St-Bryant Pk , 34 St-Herald Sq , 23 , 14 , B'way-Lafayette Sts , 2 Av , Delancey St , East Broadway and York St.
+- Buses make stops at Beach 90 , Beach 67 , Beach 60 , Beach 44 , Beach 36 , Beach 25 Sts and Mott Av .
+- [6] Pelham Bay Park-bound trains skip Canal, Spring, Bleecker Sts, Astor Pl, 23, 28 and 33 Sts
+- Trains stop at DeKalb Av, Jay St-MetroTech, Court, Whitehall, Rector, Cortlandt Sts and City Hall.
+- [F] Trains skip Bergen St, Carroll St and Smith-9 Sts
+
+---YES---
+- [2] No Wakefield-bound service at Bronx Park East , Pelham Pkwy , Allerton , Burke Avs , 219 , 225 , 233 Sts and Nereid Av .
+- [1] South Ferry-bound trains skip 238, 231, 225, 215 and 207 Sts
+- [4] [6] Trains skip 116, 110, 103, 96, 77, 68 and 51 Sts in both directions
+-  [6] Pelham Bay Park-bound trains skip Canal, Spring, Bleecker Sts, Astor Pl, 23, 28 and 33 Sts
+- [6] Brooklyn Bridge-bound trains skip 33, 28, 23 Sts, Astor Pl, Bleecker, Spring and Canal Sts
+- [A] Inwood-bound trains skip 72, 81, 86, 96, 103, 110, 116, 135, 155 and 163 Sts
+- [A] Ozone Park/Far Rockaway-bound trains skip 163, 155, 135, 116, 110, 103, 96, 86, 81 and 72 Sts
+- No [E] service at Queens Plaza , Court Sq-23 St , Lexington Av/53 St, 5 Av/53 St , 7 Av , 50 , 42 , 34 , 23 , 14 , Spring , Canal Sts and World Trade Center.
+- No [A] [C] service at Spring , Canal , Chambers , Fulton and High Sts
+- No Crown Hts-bound service at Bedford Park Blvd , Kingsbridge Rd , Fordham Rd , 183 St , 176 St , Mt Eden Av , 170 , 167 and 161 Sts
+- Express trains make local stops in both directions at 33, 40, 46, 52, 69 and 74 Sts Rush Hours
+- stopping at 65 St, Northern Blvd, 46, Steinway, 36 Sts
+- No [G] service at Bergen , Carroll , Smith-9 Sts , 4 Av-9 St , 7 Av , 15 St-Prospect Park , Fort Hamilton Pkwy and Church Av
+- [N] Astoria-bound trains make local stops at 53, 45, 36, 25 Sts, Prospect Av, 4 Av-9 St and Union St
+- [N] Trains stop at 49, 28, 23, 8, Prince Sts, City Hall, Cortlandt, Rector, Whitehall, Court Sts, Jay St-MetroTech, and DeKalb Av.
+- [N] Trains stop at City Hall, Cortlandt, Rector, Whitehall, Court Sts, Jay St-MetroTech, DeKalb Av, Atlantic Av-Barclays Ctr, Union St, 4 Av-9 St, Prospect Av, 25, 36, 45 and 53 Sts.
+- [E] Trains stop at 36, Steinway, 46 Sts, Northern Blvd, 65 St, Roosevelt, Elmhurst, Grand Avs, Woodhaven Blvd, 63 Dr and 67 Av.
+- [R] trains skip 28, 23, 8 and Prince Sts.
+
+ */
+
+
 
 module.exports = {
 	stations,

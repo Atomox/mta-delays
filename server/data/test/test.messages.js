@@ -73,7 +73,7 @@ let event_messages = {
 				parsed_message: 'WEEKEND 6:15 AM to 11:45 PM, Sat, Jan 13 8 AM to 10 PM, Sun, Jan 14 No [M] trains between [Mn625-M18] and [Bk621-J27], due to track replacement. Take the [J] instead. NIGHTS 9 PM to 12 midnight, Friday, Jan 12 No [M] trains between [Qs261-G08] and [Mn625-M18], due to signal improvements. Take the [E][R]. [M] service operates between [Qs4-R05] Junction and Essex St, and is rerouted via the [J] to/from [Mn622-M21]. Trains stop at [Mn103-M19] and [Mn623-M20]. For [Mn619-D21] and stations along 6 Av, use nearby [N]/[Q]/[R] stations on Broadway. Transfer at [Qs616-G14] [E]/[R], Times Sq-[Mn611-A27] [E]/[R], and/or [Mn169-A34] M/R. All times until April 30, 2018 No [M] trains between [Bk630-M08] and [Bk97-M11] (Broadway), due to viaduct reconstruction. Take free shuttle buses. [M] service operates in two sections: 1. Between Essex St and [Bk97-M11], and via the [J] to/from Broadway Junction, days/evenings*. 2. Between Metropolitan Av and Myrtle-Wyckoff Avs (trains run every 20 minutes, Sat and Sun, from 7:30 AM to 9:30 AM). Free shuttle buses operate between Myrtle-Wyckoff Avs and Myrtle Av. *Suspended this weekend. [AD] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
 				route_change: {
 					tag: ['A-operates-then-overC', 'A-1-operates-then-viaC-2-operates'],
-					message: "[M] service operates between [Bk621-J27] and [Mn625-M18], and is rerouted via the [J] to/from [Mn622-M21]. ```[M] [__operates-section-1__] Between [Mn625-M18] and [Bk97-M11], and via the [J] to/from [Bk621-J27], days/evenings*. ```[M] [__operates-section-2__] Between [Qs108-M01] and [Bk630-M08] ``` operate between [Bk630-M08] and [Bk97-M11]. *",
+					message: "[M] service operates between [Bk621-J27] and [Mn625-M18], and is rerouted via the [J] to/from [Mn622-M21]. ```[M] [__operates-section-1__] Between [Mn625-M18] and [Bk97-M11], and via the [J] to/from [Bk621-J27], days/evenings*. ```[M] [__operates-section-2__] Between [Qs108-M01], [Bk630-M08] ``` operate between [Bk630-M08] and [Bk97-M11]. *",
 					trains: ['M'],
 					route: [
 						{
@@ -399,7 +399,25 @@ let event_messages = {
 				type_detail: null,
 				time: null,
 				durration: 'Weekend , Saturday, Dec 23',
+				tag: ['MTAD-040'],
 				message: 'TRACK MAINTENANCE [C] 168 St-bound trains skip Spring St, 23 St and 50 St. Weekend , Saturday, Dec 23 For service to Spring and 23 Sts, take the [C] to W 4 or 34 St-Penn Station and transfer to a downtown [C] or [E]. For service to 50 St, transfer to the [E] at 42 St/Port Authority. For service from these stations, take the [C] or [E] to 42 St/Port Authority, 14 or Canal Sts and transfer to a 168 St-bound [C].',
+				parsed_message: 'TRACK MAINTENANCE [C] [Mn605-A09]-bound trains skip [Mn168-A33], [Mn165-A30] and [Mn162-A25]. Weekend , Saturday, Dec 23 For service to [Mn168-A33], [Mn165-A30], take the [C] to W 4 or [Mn164-A28] and transfer to a downtown [C] or [E]. For service to [Mn162-A25], transfer to the [E] at [Mn611-A27]. For service from these stations, take the [C] or [E] to [Mn611-A27], 14 or [Mn169-A34]s and transfer to a [Mn605-A09]-bound [C].',
+				stations: {
+					'MTA NYCT_C': {
+						stations: {
+							'Mn605-A09': '168 St',
+							'Mn165-A30': '23 St',
+							'Mn168-A33': 'Spring St',
+							'Mn162-A25': '50 St',
+							'Mn611-A27': '42 St',
+							'Mn164-A28': '34 St',
+							'Mn169-A34': 'Canal St',
+						}
+					}
+				},
+				line: [
+					{line: 'MTA NYCT_C'},
+				],
 			},
 			{
 				type: "PlannedWork",
@@ -429,6 +447,7 @@ let event_messages = {
 				type: "PlannedWork",
 				type_detail: null,
 				time: null,
+				tags: ['MTAD-040'],
 				durration: 'Late Nights, 9:45 PM Tue to 5 AM Wed, Dec 5 - 6                     9:45 PM Thu to 5 AM Fri, Dec 7 - 8',
 				message: 'SIGNAL MAINTENANCE [6] Brooklyn Bridge-bound trains skip 33, 28, 23 Sts, Astor Pl, Bleecker, Spring and Canal Sts Late Nights, 9:45 PM Tue to 5 AM Wed, Dec 5 - 6                     9:45 PM Thu to 5 AM Fri, Dec 7 - 8 For service to these stations, take the [6] to 14 St-Union Sq or Brooklyn Bridge and transfer to an uptown [4] local or [6]. For service from these stations, take the [4] or [6] to 14 St-Union Sq or Grand Central-42 St and transfer to a Brooklyn Bridge-bound [6]. Alternate travel note: For service from Canal St, take the [J] to Chambers St-Brooklyn Bridge.   [ad]  This service change affects one or more ADA accessible stations. Please call 511 for help with planning<br>your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.',
 				alt_instructions: 'For service to these stations, take the [6] to 14 St-Union Sq or Brooklyn Bridge and transfer to an uptown [4] local or [6]. For service from these stations, take the [4] or [6] to 14 St-Union Sq or Grand Central-42 St and transfer to a Brooklyn Bridge-bound [6]. Alternate travel note: For service from Canal St, take the [J] to Chambers St-Brooklyn Bridge.',
@@ -499,7 +518,7 @@ let event_messages = {
 				type_detail: [
 					'route_change',
 				],
-				tag: ["MTAD-014", "MTAD-001"],
+				tag: ["MTAD-014", "MTAD-001", "MTAD-040"],
 				time: 'Transfer between [A] trains and [SB] buses at Beach 90 St .',
 				durration: 'Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4',
 				message: 'TRACK REPLACEMENT [A] No trains between Broad Channel and Mott Av [SB] Free shuttle buses provide alternate service Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4 [A] service operates between 207 St and Broad Channel , and replace the [S] to/from Beach 116 St . [SB] Buses make stops at Beach 90 , Beach 67 , Beach 60 , Beach 44 , Beach 36 , Beach 25 Sts and Mott Av . &bull; Transfer between [A] trains and [SB] buses at Beach 90 St . Show Shuttle Bus Stops Station Shuttle Bus Stop Bus Mott Av Beach 22 St at Station Entrance &mdash; Beach 25 St Beach Channel Dr at Beach 25 St &mdash; Beach 36 St Beach Channel Dr at Beach 35 St (to Mott Av) Q22 Beach Channel Dr at 36 St (to Beach 90 St) Q22 Beach 44 St Beach Channel Dr at Beach 44 St Q22 Beach 60 St Beach Channel Dr at Beach 59 St Q22 Beach 67 St Beach Channel Dr at Beach 67 St Q22 Beach 90 St [A] Rockaway Beach Blvd at Beach 88 St Q22 Note: Service to/from Lefferts Blvd is not affected. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.',
@@ -548,6 +567,7 @@ let event_messages = {
 				type: 'PlannedWork',
 				type_detail: null,
 				time: '',
+				tags: ['MTAD-040'],
 				durration: 'Weekend , Saturday and Sunday, Nov 25 - 26',
 				message: 'TRACK REPLACEMENT [C] 168 St-bound trains skip Spring St, 23 St and 50 St  Weekend , Saturday and Sunday, Nov 25 - 26 For service to Spring St, take the [C] to W 4 St and transfer to a Euclid Av-bound [C]. For service from this station, take the [C] to Canal St and transfer to a 168 St-bound [C]. For service to 23 and 50 Sts, transfer to the [E] at 14 St or 42 St/Port Authority. For service from 23 or 50 Sts, take the [E] to 42 St/Port Authority and transfer to a 168 St-bound [C].',
 				alt_instructions: 'For service to Spring St, take the [C] to W 4 St and transfer to a Euclid Av-bound [C]. For service from this station, take the [C] to Canal St and transfer to a 168 St-bound [C]. For service to 23 and 50 Sts, transfer to the [E] at 14 St or 42 St/Port Authority. For service from 23 or 50 Sts, take the [E] to 42 St/Port Authority and transfer to a 168 St-bound [C].',
@@ -564,6 +584,7 @@ let event_messages = {
 				type: 'PlannedWork',
 				type_detail: null,
 				time: null,
+				tags: ['MTAD-040'],
 				durration: 'Days, 9:30 AM to 4 PM, Mon  and  Tue, Nov 27 - 28',
 				message: 'SIGNAL MAINTENANCE  [S] Rockaway Park Shuttle - No trains running [A] trains and [SB] free shuttle buses provide alternate service  Days, 9:30 AM to 4 PM, Mon  and  Tue, Nov 27 - 28     [SB] Buses operate between  Beach 67 St [A]  and  Beach 116 St , stopping at Beach 90,  Beach 98 and Beach 105 Sts.   Transfer between [A] trains and [SB] buses at Beach 67 St.     Show Shuttle Bus Stops        Station   Shuttle Bus Stop',
 				alt_instructions: 'Transfer between [A] trains and [SB] buses at Beach 67 St.     Show Shuttle Bus Stops        Station   Shuttle Bus Stop',
@@ -573,6 +594,7 @@ let event_messages = {
 				type: 'PlannedWork',
 				type_detail: null,
 				time: null,
+				tags: ['MTAD-040'],
 				durration: 'Days, 9:45 AM to 3:30 PM, Tue to Fri, Dec 26 - 29',
 				message: 'ELECTRICAL IMPROVEMENTS [1] South Ferry-bound trains skip 238, 231, 225, 215 and 207 Sts Days, 9:45 AM to 3:30 PM, Tue to Fri, Dec 26 - 29 For service to these stations, take the [1] to Dyckman St and transfer to a 242 St-bound [1]. For service from 238 St , walk or take the Bx9 bus to 242 St and transfer to a South Ferry-bound [1]. For service from 231 , 225 and 215 Sts , take the [1] to 242 St and transfer to a South Ferry-bound [1]. For service from 207 St , take the [A] at nearby 207 St-Broadway. Transfer to the [1] at 168 St. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.',
 				alt_instructions: 'For service to these stations, take the [1] to Dyckman St and transfer to a 242 St-bound [1]. For service from 238 St , walk or take the Bx9 bus to 242 St and transfer to a South Ferry-bound [1]. For service from 231 , 225 and 215 Sts , take the [1] to 242 St and transfer to a South Ferry-bound [1]. For service from 207 St , take the [A] at nearby 207 St-Broadway. Transfer to the [1] at 168 St.',
@@ -581,6 +603,7 @@ let event_messages = {
 				type: 'PlannedWork',
 				type_detail: null,
 				time: null,
+				tags: ['MTAD-040'],
 				durration: 'Late Nights, 9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29',
 				message: 'ELECTRICAL IMPROVEMENTS [1] South Ferry-bound trains skip 137, 125, 116, 110 and 103 Sts Late Nights, 9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29 For service to these stations, take the [1] to 96 St and transfer to a Van Cortlandt Park-bound [1]. For service from these stations, take the [1] to 168 St* and transfer to a South Ferry-bound [1]. *Transfer at 145 St with Unlimited Ride MetroCard .',
 				alt_instructions: 'For service to these stations, take the [1] to 96 St and transfer to a Van Cortlandt Park-bound [1]. For service from these stations, take the [1] to 168 St* and transfer to a South Ferry-bound [1]. *Transfer at 145 St with Unlimited Ride MetroCard .',
@@ -614,7 +637,7 @@ let event_messages = {
 				route_change: {
 					tag: ['A-overC'],
 					message_raw: "[E] trains are rerouted in both directions via the [F] between Jackson Hts-Roosevelt Av and West 4 St",
-					message: "[E] trains are rerouted in both directions via the [F] between [Qs616-G14] and [Mn167-A32] * [E] trains run local between [Qs261-G08] and [Qs221-B04] ``` [M] Shuttle trains operate all times between [Qs108-M01] and [Bk630-M08] . [M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18] . ``` [7] stopping",
+					message: "[E] trains are rerouted in both directions via the [F] between [Qs616-G14] and [Mn167-A32] * [E] trains run local between [Qs261-G08] and [Qs221-B04] ``` [M] Shuttle trains operate all times between [Qs108-M01], [Bk630-M08] . [M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18] . ``` [7] stopping",
 					trains: ["E"],
 					route: [
 						{
@@ -1426,7 +1449,7 @@ let event_messages = {
 						"no_trains_partial",
 						"route_change",
 					],
-					tag: ["MTAD-014", "MTAD-001", "MTAD-027"],
+					tag: ["MTAD-014", "MTAD-001", "MTAD-027", 'MTAD-040'],
 					time: null,
 					durration: "Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9",
 					message: "[C] No trains between W 4 St and Euclid Av [A] [E] trains and [SB] buses provide alternate service Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9 [C] service operates between 168 St and W 4 St , and via the [F] to/from 2 Av , the last stop . [A] trains make all [C] stops between Utica Av and Euclid Av. [SB] Buses make all [C] stops between Jay St-MetroTech and Utica Av. Travel Alternatives [TP] For Spring, Canal, and Chambers Sts , take the [E] instead. Transfer between trains at W 4 St. For Fulton St , use the nearby World Trade Center [E] Station . Transfer between trains at W 4 St. For High St , use the nearby York St [F] station instead. [SB] Buses make all stops between Jay St-MetroTech and Utica Av . Transfer between [A] and [C] trains at W 4 St. Transfer between [A] trains and shuttle buses at Jay St-MetroTech and/or Utica Av . Show Shuttle Bus Stops Station Shuttle Bus Stop Jay St-MetroTech [ad] [A] [F] [R] Jay St at Willoughby St Hoyt-Schermerhorn Sts [G] Schermerhorn St at Bond St Lafayette Av Lafayette Av at Ft Greene Pl (to Utica Av) Fulton St at S Portland Av (to Utica Av) Fulton St at Ft Greene Pl (to Jay St-MetroTech) Fulton St at Greene Av (to Jay St-MetroTech) Clinton-Washington Avs Fulton St at Clinton Av Franklin Av [ad] [S] Fulton St at Franklin Av Nostrand Av Fulton St at Nostrand Av Kingston-Throop Avs Fulton St at Kingston Av Utica Av [ad] [A] Fulton St at Stuyvesant Av Note: Late night Lefferts Shuttle replaced by [A] service between Utica Av and Lefferts Blvd.",
@@ -1550,7 +1573,7 @@ let event_messages = {
 					message_station_parse: "FASTRACK PROGRAM [N] No trains in Manhattan [Q] Trains are rerouted in Manhattan [R] Service ends early in Manhattan and Queens Late Nights, 9:30 PM to 5 AM, Mon to Fri, Dec 11 - 15 [N] service operates in two sections : 1. Between [Bk58-D43] and [Bk617-R31] , and via the [R] to/from [Bk620-R28] 2. Between [Qs461-718] and [Qs1-R01] [Q] service operates between [Bk58-D43] and [Mn475-Q05] , and is rerouted as follows: Via the [D] between [Bk26-R30] and [Mn225-D15] . Via the [F] between [Mn225-D15] and [Mn223-B08] . [W] service ends early. Travel Alternatives [TP] Take the [2] [4] [A] [D] [F] [Q] for service between Brooklyn and Manhattan. Take the [7] for service between Manhattan and Queens. Take the [M] and local [E] for service in Queens. Affected Station Nearby Station [Mn635-R27] [Mn414-420] [4] [5] | [ad] [Mn635-142] [1] | [ad] [Mn22-R26] [Mn22-R26] [1] [Mn333-230] [4] [5] [Mn21-R25] [Mn628-229] [2] [3] [4] [5] [A] [C] [J] | [ad] [Mn20-R24] [Mn624-228] [2] [3] [Mn622-640] [4] [5] [6] | [ad] [Mn623-R23|Mn325-135|Mn623-639|Mn169-A34|Mn623-M20] [4] local , [6] [Mn231-D22] [B] [D] [Q] [Mn17-R22] [Mn619-637]/[Mn619-D21] [4] local , [6] [B] [D] [F] [M] [Q] | [ad] [Mn409-638] [4] local , [6] [Mn16-R21] [Mn407-636] [4] local , [6] [Mn602-R20] [4] [6] [L] [Mn602-R20] [F] [Mn14-R19] [Mn14-R19] [F] [Mn14-R19] [4] local , [6] | [ad] [Mn14-R19] [1] [2] local [Mn13-R18] [Mn13-R18] [4] local , [6] [Mn13-R18] [1] [2] local [Mn607-R17|Mn607-D17] [B] [D] [F] [Q] | [ad] [Mn318-128|Mn164-A28] [1] [2] [3] | [ad] Times Sq-[Mn611-A27] [1] [2] [3] [7] [A] [C] [E] | [ad] (Passageway not accessible) [Mn609-724]/[Mn609-D16] [7] [B] [D] [F] [M] [Q] [Mn10-R15] [Mn316-126|Bk61-B14|Mn162-A25] [1] [2] local [Mn225-D15] [B] [D] [F] [M] [Q] | [ad] [Mn9-R14] [Bk41-D25] [B] [D] [E] [Mn8-R13] [Mn224-B10] [F] [Q] [Bk35-R41] [4] [5] [6] [Mn609-724]/[Bk34-R40] [E] [M] [Mn613-R11] [4] [5] [6] Lexington Av/[Bk34-R40] [E] [M] | [ad] [Mn223-B08] [F] [Q] | [ad] Key Transfer Stations [Bk617-R31] [ad] [2] [3] [4] [B] [D] [N] [Q] [R] [Bk636-R29] [ad] [A] [C] [F] [N] [Bk620-R28]/[Bk620-232] [2] [3] [4] [N] [ad] 2 , 3 , northbound 4 and 5 [Mn619-637]/ [Mn619-D21] [ad] [4] local , [6] [B] [D] [F] [M] [Q] Times Sq-[Mn611-A27] [ad] (Passageway not accessible) [1] [2] [3] [7] [A] [C] [E] [Mn609-724]/[Mn609-D16] [7] [B] [D] [F] [M] [Q] [Qs461-718] [7] [N] Reminder: During late nights, all alternate stations are served, though not all lines run. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 					route_change: {
 						tag: ['A-1-operates-then-viaC-2-operates'],
-						message: "[Q] Trains are rerouted in Manhattan [R] ```[N] [__operates-section-1__] Between [Bk58-D43] and [Bk617-R31] , and via the [R] to/from [Bk620-R28] ```[N] [__operates-section-2__] Between [Qs461-718] and [Qs1-R01] [Q] service operates between [Bk58-D43] and [Mn475-Q05] , and is rerouted as follows: Via the [D] between [Bk26-R30] and [Mn225-D15] . Via the [F] between [Mn225-D15] and [Mn223-B08] . [W]",
+						message: "[Q] Trains are rerouted in Manhattan [R] ```[N] [__operates-section-1__] Between [Bk58-D43] and [Bk617-R31] , and via the [R] to/from [Bk620-R28] ```[N] [__operates-section-2__] Between [Qs461-718] and [Qs1-R01] [Q] service operates between [Bk58-D43] and [Mn475-Q05] , and is rerouted as follows: Via the [D] between [Bk26-R30], [Mn225-D15] . Via the [F] between [Mn225-D15] and [Mn223-B08] . [W]",
 						trains: ["N"],
 						route: [
 							{
@@ -1620,9 +1643,6 @@ let event_messages = {
 						{ line: "MTA NYCT_Q"},
 						{ line: "MTA NYCT_R"}
 					],
-
-
-
 				},
 				{
 					id: "MTA NYCT_177051",
@@ -1692,7 +1712,7 @@ let event_messages = {
 					date: {
 						start: "2018-01-27T00:00:00-05:00",
 					},
-					tag: ['MTAD-002'],
+					tag: ['MTAD-002', 'MTAD-040'],
 					type: null,
 					type_detail: [
 						"running_express",
@@ -1783,6 +1803,44 @@ let event_messages = {
 						{ line: "MTA NYCT_R", dir: "1" }
 					],
 				},
+				{
+					id: "MTA NYCT_179620",
+					archive: 78,
+					date: {
+						fetched: "2018-02-20T00:00:00-05:00",
+					},
+/**
+    @TODO
+			
+*/
+
+					tag: ['MTAD-040'],
+
+					type: null,
+					type_detail: [
+						"running_local",
+						"general_maintenance"
+					],
+					time: null,
+					durration: "until Mar 9",
+					message: "STRUCTURAL IMPROVEMENTS [7D] Express trains make local stops in both directions at 33, 40, 46, 52, 69 and 74 Sts Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9 Please allow additional travel time.",
+					message_station_parse: "STRUCTURAL IMPROVEMENTS [7D] Express trains make local stops in both directions at [Qs460-716], [Qs459-715], [Qs458-714], [Qs457-713], [Qs455-711], [Qs616-710] Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9 Please allow additional travel time.",
+					stations: {
+						"MTA NYCT_7": {
+							"stations": {
+								"Qs616-710": "74 St",
+								"Qs460-716": "69 St",
+								"Qs459-715": "52 St",
+								"Qs458-714": "46 St",
+								"Qs457-713": "40 St",
+								"Qs455-711": "33 St",
+							}
+						}
+					},
+					line: [
+						{	line: "MTA NYCT_7", dir: "1" },
+					],
+				}
 		],
 
 		complex: [

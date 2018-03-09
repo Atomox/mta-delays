@@ -54,6 +54,11 @@ describe('Parse Stations', function() {
 		tests.stationMessageTestByTag(event_messages.normal, CheckStationsParseMessageForExpected, 'Multiple Spellings Check', ['MTAD-024']);
 	});
 
+	describe('MTAD-040 -- 34, 42, 50, 59 and 66 Sts', () => {
+
+		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Basic Bunched Stations Check', ['MTAD-040']);
+	});
+
 	describe.skip('MTAD-004 -- Identify Multiple Stations with the same name.', () => {
 		it('36 St', () => { });
 	});
@@ -136,6 +141,8 @@ function CheckStationsListForExpected (event) {
 	return mtaStations.
 		matchAllLinesRouteStationsMessage(event.line, event.message)
 		.then( data => {
+
+			console.log('\n\n', event, '\n', '.....................', data, '\n\n');
 
 			let results = false;
 			let mocha_msg = event.message;

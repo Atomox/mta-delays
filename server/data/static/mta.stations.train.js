@@ -359,19 +359,20 @@ let routes = {
 
 	],
 	'7D': [
-		/**
-		 *
-		 *  @TODO
-		 *
-		 *
-		 */
+		// "Flushing" -- "Qs", "Mn"
+		'Qs447-701',  // "Flushing - Main St"
+		'Qs448-702',  // "Mets - Willets Point"
+		'Qs451-707',  // "Junction Blvd"
+		'Qs456-712',  // "Woodside - 61 St"
 
-
-
-
-
-
-
+		'Qs461-718',  // "Queensboro Plaza"
+		'Qs606-719',  // "Court Sq"
+		'Qs463-720',  // "Hunters Point Av"
+		'Qs464-721',  // "Vernon Blvd - Jackson Av"
+		'Mn610-723',  // "Grand Central - 42 St"
+		'Mn609-724',  // "5 Av"
+		'Mn611-725',  // "Times Sq - 42 St"
+		'Mn471-726',  // "34 St - 11 Av"
 
 	],
 	7: [

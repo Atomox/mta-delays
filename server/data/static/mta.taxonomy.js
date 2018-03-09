@@ -152,6 +152,9 @@ const taxonomy = {
 		'electrical_repairs': [
 			'electrical repairs'
 		],
+		'equipment_testing': [
+			'EQUIPMENT TESTING',
+		],
 		'track_maintenance': [
 			'TRACK MAINTENANCE',
 			'TRACK REPLACEMENT',
