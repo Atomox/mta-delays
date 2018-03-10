@@ -359,6 +359,9 @@ function stationAliases(name, boro) {
 				'World Trade',
 				'WTC',
 			],
+			'Whitehall St': [
+				'Whitehall St-South Ferry',
+			],
 			'Park Pl': [
 				'Park Place'
 			],

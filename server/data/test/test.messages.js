@@ -6,6 +6,57 @@ let event_messages = {
 			{
 				"type": "Delays",
 				"type_detail": [
+					"route_change",
+					"mechanical_problems",
+				],
+				"tag": ['MTAD-001'],
+				message: "Some southbound [R] trains are stopping along the [Q] line from Canal St to DeKalb Av. Some southbound [W] trains are stopping along the [R] line from Whitehall St-South Ferry and end at Court St.Some southbound [W] trains are stopping along the [R] line from Whitehall St-South Ferry to DeKalb Av then via the [D] line and end at 9 Av. [W] trains are running with delays in both directions. Expect delays in [D], [N], [Q], [R] and [W] train service. These service changes are because of switch problems at Whitehall St-South Ferry.",
+				route_change: {
+					tag: ['A-overC-end', 'A-operates-then-overC', 'A-overC', 'A-overC-thenD'],
+					message: "Some southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [W] trains are stopping along the [R] line from [Mn635-R27] and end at [Bk620-R28].Some southbound [W] trains are stopping along the [R] line from [Mn635-R27] to [Bk26-R30] then via the [D] line and end at [Bk59-B12]. [W]",
+					trains: ['R', 'W'],
+					route: [
+						{
+							allTrains: true,
+							dir: null,
+							lines: ["R"],
+							along: "Q",
+							from: "Mn623-R23",
+							to: "Bk26-R30"
+						},
+						{
+							allTrains: false,
+							dir: null,
+							lines: ["W"],
+							along: "R",
+							from: "Mn635-R27",
+							to: "Bk620-R28"
+						},
+						{
+							allTrains: false,
+							dir: null,
+							lines: ["W"],
+							along: "R",
+							from: "Mn635-R27",
+							to: "Bk26-R30"
+						},
+						{
+							allTrains: false,
+							dir: null,
+							lines: ["W"],
+							along: "D",
+							from: "Bk26-R30",
+							to: "Bk59-B12"
+						}
+					],
+				},
+				line: [
+					'MTA NYCT_R',
+				],
+			},
+			{
+				"type": "Delays",
+				"type_detail": [
 					"service_resumed",
 					"mechanical_problems",
 				],
@@ -1811,7 +1862,7 @@ let event_messages = {
 					},
 /**
     @TODO
-			
+
 */
 
 					tag: ['MTAD-040'],
