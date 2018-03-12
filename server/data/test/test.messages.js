@@ -124,7 +124,7 @@ let event_messages = {
 				parsed_message: 'WEEKEND 6:15 AM to 11:45 PM, Sat, Jan 13 8 AM to 10 PM, Sun, Jan 14 No [M] trains between [Mn625-M18] and [Bk621-J27], due to track replacement. Take the [J] instead. NIGHTS 9 PM to 12 midnight, Friday, Jan 12 No [M] trains between [Qs261-G08] and [Mn625-M18], due to signal improvements. Take the [E][R]. [M] service operates between [Qs4-R05] Junction and Essex St, and is rerouted via the [J] to/from [Mn622-M21]. Trains stop at [Mn103-M19] and [Mn623-M20]. For [Mn619-D21] and stations along 6 Av, use nearby [N]/[Q]/[R] stations on Broadway. Transfer at [Qs616-G14] [E]/[R], Times Sq-[Mn611-A27] [E]/[R], and/or [Mn169-A34] M/R. All times until April 30, 2018 No [M] trains between [Bk630-M08] and [Bk97-M11] (Broadway), due to viaduct reconstruction. Take free shuttle buses. [M] service operates in two sections: 1. Between Essex St and [Bk97-M11], and via the [J] to/from Broadway Junction, days/evenings*. 2. Between Metropolitan Av and Myrtle-Wyckoff Avs (trains run every 20 minutes, Sat and Sun, from 7:30 AM to 9:30 AM). Free shuttle buses operate between Myrtle-Wyckoff Avs and Myrtle Av. *Suspended this weekend. [AD] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
 				route_change: {
 					tag: ['A-operates-then-overC', 'A-1-operates-then-viaC-2-operates'],
-					message: "[M] service operates between [Bk621-J27] and [Mn625-M18], and is rerouted via the [J] to/from [Mn622-M21]. ```[M] [__operates-section-1__] Between [Mn625-M18] and [Bk97-M11], and via the [J] to/from [Bk621-J27], days/evenings*. ```[M] [__operates-section-2__] Between [Qs108-M01], [Bk630-M08] ``` operate between [Bk630-M08] and [Bk97-M11]. *",
+					message: "replace ``` [M] service operates between [Bk621-J27] and [Mn625-M18], and is rerouted via the [J] to/from [Mn622-M21]. ```[M] [__operates-section-1__] Between [Mn625-M18] and [Bk97-M11], and via the [J] to/from [Bk621-J27], days/evenings*. ```[M] [__operates-section-2__] Between [Qs108-M01], [Bk630-M08] ``` operate between [Bk630-M08] and [Bk97-M11]. *",
 					trains: ['M'],
 					route: [
 						{
@@ -1527,7 +1527,7 @@ let event_messages = {
 					},
 					route_change: {
 						tag: ['A-operates-then-overC'],
-						message: '[C] service operates between [Mn605-A09] and [Mn167-A32] , and via the [F] to/from [Mn232-F14] ,',
+						message: '[C] service operates between [Mn605-A09] and [Mn167-A32] , and via the [F] to/from [Mn232-F14] , ``` replace',
 						trains: [
 							"C"
 						],
@@ -1607,6 +1607,48 @@ let event_messages = {
 						{ line: "MTA NYCT_M", dir: "1" },
 						{	line: "MTA NYCT_M", dir: "0" }
 					],
+				},
+				{
+					id: "MTA NYCT_182448",
+					archive: 79,
+					type: "Planned Work",
+					planned: true,
+					date: {
+						fetched: "2018-03-10T00:00:00-05:00",
+					},
+					summary: "SIGNAL IMPROVEMENTS [C] Euclid Av-bound trains skip 116, 110, 103, 96, 86, 81, 72, 50, 23 and Spring Sts",
+					type_detail: [
+						"skip_stations",
+						"signal_maintenance"
+					],
+					tag: ['MTAD-040'],
+					durration: "Weekend , Saturday and Sunday, Mar 10 - 11",
+					message: "SIGNAL IMPROVEMENTS [C] Euclid Av-bound trains skip 116, 110, 103, 96, 86, 81, 72, 50, 23 and Spring Sts Weekend , Saturday and Sunday, Mar 10 - 11 For 116, 110, 103, 96, 86, 81, 72, 50 and 23 Sts, take the [D]* instead. Transfer between trains at 125 St, 59 St-Columbus Circle, 42 St/Port Authority and W 4 St. For Spring St, take the [E]. Transfer between trains at W 4 St or Canal St. *This detour has taken into account additional planned service changes. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+					message_station_parse: "SIGNAL IMPROVEMENTS [C] [Bk188-A55]-bound trains skip 116 St, 110 St, 103 St, 96 St, 86 St, 81 St, 72 St, 50 St, [Mn165-A30], [Mn168-A33] Weekend , Saturday and Sunday, Mar 10 - 11 For 116 St, 110 St, 103 St, 96 St, 86 St, 81 St, 72 St, 50 St, [Mn165-A30], take the [D]* instead. Transfer between trains at [Mn153-A15], [Mn614-A24], [Mn611-A27] and [Mn167-A32]. For [Mn168-A33], take the [E]. Transfer between trains at [Mn167-A32] or [Mn169-A34]. *This detour has taken into account additional planned service changes. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+					stations: {
+						'MTA NYCT_C': {
+							stations: {
+								'Mn153-A15': "125 St",
+								'Mn154-A16': "116 St",
+								'Mn155-A17': "Cathedral Pkwy (110 St)",
+								'Mn156-A18': "103 St",
+								'Mn157-A19': "96 St",
+								'Mn158-A20': "86 St",
+								'Mn159-A21': "81 St - Museum of Natural History",
+								'Mn160-A22': "72 St",
+								'Mn614-A24': "59 St-Columbus Circle",
+								'Mn162-A25': "50 St",
+								'Mn611-A27': "42 St/Port Authority",
+								'Mn167-A32': "W 4 St",
+								'Mn165-A30': "23 St",
+								'Mn168-A33': "Spring St",
+								'Bk188-A55': "Euclid Av",
+								'Mn611-A27': "42 St/Port Authority",
+								'Mn169-A34': "Canal St"
+							}
+						},
+					},
+					line: [	{line: "MTA NYCT_C",dir: "1"} ],
 				},
 				{
 					id: "MTA NYCT_173647",
@@ -1778,6 +1820,8 @@ let event_messages = {
 								'Bx416-201': "241 St",
 								'Bx417-204': "Nereid Av",
 								'Bx418-205': "233 St",
+								'Bx419-206': '225 St',
+								'Bx420-207': '219 St',
 								'Bx421-208': "Gun Hill Rd",
 								'Bx422-209': "Burke Av",
 								'Bx423-210': "Allerton",
@@ -1818,7 +1862,7 @@ let event_messages = {
 					tag: ['MTAD-002'],
 					durration: "Weekend , Saturday and Sunday, Jan 27 - 28",
 					message: "SIGNAL MAINTENANCE [R] Bay Ridge-bound trains run express from 71 Av to Queens Plaza Weekend , Saturday and Sunday, Jan 27 - 28 Trains stop at Roosevelt Av. For service to 67 Av, 63 Dr, Woodhaven Blvd, Grand and Elmhurst Avs, take the [R] to Roosevelt Av and transfer to a Forest Hills-bound [R]. For service to 65 St, Northern Blvd, 46, Steinway and 36 Sts, take the [R] to Queens Plaza and transfer to a Forest Hills-bound [R]. For service from these stations, take the [R] to Roosevelt Av or 71 Av and transfer to a Bay Ridge-bound [R].",
-					message_station_parse: "SIGNAL MAINTENANCE [R] Bay Ridge-bound trains run express from [Qs261-G08] to [Qs273-G21] Weekend , Saturday and Sunday, Jan 27 - 28 Trains stop at [Qs616-G14]. For service to [Qs262-G09], [Qs263-G10], [Qs264-G11], Grand and [Qs266-G13]s, take the [R] to [Qs616-G14] and transfer to a Forest Hills-bound [R]. For service to [Qs268-G15], [Qs269-G16], 46, Steinway and [Qs272-G20]s, take the [R] to [Qs273-G21] and transfer to a Forest Hills-bound [R]. For service from these stations, take the [R] to [Qs616-G14] or [Qs261-G08] and transfer to a Bay Ridge-bound [R].",
+					message_station_parse: "SIGNAL MAINTENANCE [R] Bay Ridge-bound trains run express from [Qs261-G08] to [Qs273-G21] Weekend , Saturday and Sunday, Jan 27 - 28 Trains stop at [Qs616-G14]. For service to [Qs262-G09], [Qs263-G10], [Qs264-G11], [Qs265-G12] and [Qs266-G13]s, take the [R] to [Qs616-G14] and transfer to a Forest Hills-bound [R]. For service to [Qs268-G15], [Qs269-G16], [Qs270-G18], [Qs271-G19] and [Qs272-G20], take the [R] to [Qs273-G21] and transfer to a Forest Hills-bound [R]. For service from these stations, take the [R] to [Qs616-G14] or [Qs261-G08] and transfer to a Bay Ridge-bound [R].",
 					stations: {
 						'MTA NYCT_R': {
 							stations: {
@@ -1826,10 +1870,14 @@ let event_messages = {
 								'Qs262-G09': "67 Av",
 								'Qs263-G10': "63 Dr",
 								'Qs264-G11': "Woodhaven Blvd",
+								'Qs265-G12': "Grand Av",
 								'Qs266-G13': "Elmhurst Av",
 								'Qs616-G14': "Roosevelt Av",
 								'Qs268-G15': "65 St",
 								'Qs269-G16': "Northern Blvd",
+								'Qs270-G18': "46 St",
+								'Qs271-G19': "Steinway St",
+								'Qs272-G20': "36 St",
 								'Qs273-G21': "Queens Plaza",
 								'Qs272-G20': "36 St"
 							}
@@ -1860,13 +1908,7 @@ let event_messages = {
 					date: {
 						fetched: "2018-02-20T00:00:00-05:00",
 					},
-/**
-    @TODO
-
-*/
-
 					tag: ['MTAD-040'],
-
 					type: null,
 					type_detail: [
 						"running_local",

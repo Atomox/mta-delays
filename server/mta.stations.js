@@ -138,13 +138,22 @@ async function getRouteStationsArray(line, include_stats, include_late_night) {
 }
 
 
+/**
+ * Look for a list of stations with the same street type, like Sts, Avs,
+ * and break them up into individual names.
+ *
+ * E.G. "125, 116, 110 Sts" becomes "125 St, 116 St, 110 St"
+ *
+ * @param  {String} txt
+ *
+ * @return {String}
+ *   The passed string, with any patterns of streets normalized.
+ */
 function prepareBunchedStationNames(txt) {
 	if (!txt || typeof txt !== 'string'
 	|| (txt.indexOf('Sts') === -1 && txt.indexOf('Avs') === -1)) {
 		return txt;
 	}
-
-//	console.log('\n\n\n', 'We *may* have bunching STS or AVS!', '\n');
 
 	let bunch_pattern = /(?:(?:\b[A-Z0-9\-]+\b\s*)(?:,|and)\s*)+(?:\b[A-Z0-9\-]*\b)\s*(Sts|Avs)/i,
 		conjunction_pattern = /\b(?:and)\b/i,
@@ -197,21 +206,11 @@ function prepareBunchedStationNames(txt) {
 			}
 		});
 
-//		console.log('\n', ' - Group', i, ': ', results);
 		results = results.join(', ');
-
-//		console.log('\n', ' - Before: ', '\n', replace_holder, '\n');
-//		console.log('\n', ' - Target: ', original_match);
-//		console.log('\n', ' - Replace: ', results);
 
 		txt = txt.replace(original_match, results);
 		replace_holder = replace_holder.replace(original_match, '[--match-' + i + '--]');
-
-//		console.log('\n', ' - Tokens: ', '\n', replace_holder, '\n');
 	}
-
-//	console.log('\n', ' - Final: ', '\n', txt, '\n\n\n');
-
 
 	return txt;
 }
@@ -327,11 +326,11 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
  */
 async function matchAllLinesRouteStationsMessage(lines, message, processed_message) {
 
-	if (!processed_message) { processed_message = message; }
-
 	// Do any prep to unravel bunched station/street names,
 	// like '42, 33, 23, and 14 Sts'.
-	processed_message = prepareBunchedStationNames(processed_message);
+	message = prepareBunchedStationNames(message);
+
+	if (!processed_message) { processed_message = message; }
 
 	let result = {
 		stations: {},

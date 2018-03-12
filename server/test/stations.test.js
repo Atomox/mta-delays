@@ -142,8 +142,6 @@ function CheckStationsListForExpected (event) {
 		matchAllLinesRouteStationsMessage(event.line, event.message)
 		.then( data => {
 
-			console.log('\n\n', event, '\n', '.....................', data, '\n\n');
-
 			let results = false;
 			let mocha_msg = event.message;
 
