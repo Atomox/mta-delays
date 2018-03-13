@@ -68,6 +68,11 @@ let archive_status = {
 		'mta_status.73.sunday_night_-_person_struck_by_train',
 		'mta_status.74.March_5_-_monday_morning_interruptions_and_planned_work',
 		'mta_status.75.Monday_Weeknight_-_Planned_Work',
+		'mta_status.76.winter_weather',
+		'mta_status.77.morning_-_ice-on-tracks',
+		'mta_status.78.rushhour_7D_work',
+		'mta_status.78.rushhour_7D_work',
+		'mta_status.80.Monday_-_morning_planned_work_-_E_via_G',
 	],
 	path: './data/archive/',
 };
