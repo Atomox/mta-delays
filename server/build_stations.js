@@ -233,6 +233,7 @@ function stationAliases(name, boro) {
 				'116 St',
 			],
 			'Cathedral Pkwy (110 St)': [
+				'110 St - Cathedral Pkwy',
 				'110 St',
 				'Cathedral Pkwy',
 			],
@@ -328,6 +329,7 @@ function stationAliases(name, boro) {
 				'8 St',
 			],
 			'W 4 St': [
+				'W 4',
 				'W 4 St',
 				'W 4th St',
 				'West 4th St',
