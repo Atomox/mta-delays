@@ -155,8 +155,8 @@ function prepareBunchedStationNames(txt) {
 		return txt;
 	}
 
-	let bunch_pattern = /(?:(?:\b[A-Z0-9\-]+\b\s*)(?:,|and)\s*)+(?:\b[A-Z0-9\-]*\b)\s*(Sts|Avs)/i,
-		conjunction_pattern = /\b(?:and)\b/i,
+	let bunch_pattern = /(?:(?:\b[A-Z0-9\-]+\b\s*)(?:,|and|or)\s*)+(?:\b[A-Z0-9\-]*\b)\s*(Sts|Avs)/i,
+		conjunction_pattern = /\b(?:and|or)\b/i,
 		replace_holder = txt;
 
 	for (let i = 0; i < 6; i++) {
@@ -188,7 +188,7 @@ function prepareBunchedStationNames(txt) {
 
 			// If we snipped a piece of another station at the beginning,
 			// include it, but do not change it.
-			if (['st', 'av', 'pl', 'pkwy', 'blvd'].indexOf(s.toLowerCase()) !== -1 ) {
+			if (['st', 'av', 'pl', 'pkwy', 'blvd', 'authority'].indexOf(s.toLowerCase()) !== -1 ) {
 				return s;
 			}
 			// Sts in normal name.
@@ -678,6 +678,7 @@ module.exports = {
 	getTrainRoute,
 	getTrainById,
 	getRouteStationsArray,
+	prepareBunchedStationNames,
 	matchAllLinesRouteStationsMessage,
 	matchRouteStationsMessage,
 	groupStationsByLocation,

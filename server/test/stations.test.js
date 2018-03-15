@@ -57,6 +57,8 @@ describe('Parse Stations', function() {
 	describe('MTAD-040 -- 34, 42, 50, 59 and 66 Sts', () => {
 
 		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Basic Bunched Stations Check', ['MTAD-040']);
+
+		tests.stationTestByTag(event_messages.normal, CheckStationPrep, 'Basic Bunched Stations Prep', ['MTAD-040']);
 	});
 
 	describe.skip('MTAD-004 -- Identify Multiple Stations with the same name.', () => {
@@ -134,6 +136,21 @@ function CheckStationsParseMessageForExpected (event) {
 		.catch(err => {
 			throw new Error(err);
 		});
+}
+
+
+function CheckStationPrep (event) {
+		let data = mtaStations.prepareBunchedStationNames(event.message);
+
+		let results = false;
+		let mocha_msg = event.message;
+
+		expect(event).to.have.property('station_prep');
+
+		// Make sure our results had an entry for this line before
+		// we access that property, and a general error is thrown.
+		expect(data).to.equal(event['station_prep']);
+
 }
 
 
