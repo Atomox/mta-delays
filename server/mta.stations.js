@@ -155,7 +155,7 @@ function prepareBunchedStationNames(txt) {
 		return txt;
 	}
 
-	let bunch_pattern = /(?:(?:\b[A-Z0-9\-]+\b\s*)(?:,|and|or)\s*)+(?:\b[A-Z0-9\-]*\b)\s*(Sts|Avs)/i,
+	let bunch_pattern = /(?:(?:(?:\b[A-Z0-9\-]+\b\s*){1,2})(?:,|\band\b|\bor\b)\s*)+(?:(?:\b[A-Z0-9\-]*\b\s*){1,2})\s*(Sts|Avs)/i,
 		conjunction_pattern = /\b(?:and|or)\b/i,
 		replace_holder = txt;
 
@@ -183,12 +183,24 @@ function prepareBunchedStationNames(txt) {
 			matches = matches.replace(conjunction_pattern, ',');
 		}
 
+		console.log('\n >> ', original_match);
+		console.log('\n >> ', matches, '\n');
+
 		results = matches.split(',').map( s => {
 			s = s.trim();
 
+			console.log('>> ', s);
+
+			let lastWord = _.last(s.trim().split(' ')).trim();
+
+			console.log('>> Last: ', lastWord);
+
 			// If we snipped a piece of another station at the beginning,
 			// include it, but do not change it.
-			if (['st', 'av', 'pl', 'pkwy', 'blvd', 'authority'].indexOf(s.toLowerCase()) !== -1 ) {
+			if (!s) {
+				console.log('\n <!> "' + s + '" is empty. Skipping.');
+			}
+			else if (['st', 'av', 'pl', 'pkwy', 'blvd', 'authority'].indexOf(lastWord.toLowerCase()) !== -1 ) {
 				return s;
 			}
 			// Sts in normal name.
@@ -196,17 +208,29 @@ function prepareBunchedStationNames(txt) {
 				return s + ' ' + 'Sts';
 			}
 			// Avs in normal name
-			else if (['myrtle-wyckoff', 'clinton-washington', 'kingston-throop', 'myrtle-willoughby', 'bedford-nostrand', ''].indexOf(s.toLowerCase()) !== -1 ) {
+			else if (['myrtle-wyckoff', 'clinton-washington', 'kingston-throop', 'myrtle-willoughby', 'bedford-nostrand', 'Bronx Park East'].indexOf(s.toLowerCase()) !== -1 ) {
 				return s + ' ' + 'Avs';
 			}
 			else {
 				if (target.toLowerCase() === 'sts') { s = s + ' ' + 'St'; }
 				if (target.toLowerCase() === 'avs') { s = s + ' ' + 'Av'; }
+
+				if (s.indexOf(target) !== -1) {
+					let re = new RegExp('\\s*' + target + '\\s*','i');
+					s = s.replace(re, ' ');
+				}
 				return s;
 			}
 		});
 
+		console.log('>> List After: ', results);
+
+		// Filter empty items.
+		results = results.filter(val => (!val) ? false : true );
+
 		results = results.join(', ');
+
+		console.log('>> Final: ', results);
 
 		txt = txt.replace(original_match, results);
 		replace_holder = replace_holder.replace(original_match, '[--match-' + i + '--]');
