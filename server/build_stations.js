@@ -137,6 +137,10 @@ function stationCommonName(name, boro) {
 	const alias = {
 		Mn: {
 
+			// 110
+			'Cathedral Pkwy': '110 St',
+			'Cathedral Pkwy (110 St)': '110 St',
+
 			// 96
 			'96 St': '96 St',
 
@@ -232,6 +236,18 @@ function stationAliases(name, boro) {
 				'Columbia University',
 				'116 St',
 			],
+			// 1
+			'Cathedral Pkwy': [
+				'110 St - Cathedral Pkwy',
+				'110 St',
+				'Cathedral Pkwy',
+			],
+			'Central Park North (110 St)': [
+				'Central Park North',
+				'Central Park North - 110 St',
+				'110 St'
+			],
+			// C
 			'Cathedral Pkwy (110 St)': [
 				'110 St - Cathedral Pkwy',
 				'110 St',

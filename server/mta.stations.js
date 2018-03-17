@@ -156,7 +156,7 @@ function prepareBunchedStationNames(txt) {
 	}
 
 	let bunch_pattern = /(?:(?:(?:\b[A-Z0-9\-]+\b\s*){1,2})(?:,|\band\b|\bor\b)\s*)+(?:(?:\b[A-Z0-9\-]*\b\s*){1,2})\s*(Sts|Avs)/i,
-		conjunction_pattern = /\b(?:and|or)\b/i,
+		conjunction_pattern = /\,?\s*\b(?:and|or)\b\s*/i,
 		replace_holder = txt;
 
 	for (let i = 0; i < 6; i++) {
@@ -174,66 +174,118 @@ function prepareBunchedStationNames(txt) {
 
 		matches = matches[0];
 
-		// Remove Avs or Sts from the results, so we can append all equally later.
-		matches = matches.replace(target, '');
-
 		// Remove any conjunctions, and treat like a comma.
 		if (matches.search(conjunction_pattern) !== -1) {
 			found_conjunction = true;
-			matches = matches.replace(conjunction_pattern, ',');
+			matches = matches.replace(conjunction_pattern, ', ');
 		}
 
-		console.log('\n >> ', original_match);
-		console.log('\n >> ', matches, '\n');
+//		console.log('\n >> ', original_match);
+//		console.log('\n >> ', matches, '\n');
 
-		results = matches.split(',').map( s => {
+		let previous_word = '',
+			match_split = matches.split(','),
+			road_abbreviations = ['st', 'av', 'pl', 'pkwy', 'blvd', 'authority'],
+			sts_exceptions = ['47-50', '174-175', '182-183', 'delancey-essex', 'hoyt-schermerhorn', 'smith-9'],
+			avs_exceptions = ['myrtle-wyckoff', 'clinton-washington', 'kingston-throop', 'myrtle-willoughby', 'bedford-nostrand'],
+			order,
+			first_match = false,
+			found_match = false;
+
+		function getLastWord(txt) {
+			return _.last(txt.trim().split(' ')).toLowerCase().trim();
+		}
+
+		// Determine if we have multiple street types, and which order the appear in.
+		order = match_split
+			.map( s => getLastWord(s) )
+			.filter( s => (['avs', 'sts'].indexOf(s) !== -1) ? true : false );
+
+//		console.log('\n\n >> << >> Target Order: ', order, '\n\n');
+
+		results = match_split.map( (s, i) => {
 			s = s.trim();
 
-			console.log('>> ', s);
+			// Problematic sample.
+			// Park East , Pelham Pkwy , Allerton , Burke Avs , 219 , 225 , 233 Sts
 
-			let lastWord = _.last(s.trim().split(' ')).trim();
+			let lastWord = getLastWord(s);
 
-			console.log('>> Last: ', lastWord);
+//			console.log('>> ', s, 'Last Word:', lastWord);
+
+			// If we haven't hit a match yet, check the next element.
+			// If it doesn't qualify, then this won't either. Return as-is.
+			if (!first_match && match_split[i+1]) {
+				let next = getLastWord(match_split[i+1]);
+
+				if ((road_abbreviations.indexOf(next) !== -1 )
+				|| (sts_exceptions.indexOf(next) !== -1 )
+				|| (avs_exceptions.indexOf(next) !== -1 ) ) {
+
+//					console.log('>> Next: ', next, 'does not qualify, so neither do we.');
+					return s;
+				}
+			}
 
 			// If we snipped a piece of another station at the beginning,
 			// include it, but do not change it.
 			if (!s) {
-				console.log('\n <!> "' + s + '" is empty. Skipping.');
+//				console.log('\n <!> "' + s + '" is empty. Skipping.');
 			}
-			else if (['st', 'av', 'pl', 'pkwy', 'blvd', 'authority'].indexOf(lastWord.toLowerCase()) !== -1 ) {
+			else if (road_abbreviations.indexOf(lastWord.toLowerCase()) !== -1 ) {
 				return s;
 			}
 			// Sts in normal name.
-			else if (['47-50', '174-175', '182-183', 'delancey-essex', 'hoyt-schermerhorn', 'smith-9'].indexOf(s.toLowerCase()) !== -1 ) {
+			else if (sts_exceptions.indexOf(s.toLowerCase()) !== -1 ) {
 				return s + ' ' + 'Sts';
 			}
 			// Avs in normal name
-			else if (['myrtle-wyckoff', 'clinton-washington', 'kingston-throop', 'myrtle-willoughby', 'bedford-nostrand', 'Bronx Park East'].indexOf(s.toLowerCase()) !== -1 ) {
+			else if (avs_exceptions.indexOf(s.toLowerCase()) !== -1 ) {
 				return s + ' ' + 'Avs';
 			}
 			else {
+				if (!first_match) {
+					// Get our next match.
+					if (order && order.length > 0 && _.first(order)) {
+//						console.log(' >> <!> New Target: ', _.first(order), 'old: ', target);
+						target = _.first(order);
+						order = _.drop(order, 1);
+					}
+				}
+				// Flag that we've found a match.
+				first_match = true;
+
+				// Flag at least one match in message.
+				found_match = true;
+
 				if (target.toLowerCase() === 'sts') { s = s + ' ' + 'St'; }
 				if (target.toLowerCase() === 'avs') { s = s + ' ' + 'Av'; }
 
-				if (s.indexOf(target) !== -1) {
+				if (s.toLowerCase().indexOf(target) !== -1) {
+//					console.log(' >> <!> Reached Target:', target, 'in:', s);
 					let re = new RegExp('\\s*' + target + '\\s*','i');
 					s = s.replace(re, ' ');
+					first_match = false;
+
+					// Set the next target, if any.
 				}
 				return s;
 			}
 		});
 
-		console.log('>> List After: ', results);
+//		console.log('>> List After: ', results);
 
 		// Filter empty items.
 		results = results.filter(val => (!val) ? false : true );
 
 		results = results.join(', ');
 
-		console.log('>> Final: ', results);
+//		console.log('>> Final: ', results);
 
-		txt = txt.replace(original_match, results);
-		replace_holder = replace_holder.replace(original_match, '[--match-' + i + '--]');
+		if (found_match) {
+			txt = txt.replace(original_match, results);
+			replace_holder = replace_holder.replace(original_match, '[--match-' + i + '--]');
+		}
 	}
 
 	return txt;
@@ -265,8 +317,17 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 		let line_id = line;
 		line = getTrainById(line_id);
 
+//		if (line == 'C') {
+//			console.log('\n\n', '[' + line + ']', 'Station Parse:', message, '\n');
+//		}
+
+
 		// Get all stations for this line.
 		let stations = await getRouteStationsArray(line, true, true);
+
+//		if (line == 'C') {
+//			console.log('[' + line + '] >>>', '.... begin ...');
+//		}
 
 		// Get problem stations we should replace first.
 		let stations_first = problem_stations;
@@ -277,6 +338,13 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 
 		// Search each station.
 		for (let s in stations) {
+
+//			if (line == 'C') {
+//				console.log('[' + line + '] ... ', stations[s].name);
+//				if (stations[s].name == 'Cathedral Pkwy (110 St)') {
+//					console.log('[' + line + '] ... ', stations[s]);
+//				}
+//			}
 
 			// Check station name regex against the message.
 			let res_re = mtaRegEx.matchRegexString(stations[s].regex, message, true, true);
@@ -289,6 +357,10 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
  			delete res_re.index;
 			// Get a unique list of matches.
  			res_re = _.uniq(res_re.map( r => r.trim()));
+
+//			if (line == 'C') {
+//				console.log('[' + line + '] >>>', res_re);
+//			}
 
 			res_re.map( m => {
 				// Problem stations get stored and compared after this process finishes. Until then, we don't count them as a final match.

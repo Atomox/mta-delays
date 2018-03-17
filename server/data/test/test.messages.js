@@ -464,6 +464,7 @@ let event_messages = {
 							'Mn162-A25': '50 St',
 							'Mn611-A27': '42 St',
 							'Mn164-A28': '34 St',
+							'Mn618-A31': '14 St',
 							'Mn167-A32': 'W 4 St',
 							'Mn169-A34': 'Canal St',
 						}
@@ -603,6 +604,11 @@ let event_messages = {
 				'stations': {
 					'MTA NYCT_A': {
 						stations: {
+
+							'Mn614-A24': "59 St - Columbus Circle",
+							'Qs191-A60': '88 St', // Matching Beach 88 St -> 88 St (near Rockaway Blvd)
+							'Qs195-A65': 'Ozone Park - Lefferts Blvd',
+
 							'Mn143-A02': "Inwood - 207 St",
 							'Qs199-H04': "Broad Channel",
 
@@ -699,11 +705,11 @@ let event_messages = {
 				type: 'PlannedWork',
 				type_detail: null,
 				time: null,
-//				tag: ['MTAD-040'],
+				tag: ['MTAD-040'],
 				durration: 'Days, 9:30 AM to 4 PM, Mon  and  Tue, Nov 27 - 28',
 				message: 'SIGNAL MAINTENANCE  [S] Rockaway Park Shuttle - No trains running [A] trains and [SB] free shuttle buses provide alternate service  Days, 9:30 AM to 4 PM, Mon  and  Tue, Nov 27 - 28     [SB] Buses operate between  Beach 67 St [A]  and  Beach 116 St , stopping at Beach 90,  Beach 98 and Beach 105 Sts.   Transfer between [A] trains and [SB] buses at Beach 67 St.     Show Shuttle Bus Stops        Station   Shuttle Bus Stop',
 				alt_instructions: 'Transfer between [A] trains and [SB] buses at Beach 67 St.     Show Shuttle Bus Stops        Station   Shuttle Bus Stop',
-				station_prep: 'SIGNAL MAINTENANCE  [S] Rockaway Park Shuttle - No trains running [A] trains and [SB] free shuttle buses provide alternate service  Days, 9:30 AM to 4 PM, Mon  and  Tue, Nov 27 - 28     [SB] Buses operate between  Beach 67 St [A]  and  Beach 116 St , stopping at Beach 90 St,  Beach 98 St, Beach 105 St.   Transfer between [A] trains and [SB] buses at Beach 67 St.     Show Shuttle Bus Stops        Station   Shuttle Bus Stop',
+				station_prep: 'SIGNAL MAINTENANCE  [S] Rockaway Park Shuttle - No trains running [A] trains and [SB] free shuttle buses provide alternate service  Days, 9:30 AM to 4 PM, Mon  and  Tue, Nov 27 - 28     [SB] Buses operate between  Beach 67 St [A]  and  Beach 116 St , stopping at Beach 90 St, Beach 98 St, Beach 105 St.   Transfer between [A] trains and [SB] buses at Beach 67 St.     Show Shuttle Bus Stops        Station   Shuttle Bus Stop',
 				'message_station_parse': 'SIGNAL MAINTENANCE  [S] Rockaway Park Shuttle - No trains running [A] trains and [SB] free shuttle buses provide alternate service  Days, 9:30 AM to 4 PM, Mon  and  Tue, Nov 27 - 28     [SB] Buses operate between  Beach 67 St [A]  and  Beach 116 St , stopping at Beach 90,  Beach 98 and Beach 105 Sts.   Transfer between [A] trains and [SB] buses at Beach 67 St.     Show Shuttle Bus Stops        Station   Shuttle Bus Stop',
 				'stations': {
 					'MTA NYCT_A': {
@@ -1635,6 +1641,8 @@ let event_messages = {
 							stations: {
 								'Mn605-A09': '168 St',
 				        'Mn167-A32': 'W 4 St',
+								'Mn168-A33': 'Spring St',
+								'Mn169-A34': 'Canal St',
 				        'Mn624-A36': 'Chambers St',
 				        'Mn628-A38': 'Fulton St',
 				        'Bk173-A40': 'High St',
@@ -1940,7 +1948,7 @@ let event_messages = {
 					durration: "Weekend, 5:45 AM Sat to 8 PM Sun, Jan 27 - 28",
 					message: "TRACK MAINTENANCE [2] Wakefield-bound trains run express from E 180 St to 241 St Weekend, 5:45 AM Sat to 8 PM Sun, Jan 27 - 28 No Wakefield-bound service at Bronx Park East , Pelham Pkwy , Allerton , Burke Avs , 219 , 225 , 233 Sts and Nereid Av . For service to these stations, take the [2] to Gun Hill Rd or 241 St and transfer to a South Ferry-bound [2]. For service from these stations, take the [2] to Gun Hill Rd or E 180 St and transfer to a Wakefield-bound [2] . Or , take the Bx39 bus ( days/evenings ). [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 					message_station_parse: "TRACK MAINTENANCE [2] [Bx416-201]-bound trains run express from [Bx426-213] to [Bx416-201] Weekend, 5:45 AM Sat to 8 PM Sun, Jan 27 - 28 No [Bx416-201]-bound service at [Bx425-212] , [Bx424-211] , [Bx423-210] , [Bx422-209]s , 219 , 225 , [Bx418-205]s and [Bx417-204] . For service to these stations, take the [2] to [Bx421-208] or [Bx416-201] and transfer to a South Ferry-bound [2]. For service from these stations, take the [2] to [Bx421-208] or [Bx426-213] and transfer to a [Bx416-201]-bound [2] . Or , take the Bx39 bus ( days/evenings ). [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
-					station_prep: 'TRACK MAINTENANCE [2] Wakefield-bound trains run express from E 180 St to 241 St Weekend, 5:45 AM Sat to 8 PM Sun, Jan 27 - 28 No Wakefield-bound service at Bronx Park East , Pelham Pkwy , Allerton Av, Burke Av , 219 St, 225 St, 233 St and Nereid Av . For service to these stations, take the [2] to Gun Hill Rd or 241 St and transfer to a South Ferry-bound [2]. For service from these stations, take the [2] to Gun Hill Rd or E 180 St and transfer to a Wakefield-bound [2] . Or , take the Bx39 bus ( days/evenings ). [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.',
+					station_prep: 'TRACK MAINTENANCE [2] Wakefield-bound trains run express from E 180 St to 241 St Weekend, 5:45 AM Sat to 8 PM Sun, Jan 27 - 28 No Wakefield-bound service at Bronx Park East, Pelham Pkwy, Allerton Av, Burke Av, 219 St, 225 St, 233 St and Nereid Av . For service to these stations, take the [2] to Gun Hill Rd or 241 St and transfer to a South Ferry-bound [2]. For service from these stations, take the [2] to Gun Hill Rd or E 180 St and transfer to a Wakefield-bound [2] . Or , take the Bx39 bus ( days/evenings ). [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.',
 					stations: {
 						'MTA NYCT_2': {
 							stations: {
@@ -2045,7 +2053,7 @@ let event_messages = {
 					durration: "until Mar 9",
 					message: "STRUCTURAL IMPROVEMENTS [7D] Express trains make local stops in both directions at 33, 40, 46, 52, 69 and 74 Sts Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9 Please allow additional travel time.",
 					message_station_parse: "STRUCTURAL IMPROVEMENTS [7D] Express trains make local stops in both directions at [Qs460-716], [Qs459-715], [Qs458-714], [Qs457-713], [Qs455-711], [Qs616-710] Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9 Please allow additional travel time.",
-					station_parse: 'STRUCTURAL IMPROVEMENTS [7D] Express trains make local stops in both directions at 33 St, 40 St, 46 St, 52 St, 69 St, 74 St Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9 Please allow additional travel time.',
+					station_prep: 'STRUCTURAL IMPROVEMENTS [7D] Express trains make local stops in both directions at 33 St, 40 St, 46 St, 52 St, 69 St, 74 St Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9 Please allow additional travel time.',
 					stations: {
 						"MTA NYCT_7": {
 							"stations": {
