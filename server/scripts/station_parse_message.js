@@ -6,9 +6,10 @@ if (!process.argv[2]) {
 
 let message = process.argv[2];
 
-console.log('\n\n', ' [ Parse Message ] -------------------------------------------', '\n');
+header('Parse Message', true);
 
-console.log('[Original Message]\n', message, '\n');
+header('Original Message');
+console.log(message, '\n');
 
 const mtaStatus = require('../mta.event');
 const mtaStations = require('../mta.stations');
@@ -17,28 +18,35 @@ main(message);
 
 async function main(message) {
   try {
-    let lines = await getMessageTrainLines(message);
-    console.log('[Find Lines]\n', lines, '\n');
+    let lines = await mtaStatus.getMessageTrainLines(message);
+    section('Find Lines', lines);
 
     message = mtaStations.prepareBunchedStationNames(message);
-    console.log('[Station Prep]\n', message, '\n');
+    section('Station Prep', message);
 
     message = await mtaStatus.getStationsInEventMessage(lines, message);
     message = message.parsed_message;
-    console.log('[Station Parse]\n', message, '\n');
+    section('Station Parse', message);
 
     message = await mtaStatus.getMessageRouteChange(message);
-    console.log('[1st Route Change Parse]\n', message, '\n');
+    section('1st Route Change Parse', message);
 
     message = await mtaStatus.getRouteChange(message);
-    console.log('[2nd Route Change Parse]\n', message, '\n');
+    section('2nd Route Change Parse', message);
   }
   catch (err) {
     console.log('\n\n\n <!> Woops!\n\n', err, '\n\n\n');
   }
 }
 
-async function getMessageTrainLines(txt) {
-  let result = await mtaStatus.getMessageTrainLines(txt);
-  return result;
+function header(title, header) {
+  if(header) {
+    console.log('\n\n');
+  }
+  console.log('\n', '[', title, '] -------------------------------------------', '\n');
+}
+
+function section(title, data) {
+  header(title);
+  console.log(data, '\n');
 }

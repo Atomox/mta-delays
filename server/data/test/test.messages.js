@@ -945,6 +945,40 @@ let event_messages = {
         },
 			},
 			{
+				id: "MTA NYCT_181020",
+				type: "Planned Work",
+				date: {
+					fetched: "2018-03-16T00:00:00-04:00",
+				},
+				tag: ['MTAD-032'],
+				type_detail: [
+					"shuttle_bus",
+					"skip_stations",
+					"no_trains_partial"
+				],
+				durration: "Weekends, 9:45 PM Fri to 5 AM Mon, Mar 16 - 19 Mar 23 - 26",
+				message: "COMMUNICATIONS IMPROVEMENTS [A] No trains between 181 St and 207 St[1] trains and [SB] free shuttle buses provide alternate service Weekends, 9:45 PM Fri to 5 AM Mon, Mar 16 - 19 Mar 23 - 26 [A] Service operates between Mott Av/Lefferts Blvd and 181 St . [1] trains make nearby stops between 181 St and 207 St* . Broadway Shuttle Buses make stops between 181 St and 207 St . Fort Washington Av Shuttle Buses make stops at 181 St and 190 St . Transfer between trains and buses at 181 St. Transfer between [A] and [1] trains at 168 St. Show Shuttle Bus Stops [TP] Station Broadway Shuttle Bus Stop Fort Washington Av Shuttle Bus Stop 181 St [A] Fort Washington Av at W 180 St Fort Washington Av at W 181 St -- Fort Washington Av at W 183 St -- Fort Washington Av at W 185 St 190 St Broadway at W 193 St (to 207 St) Fort Washington Av at W 190 St Broadway at Bennett Av (to 181 St) Fort Washington Av at Cabrini Blvd Dyckman St Broadway at Dyckman St -- 207 St Broadway at W 207 St -- *Downtown [1] trains skip 207 St from 5:45 AM to 7 PM, Mar 17 - 18. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+				message_station_parse: "COMMUNICATIONS IMPROVEMENTS [A] No trains between [Mn146-A06] and [Mn143-A02][1] trains and [SB] free shuttle buses provide alternate service Weekends, 9:45 PM Fri to 5 AM Mon, Mar 16 - 19 Mar 23 - 26 [A] Service operates between [Qs209-H11]/[Qs195-A65] and [Mn146-A06] . [1] trains make nearby stops between [Mn146-A06] and [Mn143-A02]* . Broadway Shuttle Buses make stops between [Mn146-A06] and [Mn143-A02] . Fort Washington Av Shuttle Buses make stops at [Mn146-A06] and [Mn145-A05] . Transfer between trains and buses at [Mn146-A06]. Transfer between [A] and [1] trains at [Mn605-A09]. Show Shuttle Bus Stops [TP] Station Broadway Shuttle Bus Stop Fort Washington Av Shuttle Bus Stop [Mn146-A06] [A] Fort Washington Av at W 180 St Fort Washington Av at W [Mn146-A06] -- Fort Washington Av at W 183 St -- Fort Washington Av at W 185 St [Mn145-A05] Broadway at W 193 St (to [Mn143-A02]) Fort Washington Av at W [Mn145-A05] Broadway at Bennett Av (to [Mn146-A06]) Fort Washington Av at Cabrini Blvd [Mn144-A03] Broadway at [Mn144-A03] -- [Mn143-A02] Broadway at W [Mn143-A02] -- *Downtown [1] trains skip [Mn143-A02] from 5:45 AM to 7 PM, Mar 17 - 18. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+				route_change: {
+					message: "[A] Service operates between [Qs209-H11]/[Qs195-A65] and [Mn146-A06] . [1]",
+					message_mod: "[-- route-match --] and [Mn146-A06] . [1]",
+					trains: ["A"],
+					route: [
+					{
+						allTrains: true,
+						dir: null,
+						lines: ["A"],
+						along: null,
+						from: "Qs209-H11",
+						to: "Qs195-A65"
+					}
+				],
+				line: [
+					{line: "MTA NYCT_A",dir: "1"},
+					{line: "MTA NYCT_A",dir: "0"}
+				],
+			},
+			{
 				id: "MTA NYCT_ce219234-4a05-4cb6-9902-61247a462a1b",
 				type: "Service Change",
 				date: { fetched: "2018-02-21T08:58:55.31-05:00", },
