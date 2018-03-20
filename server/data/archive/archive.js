@@ -73,6 +73,10 @@ let archive_status = {
 		'mta_status.78.rushhour_7D_work',
 		'mta_status.78.rushhour_7D_work',
 		'mta_status.80.Monday_-_morning_planned_work_-_E_via_G',
+		'mta_status.81.March-13_-_weeknight_planned_work',
+		'mta_status.82.March_17_-_Weekend_-_Planned_Work_and_Delays',
+		'mta_status.83.sunday_night',
+		'mta_status.84.March_20_-_Tuesday_Morning_Delays',
 	],
 	path: './data/archive/',
 };

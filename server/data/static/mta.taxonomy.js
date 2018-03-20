@@ -118,6 +118,8 @@ const taxonomy = {
 			'running with slower speeds',
 			'run at reduced speed',
 			'run with reduced speed',
+			'slow speed order',
+			'slow speed'
 		],
 
 		// Misc
