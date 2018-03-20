@@ -964,15 +964,16 @@ let event_messages = {
 					message_mod: "[-- route-match --] and [Mn146-A06] . [1]",
 					trains: ["A"],
 					route: [
-					{
-						allTrains: true,
-						dir: null,
-						lines: ["A"],
-						along: null,
-						from: "Qs209-H11",
-						to: "Qs195-A65"
-					}
-				],
+						{
+							allTrains: true,
+							dir: null,
+							lines: ["A"],
+							along: null,
+							from: "Qs209-H11",
+							to: "Qs195-A65"
+						}
+					],
+				},
 				line: [
 					{line: "MTA NYCT_A",dir: "1"},
 					{line: "MTA NYCT_A",dir: "0"}
@@ -2102,6 +2103,58 @@ let event_messages = {
 					},
 					line: [
 						{	line: "MTA NYCT_7", dir: "1" },
+					],
+				},
+				{
+					id: "MTA NYCT_84069219-fe91-44d6-96b1-c78f3d1e10f3",
+					type: "Service Change",
+					tag: ['MTAD-001'],
+					date: {fetched: "2018-03-20T09:02:22.387-04:00"},
+					type_detail: [
+						"delays",
+						"signal_problems",
+						"route_change"
+					],
+					message: "Southbound [R] trains are stopping along the [F] line from Jackson Hts-Roosevelt Av to Lexington Av-63 St then operate on the [Q] line to 57 St-7 Av because of signal problems at Queens Plaza.Expect delays in [E], [F], [N], [Q], [R] and [W] trains.",
+					message_station_parse: "Southbound [R] trains are stopping along the [F] line from [Qs616-G14] to [Mn223-B08] then operate on the [Q] line to [Mn224-B10]-[Mn277-D14] because of signal problems at [Qs273-G21].Expect delays in [E], [F], [N], [Q], [R] and [W] trains.",
+					route_change: {
+						tag: ['A-overC-thenD'],
+						message: "Southbound [R] trains are stopping along the [F] line from [Qs616-G14] to [Mn223-B08] then operate on the [Q] line to [Mn224-B10]",
+						trains: ["R"],
+						route: [
+							{
+								allTrains: true,
+								dir: "southbound",
+								exp_lcl: null,
+								lines: ["R"],
+								along: "F",
+								from: "Qs616-G14",
+								to: "Mn223-B08",
+								section: null,
+								parsed: "Southbound [R] trains are stopping along the [F] line from [Qs616-G14] to [Mn223-B08] ",
+								action: "along"
+							},
+							{
+								allTrains: true,
+								dir: "southbound",
+								exp_lcl: null,
+								lines: ["R"],
+								along: "Q",
+								from: "Mn223-B08",
+								to: "Mn224-B10",
+								section: null,
+								parsed: "then operate on the [Q] line to [Mn224-B10]",
+								action: "on"
+							}
+						],
+					},
+					line: [
+						{line: "MTA NYCT_E"},
+						{line: "MTA NYCT_F"},
+						{line: "MTA NYCT_N"},
+						{line: "MTA NYCT_Q"},
+						{line: "MTA NYCT_R"},
+						{line: "MTA NYCT_W"}
 					],
 				}
 		],
