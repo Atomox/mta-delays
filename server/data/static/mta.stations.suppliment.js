@@ -28,6 +28,10 @@ const name_problems = {
 		'Bk61-B14', // 50 St BK D
 		'Bk70-B23', // Bay 50 St
 	],
+	'57 St' : [
+			'Mn9-R14',
+			'Mn224-B10',
+	],
 	'59 St - Columbus Circle': [
 		'Mn614-A24',
 		'Mn614-125',
@@ -37,6 +41,12 @@ const name_problems = {
 		'Mn308-118',
 		'Mn394-623',
 		'Mn441-227'
+	],
+	'125 St': [
+		'Mn306-116',
+		'Mn153-A15',
+		'Mn392-621',
+		'Mn439-225',
 	],
 	'138 St': [
 		'Bx377-619',

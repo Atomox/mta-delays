@@ -2156,6 +2156,32 @@ let event_messages = {
 						{line: "MTA NYCT_R"},
 						{line: "MTA NYCT_W"}
 					],
+				},
+				{
+					id: "MTA NYCT_181885",
+					type: "Planned Work",
+					planned: true,
+					tag: ['MTAD-044'],
+					date: {fetched: "2018-03-19T00:00:00-04:00",},
+					summary: "TRACK MAINTENANCE",
+					type_detail: [
+						"route_change",
+						"skip_stations",
+						"track_maintenance"
+					],
+					durration: "Rush Hour, 6 AM to 10 AM, Mon to Fri, Mar 19 - 23 Mar 26 - 30",
+					message: "TRACK MAINTENANCE [R] Some Bay Ridge-bound trains skip Queens Plaza, Lexington Av/59 St and 5 Av/59 St Rush Hour, 6 AM to 10 AM, Mon to Fri, Mar 19 - 23 Mar 26 - 30 Please allow additional travel time. After 36 St, Queens, some [R] trains run via the [F] stopping at 21 St-Queensbridge, Roosevelt Island and Lexington Av/63 St, resuming regular service at 57 St-7 Av. Travel Alternatives [TP] Take a Bay Ridge-bound [R] making these stops. For Queens Plaza, transfer to the [E] at Roosevelt Av.",
+					message_station_parse: "TRACK MAINTENANCE [R] Some Bay Ridge-bound trains skip [Qs273-G21], [Mn613-R11] and [Mn8-R13] Rush Hour, 6 AM to 10 AM, Mon to Fri, Mar 19 - 23 Mar 26 - 30 Please allow additional travel time. After [Qs272-G20], Queens, some [R] trains run via the [F] stopping at [Qs221-B04], [Mn222-B06] and [Mn223-B08], resuming regular service at [Mn9-R14]. Travel Alternatives [TP] Take a Bay Ridge-bound [R] making these stops. For [Qs273-G21], transfer to the [E] at [Qs616-G14].",
+					route_change: {
+						message: "some [R] trains run via the [F] stopping",
+						message_mod: "some [R] trains run via the [F] stopping",
+						re: null,
+						trains: [ ],
+						route: [ ],
+					},
+					line: [
+						{line: "MTA NYCT_R",dir: "1"}
+					],
 				}
 		],
 

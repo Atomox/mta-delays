@@ -341,7 +341,7 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 
 //			if (line == 'C') {
 //				console.log('[' + line + '] ... ', stations[s].name);
-//				if (stations[s].name == 'Cathedral Pkwy (110 St)') {
+//				if (stations[s].name == '25 St') {
 //					console.log('[' + line + '] ... ', stations[s]);
 //				}
 //			}
@@ -355,10 +355,15 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 			// Regex returns extras along with the results when in global/greedy mode.
  			delete res_re.input;
  			delete res_re.index;
+
 			// Get a unique list of matches.
  			res_re = _.uniq(res_re.map( r => r.trim()));
 
-//			if (line == 'C') {
+//			if (stations[s].name == '25 St') {
+//				console.log('[' + line + '] ... ', res_re);
+//			}
+
+//			if (line == 'R') {
 //				console.log('[' + line + '] >>>', res_re);
 //			}
 
@@ -383,8 +388,7 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 				else {
 					// Check station ID against message.
 					results[s] = m;
-					// Str.split().join() will replace all occurances, unlike str.replace().
-					result_message = result_message.split(m).join('[' + s +']');
+					result_message = mtaRegEx.replaceRegexString(stations[s].regex, m, result_message, s);
 				}
 			});
 		}

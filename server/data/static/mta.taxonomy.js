@@ -23,6 +23,9 @@ const taxonomy = {
 			'customer injury',
 			'injured passenger',
 		],
+		'death': [
+			'fatal injury',
+		],
 		'signal_problems': ['signal problems'],
 		'power_loss': ['loss of power'],
 		'unautherized_person': [

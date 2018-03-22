@@ -86,6 +86,27 @@ function matchStringsWithSpecialChars(needle, haystack) {
 	return matchRegexString(v, haystack);
 }
 
+function replaceRegexString(pattern, match, haystack, token) {
+
+		if (!haystack) {
+			return false;
+		}
+
+		let flags = 'i';
+
+		match = prepareRexExNameString(match.trim());
+		if(match.indexOf('\\s*') === 0) {
+			match = match.substr(3);
+		}
+
+		let re = new RegExp(match,flags);
+
+		// Old method.
+		// result_message = result_message.split(m).join('[' + s +']');
+
+		return haystack.split(re).join('[' + token +']')
+}
+
 function matchRegexString(pattern, haystack, return_all, greedy) {
 
 	if (!haystack) {
@@ -117,6 +138,7 @@ module.exports = {
 	wrapSeperatorBounds,
 	matchStringsWithSpecialChars,
 	matchRegexString,
+	replaceRegexString,
 	prepareRegExpString,
 	convertRegExpToString,
 	convertArrayToRegexOr,
