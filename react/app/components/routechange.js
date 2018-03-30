@@ -17,6 +17,7 @@ class RouteChange extends React.Component {
         let line_change = true,
           lcl = false,
           exp = false,
+          bypass = false,
           pre = null,
           action = null;
 
@@ -25,6 +26,9 @@ class RouteChange extends React.Component {
         if (r.along == null) {
           r.along = r.lines[0];
           line_change = false;
+          if (r.bypass && r.bypass.length > 0) {
+            bypass = true;
+          }
           if (r.exp_lcl) {
             if (r.exp_lcl == 'local') {
               lcl = true;
@@ -47,7 +51,7 @@ class RouteChange extends React.Component {
 				      key={_.uniqueId('train-' + mta.getlineById(r.along))}
 		          line={mta.getlineById(r.along)}
               dir={'both'} />)
-          :  'run between';
+          : 'run between';
 
   			let from = (<Station
   					stations={this.props.stations}
@@ -62,9 +66,18 @@ class RouteChange extends React.Component {
         let boro_general = (r.in)
           ? r.in
           : null;
+        let bypass_stations = (r.bypass)
+          ? r.bypass
+              .map( s => (<Station
+      					stations={this.props.stations}
+      					line={_.union([r.along],r.lines)}
+      					sid={s}/> ) )
+              .reduce((prev, curr) => [prev, ', ', curr])
+          : null;
 
         if (r.action === 'replace') { action = 'replace the'; }
-        else if (line_change) {      action = 'via the'; }
+        else if (line_change) {       action = 'via the'; }
+        else if (bypass) {            action = 'skip'; }
 //        else if (r.section) {   action = 'section ' + r.section; }
         else if (lcl || exp) {  action = 'run ' + r.exp_lcl; }
         else {                  action = 'run'; }
@@ -85,8 +98,12 @@ class RouteChange extends React.Component {
               boro_general &&
               <span>in { boro_general }. </span> }
 
+            { // No stations, just "in Boro".
+              !boro_general && bypass_stations &&
+              <span>{ bypass_stations }. </span> }
+
             { // Normal Stations from/to.
-              !boro_general &&
+              !boro_general && !bypass_stations &&
               <span>from {from} until {to}.</span> }
 
           </div>
