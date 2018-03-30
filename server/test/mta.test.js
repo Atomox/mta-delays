@@ -21,6 +21,25 @@ function routeTestByTag(repository, callback, description, main_tags, omit_tags,
 }
 
 
+function bypassTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
+	let counter = 0;
+	let total = repository.length;
+	let m = [];
+
+	// Get tests to run:
+	let my_tests = repository.map( event => {
+		if (filterTest(event, 'skip_stations',	main_tags, omit_tags)) {
+			if (!route_tags || filterTestSubsection(event, 'route_change', route_tags)) {
+				counter++;
+				m.push(event);
+			}
+		}
+	});
+
+  return setupTest(description, counter, total, m, callback);
+}
+
+
 function stationMessageTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
   let counter = 0;
 	let total = repository.length;
@@ -151,6 +170,7 @@ function filterTest(event, type, tags, omit) {
 
 module.exports = {
   routeTestByTag,
+	bypassTestByTag,
   stationTestByTag,
 	stationMessageTestByTag,
   basicTest,

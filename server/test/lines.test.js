@@ -31,8 +31,8 @@ describe ('Detect Train Lines', () => {
 
 	describe('MTAD-002 -- Running Local / Express', () => {
 		tests.routeTestByTag(m,c,'[Running Express/Local] Should Map', ['MTAD-002']);
-
 	});
+
 	describe('MTAD-003 -- Map Stations from Route Change', () => {
 		it ('Route Change -- New Stations', () => {});
 		it ('Route Change -- Bypassed Stations', () => { });
@@ -57,6 +57,10 @@ describe ('Detect Train Lines', () => {
 		tests.routeTestByTag(m,c,'A-operates-then-overC', ['MTAD-014'], null, ['A-operates-then-overC']);
 		tests.routeTestByTag(m,c,'A-operates-then-overC-thenD', ['MTAD-014'], null, ['A-operates-then-overC-thenD']);
 	});
+
+	describe('MTAD-047 -- Trains Bypass Stations', () => {
+		tests.bypassTestByTag(m,c,'[Bypass Stations -- Simple] Should Map', ['MTAD-047']);
+	});
 });
 
 
@@ -71,6 +75,9 @@ describe ('Detect Train Lines', () => {
 
 
 function testStationLineRerouteObject(event) {
+
+	// Make sure the parsed message matches the expected.
+	expect(event).to.have.property('message');
 
 	// Get a train lines in main message.
 	// Add them to the lines set for station parsing.
@@ -91,6 +98,15 @@ function testStationLineRerouteObject(event) {
 			if (!data) {
 				console.error('\n\n\nNO ROUTE, but expected: ', event);
 			}
+
+
+//			console.log('\n\n', data, '\n\n');
+
+			// Make sure the parsed message matches the expected.
+			expect(data).to.have.property('message');
+			expect(event, 'Malformed Test Data for: "' + event.message + '"').to.have.property('route_change');
+			expect(event.route_change).to.have.property('message');
+
 			// Find a route in the first place.
 			expect(data, event.message).to.have.property('route');
 

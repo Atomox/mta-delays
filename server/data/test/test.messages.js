@@ -447,7 +447,9 @@ let event_messages = {
 			},
 			{
 				type: 'PlannedWork',
-				type_detail: null,
+				type_detail: [
+					'skip_stations',
+				],
 				time: null,
 				durration: 'Weekend , Saturday, Dec 23',
 				tag: ['MTAD-040', 'MTAD-047'],
@@ -470,31 +472,82 @@ let event_messages = {
 						}
 					}
 				},
+				route_change: {
+					tag: ['AB-overC-D-overE'],
+					message: "[C] [Mn605-A09]-bound trains skip [Mn168-A33], [Mn165-A30] and [Mn162-A25].",
+					trains: ['C'],
+					route: [
+						{
+							lines: ['C'],
+							along: null,
+							bypass: ['Mn168-A33', 'Mn165-A30', 'Mn162-A25'],
+							from: null,
+							to: null,
+						},
+					],
+				},
 				line: [
 					{line: 'MTA NYCT_C'},
 				],
 			},
 			{
 				type: "PlannedWork",
-				type_detail: null,
+				type_detail: ['skip_stations'],
 				time: null,
 				tag: ['MTAD-047'],
 				durration: 'Weekend, 11:45 PM Fri to 7 AM Sun , Dec 22 - 24',
 				message: 'TRACK MAINTENANCE New Lots Av-bound [4] and Flatbush Av-bound [5] trains skip Bergen St, Grand Army Plaza and Eastern Pkwy Weekend, 11:45 PM Fri to 7 AM Sun , Dec 22 - 24 For service to these stations, take the [4] or [5] to Franklin Av and transfer to a Manhattan-bound [4] or [5]. For service from these stations, take the [4] or [5] to Atlantic Av-Barclays Ctr and transfer to a New Lots Av-bound [4] or Flatbush Av-bound [5].',
 				alt_instructions: 'For service to these stations, take the [4] or [5] to Franklin Av and transfer to a Manhattan-bound [4] or [5]. For service from these stations, take the [4] or [5] to Atlantic Av-Barclays Ctr and transfer to a New Lots Av-bound [4] or Flatbush Av-bound [5].',
+				route_change: {
+					message: '[Bk352-257]-bound [4] and [Bk359-247]-bound [5] trains skip [Bk339-236], [Bk340-237] and [Bk341-238]',
+				  trains: [ '5' ],
+				  route:
+				   [ {
+						 	 allTrains: true,
+				       dir: undefined,
+				       lines: ['5'],
+				       along: null,
+				       bypass: [
+								 'Bk339-236',
+								 'Bk340-237',
+								 'Bk341-238'
+							 ],
+				       section: null
+						 },
+					 ],
+				  new_stations: [],
+				  results: false
+				}
 			},
 			{
 				type: "PlannedWork",
-				type_detail: null,
+				type_detail: ['skip_stations'],
 				time: null,
 				tag: ['MTAD-047'],
 				durration: 'Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8    Dec 11 - 15    Dec 18 - 22',
 				message: 'TRACK REPLACEMENT [1] South Ferry-bound trains skip 66 St, 59 St and 50 St Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8    Dec 11 - 15    Dec 18 - 22   For service to these stations, take the [1] to Times Sq-42 St and transfer to an uptown [1] or [2] local. For service from these stations, take the [1] or [2] to 72 St and transfer to a South Ferry-bound [1].',
 				alt_instructions: 'For service to these stations, take the [1] to Times Sq-42 St and transfer to an uptown [1] or [2] local. For service from these stations, take the [1] or [2] to 72 St and transfer to a South Ferry-bound [1].',
+				route_change: {
+					message: 'REPLACE ``` [1] [Mn635-142]-bound trains skip [Mn314-124], [Mn614-125] and [Mn316-126]',
+				  trains: [ '1' ],
+				  route:
+				   [ { allTrains: true,
+				       dir: '[Mn635-142]-bound',
+				       lines: ['1'],
+				       along: null,
+				       bypass: [
+								 'Mn314-124',
+								 'Mn614-125',
+								 'Mn316-126'
+							 ],
+				       section: null } ],
+				  new_stations: [],
+				  results: false
+				}
 			},
 			{
 				type: "PlannedWork",
-				type_detail: null,
+				type_detail: ['skip_stations'],
 				time: null,
 				durration: 'Evenings, Mon to Thu, Dec 4 - 7',
 				message: 'SIGNAL MAINTENANCE [5] Service ends early between E 180 St and Bowling Green [2] [4] trains provide alternate service Evenings, Mon to Thu, Dec 4 - 7 [5] service operates between Dyre Av  and E 180 St. Travel Alternatives [TP] Transfer between [5] and [2] trains at E 180 St. Transfer between [2] and [4] trains at 149 St-Grand Concourse. Reminder: Late Night [5] service operates as scheduled in the Bronx.  [ad]  This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.',
@@ -502,7 +555,7 @@ let event_messages = {
 			},
 			{
 				type: "PlannedWork",
-				type_detail: null,
+				type_detail: ['skip_stations'],
 				time: null,
 				tag: ['MTAD-040', 'MTAD-047'],
 				durration: 'Late Nights, 9:45 PM Tue to 5 AM Wed, Dec 5 - 6                     9:45 PM Thu to 5 AM Fri, Dec 7 - 8',
@@ -526,18 +579,57 @@ let event_messages = {
 						}
 					}
 				},
+				route_change: {
+					message: '[6] [Mn622-640]-bound trains skip [Mn403-632], [Mn404-633], [Mn405-634], [Mn407-636], [Mn619-637], [Mn409-638], [Mn623-639|Mn623-M20]',
+				  trains: [ '6' ],
+				  route: [
+						{ allTrains: true,
+				       dir: '[Mn622-640]-bound',
+				       lines: ['6'],
+				       along: null,
+				       bypass: [
+								'Mn403-632',
+								'Mn404-633',
+								'Mn405-634',
+								'Mn407-636',
+								'Mn619-637',
+								'Mn409-638',
+								'Mn623-639',
+							 ],
+				       section: null }
+					],
+				},
 				'line': [
 					{ 'line': 'MTA NYCT_6' }
 				]
 			},
 			{
 				type: "PlannedWork",
-				type_detail: null,
+				type_detail: ['skip_stations'],
 				time: null,
 				tag: ['MTAD-047'],
 				durration: 'Days, 9:45 AM to 3:30 PM, Mon and Tue, Dec 11 - 12    Mon to Fri, Dec 18 - 22    Tue to Fri, Dec 26 - 29',
 				message: 'TRACK MAINTENANCE [2] Flatbush Av-bound trains skip Burke Av, Allerton Av, Pelham Pkwy and Bronx Park East Days, 9:45 AM to 3:30 PM, Mon and Tue, Dec 11 - 12    Mon to Fri, Dec 18 - 22    Tue to Fri, Dec 26 - 29 For service to these stations, take the [2] to E 180 St and transfer to a Wakefield-bound [2]. For service from these stations, take the [2] to Gun Hill Rd and transfer to a Flatbush Av-bound [2]. Alternate travel note: For service to these stations, transfer to the Bx39 bus at Gun Hill Rd.',
 				alt_instructions: 'For service to these stations, take the [2] to E 180 St and transfer to a Wakefield-bound [2]. For service from these stations, take the [2] to Gun Hill Rd and transfer to a Flatbush Av-bound [2]. Alternate travel note: For service to these stations, transfer to the Bx39 bus at Gun Hill Rd.',
+				route_change: {
+					message: '[2] [Bk359-247]-bound trains skip [Bx422-209], [Bx423-210], [Bx424-211] and [Bx425-212]',
+				  message_mod: '[-- route-match --]',
+				  re: null,
+				  trains: [ '2' ],
+				  route:
+				   [ { allTrains: true,
+				       dir: '[Bk359-247]-bound',
+				       lines: ['2'],
+				       along: null,
+				       bypass: [
+								 'Bx422-209',
+								 'Bx423-210',
+								 'Bx424-211',
+								 'Bx425-212',
+							 ],
+				       section: null } ],
+				  new_stations: [],
+				  results: false }
 			},
 			{
 				type: 'PlannedWork',
@@ -583,15 +675,45 @@ let event_messages = {
 				durration: 'Late Nights, 12:01 AM to 5 AM, Tue to Fri, Dec 12 - 15    Dec 19 - 22',
 				message: 'TRACK REPLACEMENT [2] Downtown trains skip 66 St, 59 St and 50 St Late Nights, 12:01 AM to 5 AM, Tue to Fri, Dec 12 - 15    Dec 19 - 22      For service to these stations, take the [2] to Times Sq-42 St and transfer to an uptown [1] or [2] local. For service from these stations, take the [1] or [2] to 72 St and transfer to a downtown [2].',
 				alt_instructions: 'For service to these stations, take the [2] to Times Sq-42 St and transfer to an uptown [1] or [2] local. For service from these stations, take the [1] or [2] to 72 St and transfer to a downtown [2].',
+				route_change: {
+					message: 'REPLACE ``` [2] Downtown trains skip [Mn314-124], [Mn614-125] and [Mn316-126]',
+				  trains: [ '2' ],
+				  route:
+				   [ { allTrains: true,
+				       dir: 'Downtown',
+				       lines: ['2'],
+				       along: null,
+				       bypass: [
+								 'Mn314-124',
+								 'Mn614-125',
+								 'Mn316-126'
+							 ],
+				       section: null } ],
+				}
 			},
 			{
 				type: 'PlannedWork',
-				type_detail: null,
+				type_detail: ['skip_stations'],
 				time: '',
 				tag: ['MTAD-047'],
 				durration: 'Late Nights, 12:01 AM to 5 AM, Tue to Fri, Dec 12 - 15',
 				message: 'TRACK MAINTENANCE [4] Woodlawn-bound trains skip 138 St-Grand Concourse Late Nights, 12:01 AM to 5 AM, Tue to Fri, Dec 12 - 15 For service to this station, take the [4] to 149 St-Grand Concourse and transfer to a Manhattan-bound [4]. For service from this station, take the [4] to 125 St where it will become a Woodlawn-bound [4].',
 				alt_instructions: 'For service to this station, take the [4] to 149 St-Grand Concourse and transfer to a Manhattan-bound [4]. For service from this station, take the [4] to 125 St where it will become a Woodlawn-bound [4].',
+				route_change: {
+					message: '[4] [Bx378-401]-bound trains skip [Bx391-416]',
+				  message_mod: '[-- route-match --]',
+				  re: null,
+				  trains: [ '4' ],
+				  route:
+				   [ { allTrains: true,
+				       dir: '[Bx378-401]-bound',
+				       lines: ['4'],
+				       along: null,
+				       bypass: ['Bx391-416'],
+				       section: null } ],
+				  new_stations: [],
+				  results: false
+				}
 			},
 			{
 				type: 'PlannedWork',
@@ -662,16 +784,36 @@ let event_messages = {
 			},
 			{
 				type: 'PlannedWork',
-				type_detail: null,
+				type_detail: ['skip_stations'],
 				time: null,
 				tag: ['MTAD-047'],
 				durration: 'Weekend , Saturday and Sunday, Nov 25 - 26',
 				message: 'TRACK REPLACEMENT [R] Bay Ridge-bound trains skip 67 Av, 63 Dr, Woodhaven Blvd, Grand Av and Elmhurst Av Weekend , Saturday and Sunday, Nov 25 - 26 For service to these stations, take the [R] to Roosevelt Av and transfer to a Forest Hills-bound [R]. For service from these stations, take the [R] to 71 Av and transfer to a Bay Ridge-bound [R].',
 				alt_instructions: 'For service to these stations, take the [R] to Roosevelt Av and transfer to a Forest Hills-bound [R]. For service from these stations, take the [R] to 71 Av and transfer to a Bay Ridge-bound [R].',
+				route_change: {
+					message: 'REPLACE ``` [R] Bay Ridge-bound trains skip [Qs262-G09], [Qs263-G10], [Qs264-G11], [Qs265-G12] and [Qs266-G13]',
+				  re: null,
+				  trains: [ 'R' ],
+				  route:
+				   [ { allTrains: true,
+				       dir: 'Bay Ridge-bound',
+				       lines: ['R'],
+				       along: null,
+				       bypass: [
+								 'Qs262-G09',
+								 'Qs263-G10',
+								 'Qs264-G11',
+								 'Qs265-G12',
+								 'Qs266-G13',
+							 ],
+				       section: null } ],
+				  new_stations: [],
+				  results: false
+				}
 			},
 			{
 				type: 'PlannedWork',
-				type_detail: null,
+				type_detail: ['skip_stations'],
 				time: '',
 				tag: ['MTAD-040', 'MTAD-047'],
 				durration: 'Weekend , Saturday and Sunday, Nov 25 - 26',
@@ -693,6 +835,25 @@ let event_messages = {
 							'Mn611-A27': '42 St/Port Authority'
 						}
 					}
+				},
+				route_change: {
+					message: 'REPLACE ``` [C] [Mn605-A09]-bound trains skip [Mn168-A33], [Mn165-A30] and [Mn162-A25]',
+				  message_mod: 'REPLACE ```[-- route-match --]',
+				  re: null,
+				  trains: [ 'C' ],
+				  route:
+				   [ { allTrains: true,
+				       dir: '[Mn605-A09]-bound',
+				       lines: ['C'],
+				       along: null,
+				       bypass: [
+								 'Mn168-A33',
+								 'Mn165-A30',
+								 'Mn162-A25'
+							 ],
+				       section: null } ],
+				  new_stations: [],
+				  results: false
 				},
 				'line': [
 					{ 'line': 'MTA NYCT_C' }
@@ -734,7 +895,7 @@ let event_messages = {
 
 			{
 				type: 'PlannedWork',
-				type_detail: null,
+				type_detail: ['skip_stations'],
 				time: null,
 				tag: ['MTAD-040', 'MTAD-047'],
 				durration: 'Days, 9:45 AM to 3:30 PM, Tue to Fri, Dec 26 - 29',
@@ -757,13 +918,33 @@ let event_messages = {
 						}
 					}
 				},
+				route_change: {
+					message: '[1] [Mn635-142]-bound trains skip [Bx294-103], [Bx295-104], [Mn296-106], [Mn297-107], [Mn298-108]',
+				  trains: [ '1' ],
+				  route: [
+						{ allTrains: true,
+				       dir: '[Mn635-142]-bound',
+				       lines: ['1'],
+				       along: null,
+				       bypass: [
+								 'Bx294-103',
+								 'Bx295-104',
+								 'Mn296-106',
+								 'Mn297-107',
+								 'Mn298-108'
+							 ],
+				       section: null }
+						 ],
+				  new_stations: [],
+					results: false
+				},
 				'line': [
 					{'line': 'MTA NYCT_1'}
 				]
 			},
 			{
 				type: 'PlannedWork',
-				type_detail: null,
+				type_detail: ['skip_stations'],
 				time: null,
 				tag: ['MTAD-040', 'MTAD-047'],
 				durration: 'Late Nights, 9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29',
@@ -789,6 +970,25 @@ let event_messages = {
 							'Bx293-101': 'Van Cortlandt Park',
 						}
 					}
+				},
+				route_change: {
+					message: '[1] [Mn635-142]-bound trains skip [Mn305-115], [Mn306-116], [Mn307-117], [Mn308-118], [Mn309-119]',
+				  trains: [ '1' ],
+				  route:
+				   [ { allTrains: true,
+				       dir: '[Mn635-142]-bound',
+				       lines: ['1'],
+				       along: null,
+				       bypass: [
+								 'Mn305-115',
+								 'Mn306-116',
+								 'Mn307-117',
+								 'Mn308-118',
+								 'Mn309-119',
+							 ],
+				       section: null } ],
+				  new_stations: [],
+				  results: false
 				},
 				'line': [
 					{'line': 'MTA NYCT_1'}
@@ -965,7 +1165,7 @@ let event_messages = {
 				message: "COMMUNICATIONS IMPROVEMENTS [A] No trains between 181 St and 207 St[1] trains and [SB] free shuttle buses provide alternate service Weekends, 9:45 PM Fri to 5 AM Mon, Mar 16 - 19 Mar 23 - 26 [A] Service operates between Mott Av/Lefferts Blvd and 181 St . [1] trains make nearby stops between 181 St and 207 St* . Broadway Shuttle Buses make stops between 181 St and 207 St . Fort Washington Av Shuttle Buses make stops at 181 St and 190 St . Transfer between trains and buses at 181 St. Transfer between [A] and [1] trains at 168 St. Show Shuttle Bus Stops [TP] Station Broadway Shuttle Bus Stop Fort Washington Av Shuttle Bus Stop 181 St [A] Fort Washington Av at W 180 St Fort Washington Av at W 181 St -- Fort Washington Av at W 183 St -- Fort Washington Av at W 185 St 190 St Broadway at W 193 St (to 207 St) Fort Washington Av at W 190 St Broadway at Bennett Av (to 181 St) Fort Washington Av at Cabrini Blvd Dyckman St Broadway at Dyckman St -- 207 St Broadway at W 207 St -- *Downtown [1] trains skip 207 St from 5:45 AM to 7 PM, Mar 17 - 18. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 				message_station_parse: "COMMUNICATIONS IMPROVEMENTS [A] No trains between [Mn146-A06] and [Mn143-A02][1] trains and [SB] free shuttle buses provide alternate service Weekends, 9:45 PM Fri to 5 AM Mon, Mar 16 - 19 Mar 23 - 26 [A] Service operates between [Qs209-H11]/[Qs195-A65] and [Mn146-A06] . [1] trains make nearby stops between [Mn146-A06] and [Mn143-A02]* . Broadway Shuttle Buses make stops between [Mn146-A06] and [Mn143-A02] . Fort Washington Av Shuttle Buses make stops at [Mn146-A06] and [Mn145-A05] . Transfer between trains and buses at [Mn146-A06]. Transfer between [A] and [1] trains at [Mn605-A09]. Show Shuttle Bus Stops [TP] Station Broadway Shuttle Bus Stop Fort Washington Av Shuttle Bus Stop [Mn146-A06] [A] Fort Washington Av at W 180 St Fort Washington Av at W [Mn146-A06] -- Fort Washington Av at W 183 St -- Fort Washington Av at W 185 St [Mn145-A05] Broadway at W 193 St (to [Mn143-A02]) Fort Washington Av at W [Mn145-A05] Broadway at Bennett Av (to [Mn146-A06]) Fort Washington Av at Cabrini Blvd [Mn144-A03] Broadway at [Mn144-A03] -- [Mn143-A02] Broadway at W [Mn143-A02] -- *Downtown [1] trains skip [Mn143-A02] from 5:45 AM to 7 PM, Mar 17 - 18. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 				route_change: {
-					message: "[A] Service operates between [Qs209-H11]/[Qs195-A65] and [Mn146-A06] . [1]",
+					message: "[A] Service operates between [Qs209-H11]/[Qs195-A65] and [Mn146-A06] . [1] ``` Downtown [1] trains skip [Mn143-A02] from",
 					message_mod: "[-- route-match --] and [Mn146-A06] . [1]",
 					trains: ["A"],
 					route: [
@@ -1206,7 +1406,7 @@ let event_messages = {
 					"route_change",
 					"running_express"
 				],
-				tag: ["MTAD-006", "MTAD-001", "MTAD-002", "MTAD-011", "MTAD-014", "MTAD-027"],
+				tag: ["MTAD-006", "MTAD-001", "MTAD-002", "MTAD-011", "MTAD-014", "MTAD-027", "MTAD-047"],
 				time: null,
 				durration: "Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15",
 				message: "SIGNAL IMPROVEMENTS [F] Service  is rerouted in Manhattan and Brooklyn[A] [C] [D] [N] [R] trains and [SB] free shuttle buses provide alternate service Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15 No [F] service at 57 St , 47-50 Sts , 42 St-Bryant Pk , 23 St , 14 St , W 4 St , B'way-Lafayette St , 2 Av , Delancey St/Essex St , East Broadway , and York St . [F] service operates b etween Jamaica-179 St and Lexington Av-63 St, and via the [Q] to/from Atlantic Av-Barclays Ctr (skipping DeKalb Av, days and evenings), and via the [D] to/from Stillwell Av . Trains run express in Manhattan all weekend . [D]* trains are rerouted via the [A] in Manhattan and replace the [F] in Brooklyn between Jay St-MetroTech and Stillwell Av . [SB] Buses operate along two routes: 1. Between W 4 St and East Broadway , stopping at B'way-Lafayette St, 2 Av and Delancey St/Essex St. 2. Between Jay St-MetroTech and York St . Show Shuttle Bus Stops Station Bus Stop Bus W 4 St [ad] [A] [C] [D] [E] 6 Av at W 3 St M55 B'way-Lafayette St Houston St at Lafayette St (to East Broadway) M21 Houston St at Broadway (to W 4 St) M21 2 Av Houston St at 1 Av M21 Delancey St/Essex St [J] Delancey St at Essex St (to East Broadway) B39 Essex St at Delancey St (to W 4 St) M9 East Broadway Essex St at Straus Square M9 York St Jay St at York St B67 Jay St-MetroTech [ad] [A] [C] [D] [N] [R] Jay St at Willoughby St B26 Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [A] [C] [D] [N] or [R]. Transfer between [F] ([Q] platform) and [A] [C] [D] [N] or [R] trains at 42 St-Port Authority/Times Sq-42 St. Transfer between [F] ([Q] platform) and [N] [R] trains at Canal St. Transfer between [D] and [N] [R] trains at Jay St-MetroTech. Affected Station Alternate Station/Service 57 St 7 Av or 5 Av/53 St [E] 47-50 Sts 7 Av or 5 Av/53 St [E] 49 St [N] [Q] local , [R] | [ad] uptown only 50 St (B'way) [1] [2] local 50 St (8 Av) [A] local , [C] [E] | [ad] downtown only 42 St-Bryant Pk [7] (5 Av) Times Sq-42 St [1] [2] [3] [7] [F] [N] [Q] [R] [S] | [ad] 42 St/Port Authority [A] [C] [D] [E] | [ad] 34 St-Herald Sq [ad] [F] [N] [Q] [R] 34 St-Penn Station [1] [2] [3] | [ad] 23 St 23 St [N] [Q] local , [R] 23 St [1] [2] local 14 St [1] [2] [3] (7 Av) or [L] (8 Av) | [ad] B'way-Lafayette St [ad] [SB] and Bleecker St [4] local , [6] | [ad] 2 Av [SB] Delancey St/Essex St [J] and [SB] East Broadway [SB] York St [SB] and nearby High St [A] [C] [D] Jay St MetroTech [ad] [SB] and [D] [N] [R] For Brooklyn [F] stations between Jay St-MetroTech and Stillwell Av , take the [D] instead. Key Transfer Stations 59 St-Columbus Circle [ad] [A] [C] [D] and [1] [2] local Times Sq-42 St/42 St-Port Authority [ad] (Passageway not accessible) [1] [2] [3] [7] [F] [N] [Q] [R] [S] [A] [C] [D] [E] 14 St-Union Sq [ad] (L, N, F, Q, R only) [4] [6] and [F] [N] [Q] [R] Canal St [ad] (4, 6 only) [4] local , [6] [J] [F] [N] [Q] [R] Jay St-MetroTech [ad] [A] [C] [D] [N] [R] and [SB] 4 Av-9 St [D] [G] [N] [R] | [F] late night only *This detour has taken into account additional planned service changes. Reminder: During late nights, all alternate stations are served, though not all lines run. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
@@ -1822,6 +2022,29 @@ let event_messages = {
 							}
 						},
 					},
+					route_change: {
+						message: '[C] [Bk188-A55]-bound trains skip [Mn154-A16], [Mn155-A17], [Mn156-A18], [Mn157-A19], [Mn158-A20], [Mn159-A21], [Mn160-A22], [Mn162-A25|Bk61-B14], [Mn165-A30], [Mn168-A33]',
+					  trains: [ 'C' ],
+					  route:[
+							{ allTrains: true,
+					       dir: '[Bk188-A55]-bound',
+					       lines: ['C'],
+					       along: null,
+					       bypass: [
+									 'Mn154-A16',
+									 'Mn155-A17',
+									 'Mn156-A18',
+									 'Mn157-A19',
+									 'Mn158-A20',
+									 'Mn159-A21',
+									 'Mn160-A22',
+									 'Mn162-A25',
+									 'Mn165-A30',
+									 'Mn168-A33'
+								 ],
+					       section: null }
+							],
+					},
 					line: [	{line: "MTA NYCT_C",dir: "1"} ],
 				},
 				{
@@ -1921,7 +2144,7 @@ let event_messages = {
 						"no_trains_partial",
 						"signal_maintenance"
 					],
-					tag: ['MTAD-001', /*"MTAD-002",*/ 'MTAD-009', 'MTAD-047'],
+					tag: ['MTAD-001', /*"MTAD-002"*/, 'MTAD-009', /*'MTAD-047'*/],
 					time: null,
 					durration: "Weekend, 11:30 PM Fri to 5 AM Mon, Jan 26 - 29",
 					message: "SIGNAL MAINTENANCE [D] Service operates in two sections and is rerouted in Manhattan[F] [N] [Q] [R] trains and [SB] free shuttle buses provide alternate service Weekend, 11:30 PM Fri to 5 AM Mon, Jan 26 - 29 No [D] service at 7 Av , 47-50 Sts , 42 St-Bryant Pk , 34 St-Herald Sq , Grand St and DeKalb Av . [D] service operates in two sections: 1. Between 205 St and B'way-Lafayette St, and via the [F] to/from 2 Av, the last stop Trains run via the [A] local in both directions between 125 St and W 4 St. 2. Between Atlantic Av-Barclays Ctr and Stillwell Av Trains skip Union St, 4 Av-9 St, Prospect Av and 25 St in both directions. [SB] Buses operate between W 4 St and Grand St , stopping at B'way-Lafayette St . Show Shuttle Bus Stops Station Bus Stop Bus W 4 St [ad] [A] [C] [D] [E] [F] 6 Av at W 3 St M55 B'way-Lafayette St [ad] [D] [F] Houston St at Broadway M21 Grand St Grand St at Chrystie St -- Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [N] or [Q]. Transfer between [D] and [N] [Q] trains via the passageway at Times Sq-42 St/Port Authority. In Brooklyn, transfer between [D] and [N] [Q] trains at Atlantic Av-Barclays Ctr. Transfer between [N] [Q] and [F] at 34 St-Herald Sq. For 7 Av , take the [E] via transfer at Times Sq-42 St/Port Authority. For 47-50 Sts , 42 St-Bryant Pk and 34 St-Herald Sq take the [F]. Transfer between [D] and [F] trains at W 4 St. Transfer between [N] [Q] and [F] trains at 34 St-Herald Sq. For Grand St , take a [SB] bus via transfer at W 4 St or B'way-Lafayette St. For DeKalb Av , take the [N] [Q] or [R] instead via transfer at Atlantic Av-Barclays Ctr or Times Sq-42 St/Port Authority. For Union St , 4 Av-9 St, Prospect Av and 25 St , take the [N] or [R] instead. Transfer between [D] and [N] [R] trains at 36 St. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
@@ -1966,7 +2189,24 @@ let event_messages = {
 								from: "Bk617-R31",
 								to: "Bk58-D43",
 								section: 2,
+							},
+	/**
+              {
+								allTrains: true,
+								dir: null,
+								lines: ["D"],
+								along: null,
+								from: null,
+								to: null,
+								bypass: [
+									'Bk28-R32',
+									'Bk608-F23',
+									'Bk30-R34',
+									'Bk31-R35'
+								],
+								section: 2,
 							}
+	*/
 						]
 					},
 					line: [
@@ -2178,8 +2418,7 @@ let event_messages = {
 					message: "TRACK MAINTENANCE [R] Some Bay Ridge-bound trains skip Queens Plaza, Lexington Av/59 St and 5 Av/59 St Rush Hour, 6 AM to 10 AM, Mon to Fri, Mar 19 - 23 Mar 26 - 30 Please allow additional travel time. After 36 St, Queens, some [R] trains run via the [F] stopping at 21 St-Queensbridge, Roosevelt Island and Lexington Av/63 St, resuming regular service at 57 St-7 Av. Travel Alternatives [TP] Take a Bay Ridge-bound [R] making these stops. For Queens Plaza, transfer to the [E] at Roosevelt Av.",
 					message_station_parse: "TRACK MAINTENANCE [R] Some Bay Ridge-bound trains skip [Qs273-G21], [Mn613-R11] and [Mn8-R13] Rush Hour, 6 AM to 10 AM, Mon to Fri, Mar 19 - 23 Mar 26 - 30 Please allow additional travel time. After [Qs272-G20], Queens, some [R] trains run via the [F] stopping at [Qs221-B04], [Mn222-B06] and [Mn223-B08], resuming regular service at [Mn9-R14]. Travel Alternatives [TP] Take a Bay Ridge-bound [R] making these stops. For [Qs273-G21], transfer to the [E] at [Qs616-G14].",
 					route_change: {
-						message: "some [R] trains run via the [F] stopping",
-						message_mod: "some [R] trains run via the [F] stopping",
+						message: "[R] Some Bay Ridge-bound trains skip [Qs273-G21], [Mn613-R11] and [Mn8-R13] ``` some [R] trains run via the [F] stopping",
 						re: null,
 						trains: [ ],
 						route: [ ],
