@@ -77,6 +77,13 @@ let archive_status = {
 		'mta_status.82.March_17_-_Weekend_-_Planned_Work_and_Delays',
 		'mta_status.83.sunday_night',
 		'mta_status.84.March_20_-_Tuesday_Morning_Delays',
+		'mta_status.85.Tuesday_morning_planned_work',
+		'mta_status.86.SNOW_Wednesday_March_21_-_Winter_Weather_Plan',
+		'mta_status.87.Sunday_weekend_work',
+		'mta_status.88.wednesday_morning_delays',
+		'mta_status.89.Thursday_morning_delays',
+		'mta_status.90.March_29_-_Weekday_Morning_Planned_Work',
+		'mta_status.91.Weeknight_Planned_Work',
 	],
 	path: './data/archive/',
 };
