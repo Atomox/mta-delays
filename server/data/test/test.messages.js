@@ -2144,14 +2144,14 @@ let event_messages = {
 						"no_trains_partial",
 						"signal_maintenance"
 					],
-					tag: ['MTAD-001', /*"MTAD-002"*/, 'MTAD-009', /*'MTAD-047'*/],
+					tag: ['MTAD-001', /*"MTAD-002"*/, 'MTAD-009', 'MTAD-047'],
 					time: null,
 					durration: "Weekend, 11:30 PM Fri to 5 AM Mon, Jan 26 - 29",
 					message: "SIGNAL MAINTENANCE [D] Service operates in two sections and is rerouted in Manhattan[F] [N] [Q] [R] trains and [SB] free shuttle buses provide alternate service Weekend, 11:30 PM Fri to 5 AM Mon, Jan 26 - 29 No [D] service at 7 Av , 47-50 Sts , 42 St-Bryant Pk , 34 St-Herald Sq , Grand St and DeKalb Av . [D] service operates in two sections: 1. Between 205 St and B'way-Lafayette St, and via the [F] to/from 2 Av, the last stop Trains run via the [A] local in both directions between 125 St and W 4 St. 2. Between Atlantic Av-Barclays Ctr and Stillwell Av Trains skip Union St, 4 Av-9 St, Prospect Av and 25 St in both directions. [SB] Buses operate between W 4 St and Grand St , stopping at B'way-Lafayette St . Show Shuttle Bus Stops Station Bus Stop Bus W 4 St [ad] [A] [C] [D] [E] [F] 6 Av at W 3 St M55 B'way-Lafayette St [ad] [D] [F] Houston St at Broadway M21 Grand St Grand St at Chrystie St -- Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [N] or [Q]. Transfer between [D] and [N] [Q] trains via the passageway at Times Sq-42 St/Port Authority. In Brooklyn, transfer between [D] and [N] [Q] trains at Atlantic Av-Barclays Ctr. Transfer between [N] [Q] and [F] at 34 St-Herald Sq. For 7 Av , take the [E] via transfer at Times Sq-42 St/Port Authority. For 47-50 Sts , 42 St-Bryant Pk and 34 St-Herald Sq take the [F]. Transfer between [D] and [F] trains at W 4 St. Transfer between [N] [Q] and [F] trains at 34 St-Herald Sq. For Grand St , take a [SB] bus via transfer at W 4 St or B'way-Lafayette St. For DeKalb Av , take the [N] [Q] or [R] instead via transfer at Atlantic Av-Barclays Ctr or Times Sq-42 St/Port Authority. For Union St , 4 Av-9 St, Prospect Av and 25 St , take the [N] or [R] instead. Transfer between [D] and [N] [R] trains at 36 St. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 					message_station_parse: "SIGNAL MAINTENANCE [D] Service operates in two sections and is rerouted in Manhattan[F] [N] [Q] [R] trains and [SB] free shuttle buses provide alternate service Weekend, 11:30 PM Fri to 5 AM Mon, Jan 26 - 29 No [D] service at [Mn277-D14] , [Mn225-D15] , [Mn609-D16] , [Mn607-D17] , [Mn231-D22] and [Bk26-R30] . [D] service operates in two sections: 1. Between [Bx210-D01] and [Mn619-D21], and via the [F] to/from [Mn232-F14], the last stop Trains run via the [A] local in both directions between [Mn153-A15] and [Mn167-A32]. 2. Between [Bk617-R31] and [Bk58-D43] Trains skip [Bk28-R32], [Bk608-F23], [Bk30-R34] and [Bk31-R35] in both directions. [SB] Buses operate between [Mn167-A32] and [Mn231-D22] , stopping at [Mn619-D21] . Show Shuttle Bus Stops Station Bus Stop Bus [Mn167-A32] [ad] [A] [C] [D] [E] [F] 6 Av at W 3 St M55 [Mn619-D21] [ad] [D] [F] Houston St at [Qs4-R05] M21 [Mn231-D22] [Mn231-D22] at Chrystie St -- Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [N] or [Q]. Transfer between [D] and [N] [Q] trains via the passageway at Times Sq-42 St/Port Authority. In Brooklyn, transfer between [D] and [N] [Q] trains at [Bk617-R31]. Transfer between [N] [Q] and [F] at [Mn607-D17]. For [Mn277-D14] , take the [E] via transfer at Times Sq-42 St/Port Authority. For [Mn225-D15] , [Mn609-D16] and [Mn607-D17] take the [F]. Transfer between [D] and [F] trains at [Mn167-A32]. Transfer between [N] [Q] and [F] trains at [Mn607-D17]. For [Mn231-D22] , take a [SB] bus via transfer at [Mn167-A32] or [Mn619-D21]. For [Bk26-R30] , take the [N] [Q] or [R] instead via transfer at [Bk617-R31] or Times Sq-42 St/Port Authority. For [Bk28-R32] , [Bk608-F23], [Bk30-R34] and [Bk31-R35] , take the [N] or [R] instead. Transfer between [D] and [N] [R] trains at [Bk32-R36]. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 					route_change: {
 						tag: ['A-operates-then-overC', 'A-1-operates-then-viaC-viaD-2-operates'],
-						message: "[D] Service operates in two sections and is rerouted in Manhattan[F] [N] [Q] [R] ```[D] [__operates-section-1__] Between [Bx210-D01] and [Mn619-D21], and via the [F] to/from [Mn232-F14], the last stop Trains run via the [A] local in both directions between [Mn153-A15] and [Mn167-A32]. ```[D] [__operates-section-2__] Between [Bk617-R31] and [Bk58-D43] Trains skip [Bk28-R32], [Bk608-F23], [Bk30-R34] and [Bk31-R35] in both directions. [SB] ``` operate between [Mn167-A32] and [Mn231-D22] , stopping",
+						message: "[D] Service operates in two sections and is rerouted in Manhattan[F] [N] [Q] [R] ```[D] [__operates-section-1__] Between [Bx210-D01] and [Mn619-D21], and via the [F] to/from [Mn232-F14], the last stop Trains run via the [A] local in both directions between [Mn153-A15] and [Mn167-A32]. ```[D] [__operates-section-2__] Between [Bk617-R31] and [Bk58-D43] [D] trains skip [Bk28-R32], [Bk608-F23], [Bk30-R34] and [Bk31-R35] in both directions. [SB] ``` operate between [Mn167-A32] and [Mn231-D22] , stopping",
 						trains:["D"],
 						route: [
 							{
@@ -2190,7 +2190,6 @@ let event_messages = {
 								to: "Bk58-D43",
 								section: 2,
 							},
-	/**
               {
 								allTrains: true,
 								dir: null,
@@ -2206,7 +2205,6 @@ let event_messages = {
 								],
 								section: 2,
 							}
-	*/
 						]
 					},
 					line: [
@@ -2418,10 +2416,23 @@ let event_messages = {
 					message: "TRACK MAINTENANCE [R] Some Bay Ridge-bound trains skip Queens Plaza, Lexington Av/59 St and 5 Av/59 St Rush Hour, 6 AM to 10 AM, Mon to Fri, Mar 19 - 23 Mar 26 - 30 Please allow additional travel time. After 36 St, Queens, some [R] trains run via the [F] stopping at 21 St-Queensbridge, Roosevelt Island and Lexington Av/63 St, resuming regular service at 57 St-7 Av. Travel Alternatives [TP] Take a Bay Ridge-bound [R] making these stops. For Queens Plaza, transfer to the [E] at Roosevelt Av.",
 					message_station_parse: "TRACK MAINTENANCE [R] Some Bay Ridge-bound trains skip [Qs273-G21], [Mn613-R11] and [Mn8-R13] Rush Hour, 6 AM to 10 AM, Mon to Fri, Mar 19 - 23 Mar 26 - 30 Please allow additional travel time. After [Qs272-G20], Queens, some [R] trains run via the [F] stopping at [Qs221-B04], [Mn222-B06] and [Mn223-B08], resuming regular service at [Mn9-R14]. Travel Alternatives [TP] Take a Bay Ridge-bound [R] making these stops. For [Qs273-G21], transfer to the [E] at [Qs616-G14].",
 					route_change: {
-						message: "[R] Some Bay Ridge-bound trains skip [Qs273-G21], [Mn613-R11] and [Mn8-R13] ``` some [R] trains run via the [F] stopping",
-						re: null,
-						trains: [ ],
-						route: [ ],
+							message: '[R] Some Bay Ridge-bound trains skip [Qs273-G21], [Mn613-R11] and [Mn8-R13] ``` some [R] trains run via the [F] stopping',
+						  trains: [ 'R' ],
+						  route:
+						   [
+								 {
+								 	 allTrains: false,
+						       dir: 'Bay Ridge-bound',
+						       lines: ['R'],
+						       along: null,
+						       bypass: [
+										 'Qs273-G21',
+										 'Mn613-R11',
+										 'Mn8-R13'
+									 ],
+						       section: null
+								 }
+							 ],
 					},
 					line: [
 						{line: "MTA NYCT_R",dir: "1"}
