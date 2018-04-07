@@ -58,6 +58,13 @@ describe ('Detect Train Lines', () => {
 		tests.routeTestByTag(m,c,'A-operates-then-overC-thenD', ['MTAD-014'], null, ['A-operates-then-overC-thenD']);
 	});
 
+	describe('MTAD-034 -- Line Operates Between', () => {
+		tests.bypassTestByTag(m,c,'[Trains Operate Between (No Route Change)] Should Map', ['MTAD-034']);
+	});
+	describe('MTAD-035 -- No Trains Between / Service Suspended', () => {
+		tests.bypassTestByTag(m,c,'[No Trains Partial] Should Map', ['MTAD-035']);
+	});
+
 	describe('MTAD-047 -- Trains Bypass Stations', () => {
 		tests.bypassTestByTag(m,c,'[Bypass Stations -- Simple] Should Map', ['MTAD-047']);
 	});

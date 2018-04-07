@@ -84,6 +84,9 @@ let archive_status = {
 		'mta_status.89.Thursday_morning_delays',
 		'mta_status.90.March_29_-_Weekday_Morning_Planned_Work',
 		'mta_status.91.Weeknight_Planned_Work',
+		'mta_status.92.March_31_Weekend_Planned_Work',
+		'mta_status.93.April-02_Snow_Delays',
+		'mta_status.94.Tuesday_Morning_Delays',
 	],
 	path: './data/archive/',
 };

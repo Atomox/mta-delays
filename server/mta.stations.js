@@ -185,9 +185,9 @@ function prepareBunchedStationNames(txt) {
 
 		let previous_word = '',
 			match_split = matches.split(','),
-			road_abbreviations = ['st', 'av', 'pl', 'pkwy', 'blvd', 'authority'],
+			road_abbreviations = ['st', 'sq', 'av', 'pl', 'pkwy', 'blvd', 'authority'],
 			sts_exceptions = ['47-50 sts', '174-175 sts', '182-183 sts', 'delancey-essex sts', 'hoyt-schermerhorn sts', 'smith-9 sts'],
-			avs_exceptions = ['myrtle-wyckoff avs', 'clinton-washington avs', 'kingston-throop avs', 'myrtle-willoughby avs', 'bedford-nostrand'],
+			avs_exceptions = ['myrtle-wyckoff avs', 'clinton-washington avs', 'kingston-throop avs', 'myrtle-willoughby avs', 'bedford-nostrand avs'],
 			order,
 			first_match = false,
 			found_match = false;
