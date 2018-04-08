@@ -2589,7 +2589,7 @@ let event_messages = {
 						durration: "Days, 10 AM to 3:30 PM, Tue to Fri, Dec 26 - 29",
 						message: "TRACK MAINTENANCE [W] No trains between 57 St-7 Av and Ditmars Blvd - Take the [N] instead [W] trains run every 20 minutes in Manhattan Days, 10 AM to 3:30 PM, Tue to Fri, Dec 26 - 29 [W] service operates between Whitehall St and 57 St-7 Av, and via the [Q] to/from 96 St . Transfer between [N]* and [W] trains at Times Sq-42 St (across the platform). *Please review [N] advisories for additional information that may affect your trip. Alternate travel note: [R] service is also available at 5 Av/59 St and Lexington Av/59 St. Transfer between [R] and [W] trains at 57 St-7 Av.",
 						route_change: {
-							message: "W] No trains between [Mn9-R14] and [Qs1-R01] ``` [W] service operates between [Mn635-R27] and [Mn9-R14], and via the [Q] to/from [Mn475-Q05] .",
+							message: "[W] No trains between [Mn9-R14] and [Qs1-R01] ``` [W] service operates between [Mn635-R27] and [Mn9-R14], and via the [Q] to/from [Mn475-Q05] .",
 							tag: ['A-operates-then-overC'],
 							trains: ["W"],
 							route: [

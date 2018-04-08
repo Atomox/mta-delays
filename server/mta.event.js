@@ -482,10 +482,37 @@ async function getRouteChange(text, lines, id) {
 			op,
 			operate_sections = false,
 			reroute_pattern = /((Some)?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b.*\b[\s-]bound)?\s*\[([A-Z0-9]{1,2})\](?:\*|\s)*(?:(?:\s|and)*\[([A-Z0-9]{1,2})\])?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b.*\b[\s-]bound)?\s*(?:(?:(?:trains)?(?:\s*are\s*(?:rerouted)?)?)|(?:([^`\[\]]*service\s*operates\s*b\s*etween|[^`\[\]]*No\s*service\s*b\s*etween|\[__operates-section-[0-9]__\]\s*(?:between)?)\s*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])[^\[\]`]*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])))[^\[\]`]*)((?:(?:and|then)?\s(?:stopping|run)?\s*(on|via|along|long|over|replace)+\s*(?:the)?\s*\[((?!\3\4)[A-Z0-9])\]| run(?:ning)?\s*(express|local))[^\/\[\]`]*(express|local|to\/from|to|\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])[^\[\]`]*(Manhattan|Queens|Brooklyn|the\s* Bronx|\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])(?:\s*\(skipping.*\)\s*|\,\s*the\s*last\s*stop|\,\s*then\s*end)?[\.,\s]*)((?:(?:(?:and|then)?\s*(?:trains\s*(?:run)\s*)?(?:stopping|run|operat(?:e|ing))?\s*(via|along|over|replace|on)+ the)\s*(\[(?!\3\4)[A-Z0-9]\])?[^\[\]`]*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\]|to\/from|to)(?:[^\[\]`]*(?:(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])[\.]?))?)?)/i,
+			no_trains_between_pattern = /(?:Service\s*is\s*(suspended)\s*(?:in\s*both\s*directions\s*)(?:on\s*the\s*))?\[([A-Z0-9])\]\s*(?:trains\s*)?(?:(No)\s*(?:trains|service)\s*between|(?:line\s*)?between)\s*(?:(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])(?:\s*and|\s*)?\s*)+/i,
 			bypass_pattern = /(Some)?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b.*\b[\s-]bound)?\s*\[([A-Z0-9]{1,2})\](?:\*|\s)*(?:(?:\s|and)*\[([A-Z0-9]{1,2})\])?\s*(Some)?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b.*\b[\s-]bound)?\s*(?:trains\s*(?:are\s*)?(?:skip(?:ping)?|bypass(?:ing)?))\s*((?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\]\s*(?:,|and)*\s*)+)/i,
-			operate_sections_pattern = /\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:(?:\[__operates-section-([0-9])__\]|(?:(?:shuttle)?\s*(?:service|trains))\s*(?:operate(?:s)?|(?:are)?\s*run(?:ning)?))\s*(?:(?:(?:at)?\s*all\s*times)|weekend(?:s)?\s*(?:service)?)?\s*(?:between)?)\s*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])(?:[^\[\]`]|\[[a-z0-9]\])*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\]))+/i;
-
-	// @TODO -- Normal Route Change Detect /(Some\s)?(Northbound|Southbound)?\s*\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:trains(?:\s*are\s*rerouted)?)|(?:[^`\[\]]*(service\s*operates\s*b\s*etween|No\s*service\s*b\s*etween)\s*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]))?)[^\[\]`]*(?:(?:and|then)?\s(?:stopping\s)?(?:via|along|over)+ the|\s)+\[([A-Z0-9])\][^\/\[\]`]*(to\/from|to|\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:)[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])(?:\s*\(skipping.*\)\s*)?[\.,\s]*(?:(?:(?:and|then)?\s*(?:stopping\s)?(?:via|along|over)+ the|\s)+(\[(?!\3\4)[A-Z0-9]\])?[^\[\]`]*(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\]|to\/from|to)(?:[^\[\]`]*(?:(\[[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}\])[\.]?))?)?/i;
+			operate_sections_pattern = /\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:(?:\[__operates-section-([0-9])__\]|(?:(?:shuttle)?\s*(?:service|trains))\s*(?:operate(?:s)?|(?:are)?\s*run(?:ning)?))\s*(?:(?:(?:at)?\s*all\s*times)|weekend(?:s)?\s*(?:service)?)?\s*(?:between)?)\s*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])(?:[^\[\]`]|\[[a-z0-9]\])*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\]))+/i,
+			module = [
+/**
+				{
+					id: 'no_svc_between',
+					check: (msg) => (getMessageAction(msg, ['no_trains_partial', 'no_trains']) !== null),
+					pattern: no_trains_between_pattern,
+					callback: null
+				},
+*/
+				{
+					id: 'bypass_stations',
+					check: (msg) => (msg.indexOf('skip') !== -1	|| msg.indexOf('bypass') !== -1),
+					pattern: bypass_pattern,
+					callback: processRouteChangeBypassResult
+				},
+				{
+					id: 'reroute_general',
+					check: (msg) => true,
+					pattern: reroute_pattern,
+					callback: processRouteChangeResults
+				},
+				{
+					id: 'operate_sections',
+					check: (msg) => true,
+					pattern: operate_sections_pattern,
+					callback: processRouteChangeSectionsResult,
+				}
+			];
 
 	if (id == GLOBAL_DEBUG_ID) { console.log('\n\n -- Parse 1st Pass --', c, '\n\n'); }
 
@@ -501,13 +528,10 @@ async function getRouteChange(text, lines, id) {
 	/**
 	 *
 	 *
-	 *
-	 *
 	 * @TODO
 	 *
 	 *  We're enabling this so that "trains operate between" simplified messaging
 	 *   can be processed inside the same regex as operates_sections.
-	 *
 	 *
 	 *
 	 */
@@ -525,82 +549,44 @@ async function getRouteChange(text, lines, id) {
 				new_stations: [],
 			};
 
-			let empty_results = false,
-				hasByPass = false,
-				byPassComplete = false;
+			let p = 0;
 
 			for (let passes = 0; passes < 6; passes++) {
 
-				if (byPassComplete === false) {
-					hasBypass = (c.message_mod.indexOf('skip') !== -1	|| c.message_mod.indexOf('bypass') !== -1 );
+				// If the current pattern doesn't detect more keywords, move on.
+				if (module[p] && module[p].check(c.message_mod) !== true) {
+					p = p + 1;
 				}
 
-				c.results = (empty_results === false)
-					? (hasBypass === true)
-						? mtaRegEx.matchRegexString(bypass_pattern, c.message_mod, true)
-						: mtaRegEx.matchRegexString(reroute_pattern, c.message_mod, true)
-					: mtaRegEx.matchRegexString(operate_sections_pattern, c.message_mod, true);
+				// Make sure we're not off the end of the module array.
+				if (!module[p]) {	break;	}
 
-				// Only makes passes until our regex comes up blank.
-				if (c.results === false && hasBypass !== true) {
-					// If this is an operate sections message, when we finish with
-					// regular results, look for __operate-sections-1__ mini-pattern.
-					if (operate_sections === true && empty_results === false) {
-						empty_results = true;
-						continue;
-					}
-					else {
-						break;
-					}
-				}
-				// Once a bypass misses once, don't check again.
-				else if (c.results === false && hasBypass === true) {
-					byPassComplete = true;
-					hasBypass = false;
-					continue;
-				}
+				c.results = mtaRegEx.matchRegexString(module[p].pattern, c.message_mod, true);
 
 				// Operate In Section Mode -- Only after we've exhausted normal matches.
-				if (operate_sections === true && empty_results === true) {
+				if (c.results !== false) {
 
 					// Check the results, and add them if we find anything valid.
-					let my_results = await processRouteChangeSectionsResult(c.results)
-					if (my_results.route && my_results.route.length > 0) {
-						c.route.push(my_results.route[0]);
-						c.trains = _.uniq(c.trains.concat(my_results.trains));
-					}
+					let my_results = await module[p].callback(c.results, c.message_mod);
 
-					// Removed the match from the picture, so we can move on in the next iteration.
-					c.message_mod = c.message_mod.replace(c.results[0],'[-- route-match --]');
-				}
-
-				else if (hasBypass === true) {
-					// Check the results, and add them if we find anything valid.
-					let my_results = await processRouteChangeBypassResult(c.results)
-					if (my_results.route && my_results.route.length > 0) {
-						c.route.push(my_results.route[0]);
-						c.trains = _.uniq(c.trains.concat(my_results.trains));
-					}
-
-					// Removed the match from the picture, so we can move on in the next iteration.
-					c.message_mod = c.message_mod.replace(c.results[0],'[-- route-match --]');
-				}
-				// Normal Route Change Match.
-				else if (c.results[0] && c.results[4]) {
-					// First line in message == second reroute line, then we might be overreaching our SINGLE MESSAGE.
-					if (c.results[4] === c.results[16]) {
-						console.warn('\n\n\n\nWe should replace part of this message! We may be stealing part of another message!',c.results ,'\n\n\n\n\n');
-					}
-
-					// Check the results, and add them if we find anything valid.
-					let my_results = await processRouteChangeResults(c.results, c.message_mod);
+					// If we had results, process them.
 					if (my_results.route && my_results.route.length > 0) {
 						my_results.route.map(m => c.route.push(m) );
 						c.trains = _.uniq(c.trains.concat(my_results.trains));
-						c.message_mod = my_results.message_mod;
 					}
+
+					// Normal Route Change Pattern only does this if there is a match. (inside the above if)
+					// Removed the match from the picture, so we can move on in the next iteration.
+					c.message_mod = my_results.message_mod;
+				}
+
+				// If there are no results, move on to the next pattern.
+				else {
+					p = p + 1;
 				}
 			}
+
+
 
 			if (c.route.length > 1) {
 				// c.route.map()
@@ -612,6 +598,7 @@ async function getRouteChange(text, lines, id) {
 				//    	2. c.route[i].section
 				//
 			}
+
 		}
 
 		return c;
@@ -638,6 +625,11 @@ async function getRouteChange(text, lines, id) {
 async function processRouteChangeResults(regex_match, message_mod) {
 
 //	console.log('\n -- ', regex_match, '\n\n');
+
+	// First line in message == second reroute line, then we might be overreaching our SINGLE MESSAGE.
+	if (regex_match[4] === regex_match[16]) {
+		console.warn('\n\n\n\nWe should replace part of this message! We may be stealing part of another message!',regex_match ,'\n\n\n\n\n');
+	}
 
 	let results = {
 		route: [],
@@ -834,11 +826,26 @@ async function processRouteChangeResults(regex_match, message_mod) {
 }
 
 
-async function processRouteChangeBypassResult(regex_results) {
+/**
+ * Uniform way to replace a regex match string with a placeholder in message_mod.
+ *
+ * @TODO
+ *   Refactor later.
+ */
+function replaceSimpleMessagePattern(message, replace_text) {
+	// Removed the match from the picture, so we can move on in the next iteration.
+	message = message.replace(replace_text,'[-- route-match --]');
+
+	return message;
+}
+
+
+async function processRouteChangeBypassResult(regex_results, message_mod) {
 
 		let results = {
 			route: [],
 			trains: [],
+			message_mod: message_mod,
 		};
 
 		if (regex_results[3] !== undefined) {
@@ -907,6 +914,8 @@ async function processRouteChangeBypassResult(regex_results) {
 
 		}
 
+		results.message_mod = replaceSimpleMessagePattern(message_mod, regex_results[0]);
+
 		return results;
 }
 
@@ -922,11 +931,12 @@ async function processRouteChangeBypassResult(regex_results) {
  *   2 arrays: route (all matches as route_objects),
  *   and trains (all lines found).
  */
-async function processRouteChangeSectionsResult(regex_results) {
+async function processRouteChangeSectionsResult(regex_results, message_mod) {
 
 	let results = {
 		route: [],
 		trains: [],
+		message_mod: message_mod
 	};
 
 	if (regex_results[1] !== undefined) {
@@ -978,6 +988,8 @@ async function processRouteChangeSectionsResult(regex_results) {
 			results.route.push(res);
 		}
 	}
+
+	results.message_mod = replaceSimpleMessagePattern(message_mod, regex_results[0]);
 
 	return results;
 }
