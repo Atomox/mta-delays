@@ -84,7 +84,7 @@ describe ('Detect Train Lines', () => {
 function testStationLineRerouteObject(event) {
 
 	// Make sure the parsed message matches the expected.
-	expect(event).to.have.property('message');
+	expect(event, 'Test data missing a message').to.have.property('message');
 
 	// Get a train lines in main message.
 	// Add them to the lines set for station parsing.

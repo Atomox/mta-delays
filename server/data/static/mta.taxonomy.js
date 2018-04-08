@@ -98,6 +98,7 @@ const taxonomy = {
 		],
 		'no_trains': [
 			'No trains running',
+			'Service is suspended',
 		],
 		'no_trains_partial': [
 			'The last stop',
@@ -108,6 +109,7 @@ const taxonomy = {
 			'No trains running between',
 			'No service between',
 			'No weekday service between',
+			'Service is suspended',
 		],
 		'platform_change' :[
 			'trains board at',

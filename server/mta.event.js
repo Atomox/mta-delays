@@ -482,18 +482,10 @@ async function getRouteChange(text, lines, id) {
 			op,
 			operate_sections = false,
 			reroute_pattern = /((Some)?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b.*\b[\s-]bound)?\s*\[([A-Z0-9]{1,2})\](?:\*|\s)*(?:(?:\s|and)*\[([A-Z0-9]{1,2})\])?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b.*\b[\s-]bound)?\s*(?:(?:(?:trains)?(?:\s*are\s*(?:rerouted)?)?)|(?:([^`\[\]]*service\s*operates\s*b\s*etween|[^`\[\]]*No\s*service\s*b\s*etween|\[__operates-section-[0-9]__\]\s*(?:between)?)\s*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])[^\[\]`]*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])))[^\[\]`]*)((?:(?:and|then)?\s(?:stopping|run)?\s*(on|via|along|long|over|replace)+\s*(?:the)?\s*\[((?!\3\4)[A-Z0-9])\]| run(?:ning)?\s*(express|local))[^\/\[\]`]*(express|local|to\/from|to|\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])[^\[\]`]*(Manhattan|Queens|Brooklyn|the\s* Bronx|\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])(?:\s*\(skipping.*\)\s*|\,\s*the\s*last\s*stop|\,\s*then\s*end)?[\.,\s]*)((?:(?:(?:and|then)?\s*(?:trains\s*(?:run)\s*)?(?:stopping|run|operat(?:e|ing))?\s*(via|along|over|replace|on)+ the)\s*(\[(?!\3\4)[A-Z0-9]\])?[^\[\]`]*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\]|to\/from|to)(?:[^\[\]`]*(?:(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])[\.]?))?)?)/i,
-			no_trains_between_pattern = /(?:Service\s*is\s*(suspended)\s*(?:in\s*both\s*directions\s*)(?:on\s*the\s*))?\[([A-Z0-9])\]\s*(?:trains\s*)?(?:(No)\s*(?:trains|service)\s*between|(?:line\s*)?between)\s*(?:(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])(?:\s*and|\s*)?\s*)+/i,
+			no_trains_between_pattern = /(?:Service\s*is\s*(suspended)\s*(?:in\s*both\s*directions\s*)(?:on\s*the\s*))?\[([A-Z0-9]{1,2})\](?:\*|\s)*(?:(?:\s|and)*\[([A-Z0-9]{1,2})\])?\s*(?:trains\s*)?(?:(No)\s*(?:trains|service)\s*between|(?:line\s*)?between)\s*(?:(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])\s*(?:and)?\s*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\]))/i,
 			bypass_pattern = /(Some)?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b.*\b[\s-]bound)?\s*\[([A-Z0-9]{1,2})\](?:\*|\s)*(?:(?:\s|and)*\[([A-Z0-9]{1,2})\])?\s*(Some)?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b.*\b[\s-]bound)?\s*(?:trains\s*(?:are\s*)?(?:skip(?:ping)?|bypass(?:ing)?))\s*((?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\]\s*(?:,|and)*\s*)+)/i,
 			operate_sections_pattern = /\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:(?:\[__operates-section-([0-9])__\]|(?:(?:shuttle)?\s*(?:service|trains))\s*(?:operate(?:s)?|(?:are)?\s*run(?:ning)?))\s*(?:(?:(?:at)?\s*all\s*times)|weekend(?:s)?\s*(?:service)?)?\s*(?:between)?)\s*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])(?:[^\[\]`]|\[[a-z0-9]\])*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\]))+/i,
 			module = [
-/**
-				{
-					id: 'no_svc_between',
-					check: (msg) => (getMessageAction(msg, ['no_trains_partial', 'no_trains']) !== null),
-					pattern: no_trains_between_pattern,
-					callback: null
-				},
-*/
 				{
 					id: 'bypass_stations',
 					check: (msg) => (msg.indexOf('skip') !== -1	|| msg.indexOf('bypass') !== -1),
@@ -511,7 +503,13 @@ async function getRouteChange(text, lines, id) {
 					check: (msg) => true,
 					pattern: operate_sections_pattern,
 					callback: processRouteChangeSectionsResult,
-				}
+				},
+				{
+					id: 'no_svc_between',
+					check: (msg) => (getMessageAction(msg, ['no_trains_partial', 'no_trains']) !== null),
+					pattern: no_trains_between_pattern,
+					callback: processRouteChangeNoServiceBetweenResult
+				},
 			];
 
 	if (id == GLOBAL_DEBUG_ID) { console.log('\n\n -- Parse 1st Pass --', c, '\n\n'); }
@@ -699,7 +697,7 @@ async function processRouteChangeResults(regex_match, message_mod) {
 				case 10:
 				case 16:
 					// Full pattern route matches.
-					route_pair.route[j].parsed = item;
+					route_pair.route[j].parsed = item.trim();
 					break;
 
 				case 2:
@@ -869,7 +867,7 @@ async function processRouteChangeBypassResult(regex_results, message_mod) {
 				switch(i) {
 
 					case 0:
-						route_pair.route[j].parsed = item;
+						route_pair.route[j].parsed = item.trim();
 						break;
 
 					case 1:
@@ -920,6 +918,87 @@ async function processRouteChangeBypassResult(regex_results, message_mod) {
 }
 
 
+async function processRouteChangeNoServiceBetweenResult(regex_results, message_mod) {
+
+		let results = {
+			route: [],
+			trains: [],
+			message_mod: message_mod,
+		};
+
+		if (regex_results[1] !== undefined || regex_results[4] !== undefined) {
+
+			let j = 0,
+				route_pair = {
+					route: [
+					 	{
+							noTrains: true,
+							allTrains: true,
+							dir: null,
+							lines: [],
+							along: null,
+							from: null,
+							to: null,
+		 					section: null,
+							action: null,
+							parsed: null,
+					 	}
+				 	]
+				};
+
+			/**
+			 * 1. suspended (pattern #1)
+			 * 2. Train
+			 * 3. Train
+			 * 4. No (pattern #2)
+			 * 5. from
+			 * 6. to
+			 */
+
+			regex_results.map( (item, i) => {
+				if (!item) {
+					return;
+				}
+
+				switch(i) {
+
+					case 0:
+						route_pair.route[j].parsed = item.trim();
+						break;
+
+					case 1:
+					case 4:
+						// Confirm NO TRAINS BETWEEN Pattern was match
+						route_pair.route[j].action = item;
+						break;
+
+					case 2:
+					case 3:
+						results.trains.push(unwrapTrain(item));
+						route_pair.route[j].lines.push(unwrapTrain(item));
+						break;
+
+					case 5:	 // Stations
+						route_pair.route[j].from = unwrapTrain(item);
+						break;
+
+					case 6:
+						route_pair.route[j].to = unwrapTrain(item);
+						break;
+				}
+			});
+
+			if (route_pair.route[j].to && route_pair.route[j].from && route_pair.route[j].lines.length > 0) {
+				results.route.push(route_pair.route[j]);
+			}
+		}
+
+		results.message_mod = replaceSimpleMessagePattern(message_mod, regex_results[0]);
+
+		return results;
+}
+
+
 /**
  * Handle a single result of a route change regex for OperatesInSections...
  *
@@ -952,6 +1031,7 @@ async function processRouteChangeSectionsResult(regex_results, message_mod) {
 					from: null,
 					to: null,
  					section: null,
+					parsed: null,
 			 	}
 		 	]
 		};
@@ -960,6 +1040,10 @@ async function processRouteChangeSectionsResult(regex_results, message_mod) {
 			if (i == 0 || !item) { return; };
 
 		 	switch (i) {
+				case 0:
+					route_pair.route[0].parsed = item.trim();
+					break;
+
 			 	case 1:
 			 	case 2:
 					// Affected Lines.
