@@ -85,13 +85,13 @@ let event_messages = {
 				type_detail: [
 					"route_change",
 				],
-				tag: ["MTAD-014", "MTAD-001"],
+				tag: ["MTAD-014", "MTAD-001", 'MTAD-035'],
 				time: null,
 				durration: '9:45 PM to 11:45 PM, Mon to Thu, Jan 15 - 18',
 				message: '9:45 PM to 11:45 PM, Mon to Thu, Jan 15 - 18 No [R] trains between Bay Ridge-95 St and 36 St, Brooklyn, due to track maintenance. Take free shuttle buses and the [N]. [R] service operates between 71 Av and 36 St, and via the [D] to/from 9 Av, the last stop. For 45 St, 53 St, and 59 St, take the [N] via transfer at 36 St. Free shuttle buses make all [R] stops between 59 St and Bay Ridge-95 St. Transfer between the [N] and shuttle buses at 59 St. 11:45 PM to 5 AM, Mon to Fri, Jan 15 - 19 No [R] trains running, due to track maintenance. Take free shuttle buses and the [N]. For service between Whitehall St and 59 St, take the [N]. Free shuttle buses make all [R] stops between 59 St and Bay Ridge-95 St. Transfer between the [N] and shuttle buses at 59 St. [AD] These service changes affect one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
 				route_change: {
 					tag: ['A-operates-then-overC'],
-					message: "[R] service operates between [Qs261-G08] and [Bk32-R36], and via the [D] to/from [Bk59-B12], the last stop.",
+					message: "No [R] trains between [Bk39-R45] and [Bk32-R36], ``` [R] service operates between [Qs261-G08] and [Bk32-R36], and via the [D] to/from [Bk59-B12], the last stop.",
 					trains: ['R'],
 					route: [
 						{
@@ -124,7 +124,12 @@ let event_messages = {
 				parsed_message: 'WEEKEND 6:15 AM to 11:45 PM, Sat, Jan 13 8 AM to 10 PM, Sun, Jan 14 No [M] trains between [Mn625-M18] and [Bk621-J27], due to track replacement. Take the [J] instead. NIGHTS 9 PM to 12 midnight, Friday, Jan 12 No [M] trains between [Qs261-G08] and [Mn625-M18], due to signal improvements. Take the [E][R]. [M] service operates between [Qs4-R05] Junction and Essex St, and is rerouted via the [J] to/from [Mn622-M21]. Trains stop at [Mn103-M19] and [Mn623-M20]. For [Mn619-D21] and stations along 6 Av, use nearby [N]/[Q]/[R] stations on Broadway. Transfer at [Qs616-G14] [E]/[R], Times Sq-[Mn611-A27] [E]/[R], and/or [Mn169-A34] M/R. All times until April 30, 2018 No [M] trains between [Bk630-M08] and [Bk97-M11] (Broadway), due to viaduct reconstruction. Take free shuttle buses. [M] service operates in two sections: 1. Between Essex St and [Bk97-M11], and via the [J] to/from Broadway Junction, days/evenings*. 2. Between Metropolitan Av and Myrtle-Wyckoff Avs (trains run every 20 minutes, Sat and Sun, from 7:30 AM to 9:30 AM). Free shuttle buses operate between Myrtle-Wyckoff Avs and Myrtle Av. *Suspended this weekend. [AD] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
 				route_change: {
 					tag: ['A-operates-then-overC', 'A-1-operates-then-viaC-2-operates'],
-					message: "replace ``` [M] service operates between [Bk621-J27] and [Mn625-M18], and is rerouted via the [J] to/from [Mn622-M21]. ```[M] [__operates-section-1__] Between [Mn625-M18] and [Bk97-M11], and via the [J] to/from [Bk621-J27], days/evenings*. ```[M] [__operates-section-2__] Between [Qs108-M01] and [Bk630-M08] ``` operate between [Bk630-M08] and [Bk97-M11]. *",
+					message:
+
+						"No [M] trains between [Mn625-M18] and [Bk621-J27], ``` No [M] trains between [Qs261-G08] and [Mn625-M18], ``` [M] service operates between [Bk621-J27] and [Mn625-M18], and is rerouted via the [J] to/from [Mn622-M21]. ``` No [M] trains between [Bk630-M08] and [Bk97-M11] ```[M] [__operates-section-1__] Between [Mn625-M18] and [Bk97-M11], and via the [J] to/from [Bk621-J27], days/evenings*. ```[M] [__operates-section-2__] Between [Qs108-M01] and [Bk630-M08] ``` operate between [Bk630-M08] and [Bk97-M11]. *",
+				/**
+					"replace ``` [M] service operates between [Bk621-J27] and [Mn625-M18], and is rerouted via the [J] to/from [Mn622-M21]. ```[M] [__operates-section-1__] Between [Mn625-M18] and [Bk97-M11], and via the [J] to/from [Bk621-J27], days/evenings*. ```[M] [__operates-section-2__] Between [Qs108-M01] and [Bk630-M08] ``` operate between [Bk630-M08] and [Bk97-M11]. *",
+					*/
 					trains: ['M'],
 					route: [
 						{
@@ -528,7 +533,7 @@ let event_messages = {
 				message: 'TRACK REPLACEMENT [1] South Ferry-bound trains skip 66 St, 59 St and 50 St Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8    Dec 11 - 15    Dec 18 - 22   For service to these stations, take the [1] to Times Sq-42 St and transfer to an uptown [1] or [2] local. For service from these stations, take the [1] or [2] to 72 St and transfer to a South Ferry-bound [1].',
 				alt_instructions: 'For service to these stations, take the [1] to Times Sq-42 St and transfer to an uptown [1] or [2] local. For service from these stations, take the [1] or [2] to 72 St and transfer to a South Ferry-bound [1].',
 				route_change: {
-					message: 'REPLACE ``` [1] [Mn635-142]-bound trains skip [Mn314-124], [Mn614-125] and [Mn316-126]',
+					message: '[1] [Mn635-142]-bound trains skip [Mn314-124], [Mn614-125] and [Mn316-126]',
 				  trains: [ '1' ],
 				  route:
 				   [ { allTrains: true,
@@ -676,7 +681,7 @@ let event_messages = {
 				message: 'TRACK REPLACEMENT [2] Downtown trains skip 66 St, 59 St and 50 St Late Nights, 12:01 AM to 5 AM, Tue to Fri, Dec 12 - 15    Dec 19 - 22      For service to these stations, take the [2] to Times Sq-42 St and transfer to an uptown [1] or [2] local. For service from these stations, take the [1] or [2] to 72 St and transfer to a downtown [2].',
 				alt_instructions: 'For service to these stations, take the [2] to Times Sq-42 St and transfer to an uptown [1] or [2] local. For service from these stations, take the [1] or [2] to 72 St and transfer to a downtown [2].',
 				route_change: {
-					message: 'REPLACE ``` [2] Downtown trains skip [Mn314-124], [Mn614-125] and [Mn316-126]',
+					message: '[2] Downtown trains skip [Mn314-124], [Mn614-125] and [Mn316-126]',
 				  trains: [ '2' ],
 				  route:
 				   [ { allTrains: true,
@@ -754,7 +759,7 @@ let event_messages = {
 				},
 				route_change: {
 					tag: ['A-operates-then-overC'],
-					message: "REPLACE ``` [A] No trains between [Qs199-H04] and [Qs209-H11] [SB] ``` [A] service operates between [Mn143-A02] and [Qs199-H04] , and replace the [S] to/from [Qs203-H15] . [SB]",
+					message: "[A] No trains between [Qs199-H04] and [Qs209-H11] [SB] ``` [A] service operates between [Mn143-A02] and [Qs199-H04] , and replace the [S] to/from [Qs203-H15] . [SB]",
 					trains: [
 						"A"
 					],
@@ -791,7 +796,7 @@ let event_messages = {
 				message: 'TRACK REPLACEMENT [R] Bay Ridge-bound trains skip 67 Av, 63 Dr, Woodhaven Blvd, Grand Av and Elmhurst Av Weekend , Saturday and Sunday, Nov 25 - 26 For service to these stations, take the [R] to Roosevelt Av and transfer to a Forest Hills-bound [R]. For service from these stations, take the [R] to 71 Av and transfer to a Bay Ridge-bound [R].',
 				alt_instructions: 'For service to these stations, take the [R] to Roosevelt Av and transfer to a Forest Hills-bound [R]. For service from these stations, take the [R] to 71 Av and transfer to a Bay Ridge-bound [R].',
 				route_change: {
-					message: 'REPLACE ``` [R] Bay Ridge-bound trains skip [Qs262-G09], [Qs263-G10], [Qs264-G11], [Qs265-G12] and [Qs266-G13]',
+					message: '[R] Bay Ridge-bound trains skip [Qs262-G09], [Qs263-G10], [Qs264-G11], [Qs265-G12] and [Qs266-G13]',
 				  re: null,
 				  trains: [ 'R' ],
 				  route:
@@ -837,8 +842,8 @@ let event_messages = {
 					}
 				},
 				route_change: {
-					message: 'REPLACE ``` [C] [Mn605-A09]-bound trains skip [Mn168-A33], [Mn165-A30] and [Mn162-A25]',
-				  message_mod: 'REPLACE ```[-- route-match --]',
+					message: '[C] [Mn605-A09]-bound trains skip [Mn168-A33], [Mn165-A30] and [Mn162-A25]',
+				  message_mod: '[-- route-match --]',
 				  re: null,
 				  trains: [ 'C' ],
 				  route:
@@ -1627,7 +1632,7 @@ let event_messages = {
 				message: "[1] [2] [3] [N] [Q] [R] [W] and [7] trains are bypassing Times Sq-42 St in both directions.[A] [C] and [E] trains are bypassing 42 St/Port Authority-Bus Terminal in both directions.There is no [S] 42 St shuttle service in both directions.[A] and [C] trains are stopping along the [D] line between W 4 St-Washington Sq and 59 St-Columbus Circle in both directions.There is no [B] train service between Bedford Park Blvd and Brighton Beach in both directions.[E] Trains are stopping along the [F] line between Jackson Hts-Roosevelt Av and W 4 St-Washington Sq in both directions.No [L] train service between 8 Av and 6 Av in both directions.[M] Trains are running between Delancey-Essex St and Forest Hills-71 Av.These service changes are because of an NYPD investigation at 42 St/Port Authority-Bus Terminal.",
 				route_change: {
 					tag: ['AB-overC-D-overE'],
-					message: "[1] [2] [3] [N] [Q] [R] [W] and [7] trains are bypassing [Mn611-127|Mn611-725|Mn611-R16|Mn611-902] in both directions.[A] [C] and [E] trains are bypassing [Mn611-A27] in both directions. ``` [A] and [C] trains are stopping along the [D] line between [Mn167-A32] and [Mn614-125] in both directions. ``` [E] Trains are stopping along the [F] line between [Qs616-G14] and [Mn167-A32] in both directions. ``` [M] Trains are running between [Mn625-M18] and [Qs261-G08].",
+					message: "[1] [2] [3] [N] [Q] [R] [W] and [7] trains are bypassing [Mn611-127|Mn611-725|Mn611-R16|Mn611-902] in both directions.[A] [C] and [E] trains are bypassing [Mn611-A27] in both directions. ``` [A] and [C] trains are stopping along the [D] line between [Mn167-A32] and [Mn614-125] in both directions. ``` no [B] train service between [Bx211-D03] and [Bk55-D40] in both directions.[E] Trains are stopping along the [F] line between [Qs616-G14] and [Mn167-A32] in both directions.No [L] train service between [Bk71-N02] and [Mn601-L02] in both directions.[M] Trains are running between [Mn625-M18] and [Qs261-G08].",
 					trains: ['F'],
 					route: [
 						{
@@ -1925,7 +1930,7 @@ let event_messages = {
 					},
 					route_change: {
 						tag: ['A-operates-then-overC'],
-						message: '[C] No trains between [Mn167-A32] and [Bk188-A55] [A] [E] ``` [C] service operates between [Mn605-A09] and [Mn167-A32] , and via the [F] to/from [Mn232-F14] , ``` Shuttle replace',
+						message: '[C] No trains between [Mn167-A32] and [Bk188-A55] [A] [E] ``` [C] service operates between [Mn605-A09] and [Mn167-A32] , and via the [F] to/from [Mn232-F14] ,',
 						trains: [
 							"C"
 						],
@@ -1966,7 +1971,8 @@ let event_messages = {
 						"service_ends_early",
 						"running_local",
 						"route_change",
-						"track_maintenance"
+						"track_maintenance",
+						"no_trains_partial"
 					],
 					tag: ["MTAD-014", "MTAD-002", "MTAD-001"],
 					time: null,
@@ -1980,7 +1986,7 @@ let event_messages = {
 					alt_instructions: "Travel Alternatives [TP] [R] trains make all [M] stops between 71 Av and Queens Plaza. [E] trains make all [M] stops between Queens Plaza and Broadway-Lafayette St*. [F] trains make all [M] stops between 47-50 Sts and Delancey St/Essex St. Transfer between [E] [F] and [R] trains at Roosevelt Av or 34 St-Herald Sq. Transfer between [F] and [M] trains at Delancey St/Essex St. *This detour has taken into account additional planned service changes. Note: [E] and [F] trains run local in both directions in Queens after 10 PM. Please use the following guide to arrive at your station before end of service. To 71 Av: To Broadway Junction: Broadway Junction 8:43 PM 71 Av 8:30 PM Myrtle Av 8:53 PM Roosevelt Av 8:40 PM Essex St 9:05 PM Queens Plaza 8:51 PM W 4 St 9:11 PM 47-50 Sts 8:59 PM 47-50 Sts 9:19 PM B'way-Lafayette St 9:09 PM Reminder: No [M] service between Myrtle-Wyckoff Avs and Myrtle Av.",
 					route_change: {
 						tag: ['A-operates-then-overC'],
-						message: "[M] service operates between [Mn625-M18] and [Bk97-M11] and via the [J] to/from [Bk621-J27]. [M] shuttle service operates between [Qs108-M01], [Bk630-M08] . Travel ``` [E] and [F] trains run local in both directions in Queens",
+						message: "[M] service operates between [Mn625-M18] and [Bk97-M11] and via the [J] to/from [Bk621-J27]. [M] shuttle service operates between [Qs108-M01], [Bk630-M08] . Travel ``` [E] and [F] trains run local in both directions in Queens ``` No [M] service between [Bk630-M08] and [Bk97-M11].",
 						trains: ["M"],
 						route: [
 							{
@@ -2507,7 +2513,7 @@ let event_messages = {
 						{line: "MTA NYCT_A"}
 					],
 					route_change: {
-						message: 'REPLACE ``` [A] No trains between [Qs199-H04] and [Qs209-H11][SB] ``` [A] service operates between [Mn143-A02] and [Qs199-H04] , and via the [S] to/from [Qs203-H15] . [SB]',
+						message: '[A] No trains between [Qs199-H04] and [Qs209-H11][SB] ``` [A] service operates between [Mn143-A02] and [Qs199-H04] , and via the [S] to/from [Qs203-H15] . [SB]',
 					  trains: [ 'A' ],
 					  route:
 					   [ { allTrains: true,
@@ -2529,6 +2535,18 @@ let event_messages = {
 					       section: null,
 					       parsed: 'via the [S] to/from [Qs203-H15] .',
 					       action: 'via'
+							 },
+							 {
+								 noTrains: true,
+					       allTrains: true,
+					       dir: null,
+					       lines: ['A'],
+					       along: null,
+					       from: 'Qs199-H04',
+					       to: 'Qs209-H11',
+					       section: null,
+					       action: 'No',
+					       parsed: '[A] No trains between [Qs199-H04] and [Qs209-H11]'
 							 }
 						],
 					},
@@ -2572,7 +2590,19 @@ let event_messages = {
 									section: null,
 									parsed: "via the [4] to/from [Bk345-250] .",
 									action: "via"
-								}
+								},
+								{
+									noTrains: true,
+									allTrains: true,
+									dir: null,
+									lines: ['2'],
+									along: null,
+									from: 'Bk626-239',
+									to: 'Bk359-247',
+									section: null,
+									action: 'No',
+									parsed: '[2] No trains between [Bk626-239] and [Bk359-247]'
+		 						}
 							],
 						},
 						line: [
@@ -2594,8 +2624,29 @@ let event_messages = {
 						message: "TRACK MAINTENANCE [G] No trains between Bedford-Nostrand Avs and Church Av [F] trains and [SB] free shuttle buses provide alternate service Late Nights, 9:30 PM to 5 AM, Mon to Fri, Dec 11 - 15 [G] service operates between Court Sq and Bedford-Nostrand Avs . [SB] Buses make all [G] stops between Bedford-Nostrand Avs and Hoyt-Schermerhorn , connecting with the [F] at Jay St-MetroTech . [F]* trains make [G] stops between Bergen St and Church Av . Travel Alternatives [TP] Transfer between [G] trains and [SB] buses at Bedford-Nostrand Avs . Transfer between [A] [C] [F] trains and [SB] buses at Jay St-MetroTech . Take the [F] for Bergen St, Carroll St, Smith-9 Sts, 4 Av-9 St, 7 Av, 15 St-Prospect Park, Fort Hamilton Pkwy and Church Av. Affected Station Alternate Service/Bus Stop Bedford-Nostrand Avs [G] [SB] Lafayette Av at Nostrand Av Classon Av [SB] DeKalb Av at Classon Av (to Jay St-MetroTech) [SB] Lafayette Av at Classon Av (to Bedford-Nostrand Avs) Clinton-Washington Avs Nearby Clinton-Washington Avs [A] [C] Station [SB] DeKalb Av at Washington Av (to Jay St-MetroTech) [SB] Lafayette Av at Washington Av (to Bedford-Nostrand Avs) Fulton St Nearby Lafayette Av [A] [C] Station [SB] DeKalb Av at Fort Greene Pl (to Jay St-MetroTech) [SB] Lafayette Av at S Elliott Pl (to Bedford-Nostrand Avs) Hoyt-Schermerhorn [A] [C] [SB] Schermerhorn St at Bond St Jay St-MetroTech [ad] | [A] [C] [F] [SB] Jay St at Willoughby St *Please review [F] advisories for additional information that may affect your trip",
 						route_change: {
 							message: "[G] No trains between [Bk289-G33] and [Bk243-F27] [F] ``` [G] service operates between [Qs606-G22] and [Bk289-G33] . [SB]",
-							trains: [ ],
-							route: [ ],
+							trains: [ 'G' ],
+						  route:
+						   [ { allTrains: true,
+						       dir: null,
+						       exp_lcl: null,
+						       lines: ['G'],
+						       along: null,
+						       from: 'Qs606-G22',
+						       to: 'Bk289-G33',
+						       section: null,
+						       parsed: null },
+						     { noTrains: true,
+						       allTrains: true,
+						       dir: null,
+						       lines: ['G'],
+						       along: null,
+						       from: 'Bk289-G33',
+						       to: 'Bk243-F27',
+						       section: null,
+						       action: 'No',
+						       parsed: '[G] No trains between [Bk289-G33] and [Bk243-F27]'
+								 }
+							 ],
 						},
 						line: [
 							{line: "MTA NYCT_G",dir: "1"},
@@ -2640,7 +2691,19 @@ let event_messages = {
 									section: null,
 									parsed: "via the [Q] to/from [Mn475-Q05] .",
 									action: "via"
-								}
+								},
+								{
+									noTrains: true,
+									allTrains: true,
+									dir: null,
+									lines: ['W'],
+									along: null,
+									from: 'Mn9-R14',
+									to: 'Qs1-R01',
+									section: null,
+									action: 'No',
+									parsed: '[W] No trains between [Mn9-R14] and [Qs1-R01]'
+		 						}
 							],
 						},
 						line: [
@@ -2696,7 +2759,7 @@ let event_messages = {
 						durration: "Weekend, 11:45 PM Fri to 5 AM Mon, Mar 30 - Apr 2",
 						message: "TRACK MAINTENANCE & REPLACEMENT [N] No trains between Times Sq-42 St and Ditmars Blvd[4] [5] [6] [7] [Q] [R] trains and [SB] free shuttle buses provide alternate service Weekend, 11:45 PM Fri to 5 AM Mon, Mar 30 - Apr 2 [N] service operates between Stillwell Av and Times Sq-42 St . [SB] Buses make all stops between Queensboro Plaza and Ditmars Blvd . Travel Alternatives [TP] For service between Manhattan and Queens , take the [7] instead. Transfer between [7] trains and [SB] buses at Queensboro Plaza . Transfer between [7] and [N] trains at Times Sq-42 St . For 49 St and 57 St-7 Av , take the [Q] or [R]. For 5 Av/59 St and Lexington Av/59 St , use nearby 59 St [4] [5] [6] or Lexington Av/63 St [F] [Q] Stations. Show Shuttle Bus Stops [TP] Station Shuttle Bus Stop Queensboro Plaza [7] Queens Plaza South at station entrance 39 Av 31 St at 39 Av 36 Av 31 St at 36 Av Broadway 31 St at Broadway 30 Av 31 St at 30 Av Astoria Blvd 31 St at Astoria Blvd (to Ditmars Blvd) 31 St at Hoyt Av North (to Queensboro Plaza) Ditmars Blvd 31 St at Ditmars Blvd Alternate travel note: For LaGuardia Airport take the Q70 SBS via transfer at 61 St-Woodside [7] or 74 St-Roosevelt Av [7] [E] [F] [R]. Reminder: 30 Av and 36 Av are closed for renovation.",
 						route_change: {
-							message: "REPLACE ``` [N] No trains between [Mn611-R16|Mn611-725] and [Qs1-R01][4] [5] [6] [7] [Q] [R] ``` [N] service operates between [Bk58-D43] and [Mn611-R16|Mn611-725] . [SB]",
+							message: "[N] No trains between [Mn611-R16|Mn611-725] and [Qs1-R01][4] [5] [6] [7] [Q] [R] ``` [N] service operates between [Bk58-D43] and [Mn611-R16|Mn611-725] . [SB]",
 							trains: ["N"],
 							route: [
 								{

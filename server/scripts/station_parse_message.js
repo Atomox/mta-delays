@@ -21,6 +21,9 @@ async function main(message) {
     let lines = await mtaStatus.getMessageTrainLines(message);
     section('Find Lines', lines);
 
+    tags = mtaStatus.getMessageAction(message);
+    section('Find all Tags', tags);
+
     message = mtaStations.prepareBunchedStationNames(message);
     section('Station Prep', message);
 

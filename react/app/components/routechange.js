@@ -18,6 +18,7 @@ class RouteChange extends React.Component {
           lcl = false,
           exp = false,
           bypass = false,
+          no_svc_between = false,
           pre = null,
           action = null;
 
@@ -26,7 +27,10 @@ class RouteChange extends React.Component {
         if (r.along == null) {
           r.along = r.lines[0];
           line_change = false;
-          if (r.bypass && r.bypass.length > 0) {
+          if (r.noTrains) {
+            no_svc_between = true;
+          }
+          else if (r.bypass && r.bypass.length > 0) {
             bypass = true;
           }
           if (r.exp_lcl) {
@@ -77,6 +81,7 @@ class RouteChange extends React.Component {
 
         if (r.action === 'replace') { action = 'replace the'; }
         else if (line_change) {       action = 'via the'; }
+        else if (no_svc_between) {    action = 'service'; }
         else if (bypass) {            action = 'skip'; }
 //        else if (r.section) {   action = 'section ' + r.section; }
         else if (lcl || exp) {  action = 'run ' + r.exp_lcl; }
@@ -86,6 +91,9 @@ class RouteChange extends React.Component {
 
         if (r.allTrains === false) {
           pre += ' ' + 'Some';
+        }
+        if (no_svc_between) {
+          pre += ' ' + 'No';
         }
 
         console.log(r.lines, r);
@@ -103,8 +111,12 @@ class RouteChange extends React.Component {
               <span>{ bypass_stations }. </span> }
 
             { // Normal Stations from/to.
-              !boro_general && !bypass_stations &&
+              !boro_general && !bypass_stations && !no_svc_between &&
               <span>from {from} until {to}.</span> }
+
+            { // Normal Stations from/to.
+              no_svc_between &&
+              <span>between {from} and {to}.</span> }
 
           </div>
   			);
