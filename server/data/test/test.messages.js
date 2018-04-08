@@ -1647,6 +1647,30 @@ let event_messages = {
 							from: 'Qs616-G14',
 							to: 'Mn167-A32',
 						},
+						{
+							noTrains: true,
+							allTrains: true,
+							dir: null,
+							lines: ['B'],
+							along: null,
+							from: 'Bx211-D03',
+							to: 'Bk55-D40',
+							section: null,
+							action: 'no',
+							parsed: 'no [B] train service between [Bx211-D03] and [Bk55-D40]'
+						},
+						{
+							noTrains: true,
+							allTrains: true,
+							dir: null,
+							lines: ['L'],
+							along: null,
+							from: 'Bk71-N02',
+							to: 'Mn601-L02',
+							section: null,
+							action: 'No',
+							parsed: 'No [L] train service between [Bk71-N02] and [Mn601-L02]'
+						},
 					],
 				},
 				line: [
@@ -1974,7 +1998,7 @@ let event_messages = {
 						"track_maintenance",
 						"no_trains_partial"
 					],
-					tag: ["MTAD-014", "MTAD-002", "MTAD-001"],
+					tag: ["MTAD-014", "MTAD-002", "MTAD-001", "MTAD-035"],
 					time: null,
 					durration: "Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25",
 					message: "TRACK MAINTENANCE [M] Service ends early between 71 Av and Essex St [E] [F] [R] trains provide alternate service Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25 [M] service operates between Essex St and Myrtle Av and via the [J] to/from Broadway Junction. [M] shuttle service operates between Metropolitan Av and Myrtle Wyckoff Avs . Travel Alternatives [TP] [R] trains make all [M] stops between 71 Av and Queens Plaza. [E] trains make all [M] stops between Queens Plaza and Broadway-Lafayette St*. [F] trains make all [M] stops between 47-50 Sts and Delancey St/Essex St. Transfer between [E] [F] and [R] trains at Roosevelt Av or 34 St-Herald Sq. Transfer between [F] and [M] trains at Delancey St/Essex St. *This detour has taken into account additional planned service changes. Note: [E] and [F] trains run local in both directions in Queens after 10 PM. Please use the following guide to arrive at your station before end of service. To 71 Av: To Broadway Junction: Broadway Junction 8:43 PM 71 Av 8:30 PM Myrtle Av 8:53 PM Roosevelt Av 8:40 PM Essex St 9:05 PM Queens Plaza 8:51 PM W 4 St 9:11 PM 47-50 Sts 8:59 PM 47-50 Sts 9:19 PM B'way-Lafayette St 9:09 PM Reminder: No [M] service between Myrtle-Wyckoff Avs and Myrtle Av. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
@@ -1995,7 +2019,8 @@ let event_messages = {
 								lines: ["M"],
 								along: null,
 								from: "Mn625-M18",
-								to: "Bk97-M11"
+								to: "Bk97-M11",
+								parsed: '[M] service operates between [Mn625-M18] and [Bk97-M11] and'
 							},
 							{
 								allTrains: true,
@@ -2003,7 +2028,31 @@ let event_messages = {
 								lines: ["M"],
 								along: "J",
 								from: "Bk97-M11",
-								to: "Bk621-J27"
+								to: "Bk621-J27",
+							 	parsed: 'via the [J] to/from [Bk621-J27].',
+							},
+							{
+								allTrains: true,
+								dir: null,
+								exp_lcl: null,
+								lines: ['M'],
+								along: null,
+								from: 'Qs108-M01',
+								to: 'Bk630-M08',
+								section: null,
+								parsed: null
+							},
+							{
+								noTrains: true,
+								allTrains: true,
+								dir: null,
+								lines: ['M'],
+								along: null,
+								from: 'Bk630-M08',
+								to: 'Bk97-M11',
+								section: null,
+								action: 'No',
+								parsed: 'No [M] service between [Bk630-M08] and [Bk97-M11]'
 							}
 						],
 					},
