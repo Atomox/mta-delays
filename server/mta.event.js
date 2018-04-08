@@ -1195,9 +1195,14 @@ function getMessageAction(text, action) {
 			}
 
 			if (mtaTaxonomy.incident_types[type][variation] instanceof RegExp) {
-				if (text.match(mtaTaxonomy.incident_types[type][variation])) {
-					my_status.push(type);
-					break;
+				try {
+					if (text.match(mtaTaxonomy.incident_types[type][variation])) {
+						my_status.push(type);
+						break;
+					}
+				}
+				catch (err) {
+					console.log('getMessageAction(): failed to execute a regex taxonomy. -- ', err);
 				}
 			}
 			else if (typeof mtaTaxonomy.incident_types[type][variation] == 'string') {
