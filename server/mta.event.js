@@ -1190,9 +1190,21 @@ function getMessageAction(text, action) {
 		if (action && action.indexOf(type) === -1) { continue; }
 
 		for (variation in mtaTaxonomy.incident_types[type]) {
-			if (text.indexOf(mtaTaxonomy.incident_types[type][variation].toUpperCase()) !== -1) {
-				my_status.push(type);
-				break;
+			if (!mtaTaxonomy.incident_types[type][variation]) {
+				continue;
+			}
+
+			if (mtaTaxonomy.incident_types[type][variation] instanceof RegExp) {
+				if (text.match(mtaTaxonomy.incident_types[type][variation])) {
+					my_status.push(type);
+					break;
+				}
+			}
+			else if (typeof mtaTaxonomy.incident_types[type][variation] == 'string') {
+				if (text.indexOf(mtaTaxonomy.incident_types[type][variation].toUpperCase()) !== -1) {
+					my_status.push(type);
+					break;
+				}
 			}
 		}
 	}
