@@ -87,6 +87,10 @@ let archive_status = {
 		'mta_status.92.March_31_Weekend_Planned_Work',
 		'mta_status.93.April-02_Snow_Delays',
 		'mta_status.94.Tuesday_Morning_Delays',
+		'mta_status.95.April_06_-_Weekend_Planned_work',
+		'mta_status.96.Weekend_Planned_Work',
+		'mta_status.97.April-09_-_Monday_Morning_Planned_work',
+		'mta_status.98.Weeknight_Planned_work',
 	],
 	path: './data/archive/',
 };

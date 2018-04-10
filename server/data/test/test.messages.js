@@ -1443,7 +1443,7 @@ let event_messages = {
 				message_station_parse: "SIGNAL IMPROVEMENTS [F] Service is rerouted in Manhattan and Brooklyn[A] [C] [D] [N] [R] trains and [SB] free shuttle buses provide alternate service Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15 No [F] service at [Mn224-B10] , [Mn225-D15] , [Mn609-D16] , [Mn228-D18] , [Mn601-D19] , [Mn167-A32] , [Mn619-D21] , [Mn232-F14] , [Mn625-F15]/Essex St , [Mn234-F16] , and [Bk235-F18] . [F] service operates b etween [Qs254-F01] and [Mn223-B08], and via the [Q] to/from Atlantic Av-Barclays Ctr (skipping DeKalb Av, days and evenings), and via the [D] to/from [Bk58-D43] . Trains run express in Manhattan all weekend . [D]* trains are rerouted via the [A] in Manhattan and replace the [F] in Brooklyn between [Bk636-A41] and [Bk58-D43] . [SB] Buses operate along two routes: 1. Between [Mn167-A32] and [Mn234-F16] , stopping at [Mn619-D21], [Mn232-F14] and [Mn625-F15]/Essex St. 2. Between [Bk636-A41] and [Bk235-F18] . Show Shuttle Bus Stops Station Bus Stop Bus W 4 St [ad] [A] [C] [D] [E] 6 Av at W 3 St M55 B'way-Lafayette St Houston St at Lafayette St (to East Broadway) M21 Houston St at Broadway (to W 4 St) M21 2 Av Houston St at 1 Av M21 Delancey St/Essex St [J] Delancey St at Essex St (to East Broadway) B39 Essex St at Delancey St (to W 4 St) M9 East Broadway Essex St at Straus Square M9 York St Jay St at York St B67 Jay St-MetroTech [ad] [A] [C] [D] [N] [R] Jay St at Willoughby St B26 Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [A] [C] [D] [N] or [R]. Transfer between [F] ([Q] platform) and [A] [C] [D] [N] or [R] trains at 42 St-Port Authority/Times Sq-42 St. Transfer between [F] ([Q] platform) and [N] [R] trains at Canal St. Transfer between [D] and [N] [R] trains at Jay St-MetroTech. Affected Station Alternate Station/Service [Mn224-B10] [Bk240-F24] or 5 Av/53 St [E] [Mn225-D15] [Bk240-F24] or 5 Av/53 St [E] 49 St [N] [Q] local , [R] | [ad] uptown only 50 St (B'way) [1] [2] local 50 St (8 Av) [A] local , [C] [E] | [ad] downtown only [Mn609-D16] [7] (5 Av) Times Sq-42 St [1] [2] [3] [7] [F] [N] [Q] [R] [S] | [ad] 42 St/Port Authority [A] [C] [D] [E] | [ad] [Mn607-D17] [ad] [F] [N] [Q] [R] 34 St-Penn Station [1] [2] [3] | [ad] [Mn228-D18] 23 St [N] [Q] local , [R] 23 St [1] [2] local [Mn601-D19] [1] [2] [3] (7 Av) or [L] (8 Av) | [ad] B'way-Lafayette St [ad] [SB] and Bleecker St [4] local , [6] | [ad] 2 Av [SB] Delancey St/Essex St [J] and [SB] East Broadway [SB] York St [SB] and nearby High St [A] [C] [D] Jay St MetroTech [ad] [SB] and [D] [N] [R] For Brooklyn [F] stations between Jay St-MetroTech and Stillwell Av , take the [D] instead. Key Transfer Stations 59 St-Columbus Circle [ad] [A] [C] [D] and [1] [2] local Times Sq-42 St/42 St-Port Authority [ad] (Passageway not accessible) [1] [2] [3] [7] [F] [N] [Q] [R] [S] [A] [C] [D] [E] 14 St-Union Sq [ad] (L, N, F, Q, R only) [4] [6] and [F] [N] [Q] [R] Canal St [ad] (4, 6 only) [4] local , [6] [J] [F] [N] [Q] [R] Jay St-MetroTech [ad] [A] [C] [D] [N] [R] and [SB] [Bk608-F23]-9 St [D] [G] [N] [R] | [F] late night only *This detour has taken into account additional planned service changes. Reminder: During late nights, all alternate stations are served, though not all lines run. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 				route_change: {
 					tag: ['A-operates-then-overC-thenD'],
-					message: "rerouted in Manhattan ``` [F] service operates b etween [Qs254-F01] and [Mn223-B08], and via the [Q] to/from [Bk617-235] (skipping [Bk26-R30], days and evenings), and via the [D] to/from [Bk58-D43] . Trains run express in Manhattan ``` [D]* trains are rerouted via the [A] in Manhattan and replace the [F] in Brooklyn between [Bk636-A41] and [Bk58-D43] . [SB] ``` operate along ``` stopping",
+					message: "rerouted in Manhattan ``` No [F] service at [Mn224-B10] , [Mn225-D15] , [Mn609-D16] , [Mn228-D18] , [Mn601-D19] , [Mn167-A32] , [Mn619-D21] , [Mn232-F14] , [Mn625-F15]/[Mn625-M18] , [Mn234-F16] , and [Bk235-F18] . [F] service operates b etween [Qs254-F01] and [Mn223-B08], and via the [Q] to/from [Bk617-235] (skipping [Bk26-R30], days and evenings), and via the [D] to/from [Bk58-D43] . Trains run express in Manhattan ``` [D]* trains are rerouted via the [A] in Manhattan and replace the [F] in Brooklyn between [Bk636-A41] and [Bk58-D43] . [SB] ``` operate along ``` stopping",
 					trains: ['F'],
 					route: [
 						{
@@ -1709,7 +1709,7 @@ let event_messages = {
 				message_station_parse: "SIGNAL IMPROVEMENTS [D] Service is rerouted in Manhattan and Brooklyn[F] [N] [Q] [R] trains and [SB] free shuttle buses provide alternate service Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15 No [D] service at [Mn277-D14] , [Mn225-D15] , [Mn609-D16] , [Mn607-D17|Mn607-R17] , [Mn619-D21] and [Mn231-D22] . [D] service operates b etween [Bx210-D01] and [Mn614-A24], and via the [A] express to/from [Bk636-A41] , and via the [F] to/from [Bk58-D43] . [F]* trains are rerouted via the [Q] express in Manhattan and replace the [D] in Brooklyn between [Bk617-R31] and [Bk58-D43] . [SB] Buses operate between [Mn167-A32] and [Mn231-D22] , stopping at [Mn619-D21] . Show Shuttle Bus Stops Station Bus Stop Bus [Mn167-A32] [ad] [A] [C] [D] [E] 6 Av at W 3 St M55 [Mn619-D21] [Mn324-134] at [Qs4-R05|Bk286-G30] M21 [Mn231-D22] [Mn231-D22] at Chrystie St -- Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [F] [N] [Q] or [R]. Transfer between [D] and [F] [N] [Q] [R] trains at [Mn611-127|Mn610-631|Mn611-725|Mn611-R16|Mn611-A27|Mn611-902]-Port Authority/[Mn611-127|Mn611-725|Mn611-R16|Mn611-902]. Transfer between [D] and [N]* [R] trains at [Bk636-A41] and [Bk608-F23]. Affected Station Alternate Station/Service [Mn277-D14] [E] [Mn225-D15] [Mn277-D14] or [Mn609-724]/[Bk34-R40] [E] [Mn10-R15] [N] [Q] local , [R] | [ad] uptown only [Bk61-B14|Mn316-126|Mn162-A25] (B'way) [1] [2] local [Bk61-B14|Mn316-126|Mn162-A25] ([Bk71-N02]) [A] local , [C] [E] | [ad] downtown only [Mn609-D16] [7] ([Mn609-724]) [Mn611-127|Mn611-725|Mn611-R16|Mn611-902] [1] [2] [3] [7] [F] [N] [Q] [R] [S] | [ad] [Mn611-A27] [A] [C] [D] [E] | [ad] [Mn607-D17|Mn607-R17] [ad] [F] [N] [Q] [R] [Mn318-128|Mn164-A28] [1] [2] [3] | [ad] [Mn619-D21] [SB] [Mn231-D22] [SB], nearby [Mn103-M19] [J] Station For Brooklyn [D] stations between [Bk617-R31] and [Bk58-D43] , take the [F] instead. Key Transfer Stations [Mn614-A24] [ad] [A] [C] [D] and [1] [2] local [Mn611-127|Mn611-725|Mn611-R16|Mn611-902]/[Mn611-127|Mn610-631|Mn611-725|Mn611-R16|Mn611-A27|Mn611-902]-Port Authority [ad] ( Passageway not accessible ) [1] [2] [3] [7] [F] [N] [Q] [R] [S] [A] [C] [D] [E] [Mn167-A32]-Wash Sq [ad] [A] [C] [D] [E] and [SB] [Mn628-229] [ad] [4] [5] [A] [C] [D] [J] [Bk636-A41] [ad] [A] [C] [D] [N] [R] and [SB] [Bk608-F23] [D] [G] [N] [R] | [F] late night only *This detour has taken into account additional planned service changes. Reminders: During late night, all alternate stations are served, though not all lines run. Manhattan-bound [F] platforms at [Bk252-F38], [Bk251-F36], [Bk249-F34], [Bk248-F33], [Bk68-B21] and [Bk246-F31] are closed for renovation. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 				route_change: {
 					tag: ['A-operates-then-overC-thenD', 'A-viaC-inBoro-replaceD', 'A-operates-then-overC'],
-					message: 'rerouted in Manhattan ``` [D] service operates b etween [Bx210-D01] and [Mn614-A24], and via the [A] express to/from [Bk636-A41] , and via the [F] to/from [Bk58-D43] . [F]* trains are rerouted via the [Q] express in Manhattan and replace the [D] in Brooklyn between [Bk617-R31] and [Bk58-D43] . [SB] ``` operate between [Mn167-A32] and [Mn231-D22] , stopping',
+					message: 'rerouted in Manhattan ``` No [D] service at [Mn277-D14] , [Mn225-D15] , [Mn609-D16] , [Mn607-D17|Mn607-R17] , [Mn619-D21] and [Mn231-D22] . [D] service operates b etween [Bx210-D01] and [Mn614-A24], and via the [A] express to/from [Bk636-A41] , and via the [F] to/from [Bk58-D43] . [F]* trains are rerouted via the [Q] express in Manhattan and replace the [D] in Brooklyn between [Bk617-R31] and [Bk58-D43] . [SB] ``` operate between [Mn167-A32] and [Mn231-D22] , stopping',
 					trains: ['D'],
 					route: [
 						{
@@ -2824,6 +2824,53 @@ let event_messages = {
 							],
 						},
 						line: [{line: "MTA NYCT_N",dir: "0"}],
+					},
+					{
+						archive: 90,
+						id: "MTA NYCT_183668",
+						date: {fetched: "2018-04-09T00:00:00-04:00",},
+						type_detail: [
+							'skip_stations',
+							'track_maintenance'
+						],
+						tag: ['MTAD-047'],
+						durration: "Nights, 11:45 PM to 5 AM, Mon to Fri, Apr 9 - 13",
+						message: "TRACK MAINTENANCE [R] No service at Whitehall St, Court St, Jay St-MetroTech and DeKalb Av Trains skip Union St, 4 Av-9 St, Prospect Av and 25 St in both directions",
+						route_change:
+						{
+							message: '[R] No service at [Mn635-R27], [Bk620-R28], [Bk636-R29] and [Bk26-R30] Trains skip [Bk28-R32], [Bk608-R33], [Bk30-R34] and [Bk31-R35] in both directions',
+						  trains: [ 'R' ],
+						  route:
+						   [ { allTrains: true,
+						       dir: null,
+						       lines: ['R'],
+						       along: null,
+						       bypass: [
+										 'Mn635-R27',
+										 'Bk620-R28',
+										 'Bk636-R29',
+										 'Bk26-R30',
+									 ],
+						       action: 'no_service',
+						       section: null,
+						       parsed: '[R] No service at [Mn635-R27], [Bk620-R28], [Bk636-R29] and [Bk26-R30] ' },
+						     { allTrains: true,
+						       dir: null,
+						       lines: ['R'],
+						       along: null,
+						       bypass: [
+										 'Bk28-R32',
+										 'Bk608-R33',
+										 'Bk30-R34',
+										 'Bk31-R35',
+									 ],
+						       action: 'bypass',
+						       section: null,
+						       parsed: 'Trains skip [Bk28-R32], [Bk608-R33], [Bk30-R34] and [Bk31-R35] '
+								 }
+							 ],
+						 },
+						 line: [{line: "MTA NYCT_R",dir: "0"}],
 					},
 		],
 
