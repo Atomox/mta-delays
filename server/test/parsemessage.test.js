@@ -10,7 +10,7 @@ let event_messages = require('../data/test/test.messages').event_messages.struct
 
 
 describe('Parse Service Messages', function() {
-	
+
 	describe('Parse Planned Work Dates inside messages.', function() {
 
 		it ('Should Parse [basic] Planned Work Posted dates from messages.', () => {
@@ -106,6 +106,78 @@ describe('Parse Service Messages', function() {
 
 				expect(result).to.equal(event_messages.complex[x].alt_instructions);
 			}
+		});
+	});
+
+
+	describe('Taxonomy', () => {
+		it ('MTAD-053 -- Taxonomy Should Handle Regex', function() {
+
+			let text = [
+					{
+						txt: 'signal problems',
+						expect: {
+							text: ['signal_problems'],
+							regex: ['signal_problems'],
+							mixed: ['signal_problems'],
+						},
+					},
+					{
+						txt: 'route change',
+						expect: {
+							text: ['route_change'],
+							regex: ['route_change'],
+							mixed: ['route_change'],
+						},
+					},
+					{
+						txt: 'routechange',
+						expect: {
+							text: [],
+							regex: ['route_change'],
+							mixed: ['route_change'],
+						},
+					},
+					{
+						txt: 'some [A] running over the [F] from ... to ...',
+						expect: {
+							text: [],
+							regex: ['route_change'],
+							mixed: ['route_change'],
+						},
+					},
+				],
+				library = {
+					text: {
+						'signal_problems': ['signal problems'],
+						'route_change': ['route change']
+					},
+					regex: {
+						'signal_problems': [/signal\s*problems/i],
+						'route_change': [
+							/route\s*change/i,
+							/running\s*over\s*the\s*\[[A-Z0-9]\]/i,
+						]
+					},
+					mixed: {
+						'signal_problems': ['signal problems', /signal\s*problems/i],
+						'route_change': [
+							'route change',
+							/route\s*change/i,
+							/running\s*over\s*the\s*\[[A-Z0-9]\]/i,
+						]
+					},
+				};
+			Object.keys(library).map( (l) => {
+				text.map( o => {
+					let tmp = mtaStatus.getMessageAction(o.txt, null, library[l]),
+						msg = o.txt + ' should contain ' + o.expect + ', but found ' + tmp;
+
+					expect(tmp, l + ' (type) : ' + msg).to.be.an('array');
+					expect(o.expect[l]).to.be.an('array');
+					expect(tmp, 'For method ' + l).to.have.members(o.expect[l]);
+				});
+			});
 		});
 	});
 

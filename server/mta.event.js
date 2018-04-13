@@ -1212,28 +1212,34 @@ async function getMessageRouteChange(text) {
  * @param [string] text
  *   The event message.
  * @param [string] action
- * 	 If present, we'll only check for these actions
+ * 	 If present, we'll only check for these actions.
+ * @param [object|null] external_library.
+ *   (optional) Pass an external source instead of using the taxonomy file.
+ *   Mostly for testing.
  *
  * @return [array|null]
  *   An array of matched tags (DISTINCT). Otherwise, [null].
  */
-function getMessageAction(text, action) {
+function getMessageAction(text, action, external_library) {
 
-	let my_status = [];
+	let my_status = [],
+		source = (external_library)
+			? external_library
+			: mtaTaxonomy.incident_types;
 
 	text = text.toUpperCase();
 
-	for (type in mtaTaxonomy.incident_types) {
+	for (type in source) {
 		if (action && action.indexOf(type) === -1) { continue; }
 
-		for (variation in mtaTaxonomy.incident_types[type]) {
-			if (!mtaTaxonomy.incident_types[type][variation]) {
+		for (variation in source[type]) {
+			if (!source[type][variation]) {
 				continue;
 			}
 
-			if (mtaTaxonomy.incident_types[type][variation] instanceof RegExp) {
+			if (source[type][variation] instanceof RegExp) {
 				try {
-					if (text.match(mtaTaxonomy.incident_types[type][variation])) {
+					if (text.match(source[type][variation])) {
 						my_status.push(type);
 						break;
 					}
@@ -1242,8 +1248,8 @@ function getMessageAction(text, action) {
 					console.log('getMessageAction(): failed to execute a regex taxonomy. -- ', err);
 				}
 			}
-			else if (typeof mtaTaxonomy.incident_types[type][variation] == 'string') {
-				if (text.indexOf(mtaTaxonomy.incident_types[type][variation].toUpperCase()) !== -1) {
+			else if (typeof source[type][variation] == 'string') {
+				if (text.indexOf(source[type][variation].toUpperCase()) !== -1) {
 					my_status.push(type);
 					break;
 				}
@@ -1251,7 +1257,7 @@ function getMessageAction(text, action) {
 		}
 	}
 
-	return (my_status.length > 0) ? my_status : null;
+	return (my_status.length > 0) ? my_status : [];
 }
 
 
