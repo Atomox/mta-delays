@@ -474,6 +474,10 @@ function stationAliases(name, boro) {
 				'61 St',
 				'61 St-Woodside',
 			],
+			'33 St': [
+				'33 St-Rawson St',
+				'33 St',
+			],
 			'Court Sq': [
 				'Court Sq/23rd St',
 			],
