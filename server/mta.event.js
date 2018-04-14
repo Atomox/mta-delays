@@ -1078,7 +1078,7 @@ async function processRouteChangeSectionsResult(regex_results, message_mod) {
 		};
 
 		regex_results.map((item, i) => {
-			if (i == 0 || !item) { return; };
+			if (!item) { return; };
 
 		 	switch (i) {
 				case 0:

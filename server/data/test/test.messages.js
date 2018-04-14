@@ -483,12 +483,15 @@ let event_messages = {
 					trains: ['C'],
 					route: [
 						{
-							lines: ['C'],
-							along: null,
-							bypass: ['Mn168-A33', 'Mn165-A30', 'Mn162-A25'],
-							from: null,
-							to: null,
-						},
+							allTrains: true,
+					    dir: '[Mn605-A09]-bound',
+					    lines: [ 'C' ],
+					    along: null,
+					    bypass: [ 'Mn168-A33', 'Mn165-A30', 'Mn162-A25' ],
+					    action: 'bypass',
+					    section: null,
+					    parsed: '[C] [Mn605-A09]-bound trains skip [Mn168-A33], [Mn165-A30] and [Mn162-A25]'
+						}
 					],
 				},
 				line: [
@@ -552,11 +555,34 @@ let event_messages = {
 			},
 			{
 				type: "PlannedWork",
-				type_detail: ['skip_stations'],
+				type_detail: [
+					'skip_stations'
+				],
+				tag: ['MTAD-034'],
 				time: null,
 				durration: 'Evenings, Mon to Thu, Dec 4 - 7',
 				message: 'SIGNAL MAINTENANCE [5] Service ends early between E 180 St and Bowling Green [2] [4] trains provide alternate service Evenings, Mon to Thu, Dec 4 - 7 [5] service operates between Dyre Av  and E 180 St. Travel Alternatives [TP] Transfer between [5] and [2] trains at E 180 St. Transfer between [2] and [4] trains at 149 St-Grand Concourse. Reminder: Late Night [5] service operates as scheduled in the Bronx.  [ad]  This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.',
 				alt_instructions: 'Travel Alternatives [TP] Transfer between [5] and [2] trains at E 180 St. Transfer between [2] and [4] trains at 149 St-Grand Concourse. Reminder: Late Night [5] service operates as scheduled in the Bronx.',
+				route_change: {
+					message: '[5] service operates between [Bx442-501]  and [Bx426-213]. Travel ``` [5] service operates',
+				  trains: [ '5' ],
+				  route:
+				   [
+						 {
+							 allTrains: true,
+				       dir: null,
+				       exp_lcl: null,
+				       lines: ['5'],
+				       along: null,
+				       from: 'Bx442-501',
+				       to: 'Bx426-213',
+				       section: null,
+				       parsed: null
+						 }
+					],
+				  new_stations: [],
+				  results: false
+				}
 			},
 			{
 				type: "PlannedWork",
@@ -1019,7 +1045,7 @@ let event_messages = {
 					"route_change",
 					"no_trains_partial"
 				],
-				tag: ["MTAD-001", "MTAD-002", "MTAD-027", "MTAD-035"],
+				tag: ["MTAD-001", "MTAD-002", "MTAD-027", "MTAD-034", "MTAD-035"],
 				time: null,
 				durration: "All Times, 5 AM Tue, Dec 26 until 8 AM Sun, Dec 31",
 				message: "SUBWAY ACTION PLAN: We're improving: Signals, Cables, Tracks and Drainage [E] No service between Jackson Hts-Roosevelt Av and West 4 St [M] No weekday service between Broadway Junction and 71 Av All Times, 5 AM Tue, Dec 26 until 8 AM Sun, Dec 31 [E] trains are rerouted in both directions via the [F] between Jackson Hts-Roosevelt Av and West 4 St * [E] trains run local between 71 Av and 21 St-Queensbridge overnight. [M] Shuttle trains operate all times between Metropolitan Av and Myrtle-Wyckoff Avs . [M] trains operate weekend service between Broadway Junction [J] and Essex St . Overnight [SB] free shuttle buses connect Queens Plaza and Court Sq-23 St [7] stopping at 21 St-Queensbridge [E] [F]. Travel Alternatives [TP] For JFK Airport , take the Far Rockaway-bound [A] to Howard Beach-JFK Airport. For LaGuardia Airport , take the [7] or [E] (from 6 Av) to 74 St-Roosevelt Av, for the LaGuardia Link Q70 SBS . For Port Authority Bus Terminal , all 8 Av [E] stations and overnight service between W 4 St and World Trade Center , take the [A] or [C]. For 53 St [E] stations , use the nearby 51 St [6] or 7 Av [B] [D] Stations. For [M] stations , take the [E] [F] [R] and/or [J]. Take the [7] for Court Sq-23 St [G] , and the [R] ( days/evenings ) for Queens Plaza or free overnight shuttle buses. Click here for details about this Subway Action Plan. *9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29 [E] trains run to/from 2 Av [F] station after W 4 St. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
@@ -1039,6 +1065,8 @@ let event_messages = {
 							along: "F",
 							from: "Qs616-G14",
 							to: "Mn167-A32",
+							parsed: '[E] trains are rerouted in both directionsvia the [F] between [Qs616-G14] and [Mn167-A32]',
+					    action: 'via'
 						},
 						{
 							allTrains: true,
@@ -1048,17 +1076,42 @@ let event_messages = {
 							along: null,
 							from: "Qs261-G08",
 							to: "Qs221-B04",
-						}
-//						,
-//						{
-//							allTrains: true,
-//							dir: null,
-//							exp_lcl: null,
-//							lines: ["M"],
-//							along: null,
-//							from: "Bk617-R31",
-//							to: "Bk617-R31",
-//						}
+							parsed: '[E] trainsrun local between [Qs261-G08] and [Qs221-B04]'
+						},
+						{
+							allTrains: true,
+							dir: null,
+							exp_lcl: null,
+							lines: ['M'],
+							along: null,
+							from: 'Qs108-M01',
+							to: 'Bk630-M08',
+							section: null,
+							parsed: '[M] Shuttle trains operate all times between [Qs108-M01] and [Bk630-M08]'
+						},
+						{
+							noTrains: true,
+					    allTrains: true,
+					    dir: null,
+					    lines: [ 'E' ],
+					    along: null,
+					    from: 'Qs616-G14',
+					    to: 'Mn167-A32',
+					    section: null,
+					    action: 'No',
+					    parsed: '[E] No service between [Qs616-G14] and [Mn167-A32]'
+						},
+						{
+					    allTrains: true,
+					    dir: null,
+					    exp_lcl: null,
+					    lines: [ 'M' ],
+					    along: null,
+					    from: [ 'Bk621-J27', 'Bk621-A51' ],
+					    to: 'Mn625-M18',
+					    section: null,
+					    parsed: '[M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18]'
+					  }
 					],
 				},
 				line: [
@@ -1185,7 +1238,7 @@ let event_messages = {
 				date: {
 					fetched: "2018-03-16T00:00:00-04:00",
 				},
-				tag: ['MTAD-032', 'MTAD-047'],
+				tag: ['MTAD-032', 'MTAD-034', 'MTAD-047'],
 				type_detail: [
 					"shuttle_bus",
 					"skip_stations",
@@ -1207,6 +1260,9 @@ let event_messages = {
 							from: "Qs209-H11",
 							to: "Qs195-A65"
 						}
+						/**
+						 * @TODO MTAD-034
+						 */
 					],
 				},
 				line: [
@@ -1626,7 +1682,7 @@ let event_messages = {
 					"switch_problems",
 					"route_change"
 				],
-				tag: ["MTAD-001", "MTAD-035"],
+				tag: ["MTAD-001", "MTAD-034", "MTAD-035"],
 				time: null,
 				durration: null,
 				message: "[1] [2] [3] [N] [Q] [R] [W] and [7] trains are bypassing Times Sq-42 St in both directions.[A] [C] and [E] trains are bypassing 42 St/Port Authority-Bus Terminal in both directions.There is no [S] 42 St shuttle service in both directions.[A] and [C] trains are stopping along the [D] line between W 4 St-Washington Sq and 59 St-Columbus Circle in both directions.There is no [B] train service between Bedford Park Blvd and Brighton Beach in both directions.[E] Trains are stopping along the [F] line between Jackson Hts-Roosevelt Av and W 4 St-Washington Sq in both directions.No [L] train service between 8 Av and 6 Av in both directions.[M] Trains are running between Delancey-Essex St and Forest Hills-71 Av.These service changes are because of an NYPD investigation at 42 St/Port Authority-Bus Terminal.",
@@ -1646,6 +1702,17 @@ let event_messages = {
 							along: "F",
 							from: 'Qs616-G14',
 							to: 'Mn167-A32',
+						},
+						{
+							allTrains: true,
+							dir: null,
+							exp_lcl: null,
+							lines: ['M'],
+							along: null,
+							from: 'Mn625-M18',
+							to: 'Qs261-G08',
+							section: null,
+							parsed: '[M] Trains are running between [Mn625-M18] and [Qs261-G08]'
 						},
 						{
 							noTrains: true,
@@ -1998,7 +2065,7 @@ let event_messages = {
 						"track_maintenance",
 						"no_trains_partial"
 					],
-					tag: ["MTAD-014", "MTAD-002", "MTAD-001", "MTAD-035"],
+					tag: ["MTAD-014", "MTAD-002", "MTAD-001", "MTAD-034", "MTAD-035"],
 					time: null,
 					durration: "Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25",
 					message: "TRACK MAINTENANCE [M] Service ends early between 71 Av and Essex St [E] [F] [R] trains provide alternate service Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25 [M] service operates between Essex St and Myrtle Av and via the [J] to/from Broadway Junction. [M] shuttle service operates between Metropolitan Av and Myrtle Wyckoff Avs . Travel Alternatives [TP] [R] trains make all [M] stops between 71 Av and Queens Plaza. [E] trains make all [M] stops between Queens Plaza and Broadway-Lafayette St*. [F] trains make all [M] stops between 47-50 Sts and Delancey St/Essex St. Transfer between [E] [F] and [R] trains at Roosevelt Av or 34 St-Herald Sq. Transfer between [F] and [M] trains at Delancey St/Essex St. *This detour has taken into account additional planned service changes. Note: [E] and [F] trains run local in both directions in Queens after 10 PM. Please use the following guide to arrive at your station before end of service. To 71 Av: To Broadway Junction: Broadway Junction 8:43 PM 71 Av 8:30 PM Myrtle Av 8:53 PM Roosevelt Av 8:40 PM Essex St 9:05 PM Queens Plaza 8:51 PM W 4 St 9:11 PM 47-50 Sts 8:59 PM 47-50 Sts 9:19 PM B'way-Lafayette St 9:09 PM Reminder: No [M] service between Myrtle-Wyckoff Avs and Myrtle Av. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
@@ -2030,6 +2097,17 @@ let event_messages = {
 								from: "Bk97-M11",
 								to: "Bk621-J27",
 							 	parsed: 'via the [J] to/from [Bk621-J27].',
+							},
+							{
+								allTrains: true,
+								dir: null,
+								exp_lcl: null,
+								lines: ['M'],
+								along: null,
+								from: 'Qs108-M01',
+								to: 'Bk630-M08',
+								section: null,
+								parsed: '[M] shuttle service operates between [Qs108-M01], [Bk630-M08]'
 							},
 							{
 								allTrains: true,
@@ -2241,7 +2319,7 @@ let event_messages = {
 								along: null,
 								from: "Bx210-D01",
 								to: "Mn619-D21",
-								section: 1
+								section: '1'
 							},
 							{
 								allTrains: true,
@@ -2250,7 +2328,7 @@ let event_messages = {
 								along: "F",
 								from: "Mn619-D21",
 								to: "Mn232-F14",
-								section: 1
+								section: '1'
 							},
 							{
 								allTrains: true,
@@ -2259,7 +2337,7 @@ let event_messages = {
 								along: "A",
 								from: "Mn153-A15",
 								to: "Mn167-A32",
-								section: 1
+								section: '1'
 							},
               {
 								allTrains: true,
@@ -2268,23 +2346,23 @@ let event_messages = {
 								along: null,
 								from: "Bk617-R31",
 								to: "Bk58-D43",
-								section: 2,
+								section: '2',
 							},
-              {
+							{
 								allTrains: true,
 								dir: null,
-								lines: ["D"],
+								lines: ['D'],
 								along: null,
-								from: null,
-								to: null,
 								bypass: [
 									'Bk28-R32',
 									'Bk608-F23',
 									'Bk30-R34',
 									'Bk31-R35'
 								],
-								section: 2,
-							}
+								action: 'bypass',
+								section: null,
+								parsed: ' [D] trains skip [Bk28-R32], [Bk608-F23], [Bk30-R34] and [Bk31-R35] '
+							},
 						]
 					},
 					line: [
@@ -2683,7 +2761,8 @@ let event_messages = {
 						       from: 'Qs606-G22',
 						       to: 'Bk289-G33',
 						       section: null,
-						       parsed: null },
+						       parsed: '[G] service operates between [Qs606-G22] and [Bk289-G33]'
+								 },
 						     { noTrains: true,
 						       allTrains: true,
 						       dir: null,
@@ -2819,7 +2898,8 @@ let event_messages = {
 									along: null,
 									from: "Bk58-D43",
 									to: "Mn611-R16",
-									section: null
+									section: null,
+					        parsed: '[N] service operates between [Bk58-D43] and [Mn611-725|Mn611-R16]'
 								}
 							],
 						},

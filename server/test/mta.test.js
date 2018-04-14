@@ -168,10 +168,49 @@ function filterTest(event, type, tags, omit) {
 }
 
 
+/**
+ * Compare object b against object a.  Return all parts of a that are missing from b.
+ * Note: b can have more properties than a, so long as it is not missing any of a.
+ *
+ * @param  {[type]} a        [description]
+ * @param  {[type]} b        [description]
+ * @param  {[type]} priority [description]
+ * @return {[type]}          [description]
+ */
+ function diffObjectsLeft(a,b) {
+ 		let missed = [],
+ 			missed_match = [];
+
+ 		Object.keys(a).map( k => {
+ 			if (b[k] === undefined) {
+ 				missed.push(k);
+ 			}
+       else if (typeof a[k] == 'object' && a[k]) {
+       	if (_.isEqual(a[k], b[k])) {
+           missed_match.push(k);
+       	}
+       }
+ 			else if (b[k] != a[k]) {
+ 				missed_match.push(k);
+ 			}
+ 		});
+
+     if (missed.length > 0 || missed_match.length > 0) {
+       return {
+         missing: missed,
+         diff: missed_match
+       };
+     }
+
+ 		return true;
+ }
+
+
 module.exports = {
   routeTestByTag,
 	bypassTestByTag,
   stationTestByTag,
 	stationMessageTestByTag,
   basicTest,
+	diffObjectsLeft,
 };

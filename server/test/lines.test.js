@@ -130,23 +130,32 @@ function testStationLineRerouteObject(event) {
 				let matches = false;
 
 				data.route.map( (e, i) => {
-//					console.log('Checking: ', e.lines, 'against', change.lines);
+
 					if (_.isEqual(e.lines, change.lines)) {
-//						console.log('MATCH', e, 'with', change);
-						if (e.along == change.along
-							&& e.from == change.from
-							&& e.to == change.to) {
+
+						if (_.isEqual(e.along, change.along)
+							&& _.isEqual(e.from, change.from)
+							&& _.isEqual(e.to, change.to)) {
 							matches = true;
 						}
-					}
 
+						if (!matches) {
+							let diff = tests.diffObjectsLeft(change, e);
+							if (diff === true) {
+								matches = true;
+							}
+						}
+					}
 				});
+
 				if (!matches) {
+
 					console.log('\n', '<!> MATCH FAILED -- (message -- actual/expected)', '\n',
 						data.message, '\n',
 						'returned: ', data.route, '\n',
 						'expected: ', event.route_change.route, '\n\n');
-					expect(data.route, data.message).to.have.contain(change);
+
+					expect(data.route, data.message).to.contain(change);
 				}
 			});
 		});
