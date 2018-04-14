@@ -22,6 +22,7 @@ let stations = {
 			'18 St':'181 St',
 			'45 St':'145 St',
 			'25 St':'125 St',
+			'7 Av':'57 St-7 Av',
 			'36 St (Qns)': '36 St',
 			'59 St':'5 Av/59 St',
 			'4Av-9th St': '4Av',

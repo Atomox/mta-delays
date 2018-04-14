@@ -690,6 +690,7 @@ async function processRouteChangeResults(regex_match, message_mod) {
 					from: null,
 					to: null,
 					section: section,
+					process: 'RouteChangeStandard'
 				});
 			}
 			switch (i) {
@@ -876,6 +877,7 @@ async function processRouteChangeBypassResult(regex_results, message_mod) {
 						action: null,
 						section: null,
 						parsed: null,
+						process: 'RouteChangeBypass'
 					});
 				}
 
@@ -941,12 +943,13 @@ async function processRouteChangeBypassResult(regex_results, message_mod) {
 				}
 			});
 
-			route_pair.route.map( (item, j) => {
-				if (item.bypass && item.lines.length > 0) {
-					results.route.push(route_pair.route[j]);
+			let r = route_pair.route;
+			for (let j in r) {
+				if (r[j].bypass && r[j].lines.length > 0) {
+					let res = await analyzeStationArray(r[j]);
+					results.route.push(res);
 				}
-			});
-
+			}
 		}
 
 		results.message_mod = replaceSimpleMessagePattern(message_mod, regex_results[0], 'bypass_stations');
@@ -981,6 +984,7 @@ async function processRouteChangeNoServiceBetweenResult(regex_results, message_m
 		 					section: null,
 							action: null,
 							parsed: null,
+							process: 'NoServiceBetween'
 					 	}
 				 	]
 				};
@@ -1029,8 +1033,10 @@ async function processRouteChangeNoServiceBetweenResult(regex_results, message_m
 				}
 			});
 
-			if (route_pair.route[j].to && route_pair.route[j].from && route_pair.route[j].lines.length > 0) {
-				results.route.push(route_pair.route[j]);
+			let r = route_pair.route[j];
+			if (r.to && r.from && r.lines.length > 0) {
+				let res = await analyzeStationArray(r);
+				results.route.push(res);
 			}
 		}
 
@@ -1073,6 +1079,7 @@ async function processRouteChangeSectionsResult(regex_results, message_mod) {
 					to: null,
  					section: null,
 					parsed: null,
+					process: 'RouteChangeSections'
 			 	}
 		 	]
 		};
@@ -1132,29 +1139,46 @@ async function processRouteChangeSectionsResult(regex_results, message_mod) {
  *   The updated route change object.
  */
 async function analyzeStationArray(r) {
-	let keys = ['from', 'to'];
+	try {
 
-	for (let i in keys) {
-		if (!r[keys[i]]) { continue; }
-		// Analyze stations with multiples
-		if (r[keys[i]].indexOf('|') !== -1) {
-			r[keys[i]] = r[keys[i]].split('|');
-
-			let along = (r.along !== null)
+		let keys = ['from', 'to', 'bypass'],
+			along = (r.along && typeof r.along === 'string')
 				? r.along
-				: r.lines[0];
+				: (Array.isArray(r.lines) && r.lines.length > 0)
+					? r.lines[0]
+					: false;
 
-			let line = await mtaStations.getTrainRoute(along);
+		if (!along) {
+			throw new Error('Analyze station expects a line ID on either -lines- or -along-, but found none.');
+		}
 
-			let result = line.filter((v) => (r[keys[i]].indexOf(v.key) !== -1)
-				? true
-				: false);
+		let line = await mtaStations.getTrainRoute(along);
 
-			if (result.length > 0) {
-				r[keys[i]] = result[0].key;
-			}
+		for (let i in keys) {
+			if (!r[keys[i]]) { continue; }
+
+				r[keys[i]] = (i === 'bypass')
+					// Bypass is an array of stations.
+					? r[keys[i]].map( s => resolveToken(s) )
+					: resolveToken(r[keys[i]]);
+		}
+
+		function resolveToken(item) {
+			// Only Analyze stations with multiples
+			if (item.indexOf('|') === -1) { return item; }
+
+			item = item.split('|');
+			let result = line.filter((v) => (item.indexOf(v.key) !== -1) ? true : false);
+
+			return (result.length > 0)
+				? result[0].key
+				: item;
 		}
 	}
+	catch (err) {
+		console.warn('\n\n<!> Error: ', err, '\n for: \n', r.lines, '|', r.along, '\n');
+	}
+
 	return r;
 }
 
@@ -1269,6 +1293,7 @@ module.exports = {
 	getMessageTrainLines,
 	getMessageAction,
 	getMessageRouteChange,
+	analyzeStationArray,
 	getRouteChange,
 	getStationsInEventMessage,
 }

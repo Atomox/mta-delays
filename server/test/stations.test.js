@@ -54,6 +54,12 @@ describe('Parse Stations', function() {
 		tests.stationMessageTestByTag(event_messages.normal, CheckStationsParseMessageForExpected, 'Multiple Spellings Check', ['MTAD-024']);
 	});
 
+	describe('MTAD-033 -- [Qs101-A22|Bk37-R49|Bx22-B342]', () => {
+		tests.stationMessageTestByTag(event_messages.normal, checkMultiStationTokenForSingle, 'Choose [single station] from multi-station token', ['MTAD-033']);
+
+		tests.stationMessageTestByTag(event_messages.normal, checkMultiStationTokenForExpected, 'Choose [correct station] from multi-station token', ['MTAD-033']);
+	});
+
 	describe('MTAD-040 -- 34, 42, 50, 59 and 66 Sts', () => {
 
 		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Basic Bunched Stations Check', ['MTAD-040']);
@@ -183,5 +189,93 @@ function CheckStationsListForExpected (event) {
 		})
 		.catch(err => {
 			throw new Error(err);
+		});
+}
+
+
+function multistationPrep(event) {
+	expect(event, event.message).to.have.property('line');
+	expect(event, event.message).to.have.property('route_change');
+	expect(event.route_change, event.message).to.have.property('route');
+}
+
+function checkMultiStationTokenForExpected(event) {
+
+	// Make sure the event is properly formatted.
+	multistationPrep(event);
+
+	/**
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 * @TODO
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 */
+
+
+
+
+
+
+
+
+}
+
+function checkMultiStationTokenForSingle(event) {
+
+	// Make sure the event is properly formatted.
+	multistationPrep(event);
+
+	let all_promises = event.route_change.route.map(r => mtaStatus.analyzeStationArray(r));
+
+	return Promise.all(all_promises)
+		.then( data => {
+
+			data.map( r => {
+				let types = [
+					{f: 'from', type: 'string'},
+					{f: 'to', type: 'string'},
+					{f: 'bypass', type: 'object'}
+				];
+
+				// Ensure all involved station fields are strings.
+				types.map(t => {
+					if (r[t.f] === undefined) {
+						return;
+					}
+
+				  expect( (typeof r[t.f]) , 'Field ' + t.f + ' should be a type.').to.equal(t.type);
+
+					// Bypass should be an array of strings.
+					if (t.f === 'bypass' && r['bypass'].length > 0) {
+						r[t.f].map(item => {
+							expect( (typeof item), 'Bypass item "' + item + '" should be a string.').to.equal('string');
+						});
+					}
+				});
+
+			});
+		})
+		.catch(err => {
+			throw new Error('Error Processing: ', event, ' --- ', err);
 		});
 }
