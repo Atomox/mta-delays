@@ -91,6 +91,13 @@ let archive_status = {
 		'mta_status.96.Weekend_Planned_Work',
 		'mta_status.97.April-09_-_Monday_Morning_Planned_work',
 		'mta_status.98.Weeknight_Planned_work',
+		'mta_status.99.Tuesday_Morning_Planned_work',
+		'mta_status.100.Weekday_Major_reroute',
+		'mta_status.101.Weeknight_Multiple_Reroutes',
+		'mta_status.102.Weeknight_Planned_Work',
+		'mta_status.103.Weekday_Morning_-_MTAD-057_examples',
+		'mta_status.104.Evening_delay_7D',
+		'mta_status.105.April_14_-_Sat_morning_planned_work',
 	],
 	path: './data/archive/',
 };

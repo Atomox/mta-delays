@@ -2982,6 +2982,80 @@ let event_messages = {
 						},
 						line: [{line: "MTA NYCT_4",dir: "0"}],
 					},
+					{
+						id: "MTA NYCT_182882",
+						type: "Planned Work",
+						planned: true,
+						date: {fetched: "2018-04-06T00:00:00-04:00",},
+						type_detail: [
+							"shuttle_bus",
+							"no_trains_partial",
+							"track_maintenance"
+						],
+						tag: ['MTAD-032'],
+						durration: "Weekend, 11:45 PM Fri to 5 AM Mon, Apr 13 - 16",
+						message: "TRACK REPLACEMENT [2] No trains between Dyre Av and E 180 St [SB] Free shuttle buses provide alternate service Weekend, 11:45 PM Fri to 5 AM Mon, Apr 13 - 16 [2] service operates between E 180 St/241 St* and South Ferry . [5] service operates between 241 St/149 St-Grand Concourse** and Flatbush Av . [SB] Buses make all stops between E 180 St and Dyre Av . -- Transfer between [2] [5] trains and [SB] buses at E 180 St . Show Shuttle Bus Stops [TP] Station Shuttle Bus Stop Bus E 180 St [ad] [2S] [5]** Morris Park Av at E 180 St Bx21 Morris Park Morris Park Av at Hone Av Bx21 Williamsbridge Rd at Lydig Av -- Pelham Pkwy Williamsbridge Rd at Pelham Pkwy S Bx8 Williamsbridge Rd at Pelham Pkwy N Bx8 Gun Hill Rd E Gun Hill Rd at Knapp St (to Dyre Av) Bx28 E Gun Hill Rd at DeWitt Pl (to E 180 St) Bx28 Baychester Av Boston Rd at Baychester Av Bx30 Dyre Av Dyre Av at Light St Bx16 *From 4:45 AM to 10 AM, Sunday, Apr 8 & 15, [2] service operates between 241 St and South Ferry. **From 4:45 AM to 10 AM, Sunday, Apr 8 & 15, [5] service operates between 149 St-Grand Concourse and Flatbush Av. Note: This advisory reflects changes to weekend [2] train service | pdf",
+						route_change: {
+							message: "[2] No trains between [Bx442-501] and [Bx426-213] [SB] ``` [2] service operates between [Bx426-213]/[Bx416-201]* ``` [5] service operates between [Bx416-201]/[Bx603-222]** and [Bk359-247] . [SB] ``` [2] service operates between [Bx416-201] ``` [5] service operates between [Bx603-222] and [Bk359-247].",
+							message_mod: "[-- route-match --] [SB] ``` [-- route-match --]* ``` [-- route-match --]** and [Bk359-247] . [SB] ``` [2] service operates between [Bx416-201] ``` [-- route-match --].",
+							trains: ["2","5"],
+							route: [
+								{
+									allTrains: true,
+									dir: null,
+									exp_lcl: null,
+									lines: ["2"],
+									along: null,
+									from: "Bx426-213", // @TODO -- Bx426-213/Bx416-201
+									to: "Bx416-201", // @TODO -- Should be: South Ferry
+									section: null,
+									parsed: "[2] service operates between [Bx426-213]/[Bx416-201]",
+									process: "RouteChangeSections"
+								},
+								{
+									allTrains: true,
+									dir: null,
+									exp_lcl: null,
+									lines: ["5"],
+									along: null,
+									from: "Bx416-201", // @TODO -- Bx416-201/Bx603-222
+									to: "Bx603-222", // @TODO -- Should be: Bk359-247
+									section: null,
+									parsed: "[5] service operates between [Bx416-201]/[Bx603-222]",
+									process: "RouteChangeSections"
+								},
+								{
+									allTrains: true,
+									dir: null,
+									exp_lcl: null,
+									lines: ["5"],
+									along: null,
+									from: "Bx603-222",
+									to: "Bk359-247",
+									section: null,
+									parsed: "[5] service operates between [Bx603-222] and [Bk359-247]",
+									process: "RouteChangeSections"
+								},
+								{
+									noTrains: true,
+									allTrains: true,
+									dir: null,
+									lines: ["2"],
+									along: null,
+									from: "Bx442-501",
+									to: "Bx426-213",
+									section: null,
+									action: "No",
+									parsed: "[2] No trains between [Bx442-501] and [Bx426-213]",
+									process: "NoServiceBetween"
+								}
+							],
+						},
+						line: [
+							{line: "MTA NYCT_2",dir: "0"},
+							{line: "MTA NYCT_5",dir: "0"}
+						],
+					},
 		],
 
 		complex: [
