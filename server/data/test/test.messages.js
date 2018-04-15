@@ -1054,7 +1054,7 @@ let event_messages = {
 				route_change: {
 					tag: ['A-overC'],
 					message_raw: "[E] trains are rerouted in both directions via the [F] between Jackson Hts-Roosevelt Av and West 4 St",
-					message: "[E] No service between [Qs616-G14] and [Mn167-A32] [M] ``` [E] trains are rerouted in both directions via the [F] between [Qs616-G14] and [Mn167-A32] * [E] trains run local between [Qs261-G08] and [Qs221-B04] ``` [M] Shuttle trains operate all times between [Qs108-M01] and [Bk630-M08] . [M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18] . ``` [7] stopping",
+					message: "[E] No service between [Qs616-G14] and [Mn167-A32] [M] ``` [E] trains are rerouted in both directions via the [F] between [Qs616-G14] and [Mn167-A32] * [E] trains run local between [Qs261-G08] and [Qs221-B04] ``` [M] Shuttle trains operate all times between [Qs108-M01] and [Bk630-M08] . [M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18] . ``` [Qs273-G21] and [Qs606-F09]-[Mn165-A30] [7] stopping",
 					trains: ["E"],
 					route: [
 						{
@@ -2951,6 +2951,36 @@ let event_messages = {
 							 ],
 						 },
 						 line: [{line: "MTA NYCT_R",dir: "0"}],
+					},
+					{
+						id: "MTA NYCT_183725",
+						date: {fetched: "2018-04-13T00:00:00-04:00",},
+						tag: ['MTAD-002'],
+						type_detail: [
+							"running_local",
+							"track_maintenance"
+						],
+						durration: "Weekend, 10 PM Fri to 5 AM Mon, Apr 13 - 16 --",
+						message: "TRACK REPLACEMENT [4] Woodlawn trains run local from Brooklyn Bridge to 125 St Please allow additional travel time.",
+						message_raw: "TRACK REPLACEMENT [4] Woodlawn trains run local from Brooklyn Bridge to 125 St Weekend, 10 PM Fri to 5 AM Mon, Apr 13 - 16 -- Please allow additional travel time.",
+						message_station_parse: "TRACK REPLACEMENT [4] [Bx378-401] trains run local from [Mn622-640] to [Mn392-621] Weekend, 10 PM Fri to 5 AM Mon, Apr 13 - 16 -- Please allow additional travel time.",
+						route_change: {
+							message: "message: '[4] [Bx378-401] trains run local from [Mn622-640] to [Mn392-621]',",
+							trains: ['4'],
+							route: [
+								{
+									allTrains: true,
+									dir: null,
+									exp_lcl: 'local',
+									lines: ['4'],
+									along: null,
+									from: 'Mn622-640',
+									to: 'Mn392-621',
+									parsed: '[4] [Bx378-401] trainsrun local from [Mn622-640] to [Mn392-621]'
+								}
+							],
+						},
+						line: [{line: "MTA NYCT_4",dir: "0"}],
 					},
 		],
 
