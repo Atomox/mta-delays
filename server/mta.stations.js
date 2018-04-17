@@ -6,7 +6,8 @@ const mtaApi = require('./svc/mta/subway/mta.api');
 const mtaRegEx = require('./includes/regex');
 
 // Date files.
-const trainRoutes = require('./data/static/mta.stations.train');
+const trainRoutes = require('./data/static/mta.stations.train').routes;
+const trainRoutesAlternate = require('./data/static/mta.stations.train').alternate_routes;
 const mta_stations_file_path = './data/generated/mta.stations.compiled';
 const problem_stations = require('./data/static/mta.stations.suppliment').name_problems;
 
@@ -109,6 +110,9 @@ function getTrainRoute(line, include_all_times) {
 	// If all lines are to be included,
 	// then merge in any found alternate time routes for this line.
 	let route = trainRoutes[line];
+
+	// Include alternate route (MTAD-030), trains run past normal line.
+	route = _.union(route, trainRoutesAlternate[line]);
 
 	if (include_all_times === true && trainRoutes[line+'LN']) {
 		route = _.union(route, trainRoutes[line+'LN']);

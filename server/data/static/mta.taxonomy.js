@@ -170,7 +170,9 @@ const taxonomy = {
 			'TRACK INSTALLATION',
 			'REPLACEMENT OF POWER & COMMUNICATION CABLES',
 		],
+		'switch_maintenance': ['switch maintenance'],
 		'tunnel_maintenance': ['TUNNEL RECONSTRUCTION'],
+		'flood_proofing': ['Long-Term Flood Protection'],
 	},
 };
 

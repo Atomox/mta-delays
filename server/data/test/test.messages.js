@@ -1110,15 +1110,16 @@ let event_messages = {
 					    parsed: '[E] No service between [Qs616-G14] and [Mn167-A32]'
 						},
 						{
-					    allTrains: true,
-					    dir: null,
-					    exp_lcl: null,
-					    lines: [ 'M' ],
-					    along: null,
-					    from: 'Bk621-J27',
-					    to: 'Mn625-M18',
-					    section: null,
-					    parsed: '[M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18]',
+							allTrains: true,
+							dir: null,
+							exp_lcl: null,
+							lines: [ 'M' ],
+							along: null,
+							from: 'Bk621-J27',
+							to: 'Mn625-M18',
+							section: null,
+							parsed: '[M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18]',
+							process: 'RouteChangeSections'
 							/**
 								@TODO
 								  Depends upon MTAD-030 -- M is running PAST END of M, along J line.

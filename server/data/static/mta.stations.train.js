@@ -1103,8 +1103,34 @@ let routes = {
 	],
 };
 
+let alternate_routes = {
+	M: [
+		// Via J
+		'Qs80-J12',   // "121 St"
+		'Qs81-J13',   // "111 St"
+		'Qs82-J14',   // "104 St"
+		'Qs83-J15',   // "Woodhaven Blvd"
+		'Qs84-J16',   // "85 St - Forest Pkwy"
+		'Qs85-J17',   // "75 St"
+		'Bk86-J19',   // "Cypress Hills"
+		'Bk87-J20',   // "Crescent St"
+		'Bk88-J21',   // "Norwood Av"
+		'Bk89-J22',   // "Cleveland St"
+		'Bk90-J23',   // "Van Siclen Av"
+		'Bk91-J24',   // "Alabama Av"
+		'Bk621-J27',  // "Broadway Jct"
+		'Bk93-J28',   // "Chauncey St"
+		'Bk94-J29',   // "Halsey St"
+		'Bk95-J30',   // "Gates Av"
+		'Bk96-J31',   // "Kosciuszko St"
+	],
+};
 
-module.exports = routes;
+
+module.exports = {
+	routes,
+	alternate_routes
+};
 
 
 /**
