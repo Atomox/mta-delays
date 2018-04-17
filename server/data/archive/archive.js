@@ -98,6 +98,7 @@ let archive_status = {
 		'mta_status.103.Weekday_Morning_-_MTAD-057_examples',
 		'mta_status.104.Evening_delay_7D',
 		'mta_status.105.April_14_-_Sat_morning_planned_work',
+		'mta_status.106.power_loss'
 	],
 	path: './data/archive/',
 };

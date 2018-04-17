@@ -1,0 +1,570 @@
+{
+  "Siri": {
+    "$": {
+      "xmlns:ns2": "http://www.ifopt.org.uk/acsb",
+      "xmlns": "http://www.siri.org.uk/siri",
+      "xmlns:ns4": "http://datex2.eu/schema/1_0/1_0",
+      "xmlns:ns3": "http://www.ifopt.org.uk/ifopt"
+    },
+    "ServiceDelivery": [
+      {
+        "ResponseTimestamp": [
+          "2018-04-16T19:18:20.8578379-04:00"
+        ],
+        "SituationExchangeDelivery": [
+          {
+            "ResponseTimestamp": [
+              "2018-04-16T19:18:20.8578379-04:00"
+            ],
+            "Status": [
+              "true"
+            ],
+            "Situations": [
+              {
+                "PtSituationElement": [
+                  {
+                    "CreationTime": [
+                      "2018-04-16T19:11:57.463-04:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_7f555871-43ba-4f74-932b-7061cdc07cf5"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2018-04-16T17:32:00-04:00"
+                        ],
+                        "EndTime": [
+                          "2018-04-16T19:30:00-04:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "[6] and [6D] express train service has resumed following earlier switch problems at 3 Av-138 St.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "[6] and [6D] express train service has resumed following earlier switch problems at 3 Av-138 St.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "[6] and [6D] express train service has resumed following earlier switch problems at <STRONG>3 Av-138 St</STRONG>."
+                    ],
+                    "Planned": [
+                      "false"
+                    ],
+                    "ReasonName": [
+                      "Delays"
+                    ],
+                    "MessagePriority": [
+                      "2"
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_6"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_6"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "delayed"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "CreationTime": [
+                      "2018-04-16T18:56:36.937-04:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_fa339f81-61bc-48e7-9db6-0784aa20fb85"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2018-04-16T15:38:00-04:00"
+                        ],
+                        "EndTime": [
+                          "2018-04-16T20:00:00-04:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "[A], [B], [C], [D] and [E] service has resumed after a lengthy Con Ed power loss that began before the afternoon's rush hour.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "There is a Con Ed power problem affecting our signal system between 42 St-Port Authority Bus Terminal and 59 St-Columbus Circle. We are working with Con Ed personnel to restore regular service. At this time generators are on scene at our 50 St and 42 St facilities to mitigate the power loss and keep our trains moving. [A] trains are running local from Euclid Av to 168 St in both directions. [B] trains are running express from 125 St to 59 St-Columbus Circle in both directions. There is no [C] train service between 168 St and Euclid Av in both directions. Some [E] trains are stopping along the [F] line from W 4 St-Washington Sq to 47-50 Sts-Rockefeller Ctr then along the [M] line to 5 Av-53 St. Some [E] trains are stopping along the [F] line from W 4 St-Washington Sq to Jackson Hts-Roosevelt Av. Please anticipate longer travel times this evening.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "<P>There is a Con Ed power problem affecting our signal system between 42 St-Port Authority Bus Terminal and 59 St-Columbus Circle. We are working with Con Ed personnel to restore regular service. At this time generators are on scene at our 50 St and 42 St facilities to mitigate the power loss and keep our trains moving. [A] trains are running local from Euclid Av to 168 St in both directions. [B] trains are running express from 125 St to 59 St-Columbus Circle in both directions. There is no [C] train service between 168 St and Euclid Av in both directions. Some [E] trains are stopping along the [F] line from W 4 St-Washington Sq to 47-50 Sts-Rockefeller Ctr then along the [M] line to 5 Av-53 St. Some [E] trains are stopping along the [F] line from W 4 St-Washington Sq to Jackson Hts-Roosevelt Av. Please anticipate longer travel times this evening.</P>"
+                    ],
+                    "Planned": [
+                      "false"
+                    ],
+                    "ReasonName": [
+                      "Delays"
+                    ],
+                    "MessagePriority": [
+                      "2"
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_A"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_A"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_B"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_B"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_C"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_C"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_D"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_D"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_E"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_E"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_M"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_M"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "delayed"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "CreationTime": [
+                      "2018-04-16T19:18:05.407-04:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_64295151-5655-4469-b7e2-d1b9bd9b86cd"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2018-04-16T17:26:00-04:00"
+                        ],
+                        "EndTime": [
+                          "2018-04-16T19:30:00-04:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "[L] train service has resumed following earlier signal problems at Montrose Av.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "[L] train service has resumed following earlier signal problems at Montrose Av.",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "[L] train service has resumed following earlier signal problems at <STRONG>Montrose Av</STRONG>."
+                    ],
+                    "Planned": [
+                      "false"
+                    ],
+                    "ReasonName": [
+                      "Delays"
+                    ],
+                    "MessagePriority": [
+                      "2"
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_L"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "delayed"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "CreationTime": [
+                      "2018-04-09T00:00:00-04:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_184938"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2018-04-09T00:00:00-04:00"
+                        ],
+                        "EndTime": [
+                          "2018-05-18T23:59:00-04:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "Rockaways Long-Term Flood Protection  [A] No service  to/from  Rockaway Park-Beach 116 St",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "Rockaways Long-Term Flood Protection  [A] No service  to/from  Rockaway Park-Beach 116 St",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "<a class=\"plannedWorkDetailLink\" onclick=ShowHide(184938);><b><i>Rockaways Long-Term Flood Protection</i><br clear=left>[A] No service <i>to/from</i> Rockaway Park-Beach 116 St</a><br/><br/><div id= 184938 class=\"plannedWorkDetail\" ></b>Rush Hours, 6 AM to 10 AM & 3:30 PM to 8 PM, Mon to Fri, until May 18<br><br>[A] trains that were scheduled to operate <i>to/from</i> Rockaway Park-Beach 116 St will operate<br><i>to/from</i> Euclid Av instead.<br><br>[S] No Rockaway Park Shuttle service at Broad Channel.<br><br>[S] Rockaway Park Shuttle operates, <i>approximately every 20 minutes,</i> between <br><b>Rockaway Park-Beach 116 St</b> and <b>Beach 90 St</b> and via the [A] <i>to/from</i> <b>Far Rockaway-Mott Av</b>.<br><br>For<b> Beach 90 St, Beach 98 St, Beach 105 St</b> and <b>Rockaway Park-Beach 116 St</b>, <br>transfer to the [S] Rockaway Park Shuttle at Beach 67 St.<br><br><a href=http://www.mta.info/press-release/nyc-transit/nyc-transit-starting-subway-flood-protection-project-rockaways-next-month target=_blank><font color=#0000FF>Click here</font></a> for additional details on this Flood Protection Project.<br><br><table class=plannedworkTableStyle  border=1 cellspacing=1 cellpadding=5 rules=none frame=box><td>  [ad]  <td><font size=1>This service change affects one or more ADA accessible stations. Please call 511 for help with planning<br>your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.  </font></table><br><b><br></div></b><br/>"
+                    ],
+                    "Planned": [
+                      "true"
+                    ],
+                    "ReasonName": [
+                      "Planned Work"
+                    ],
+                    "MessagePriority": [
+                      "\r\n                  1\r\n                "
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_A"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_A"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "diverted"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "CreationTime": [
+                      "2018-04-09T00:00:00-04:00"
+                    ],
+                    "SituationNumber": [
+                      "\r\n                  MTA NYCT_184937"
+                    ],
+                    "PublicationWindow": [
+                      {
+                        "StartTime": [
+                          "2018-04-09T00:00:00-04:00"
+                        ],
+                        "EndTime": [
+                          "2018-05-18T23:59:00-04:00"
+                        ]
+                      }
+                    ],
+                    "Summary": [
+                      {
+                        "_": "Rockaways Long-Term Flood Protection  [S] No Rockaway Park Shuttle service at Broad Channel - Take the [A] instead [A] No rush hour service  to/from  Rockaway Park-Beach 116 St",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "Description": [
+                      {
+                        "_": "Rockaways Long-Term Flood Protection  [S] No Rockaway Park Shuttle service at Broad Channel - Take the [A] instead [A] No rush hour service  to/from  Rockaway Park-Beach 116 St",
+                        "$": {
+                          "xml:lang": "EN"
+                        }
+                      }
+                    ],
+                    "LongDescription": [
+                      "<a class=\"plannedWorkDetailLink\" onclick=ShowHide(184937);><b><i>Rockaways Long-Term Flood Protection</i><br clear=left>[S] No Rockaway Park Shuttle service at Broad Channel - Take the [A] instead<br clear=left>[A] No rush hour service <i>to/from</i> Rockaway Park-Beach 116 St</a><br/><br/><div id= 184937 class=\"plannedWorkDetail\" ></b>All times, until Friday May 18, 2018<br><br>[S] Rockaway Park Shuttle operates, <i>approximately every 20 minutes,</i> between <br><b>Rockaway Park-Beach 116 St</b> and <b>Beach 90 St</b> and via the [A] <i>to/from</i> <b>Far Rockaway-Mott Av</b>.<br><br>For <b>Broad Channel</b>, take the [A], transfer to the [S] Rockaway Park Shuttle at Beach 67 St.<br><br><b><i>Alternate travel note for Broad Channel:<br></b></i><a href=http://web.mta.info/busco/schedules/q052scur.pdf target=_blank><font color=#0000FF>Q52-SBS</font></a>, <a href=http://web.mta.info/busco/schedules/q052scur.pdf target=_blank><font color=#0000FF>Q53-SBS</font></a>, <a href=http://web.mta.info/busco/schedules/qm16cur.pdf target=_blank><font color=#0000FF>QM16</font></a> and <a href=http://web.mta.info/busco/schedules/qm16cur.pdf target=_blank><font color=#0000FF>QM17</font></a> service is also available at Cross Bay Blvd and Noel Rd.<br><br><a href=http://www.mta.info/press-release/nyc-transit/nyc-transit-starting-subway-flood-protection-project-rockaways-next-month target=_blank><font color=#0000FF>Click here</font></a> for additional details on this Flood Protection Project.<br><b><br></div></b><br/>"
+                    ],
+                    "Planned": [
+                      "true"
+                    ],
+                    "ReasonName": [
+                      "Planned Work"
+                    ],
+                    "MessagePriority": [
+                      "\r\n                  1\r\n                "
+                    ],
+                    "Source": [
+                      {
+                        "SourceType": [
+                          "directReport"
+                        ]
+                      }
+                    ],
+                    "Affects": [
+                      {
+                        "VehicleJourneys": [
+                          {
+                            "AffectedVehicleJourney": [
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_H"
+                                ],
+                                "DirectionRef": [
+                                  "0"
+                                ]
+                              },
+                              {
+                                "LineRef": [
+                                  "\r\n                      MTA NYCT_H"
+                                ],
+                                "DirectionRef": [
+                                  "1"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "Consequences": [
+                      {
+                        "Consequence": [
+                          {
+                            "Condition": [
+                              "noService"
+                            ],
+                            "Severity": [
+                              "undefined"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

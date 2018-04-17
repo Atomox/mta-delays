@@ -627,7 +627,15 @@ let event_messages = {
 								'Mn409-638',
 								'Mn623-639',
 							 ],
-				       section: null }
+				       section: null,
+							 test: {
+								 expected: {
+									 bypass: [
+										 'Mn623-639', // '[Mn623-639|Mn623-M20]'
+									 ],
+								 }
+							 }
+						 }
 					],
 				},
 				'line': [
@@ -1107,10 +1115,21 @@ let event_messages = {
 					    exp_lcl: null,
 					    lines: [ 'M' ],
 					    along: null,
-					    from: [ 'Bk621-J27', 'Bk621-A51' ],
+					    from: 'Bk621-J27',
 					    to: 'Mn625-M18',
 					    section: null,
-					    parsed: '[M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18]'
+					    parsed: '[M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18]',
+							/**
+								@TODO
+								  Depends upon MTAD-030 -- M is running PAST END of M, along J line.
+									Selecting M, when we need to select J as the line.
+
+							test: {
+								expected: {
+									from: 'Bk621-J27' // [Bk621-J27|Bk621-A51]
+								}
+							}
+							*/
 					  }
 					],
 				},
@@ -1191,7 +1210,13 @@ let event_messages = {
 					    to: 'Mn439-225|Mn392-621',
 					    section: null,
 					    action: 'No',
-					    parsed: '[4] No trains between [Bx603-222|Bx603-415] and [Mn439-225|Mn392-621]'
+					    parsed: '[4] No trains between [Bx603-222|Bx603-415] and [Mn439-225|Mn392-621]',
+							test: {
+								expected: {
+									from: 'Bx603-415', // Bx603-222|Bx603-415
+									to: 'Mn392-621',  // Mn439-225|Mn392-621
+								}
+							}
 						},
             {
               allTrains: true,
@@ -1201,6 +1226,11 @@ let event_messages = {
               from: "Bx603-415",
               to: "Bx378-401",
 							section: '1'
+							test: {
+								expected: {
+									from: 'Bx603-415', // [Bx603-222|Bx603-415]
+								}
+							}
             },
 						{
 							allTrains: true,
@@ -1211,7 +1241,14 @@ let event_messages = {
 					    from: 'Bk345-250',
 					    to: 'Bk352-257',
 					    section: '2',
-					    parsed: null
+					    parsed: '[4] [__operates-section-2__] Between [Bk345-250]/[Bk352-257] and [Mn439-225|Mn392-621]',
+							test: {
+								expected: {
+									// from: [Bk345-250]/[Bk352-257]
+									to: 'Mn392-621', // [Mn439-225|Mn392-621]
+								}
+							}
+
 						},
             {
               allTrains: true,
@@ -1636,7 +1673,12 @@ let event_messages = {
 							lines: ["A"],
 							along: "D",
 							from: "Mn614-A24",
-							to: "Mn607-D17"
+							to: "Mn607-D17",
+							test: {
+								expected: {
+									to: 'Mn607-D17', // [Mn607-D17|Mn607-R17]
+								}
+							}
 						},
 						{
 							allTrains: true,
@@ -1644,7 +1686,12 @@ let event_messages = {
 							lines: ["A"],
 							along: "F",
 							from: "Mn607-D17",
-							to: "Bk636-A41"
+							to: "Bk636-A41",
+							test: {
+								expected: {
+									from: 'Mn607-D17', // [Mn607-D17|Mn607-R17]
+								}
+							}
 						},
 						{
 							allTrains: true,
@@ -1652,7 +1699,12 @@ let event_messages = {
 							lines: ["E"],
 							along: "M",
 							from: "Mn276-F12",
-							to: "Mn607-D17"
+							to: "Mn607-D17",
+							test: {
+								expected: {
+									to: 'Mn607-D17', // [Mn607-D17|Mn607-R17]
+								}
+							}
 						},
 						{
 							allTrains: true,
@@ -1660,7 +1712,12 @@ let event_messages = {
 							lines: ["E"],
 							along: "F",
 							from: "Mn607-D17",
-							to: "Mn232-F14"
+							to: "Mn232-F14",
+							test: {
+								expected: {
+									from: 'Mn607-D17', // [Mn607-D17|Mn607-R17]
+								}
+							}
 						}
 					],
 				},
@@ -1691,6 +1748,47 @@ let event_messages = {
 					message: "[1] [2] [3] [N] [Q] [R] [W] and [7] trains are bypassing [Mn611-127|Mn611-725|Mn611-R16|Mn611-902] in both directions.[A] [C] and [E] trains are bypassing [Mn611-A27] in both directions. ``` [A] and [C] trains are stopping along the [D] line between [Mn167-A32] and [Mn614-125] in both directions. ``` no [B] train service between [Bx211-D03] and [Bk55-D40] in both directions.[E] Trains are stopping along the [F] line between [Qs616-G14] and [Mn167-A32] in both directions.No [L] train service between [Bk71-N02] and [Mn601-L02] in both directions.[M] Trains are running between [Mn625-M18] and [Qs261-G08].",
 					trains: ['F'],
 					route: [
+						{
+							allTrains: true,
+							dir: null,
+							lines: ['W', '7'],
+							along: null,
+							bypass: [
+								'Mn611-725',
+								'Mn611-R16',
+							],
+							action: 'bypass',
+							section: null,
+							parsed: ' [W] and [7] trains are bypassing [Mn611-127|Mn611-725|Mn611-R16|Mn611-902] ',
+							process: 'RouteChangeBypass',
+							/**
+								@TODO
+								  Blocked by MTAD-059, MTAD-054.
+
+
+							test: {
+	 							expected: {
+	 								bypass: [
+										'Mn611-725', // [Mn611-127|Mn611-725|Mn611-R16|Mn611-902]
+										'Mn611-R16', //
+									]
+	 							}
+	 						}
+							*/
+						},
+						{
+							allTrains: true,
+							dir: null,
+							lines: ['C','E'],
+							along: null,
+							bypass: [
+								'Mn611-A27',
+							],
+							action: 'bypass',
+							section: null,
+							parsed: ' [C] and [E] trains are bypassing [Mn611-A27] ',
+							process: 'RouteChangeBypass'
+						},
 						{
 							lines: ['A', 'C'],
 							along: "D",
@@ -1781,28 +1879,65 @@ let event_messages = {
 					route: [
 						{
 							allTrains: true,
-							dir: null,
-							lines: ['D'],
-							along: null,
-							from: 'Bx210-D01',
-							to: 'Mn614-A24',
+			       	dir: null,
+			       	exp_lcl: null,
+			       	lines: ['D'],
+			       	along: null,
+			       	from: 'Bx210-D01',
+			       	to: 'Mn614-A24',
+			       	section: null,
+			       	process: 'RouteChangeStandard',
+			       	parsed: '[D] service operates b etween [Bx210-D01] and [Mn614-A24], and'
 						},
 						{
 							allTrains: true,
 							dir: null,
+							exp_lcl: null,
 							lines: ['D'],
-							along: "A",
+							along: 'A',
 							from: 'Mn614-A24',
 							to: 'Bk636-A41',
+							section: null,
+							process: 'RouteChangeStandard',
+							parsed: 'via the [A] express to/from [Bk636-A41] ,',
+							action: 'via'
 						},
 						{
 							allTrains: true,
 							dir: null,
+							exp_lcl: null,
 							lines: ['D'],
-							along: "F",
+							along: 'F',
 							from: 'Bk636-A41',
 							to: 'Bk58-D43',
+							process: 'RouteChangeStandard',
+							parsed: 'and via the [F] to/from [Bk58-D43]',
 						},
+						{
+							allTrains: true,
+							dir: null,
+							exp_lcl: 'express',
+							lines: ['F'],
+							along: 'Q',
+							from: null,
+							to: null,
+							process: 'RouteChangeStandard',
+							parsed: '[F]* trains are reroutedvia the [Q] express in Manhattan',
+							action: 'via',
+							in: 'Manhattan'
+						},
+						{
+							allTrains: true,
+							dir: null,
+							exp_lcl: null,
+							lines: ['F'],
+							along: 'D',
+							from: 'Bk617-R31',
+							to: 'Bk58-D43',
+							process: 'RouteChangeStandard',
+							parsed: 'and replace the [D] in Brooklyn between [Bk617-R31] and [Bk58-D43]',
+							action: 'replace'
+						}
 					],
 				},
 				line: [
@@ -1916,16 +2051,33 @@ let event_messages = {
 					],
 					route: [
 						{
-							lines: ["2"],
-							along: "5",
-							from: "Bx603-222",
-							to: "Bk337-234"
+							allTrains: true,
+							dir: 'southbound',
+							exp_lcl: null,
+							lines: ['2'],
+							along: '5',
+							from: 'Bx603-222',
+							to: 'Bk337-234',
+							process: 'RouteChangeStandard',
+							parsed: 'Southbound [2] trains are stoppingalong the [5] line from [Bx603-222|Bx603-415] to [Bk337-234].',
+							action: 'along',
+							test: {
+	 							expected: {
+	 								from: 'Bx603-222', // [Bx603-222|Bx603-415]
+	 							}
+	 						}
 						},
 						{
-							lines: ["3"],
-							along: "1",
-							from: "Mn310-120",
-							to: "Mn305-115"
+							allTrains: false,
+							dir: 'northbound',
+							exp_lcl: null,
+							lines: ['3'],
+							along: '1',
+							from: 'Mn310-120',
+							to: 'Mn305-115',
+							process: 'RouteChangeStandard',
+							parsed: 'Some northbound [3] trains are stoppingalong the [1] line from [Mn310-120] to [Mn305-115]',
+							action: 'along'
 						}
 						]
 					}
@@ -2200,7 +2352,13 @@ let event_messages = {
 									 'Mn165-A30',
 									 'Mn168-A33'
 								 ],
-					       section: null }
+					       section: null,
+								 test: {
+	 	 							expected: {
+	 	 								bypass: ['Mn162-A25'], // [Mn162-A25|Bk61-B14]
+	 	 							}
+	 	 						 }
+							 }
 							],
 					},
 					line: [	{line: "MTA NYCT_C",dir: "1"} ],

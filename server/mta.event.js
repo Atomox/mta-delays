@@ -395,6 +395,13 @@ function unwrapTrain(train) {
 	return train.trim();
 }
 
+function unwrapStation(token) {
+	token = unwrapTrain(token);
+	return (token.indexOf('|') !== -1)
+		? token.split('|')
+		: token;
+}
+
 
 /**
  * Prepare a message with an "Operates in 2 Sections" to be more
@@ -1155,9 +1162,9 @@ async function analyzeStationArray(r) {
 		let line = await mtaStations.getTrainRoute(along);
 
 		for (let i in keys) {
-			if (!r[keys[i]]) { continue; }
+			if (!r[keys[i]]) {	continue; }
 
-				r[keys[i]] = (i === 'bypass')
+				r[keys[i]] = (keys[i] === 'bypass')
 					// Bypass is an array of stations.
 					? r[keys[i]].map( s => resolveToken(s) )
 					: resolveToken(r[keys[i]]);
@@ -1169,6 +1176,10 @@ async function analyzeStationArray(r) {
 
 			item = item.split('|');
 			let result = line.filter((v) => (item.indexOf(v.key) !== -1) ? true : false);
+
+			if (result.length <= 0) {
+				console.warn('\n<!> Could not evaluation Station Multi-Token (', item, ') for line: ', along, '\n');
+			}
 
 			return (result.length > 0)
 				? result[0].key

@@ -1,5 +1,7 @@
 'use strict';
 
+let _ = require('lodash');
+
 // Chai
 let assert = require('assert');
 let expect = require('chai').expect;
@@ -55,9 +57,9 @@ describe('Parse Stations', function() {
 	});
 
 	describe('MTAD-033 -- [Qs101-A22|Bk37-R49|Bx22-B342]', () => {
-		tests.stationMessageTestByTag(event_messages.normal, checkMultiStationTokenForSingle, 'Choose [single station] from multi-station token', ['MTAD-033']);
+		tests.multiStationTokenTestByTag(event_messages.normal, checkMultiStationTokenForSingle, 'Choose [single station] from multi-station token', ['MTAD-033']);
 
-		tests.stationMessageTestByTag(event_messages.normal, checkMultiStationTokenForExpected, 'Choose [correct station] from multi-station token', ['MTAD-033']);
+		tests.multiStationTokenTestByTag(event_messages.normal, checkMultiStationTokenForExpected, 'Choose [correct station] from multi-station token', ['MTAD-033']);
 	});
 
 	describe('MTAD-040 -- 34, 42, 50, 59 and 66 Sts', () => {
@@ -195,7 +197,7 @@ function CheckStationsListForExpected (event) {
 
 function multistationPrep(event) {
 	expect(event, event.message).to.have.property('line');
-	expect(event, event.message).to.have.property('route_change');
+	expect(event, 'Malformed Test Data for: "' + event.message + '"').to.have.property('route_change');
 	expect(event.route_change, event.message).to.have.property('route');
 }
 
@@ -204,40 +206,68 @@ function checkMultiStationTokenForExpected(event) {
 	// Make sure the event is properly formatted.
 	multistationPrep(event);
 
-	/**
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 * @TODO
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 */
+	// Get a train lines in main message.
+	// Add them to the lines set for station parsing.
+	let lines = mtaStatus.getMessageTrainLines(event.message);
+	lines = _.union(event.line,lines);
 
+	return mtaStatus.getStationsInEventMessage(lines, event.message)
+		.then( data => {
+			let m = mtaStatus.getRouteChange(data.parsed_message, event.line, true);
+			m.original_data = data;
+			return m;
+		})
+		.then( data => {
+			if (!data) {
+				console.error('\n\n\nNO ROUTE, but expected: ', event);
+			}
 
+			// Make sure the parsed message matches the expected.
+			expect(data).to.have.property('message');
+			expect(event.route_change).to.have.property('message');
+			expect(data, event.message).to.have.property('route');
+			expect(data.message).to.equal(event.route_change.message);
 
+			event.route_change.route.map( (change, i) => {
+				if (!change.test || !change.test.expected) {
+					return;
+				}
 
+				let matches = false;
 
+				let exp = change.test.expected;
 
+				data.route.map( (e, i) => {
 
+					if (_.isEqual(e.lines, change.lines)
+						&& _.isEqual(e.along, change.along)
+						&& _.isEqual(e.parsed, change.parsed)) {
 
+						Object.keys(exp).map(ex => {
+
+							switch(ex) {
+								case 'bypass':
+									let msg = 'bypass -- ' + data.message;
+									expect(exp[ex], 'Bypass should be an array --- ' + event.message).to.be.an('array');
+									exp[ex].map( val => {
+										if (e.bypass.indexOf(val) === -1) {
+											console.log('<!> ', data.message, '\n\n',
+												'Expected to include:', val, ' -in- ', e.bypass);
+										}
+										expect(e.bypass, msg).to.contain(val);
+									});
+									break;
+
+								case 'from':
+								case 'to':
+									expect(e.from, ex + ' -- ' + data.message).to.equal(exp[ex]);
+									break;
+							}
+						});
+					}
+				});
+			});
+		});
 }
 
 function checkMultiStationTokenForSingle(event) {
@@ -250,32 +280,30 @@ function checkMultiStationTokenForSingle(event) {
 	return Promise.all(all_promises)
 		.then( data => {
 
-			data.map( r => {
-				let types = [
-					{f: 'from', type: 'string'},
-					{f: 'to', type: 'string'},
-					{f: 'bypass', type: 'object'}
-				];
+				for (let index in data) {
+					let types = [
+							{f: 'from', type: 'string'},
+							{f: 'to', type: 'string'},
+							{f: 'bypass', type: 'object'}
+						],
+						r = data[index];
 
-				// Ensure all involved station fields are strings.
-				types.map(t => {
-					if (r[t.f] === undefined) {
-						return;
-					}
+					// Ensure all involved station fields are strings.
+					for (let t in types) {
+						if (r[t.f] === undefined) {
+							continue;
+						}
 
-				  expect( (typeof r[t.f]) , 'Field ' + t.f + ' should be a type.').to.equal(t.type);
+					  expect( (typeof r[t.f]), 'Field "' + t.f + '" should be a ' + t.type + ' type.').to.equal(t.type);
 
-					// Bypass should be an array of strings.
-					if (t.f === 'bypass' && r['bypass'].length > 0) {
-						r[t.f].map(item => {
-							expect( (typeof item), 'Bypass item "' + item + '" should be a string.').to.equal('string');
-						});
-					}
-				});
+						// Bypass should be an array of strings.
+						if (t.f === 'bypass' && r['bypass'].length > 0) {
+							r[t.f].map(item => {
+								expect( (typeof item), 'Bypass item "' + item + '" should be a string.').to.equal('string');
+							});
+						}
+					};
 
-			});
-		})
-		.catch(err => {
-			throw new Error('Error Processing: ', event, ' --- ', err);
+			};
 		});
 }
