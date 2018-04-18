@@ -1104,6 +1104,22 @@ let routes = {
 };
 
 let alternate_routes = {
+	2: [
+		// Along 1, downtown
+		'Mn328-138',  // "Cortlandt St"
+		'Mn329-139',  // "Rector St"
+		'Mn635-142',  // "South Ferry"
+	],
+	3: [
+		// Along 1, downtown
+		'Mn328-138',  // "Cortlandt St"
+		'Mn329-139',  // "Rector St"
+		'Mn635-142',  // "South Ferry"
+	],
+	D: [
+		// Common Station for local on weekends.
+		'Bk26-R30', 	// DeKalb Av
+	],
 	M: [
 		// Via J
 		'Qs80-J12',   // "121 St"
@@ -1124,6 +1140,20 @@ let alternate_routes = {
 		'Bk95-J30',   // "Gates Av"
 		'Bk96-J31',   // "Kosciuszko St"
 	],
+	N: [
+		// Common Station for local on weekends.
+		'Bk26-R30', 	// DeKalb Av
+	],
+	R: [
+		// "Queens - Archer" -- boro: "Q" / "M"
+		'Qs254-F01', // "Jamaica - 179 St",
+		'Qs255-F02',
+		'Qs256-F03',
+		'Qs257-F04', // "Sutphin Blvd"
+		'Qs258-F05',
+		'Qs259-F06',
+		'Qs260-F07',
+	]
 };
 
 

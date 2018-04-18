@@ -1119,18 +1119,12 @@ let event_messages = {
 							to: 'Mn625-M18',
 							section: null,
 							parsed: '[M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18]',
-							process: 'RouteChangeSections'
-							/**
-								@TODO
-								  Depends upon MTAD-030 -- M is running PAST END of M, along J line.
-									Selecting M, when we need to select J as the line.
-
+							process: 'RouteChangeSections',
 							test: {
 								expected: {
 									from: 'Bk621-J27' // [Bk621-J27|Bk621-A51]
 								}
 							}
-							*/
 					  }
 					],
 				},
@@ -1148,7 +1142,7 @@ let event_messages = {
           "track_maintenance",
           "route_change",
         ],
-        tag: ['MTAD-009'],
+        tag: ['MTAD-006', 'MTAD-009'],
         durration: "Late Nights, 12:01 AM to 5 AM, Tue to Fri, Dec 12 - 15",
         message: "TRACK MAINTENANCE [4] Service operates in two sections: 1. Between Woodlawn and 125 St 2. Between 125 St and New Lots Av Late Nights, 12:01 AM to 5 AM, Tue to Fri, Dec 12 - 15 Transfer at 125 St to continue your trip. Note: Trains from Manhattan skip 138 St-Grand Concourse.",
         message_station_parse: "TRACK MAINTENANCE [4] Service operates in two sections: 1. Between [Bx378-401] and [Mn392-621] 2. Between [Mn392-621] and [Bk352-257] Late Nights, 12:01 AM to 5 AM, Tue to Fri, Dec 12 - 15 Transfer at [Mn392-621] to continue your trip. Note: Trains from Manhattan skip [Bx391-416].",
@@ -1967,13 +1961,9 @@ let event_messages = {
 					"MTA NYCT_Q",
 					"MTA NYCT_R"
 				],
-
-//  Disabled Reason:
-//		Parsing 36 St (Bklyn) on D line before R line, so only 36 Bklyn is available.
-/**
 				route_change: {
 					tag: ['A-overC-D-overE'],
-					message: "Southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [R] trains are stopping along the [F] line from [Qs272-G20] to [Mn167-A32] then via the [D] line to [Bk26-R30]",
+					message: "Northbound [R] trains are bypassing [Bk636-R29].Southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [R] trains are stopping along the [F] line from [Qs272-G20] to [Mn167-A32] then via the [D] line to [Bk26-R30].",
 					trains: ["R"],
 					route: [
 						{
@@ -1992,11 +1982,10 @@ let event_messages = {
 							lines: ['R'],
 							along: 'D',
 							from: 'Mn167-A32',  // W 4th
-							to: 'Mn167-A32',	// DeKalb
+							to: 'Bk26-R30',	// DeKalb
 						},
 					],
 				},
-*/
 				line: [
 					{
 						line: "MTA NYCT_B",
@@ -2557,7 +2546,8 @@ let event_messages = {
 								'Bx423-210': "Allerton",
 								'Bx424-211': "Pelham Pkwy",
 								'Bx425-212': "Bronx Park East",
-								'Bx426-213': "E 180 St"
+								'Bx426-213': "E 180 St",
+								'Mn635-142': "South Ferry",
 							}
 						}
 					},
@@ -3213,6 +3203,33 @@ let event_messages = {
 						line: [
 							{line: "MTA NYCT_2",dir: "0"},
 							{line: "MTA NYCT_5",dir: "0"}
+						],
+					},
+					{
+						archive: 51,
+						id: 'MTA NYCT_177061',
+						type_detail: [
+							"route_change"
+						],
+						tag: ['MTAD-030', 'MTAD-006'],
+						message: "SIGNAL MAINTENANCE [N] Trains run local in both directions between DeKalb Av and 59 St, Brooklyn Please allow additional travel time.",
+						route_change: {
+							message: '[N] Trains run local in both directions between [Bk26-R30] and [Bk35-R41]',
+						  trains: [ 'N' ],
+						  route:
+						   [
+								 {
+						       exp_lcl: 'local',
+						       lines: ['N'],
+						       along: null,
+						       from: 'Bk26-R30',
+						       to: 'Bk35-R41',
+						       process: 'RouteChangeStandard',
+								 }
+							 ],
+						},
+						line: [
+							{line: "MTA NYCT_N",},
 						],
 					},
 		],
