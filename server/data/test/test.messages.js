@@ -1062,7 +1062,7 @@ let event_messages = {
 				route_change: {
 					tag: ['A-overC'],
 					message_raw: "[E] trains are rerouted in both directions via the [F] between Jackson Hts-Roosevelt Av and West 4 St",
-					message: "[E] No service between [Qs616-G14] and [Mn167-A32] [M] ``` [E] trains are rerouted in both directions via the [F] between [Qs616-G14] and [Mn167-A32] * [E] trains run local between [Qs261-G08] and [Qs221-B04] ``` [M] Shuttle trains operate all times between [Qs108-M01] and [Bk630-M08] . [M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18] . ``` [Qs273-G21] and [Qs606-F09]-[Mn165-A30] [7] stopping",
+					message: "[E] No service between [Qs616-G14] and [Mn167-A32] [M] ``` [E] trains are rerouted in both directions via the [F] between [Qs616-G14] and [Mn167-A32] * [E] trains run local between [Qs261-G08] and [Qs221-B04] ``` [M] Shuttle trains operate all times between [Qs108-M01] and [Bk630-M08] . [M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18] . ``` [7] stopping",
 					trains: ["E"],
 					route: [
 						{
@@ -2666,10 +2666,10 @@ let event_messages = {
 						"route_change"
 					],
 					message: "Southbound [R] trains are stopping along the [F] line from Jackson Hts-Roosevelt Av to Lexington Av-63 St then operate on the [Q] line to 57 St-7 Av because of signal problems at Queens Plaza.Expect delays in [E], [F], [N], [Q], [R] and [W] trains.",
-					message_station_parse: "Southbound [R] trains are stopping along the [F] line from [Qs616-G14] to [Mn223-B08] then operate on the [Q] line to [Mn224-B10]-[Mn277-D14] because of signal problems at [Qs273-G21].Expect delays in [E], [F], [N], [Q], [R] and [W] trains.",
+					message_station_parse: "Southbound [R] trains are stopping along the [F] line from [Qs616-G14] to [Mn223-B08] then operate on the [Q] line to [Mn9-R14] because of signal problems at [Qs273-G21].Expect delays in [E], [F], [N], [Q], [R] and [W] trains.",
 					route_change: {
 						tag: ['A-overC-thenD'],
-						message: "Southbound [R] trains are stopping along the [F] line from [Qs616-G14] to [Mn223-B08] then operate on the [Q] line to [Mn224-B10]",
+						message: "Southbound [R] trains are stopping along the [F] line from [Qs616-G14] to [Mn223-B08] then operate on the [Q] line to [Mn9-R14]",
 						trains: ["R"],
 						route: [
 							{
@@ -2691,9 +2691,9 @@ let event_messages = {
 								lines: ["R"],
 								along: "Q",
 								from: "Mn223-B08",
-								to: "Mn224-B10",
+								to: "Mn9-R14",
 								section: null,
-								parsed: "then operate on the [Q] line to [Mn224-B10]",
+								parsed: "then operate on the [Q] line to [Mn9-R14]",
 								action: "on"
 							}
 						],
@@ -2754,7 +2754,7 @@ let event_messages = {
 						"no_trains_partial",
 						"fire_activity"
 					],
-					message: "Service is suspended in both directions on the [L] line between [Bk120-L08] and [Mn618-L01] because there's a fire on the tracks near [Bk120-L08]e. FDNY is on the scene, and we'll restore service as soon as we can. As an alternative customers can transfer at [Bk621-L22] for [A], [C], [J] or [M] train service into Manhattan. Customers can also take the M14 bus for service along 14 St.",
+					message: "Service is suspended in both directions on the [L] line between [Bk120-L08] and [Mn618-L01] because there's a fire on the tracks near [Bk120-L08]. FDNY is on the scene, and we'll restore service as soon as we can. As an alternative customers can transfer at [Bk621-L22] for [A], [C], [J] or [M] train service into Manhattan. Customers can also take the M14 bus for service along 14 St.",
 					line: [
 						{line: "MTA NYCT_L"}
 					],
@@ -2764,14 +2764,16 @@ let event_messages = {
 						route:
 						 [
 							 {
-								 allTrains: true,
+								 noTrains: true,
+					       allTrains: true,
+					       dir: null,
 					       lines: ['L'],
-					       noTrains: true,
 					       from: 'Bk120-L08',
 					       to: 'Mn618-L01',
 					       action: 'suspended',
-					       parsed: 'Service is suspended in both directions on the [L] line between [Bk120-L08] and [Mn618-L01]'
-		 						}
+					       parsed: 'Service is suspended in both directions on the [L] line between [Bk120-L08] and [Mn618-L01]',
+					       process: 'NoServiceBetween'
+							 }
 						 ],
 					}
 				},
@@ -2938,7 +2940,7 @@ let event_messages = {
 							"no_trains_partial",
 							"track_maintenance"
 						],
-						tag: ['MTAD-035', 'MTAD-014'],
+						tag: ['MTAD-035', 'MTAD-014', 'MTAD-056'],
 						durration: "Days, 10 AM to 3:30 PM, Tue to Fri, Dec 26 - 29",
 						message: "TRACK MAINTENANCE [W] No trains between 57 St-7 Av and Ditmars Blvd - Take the [N] instead [W] trains run every 20 minutes in Manhattan Days, 10 AM to 3:30 PM, Tue to Fri, Dec 26 - 29 [W] service operates between Whitehall St and 57 St-7 Av, and via the [Q] to/from 96 St . Transfer between [N]* and [W] trains at Times Sq-42 St (across the platform). *Please review [N] advisories for additional information that may affect your trip. Alternate travel note: [R] service is also available at 5 Av/59 St and Lexington Av/59 St. Transfer between [R] and [W] trains at 57 St-7 Av.",
 						route_change: {

@@ -84,7 +84,7 @@ mtaApi.getSubwayStations(mta_stations_file)
 			// Get any aliases, and build a giant regex (alias|station name).
 			let all_alias = stationAliases(r.name, r.boro);
 			all_alias = all_alias.map(value => {
-				let res = mtaRegEx.prepareRexExNameString(value);
+				let res = mtaRegEx.prepareRegexStationString(value);
 				return res;
 			});
 

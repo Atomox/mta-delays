@@ -19,6 +19,14 @@ function wrapSeperatorBounds(word) {
   });
 }
 
+/**
+ * Include leading and trailing hyphens, so we can detect when we might be
+ * grabing partial stations with hyphens.
+ */
+function preventPartials(regex) {
+	return '[-]?\\s*' + regex + '\\s*[-]?\\s*(?:bound)?';
+}
+
 function wrapWrappers(word) {
 	word = word.replace(')', '\\)');
 	word = word.replace('(', '\\(');
@@ -49,6 +57,17 @@ function prepareRegExpString(exp) {
 		console.log('Our match....', match);
 		return match;
 	});
+}
+
+
+function prepareRegexStationString(name) {
+
+		let v = prepareRexExNameString(name);
+
+		// Make sure we're not parsing part of a station
+		v = preventPartials(v);
+
+		return v;
 }
 
 
@@ -131,7 +150,6 @@ function matchRegexString(pattern, haystack, return_all, greedy) {
 }
 
 
-
 module.exports = {
 	replaceSpace,
 	wrapNumberBounds,
@@ -143,4 +161,5 @@ module.exports = {
 	convertRegExpToString,
 	convertArrayToRegexOr,
 	prepareRexExNameString,
+	prepareRegexStationString,
 };

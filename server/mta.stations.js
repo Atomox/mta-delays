@@ -362,6 +362,8 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 
 			// Get a unique list of matches.
  			res_re = _.uniq(res_re.map( r => r.trim()));
+			res_re = res_re.filter( r => (r.substr(0,1) === '-' || r.substr(-1) === '-') ? false : true);
+			res_re = res_re.map( r => (r.substr(-6) === '-bound') ? r.replace('-bound', '') : r);
 
 //			if (stations[s].name == '25 St') {
 //				console.log('[' + line + '] ... ', res_re);
