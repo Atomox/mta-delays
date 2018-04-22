@@ -1101,6 +1101,30 @@ let routes = {
 		'Bk141-S03',  // "Park Pl"
 		'Bk626-S04',  // "Botanic Garden"
 	],
+	SIR: [
+		'SI501-S31', // "St George"
+		'SI502-S30', // "Tompkinsville"
+		'SI503-S29', // "Stapleton"
+		'SI504-S28', // "Clifton"
+		'SI505-S27', // "Grasmere"
+		'SI506-S26', // "Old Town"
+		'SI507-S25', // "Dongan Hills"
+		'SI508-S24', // "Jefferson Av"
+		'SI509-S23', // "Grant City"
+		'SI510-S22', // "New Dorp"
+		'SI511-S21', // "Oakwood Heights"
+		'SI512-S20', // "Bay Terrace"
+		'SI513-S19', // "Great Kills"
+		'SI514-S18', // "Eltingville"
+		'SI515-S17', // "Annadale"
+		'SI516-S16', // "Huguenot"
+		'SI517-S15', // "Prince's Bay"
+		'SI518-S14', // "Pleasant Plains"
+		'SI519-S13', // "Richmond Valley"
+		'SI523-S11', // "Arthur Kill", Replaces Nasseau & Atlantic
+		'SI522-S09', // "Tottenville"
+
+	],
 };
 
 let alternate_routes = {
@@ -1153,7 +1177,7 @@ let alternate_routes = {
 		'Qs258-F05',
 		'Qs259-F06',
 		'Qs260-F07',
-	]
+	],
 };
 
 

@@ -151,6 +151,7 @@ const taxonomy = {
 		'signal_maintenance':[
 			'SIGNAL MAINTENANCE',
 			'SIGNAL IMPROVEMENTS',
+			'SIGNAL MODERNIZATON',
 		],
 		'station_improvements': [
 			'STATION IMPROVEMENTS',

@@ -762,6 +762,7 @@ function getTrainById (id) {
 			return 'S';
 
 		case 'MTA NYCT_SI':
+		case 'MTA NYCT_SIR':
 			return 'SIR';
 
 		default:
