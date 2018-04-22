@@ -73,6 +73,10 @@ const name_problems = {
 		'Mn325-135',
 		'Mn623-639',
 	],
+	'Delancey St-Essex St': [
+		'Mn625-M18',
+		'Mn625-F15'
+	],
 
 //	'Clinton - Washington Avs': [
 //		'Bk177-A44',

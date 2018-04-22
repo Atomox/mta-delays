@@ -67,6 +67,9 @@ const taxonomy = {
 			'[SB]',
 			'Shuttle Bus',
 		],
+		'bus_detour': [
+			'buses are detoured',
+		],
 		'skip_stations': [
 			'trains skip',
 			'station closures',

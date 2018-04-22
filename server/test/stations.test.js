@@ -34,6 +34,11 @@ describe('Parse Stations', function() {
 			tests.basicTest(stations.mistaken_identity, checkStationWithSpecialCharNegative, 'Should *not* match [shorter names] with [longer ones].');
 		});
 	});
+	describe('MTAD-005 -- Test Individual Lines', () => {
+
+		tests.stationTestByTag(r_train_msg, checkIndividualLine, 'R Line -- General', [], ['MTAD-004']);
+
+	});
 
 	describe('MTAD-013 -- Multiple Lines Mistaken Identity Occurs', () => {
 
@@ -41,19 +46,19 @@ describe('Parse Stations', function() {
 
 	});
 
-	describe('MTAD-027 -- Match Abreviations with Original Stations', () => {
+	describe('MTAD-024 -- Multiple Spellings for a Station', () => {
 
-		tests.stationTestByTag(stations.nomDePlume, CheckStationsListForExpected, 'Alternate/Alias Names');
+		tests.stationMessageTestByTag(event_messages.normal, CheckStationsParseMessageForExpected, 'Multiple Spellings Check', ['MTAD-024']);
 	});
-
+	
 	describe('MTAD-026 -- Stations for Multiple Lines', () => {
 
 		tests.stationTestByTag(stations.sharedStation, CheckStationsListForExpected, 'Lines share Station');
 	});
 
-	describe('MTAD-024 -- Multiple Spellings for a Station', () => {
+	describe('MTAD-027 -- Match Abreviations with Original Stations', () => {
 
-		tests.stationMessageTestByTag(event_messages.normal, CheckStationsParseMessageForExpected, 'Multiple Spellings Check', ['MTAD-024']);
+		tests.stationTestByTag(stations.nomDePlume, CheckStationsListForExpected, 'Alternate/Alias Names');
 	});
 
 	describe('MTAD-033 -- [Qs101-A22|Bk37-R49|Bx22-B342]', () => {
@@ -71,13 +76,6 @@ describe('Parse Stations', function() {
 
 	describe.skip('MTAD-004 -- Identify Multiple Stations with the same name.', () => {
 		it('36 St', () => { });
-	});
-
-
-	describe('MTAD-005 -- Test Individual Lines', () => {
-
-		tests.stationTestByTag(r_train_msg, checkIndividualLine, 'R Line -- General', [], ['MTAD-004']);
-
 	});
 
 	describe.skip('MTAD-029 -- 36 St Stations', () => {
@@ -98,6 +96,10 @@ describe('Parse Stations', function() {
 		 *
 		 */
 		tests.basicTest(stations['36st'], checkStationWithSpecialChar, 'Should match proper 36 St.');
+	});
+
+	describe.skip('MTAD-032 -- Split Destination Stations', () => {
+		tests.stationTestByTag(stations.splitDestinations, CheckStationsListForExpected, 'Alternate/Alias Names');
 	});
 });
 

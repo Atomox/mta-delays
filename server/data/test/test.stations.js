@@ -162,21 +162,6 @@ let stations = {
 				],
 			},
 			{
-				source: { id: 'MTA NYCT_173239', archive: 0 },
-				message: 'TRACK MAINTENANCE [A] Ozone Park/Far Rockaway-bound trains skip',
-				stations: {
-					'MTA NYCT_A': {
-						stations: {
-							'Qs195-A65': 'Ozone Park - Lefferts Blvd',
-							'Qs209-H11': 'Far Rockaway - Mott Av',
-						}
-					}
-				},
-				line: [
-					{ line: 'MTA NYCT_A' }
-				],
-			},
-			{
 				source: { id: 'MTA NYCT_174579', archive: 0 },
 				message: '[L] service operates between Rockaway Pkwy and Myrtle-Wyckoff Avs.',
 				stations: {
@@ -455,7 +440,23 @@ let stations = {
 			},
 */
 		],
-
+		splitDestinations: [
+			{
+				source: { id: 'MTA NYCT_173239', archive: 0 },
+				message: 'TRACK MAINTENANCE [A] Ozone Park/Far Rockaway-bound trains skip',
+				stations: {
+					'MTA NYCT_A': {
+						stations: {
+							'Qs195-A65': 'Ozone Park - Lefferts Blvd',
+							'Qs209-H11': 'Far Rockaway - Mott Av',
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_A' }
+				],
+			},
+		],
 		sharedStation: [
 			{
 				message: 'Jackson Heights-Roosevelt Av',
@@ -646,6 +647,25 @@ let stations = {
 					{ line: 'MTA NYCT_4' },
 					{ line: 'MTA NYCT_2' },
 					{ line: 'MTA NYCT_5' },
+				],
+			},
+			{
+				message: 'Delancey St/Essex St',
+				stations: {
+					'MTA NYCT_F': {
+						stations: {
+							'Mn625-F15': 'Delancey St/Essex St'
+						}
+					},
+					'MTA NYCT_M': {
+						stations: {
+							'Mn625-M18': 'Delancey St/Essex St'
+						}
+					},
+				},
+				line: [
+					{ line: 'MTA NYCT_F' },
+					{ line: 'MTA NYCT_M' },
 				],
 			},
 /**

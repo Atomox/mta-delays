@@ -26,7 +26,7 @@ function wrapSeperatorBounds(word) {
  */
 function preventPartials(regex) {
 //	return '[-]?\\s*' + regex + '\\s*[-]?\\s*(?:bound)?';
-	return '[-]?\\s*' + regex + '\\s*(?:[-]\\s*(\\b[A-Z0-9]*\\b)?)?';
+	return '[-/]?\\s*' + regex + '\\s*(?:[-/]\\s*(\\b[A-Z0-9]*\\b)?)?';
 }
 
 function wrapWrappers(word) {
@@ -176,6 +176,9 @@ function matchRegexStation(pattern, haystack, return_all, greedy) {
 			continue;
 		}
 		else if (match[0].trim().substr(0,1) === '-') {
+			continue;
+		}
+		else if (match[0].trim().substr(0,1) === '/') {
 			continue;
 		}
 		/**

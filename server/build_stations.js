@@ -168,6 +168,11 @@ function stationCommonName(name, boro) {
 			'14 St - Union Sq': '14 St',
 			'Lexington Av/63 St': '63 St',
 			'Lexington Av/53 St': '53 St',
+
+			// Delancy St - Essex St
+			'Delancey St-Essex St': 'Delancey St-Essex St',
+			'Delancey St': 'Delancey St-Essex St',
+			'Essex St': 'Delancey St-Essex St',
 		},
 
 		Qs: {
@@ -371,7 +376,12 @@ function stationAliases(name, boro) {
 				'Brooklyn Bridge',
 			],
 			'Essex St': [
-				'Delancy St/Essex St',
+				'Delancey St/Essex St',
+				'Delancey-Essex Sts',
+				'Delancey-Essex St',
+			],
+			'Delancey St': [
+				'Delancey St/Essex St',
 				'Delancey-Essex Sts',
 				'Delancey-Essex St',
 			],
