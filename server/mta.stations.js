@@ -10,6 +10,7 @@ const trainRoutes = require('./data/static/mta.stations.train').routes;
 const trainRoutesAlternate = require('./data/static/mta.stations.train').alternate_routes;
 const mta_stations_file_path = './data/generated/mta.stations.compiled';
 const problem_stations = require('./data/static/mta.stations.suppliment').name_problems;
+const stationSuppliment = require('./data/static/mta.stations.suppliment');
 
 async function getStations(ids) {
 	try {
@@ -189,9 +190,9 @@ function prepareBunchedStationNames(txt) {
 
 		let previous_word = '',
 			match_split = matches.split(','),
-			road_abbreviations = ['st', 'sq', 'av', 'pl', 'pkwy', 'blvd', 'authority'],
-			sts_exceptions = ['47-50 sts', '174-175 sts', '182-183 sts', 'delancey-essex sts', 'hoyt-schermerhorn sts', 'smith-9 sts'],
-			avs_exceptions = ['myrtle-wyckoff avs', 'clinton-washington avs', 'kingston-throop avs', 'myrtle-willoughby avs', 'bedford-nostrand avs'],
+			road_abbreviations = stationSuppliment.road_abbreviations,
+			sts_exceptions = stationSuppliment.hyphen_station_sts,
+			avs_exceptions = stationSuppliment.hyphen_station_avs,
 			order,
 			first_match = false,
 			found_match = false;
@@ -351,19 +352,11 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 //			}
 
 			// Check station name regex against the message.
-			let res_re = mtaRegEx.matchRegexString(stations[s].regex, message, true, true);
+			// let res_re = mtaRegEx.matchRegexString(stations[s].regex, message, true, true);
+			let res_re = mtaRegEx.matchRegexStation(stations[s].regex, message, true, true);
 
 			// If there were no results, move on.
 			if (res_re === false ) { continue; }
-
-			// Regex returns extras along with the results when in global/greedy mode.
- 			delete res_re.input;
- 			delete res_re.index;
-
-			// Get a unique list of matches.
- 			res_re = _.uniq(res_re.map( r => r.trim()));
-			res_re = res_re.filter( r => (r.substr(0,1) === '-' || r.substr(-1) === '-') ? false : true);
-			res_re = res_re.map( r => (r.substr(-6) === '-bound') ? r.replace('-bound', '') : r);
 
 //			if (stations[s].name == '25 St') {
 //				console.log('[' + line + '] ... ', res_re);

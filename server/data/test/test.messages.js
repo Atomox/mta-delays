@@ -2763,13 +2763,14 @@ let event_messages = {
 						trains: [ 'L' ],
 						route:
 						 [
-							 {
-								 noTrains: true,
+							 { noTrains: true,
 					       allTrains: true,
 					       dir: null,
 					       lines: ['L'],
+					       along: null,
 					       from: 'Bk120-L08',
 					       to: 'Mn618-L01',
+					       section: null,
 					       action: 'suspended',
 					       parsed: 'Service is suspended in both directions on the [L] line between [Bk120-L08] and [Mn618-L01]',
 					       process: 'NoServiceBetween'

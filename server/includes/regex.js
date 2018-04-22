@@ -1,8 +1,9 @@
+const stationSuppliment = require('../data/static/mta.stations.suppliment');
 
 
 
 function replaceSpace(word) {
-	return word.replace(/(\s)+/gi, (match, offset, string) => {
+	return word.replace(/(?:\s)+/gi, (match, offset, string) => {
   	return '\\s*';
   });
 }
@@ -14,7 +15,7 @@ function wrapNumberBounds(word) {
 }
 
 function wrapSeperatorBounds(word) {
-  return word.replace(/(\s)*[-/]+(\s)*/gi, (match, offset, string) => {
+  return word.replace(/(?:\s)*[-/]+(?:\s)*/gi, (match, offset, string) => {
   	return '\\s*' + '[-/]{0,2}' + '\\s*';
   });
 }
@@ -24,7 +25,8 @@ function wrapSeperatorBounds(word) {
  * grabing partial stations with hyphens.
  */
 function preventPartials(regex) {
-	return '[-]?\\s*' + regex + '\\s*[-]?\\s*(?:bound)?';
+//	return '[-]?\\s*' + regex + '\\s*[-]?\\s*(?:bound)?';
+	return '[-]?\\s*' + regex + '\\s*(?:[-]\\s*(\\b[A-Z0-9]*\\b)?)?';
 }
 
 function wrapWrappers(word) {
@@ -149,6 +151,64 @@ function matchRegexString(pattern, haystack, return_all, greedy) {
 		: false;
 }
 
+function matchRegexStation(pattern, haystack, return_all, greedy) {
+	if (!haystack) {
+		return false;
+	}
+
+	let flags = 'i';
+	if (greedy === true) {
+		flags = flags + 'g';
+	}
+
+	let re = new RegExp(pattern,flags),
+		match = true,
+		results = [],
+		count = 0;
+
+	while (match !== null) {
+
+		// Using the regex object, the index of the last match is preserved.
+		// This allows us to continue where we left off.
+		match = re.exec(haystack);
+
+		if (match === null) {
+			continue;
+		}
+		else if (match[0].trim().substr(0,1) === '-') {
+			continue;
+		}
+		/**
+		 * @TODO
+		 *   Might not be necessary, since we handle problem stations differently.
+		 *
+		else if (match[2] && stationSuppliment.hyphen_station_suffix
+			.indexOf(match[2]
+			.toLowerCase()
+			.trim()) !== -1) {
+			console.log('\n>> Nope. Trailing Station name: ', match[0], '\n');
+			continue;
+		}*/
+
+		let bound_pattern = /[-]\s*(?:bound)/i;
+
+		if (match[2] == 'bound' || match[0].indexOf('bound') !== -1) {
+			let m = match[0];
+			match[0] = match[0].replace(bound_pattern, '');
+		}
+
+		results.push(match[0].trim());
+	}
+
+	if (return_all === true && results.length > 0) {
+		return results;
+	}
+
+	return (results.length > 0 && result[0])
+		? results[0].trim()
+		: false;
+}
+
 
 module.exports = {
 	replaceSpace,
@@ -156,6 +216,7 @@ module.exports = {
 	wrapSeperatorBounds,
 	matchStringsWithSpecialChars,
 	matchRegexString,
+	matchRegexStation,
 	replaceRegexString,
 	prepareRegExpString,
 	convertRegExpToString,

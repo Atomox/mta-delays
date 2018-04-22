@@ -90,7 +90,47 @@ const name_problems = {
 	//'9 St':
 };
 
+const hyphen_station_suffix = [
+	'7', // 57 St - 7 Av
+	'50 sts', // 47 - 50 sts
+	'essex sts', // delancey-essex sts
+	'wyckoff avs', // myrtle-wyckoff avs
+	'willoughby avs', // myrtle-willoughby avs
+	'nostrand avs', // bedford-nostrand avs
+	'Lafayette St',
+	'42 St',
+	'Broadway',
+	'Roosevelt Av',
+	'71 Av',
+	'9 St',
+	'95 St',
+];
+
+const hyphen_station_avs = [
+	'myrtle-wyckoff avs',
+	'clinton-washington avs',
+	'kingston-throop avs',
+	'myrtle-willoughby avs',
+	'bedford-nostrand avs'
+];
+
+const hyphen_station_sts = [
+	'47-50 sts',
+	'174-175 sts',
+	'182-183 sts',
+	'delancey-essex sts',
+	'hoyt-schermerhorn sts',
+	'smith-9 sts'
+];
+
+const road_abbreviations = [
+	'st', 'sq', 'av', 'pl', 'pkwy', 'blvd', 'authority'
+];
 
 module.exports = {
 	name_problems,
+	hyphen_station_suffix,
+	hyphen_station_avs,
+	hyphen_station_sts,
+	road_abbreviations,
 };
