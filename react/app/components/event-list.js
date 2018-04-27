@@ -7,6 +7,7 @@ import { RouteChange } from './routechange';
 import { StationList } from './stations';
 import { Station } from './stations';
 import { TrainLine } from './trains';
+import { Boro } from './boro';
 import { mtaSubway as mta } from '../includes/mta.subway';
 
 
@@ -64,6 +65,16 @@ class EventList extends React.Component {
 						&& e.detail.route_change.route.length > 0)
 						? <RouteChange routeInfo={e.detail.route_change} stations={e.detail.stations} />
 						: '' }
+
+					<p>Affects:
+						{
+							e.detail.boros.global.map(b => {
+							return <Boro
+								key={_.uniqueId('boro-' + b)}
+								boro={b} />;
+							})
+						}
+					</p>
 
 					<p>{e.detail.message}</p>
 

@@ -693,6 +693,14 @@ function groupStationsByLocation(line, stations) {
 	return results;
 }
 
+
+function getBorosFromStationsArray(stations) {
+	return (_.isArray(stations))
+		? _.uniq(stations.map(s => (s) ? s.substring(0,2) : null))
+		: _.uniq(Object.keys(stations).map((j) => (j) ? j.substring(0,2): null ));
+}
+
+
 /**
  * Given a stations array, determine the affected boros for each line, and for the entire set.
  */
@@ -708,7 +716,7 @@ function getBorosFromStations (stations) {
 		Object.keys(stations).map( (i) => {
 			if (stations[i].stations) {
 
-				lines[i] = _.uniq(Object.keys(stations[i].stations).map((j) => (j) ? j.substring(0,2): null ));
+				lines[i] = getBorosFromStationsArray(stations[i].stations);
 				lines['global'] = _.union(lines['global'],lines[i]);
 			}
 		});
