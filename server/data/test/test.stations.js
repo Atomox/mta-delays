@@ -117,6 +117,68 @@ let stations = {
 					{line: 'MTA NYCT_R'}
 				],
 			},
+
+			{
+				message: '[N] [Q] [R] [W] Some Bay Ridge-bound trains skip Queens Plaza, Lexington Av/59 St and 5 Av/59 St',
+				message_station_parse: '[N] [Q] [R] [W] Some Bay Ridge-bound trains skip [Qs273-G21], [Mn613-R11] and [Mn8-R13]',
+				stations: {
+					'MTA NYCT_N': {
+						stations: {
+							'Mn613-R11': 'Lexington Av/59 St',
+							'Mn8-R13': '5 Av/59 St',
+						}
+					},
+					'MTA NYCT_Q': {
+						stations: {
+							// Nothing.
+						}
+					},
+					'MTA NYCT_R': {
+						stations: {
+							'Qs273-G21': 'Queens Plaza',
+							'Mn613-R11': 'Lexington Av/59 St',
+							'Mn8-R13': '5 Av/59 St',
+						}
+					},
+					'MTA NYCT_W': {
+						stations: {
+							'Mn613-R11': 'Lexington Av/59 St',
+							'Mn8-R13': '5 Av/59 St',
+						}
+					},
+				},
+				line: [
+					{line: 'MTA NYCT_N'},
+					{line: 'MTA NYCT_Q'},
+					{line: 'MTA NYCT_R'},
+					{line: 'MTA NYCT_W'},
+				],
+			},
+			{
+				message: '[E] [M] [R] trains are experiencing delays because of ... at Lexington Av/53 St.',
+				stations: {
+					'MTA NYCT_E': {
+						stations: {
+							'Mn612-F11': 'Lexington Av/59 St',
+						}
+					},
+					'MTA NYCT_M': {
+						stations: {
+							'Mn612-F11': 'Lexington Av/59 St',
+						}
+					},
+					'MTA NYCT_R': {
+						stations: {
+							// Do not select [R] 53 St (BKLYN) station.
+						}
+					},
+				},
+				line: [
+					{line: 'MTA NYCT_E'},
+					{line: 'MTA NYCT_M'},
+					{line: 'MTA NYCT_R'},
+				],
+			},
 		],
 		nomDePlume: [
 			{
