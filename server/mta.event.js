@@ -194,6 +194,7 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 			e = {
 				type: null,
 				type_detail: null,
+				boros: [],
 				time: null,
 				durration: null,
 				message: event,
@@ -234,6 +235,8 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 			// substituted with their IDs, for easier parsing of line and route changes.
 			let station_result = await getStationsInEventMessage(e.train_context, e.message);
 			e.stations = station_result.stations;
+
+			e.boros = mtaStations.getBorosFromStations(e.stations);
 			e.message_station_parse = station_result.parsed_message;
 
 			// Route Change Processing.

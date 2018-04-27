@@ -28,6 +28,12 @@ async function main(message) {
     section('Station Prep', message);
 
     message = await mtaStatus.getStationsInEventMessage(lines, message);
+    message = message;
+    section('Stations', message.stations);
+
+    let boro = mtaStations.getBorosFromStations(message.stations);
+    section('Affected Boros', boro);
+
     message = message.parsed_message;
     section('Station Parse', message);
 

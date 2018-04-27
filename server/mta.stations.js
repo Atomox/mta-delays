@@ -693,6 +693,35 @@ function groupStationsByLocation(line, stations) {
 	return results;
 }
 
+/**
+ * Given a stations array, determine the affected boros for each line, and for the entire set.
+ */
+function getBorosFromStations (stations) {
+
+	try {
+		if (!stations) {
+			throw new Error('No stations passed.');
+		}
+		let lines = {
+			global: []
+		};
+		Object.keys(stations).map( (i) => {
+			if (stations[i].stations) {
+
+				lines[i] = _.uniq(Object.keys(stations[i].stations).map((j) => (j) ? j.substring(0,2): null ));
+				lines['global'] = _.union(lines['global'],lines[i]);
+			}
+		});
+
+		return lines;
+	}
+	catch (err) {
+		console.log('Error finding Station Boros: ', err);
+	}
+
+	return false;
+}
+
 
 
 function getTrainById (id) {
@@ -784,6 +813,7 @@ module.exports = {
 	matchRouteStationsMessage,
 	groupStationsByLocation,
 	getStationLinesRegex,
+	getBorosFromStations,
 };
 
 // Branch
