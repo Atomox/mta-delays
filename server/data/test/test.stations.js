@@ -28,6 +28,96 @@ let stations = {
 			'4Av-9th St': '4Av',
 			'Queens Plaza': 'Queensboro Plaza',
 		},
+		false_positive: [
+			{
+				message: 'TRACK MAINTENANCE [W] No trains between 57 St-7 Av and Ditmars Blvd - Take the',
+				stations: {
+					'MTA NYCT_W': {
+						stations: {
+							'Mn9-R14': '57 St-7 Av',
+							'Qs1-R01': 'Ditmars Blvd'
+						}
+					}
+				},
+				line: [
+					{line: 'MTA NYCT_W'}
+				],
+			},
+			{
+				message: "Some northbound [N] trains are stopping on the [Q] line from 57 St-7 Av and end at 96 St. Some northbound [R] trains are stopping on the [Q] line from 57 St-7 Av to Lexington Av-63 St, then over the [F] line from Lexington Av-63 St to Jackson Heights-Roosevelt Av. This service change is because of a train with mechanical problems at 5 Av-59 St. Expect delays in [F][N][Q][R] train service.",
+				stations: {
+					'MTA NYCT_F': {
+						stations: {
+							'Qs616-G14': 'Jackson Heights-Roosevelt Av',
+							'Mn223-B08': 'Lexington Av-63 St',
+						}
+					},
+					'MTA NYCT_Q': {
+						stations: {
+							'Mn9-R14': '57 St-7 Av',
+							'Mn475-Q05': '96 St',
+							'Mn223-B08': 'Lexington Av-63 St',
+						}
+					},
+					'MTA NYCT_N': {
+						stations: {
+							'Mn9-R14': '57 St-7 Av',
+							'Mn8-R13': '5 Av-59 St',
+						}
+					},
+					'MTA NYCT_R': {
+						stations: {
+							'Mn9-R14': '57 St-7 Av',
+							'Mn8-R13': '5 Av-59 St',
+							'Qs616-G14': 'Jackson Heights-Roosevelt Av',
+						}
+					},
+					'MTA NYCT_W': {
+						stations: {
+							'Mn9-R14': '57 St-7 Av',
+							'Mn8-R13': '5 Av-59 St',
+						}
+					},
+				},
+				line: [
+					{line: 'MTA NYCT_F'},
+					{line: 'MTA NYCT_Q'},
+					{line: 'MTA NYCT_N'},
+					{line: 'MTA NYCT_W'},
+					{line: 'MTA NYCT_R'},
+				],
+			},
+			{
+				message: '[D] trains are running local from 145 St to 59 St-Columbus Circle in both directions.[N] trains are stopping along the [R] line from DeKalb Av to Lexington Av/59 St.',
+				message_station_parse: "[D] trains are running local from [Mn151-A12] to [Mn614-A24] in both directions.[N] trains are stopping along the [R] line from [Bk26-R30] to [Mn613-R11].",
+				stations: {
+					'MTA NYCT_D': {
+						stations: {
+							'Mn151-A12': '145 St',
+							'Mn614-A24': '59 St-Columbus Circle',
+							'Bk26-R30': 'DeKalb Av',
+						}
+					},
+					'MTA NYCT_N': {
+						stations: {
+							'Mn613-R11': 'Lexington Av/59 St',
+							'Bk26-R30': 'DeKalb Av',
+						}
+					},
+					'MTA NYCT_R': {
+						stations: {
+							'Bk26-R30': 'DeKalb Av',
+							'Mn613-R11': 'Lexington Av/59 St',
+						}
+					}
+				},
+				line: [
+					{line: 'MTA NYCT_D'},
+					{line: 'MTA NYCT_N'},
+					{line: 'MTA NYCT_R'}
+				],
+			},
+		],
 		nomDePlume: [
 			{
 				message: 'Jackson Heights-Roosevelt Av',

@@ -374,6 +374,7 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 						problem_results[stations[s].common] = [];
 					}
 
+//					console.log('>>>', res_re, '<<<');
 					// Push onto the problem list.
 					problem_results[stations[s].common].push(
 						{

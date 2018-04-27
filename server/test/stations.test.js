@@ -50,7 +50,7 @@ describe('Parse Stations', function() {
 
 		tests.stationMessageTestByTag(event_messages.normal, CheckStationsParseMessageForExpected, 'Multiple Spellings Check', ['MTAD-024']);
 	});
-	
+
 	describe('MTAD-026 -- Stations for Multiple Lines', () => {
 
 		tests.stationTestByTag(stations.sharedStation, CheckStationsListForExpected, 'Lines share Station');
@@ -72,6 +72,11 @@ describe('Parse Stations', function() {
 		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Basic Bunched Stations Check', ['MTAD-040']);
 
 		tests.stationTestByTag(event_messages.normal, CheckStationPrep, 'Basic Bunched Stations Prep', ['MTAD-040']);
+	});
+
+	describe('MTAD-056 -- Do not match only the second half on a hyphen-ed station', () => {
+
+		tests.stationTestByTag(stations.false_positive, CheckStationsListForExpected, ' [-,/] 57 St-7 Av, Lexington Av/59 St');
 	});
 
 	describe.skip('MTAD-004 -- Identify Multiple Stations with the same name.', () => {
@@ -177,7 +182,7 @@ function CheckStationsListForExpected (event) {
 
 				// Make sure our results had an entry for this line before
 				// we access that property, and a general error is thrown.
-				expect(data.stations).to.have.property(l);
+				expect(data.stations, data.message).to.have.property(l);
 
 				let msg = '[' + l + '] -- ' + event.message;
 				let stations_expected = Object.keys(event.stations[l].stations);
@@ -190,9 +195,6 @@ function CheckStationsListForExpected (event) {
 			}
 
 			expect(results, 'Event should have at least one station -- ' + mocha_msg + event.line).to.equal(true);
-		})
-		.catch(err => {
-			throw new Error(err);
 		});
 }
 

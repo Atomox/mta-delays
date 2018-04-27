@@ -150,6 +150,8 @@ function stationCommonName(name, boro) {
 
 			// 59
 			'59 St - Columbus Circle': '59 St',
+			'Lexington Av/59 St': '59 St',
+
 
 			// 57
 			'57 St - 7 Av': '57 St',

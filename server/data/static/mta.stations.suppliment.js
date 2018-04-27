@@ -29,12 +29,26 @@ const name_problems = {
 		'Bk70-B23', // Bay 50 St
 	],
 	'57 St' : [
-			'Mn9-R14',
-			'Mn224-B10',
+			'Mn9-R14', // 57 St - 7 Av
+			'Mn224-B10',  // 57 St F
 	],
 	'59 St - Columbus Circle': [
 		'Mn614-A24',
 		'Mn614-125',
+	],
+	'59 St': [
+		'Bk35-R41', // 59 St (Bklyn)
+		'Mn613-R11',// Lexington Av/59 St
+		'Mn8-R13', // 5th Av/59 St
+		'Mn613-629', // 59th 4/5/6
+		'Mn614-A24', // Columbus Circle
+		'Mn614-125', // Columbus Circle
+		/**
+		 * @TODO
+		 *
+		 *   59 St (Bklyn)
+		 *   59 St/Lexington Av
+		 */
 	],
 	'110 St': [
 		'Mn155-A17',

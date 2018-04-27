@@ -181,6 +181,11 @@ function matchRegexStation(pattern, haystack, return_all, greedy) {
 		else if (match[0].trim().substr(0,1) === '/') {
 			continue;
 		}
+		else if (match[2] &&
+			!isNaN(match[2].trim()))  {
+			// console.log('\n>> Nope. Trailing number in name: ', match[0], '\n');
+			continue;
+		}
 		/**
 		 * @TODO
 		 *   Might not be necessary, since we handle problem stations differently.
@@ -192,6 +197,8 @@ function matchRegexStation(pattern, haystack, return_all, greedy) {
 			console.log('\n>> Nope. Trailing Station name: ', match[0], '\n');
 			continue;
 		}*/
+
+//		console.log('-', match[0], match[2], '-');
 
 		let bound_pattern = /[-]\s*(?:bound)/i;
 
