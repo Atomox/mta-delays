@@ -421,7 +421,7 @@ let stations = {
 				stations: {
 					'MTA NYCT_2': {
 						stations: {
-							'Bk359-247': 'Flatbush Av - Brooklyn College'
+//							'Bk359-247': 'Flatbush Av - Brooklyn College'   No direction-bound stations in main stations array.
 						}
 					}
 				},
@@ -466,7 +466,7 @@ let stations = {
 				stations: {
 					'MTA NYCT_A': {
 						stations: {
-							'Mn143-A02': 'Inwood - 207 St',
+//							'Mn143-A02': 'Inwood - 207 St',   No direction-bound stations in main array.
 							'Bk175-A42': 'Hoyt - Schermerhorn Sts',
 							'Bk621-A51': 'Broadway Junction',
 						}

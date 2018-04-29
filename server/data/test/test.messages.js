@@ -465,7 +465,7 @@ let event_messages = {
 				stations: {
 					'MTA NYCT_C': {
 						stations: {
-							'Mn605-A09': '168 St',
+//							'Mn605-A09': '168 St',
 							'Mn165-A30': '23 St',
 							'Mn168-A33': 'Spring St',
 							'Mn162-A25': '50 St',
@@ -864,12 +864,12 @@ let event_messages = {
 					'MTA NYCT_C': {
 						'stations': {
 							'Mn169-A34': 'Canal St',
-							'Mn605-A09': '168 St',
+//							'Mn605-A09': '168 St',  station-bound nolonger in main list.
 							'Mn168-A33': 'Spring St',
 							'Mn165-A30': '23 St',
 							'Mn162-A25': '50 St',
 							'Mn167-A32': 'W 4 St',
-							'Bk188-A55': 'Euclid Av',
+//							'Bk188-A55': 'Euclid Av',   station-bound nolonger in main list.
 							'Mn618-A31': '14 St',
 							'Mn611-A27': '42 St/Port Authority'
 						}
@@ -945,7 +945,7 @@ let event_messages = {
 				stations: {
 					'MTA NYCT_1': {
 						stations: {
-							'Mn635-142': 'South Ferry',
+//							'Mn635-142': 'South Ferry',   station-bound no longer included in main stations array.
 							'Bx293-101': '242 St',
 							'Bx294-103': '238 St',
 							'Bx295-104': '231 St',
@@ -997,7 +997,7 @@ let event_messages = {
 //							[Bx293-101,Mn605-112,Mn304-114,Mn305-115,Mn306-116,Mn307-117,Mn309-119,Mn310-120,Mn635-142]
 //							[Mn635-142,Mn605-112,Mn304-114,Mn305-115,Mn306-116,Mn307-117,Mn308-118,Mn309-119,Mn310-120,Bx293-101]
 //						@TODO Not picking up 110 St (Cathederal Pkwy)
-							'Mn635-142': 'South Ferry',
+//							'Mn635-142': 'South Ferry',  direction-bound stations no longer included in main array.
 							'Mn605-112': '168 St',
 							'Mn304-114': '145 St',
 							'Mn305-115': '137 St',
@@ -1006,7 +1006,7 @@ let event_messages = {
 							'Mn308-118': '110 St',
 							'Mn309-119': '103 St',
 							'Mn310-120': '96 St',
-							'Bx293-101': 'Van Cortlandt Park',
+//							'Bx293-101': 'Van Cortlandt Park',   direction-bound stations no longer included in main array.
 						}
 					}
 				},
@@ -2321,7 +2321,7 @@ let event_messages = {
 								'Mn167-A32': "W 4 St",
 								'Mn165-A30': "23 St",
 								'Mn168-A33': "Spring St",
-								'Bk188-A55': "Euclid Av",
+//								'Bk188-A55': "Euclid Av",   direction-bound stations no logner included in main stations array.
 								'Mn611-A27': "42 St/Port Authority",
 								'Mn169-A34': "Canal St"
 							}
@@ -2552,7 +2552,7 @@ let event_messages = {
 								'Bx424-211': "Pelham Pkwy",
 								'Bx425-212': "Bronx Park East",
 								'Bx426-213': "E 180 St",
-								'Mn635-142': "South Ferry",
+//								'Mn635-142': "South Ferry",   direction-bound stations no longer included in main stations array.
 							}
 						}
 					},

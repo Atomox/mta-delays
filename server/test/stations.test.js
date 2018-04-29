@@ -180,9 +180,17 @@ function CheckStationsListForExpected (event) {
 			for (let l in event.stations) {
 				results = true;
 
-				// Make sure our results had an entry for this line before
-				// we access that property, and a general error is thrown.
-				expect(data.stations, data.message).to.have.property(l);
+				if (Object.keys(event.stations[l].stations).length > 0) {
+					// console.log(' >>> ', event.stations[l]);
+					// Make sure our results had an entry for this line before
+					// we access that property, and a general error is thrown.
+					expect(data.stations, event.message).to.have.property(l);
+				}
+				else {
+					console.log('\n\n', l, '(', Object.keys(event.stations[l].stations), ') -- ', data.stations[l],'\n\n');
+					expect(data.stations, event.message).not.to.have.property(l);
+					continue;
+				}
 
 				let msg = '[' + l + '] -- ' + event.message;
 				let stations_expected = Object.keys(event.stations[l].stations);
