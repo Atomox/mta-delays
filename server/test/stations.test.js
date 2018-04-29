@@ -74,6 +74,11 @@ describe('Parse Stations', function() {
 		tests.stationTestByTag(event_messages.normal, CheckStationPrep, 'Basic Bunched Stations Prep', ['MTAD-040']);
 	});
 
+	describe('MTAD-046 -- Affected Boro', () => {
+
+		tests.affectedBoroTestByTag(event_messages.normal, CheckAffectedBoroListForExpected, 'Detect Affected Boro using Stations', ['MTAD-046']);
+	});
+
 	describe('MTAD-056 -- Do not match only the second half on a hyphen-ed station', () => {
 
 		tests.stationTestByTag(stations.false_positive, CheckStationsListForExpected, ' [-,/] 57 St-7 Av, Lexington Av/59 St');
@@ -192,7 +197,6 @@ function CheckStationsListForExpected (event) {
 					expect(data.stations, event.message).to.have.property(l);
 				}
 				else {
-					console.log('\n\n', l, '(', Object.keys(event.stations[l].stations), ') -- ', data.stations[l],'\n\n');
 					expect(data.stations, event.message).not.to.have.property(l);
 					continue;
 				}
@@ -208,6 +212,48 @@ function CheckStationsListForExpected (event) {
 			}
 
 			expect(results, 'Event should have at least one station -- ' + mocha_msg + event.line).to.equal(true);
+		});
+}
+
+
+function CheckAffectedBoroListForExpected (event) {
+	return mtaStations.
+		matchAllLinesRouteStationsMessage(event.line, event.message)
+		.then( data => {
+
+			let boros = mtaStations.getBorosFromStations(data.stations);
+
+			let results = false;
+			let mocha_msg = event.message;
+
+			for (let l in event.boro) {
+				results = true;
+
+				if (l !== 'global') {
+					continue;
+				}
+
+				if (event.boro[l].length > 0) {
+					// Make sure our results had an entry for this line before
+					// we access that property, and a general error is thrown.
+					expect(boros, event.message).to.have.property(l);
+				}
+				else {
+					expect(boros, event.message).not.to.have.property(l);
+					continue;
+				}
+
+				let msg = '[' + l + '] -- ' + event.message;
+				let boros_expected = event.boro[l];
+				let boros_found = boros[l];
+
+				// Message to help find data culprate.
+				msg = '[' + boros_found.join(',') + '] <--> [' + boros_expected.join(',') + '] -- ' + msg;
+
+				expect(boros_found, msg).to.have.members(boros_expected);
+			}
+
+			expect(results, 'Event should have at least one affected boro -- ' + mocha_msg + event.line).to.equal(true);
 		});
 }
 

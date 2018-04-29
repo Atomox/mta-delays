@@ -9,8 +9,11 @@ let event_messages = {
 					"route_change",
 					"mechanical_problems",
 				],
-				"tag": ['MTAD-001'],
+				"tag": ['MTAD-001', 'MTAD-046'],
 				message: "Some southbound [R] trains are stopping along the [Q] line from Canal St to DeKalb Av. Some southbound [W] trains are stopping along the [R] line from Whitehall St-South Ferry and end at Court St.Some southbound [W] trains are stopping along the [R] line from Whitehall St-South Ferry to DeKalb Av then via the [D] line and end at 9 Av. [W] trains are running with delays in both directions. Expect delays in [D], [N], [Q], [R] and [W] train service. These service changes are because of switch problems at Whitehall St-South Ferry.",
+				boro: {
+					'global': ['Mn', 'Bk'],
+				},
 				route_change: {
 					tag: ['A-overC-end', 'A-operates-then-overC', 'A-overC', 'A-overC-thenD'],
 					message: "Some southbound [R] trains are stopping along the [Q] line from [Mn623-R23] to [Bk26-R30]. Some southbound [W] trains are stopping along the [R] line from [Mn635-R27] and end at [Bk620-R28].Some southbound [W] trains are stopping along the [R] line from [Mn635-R27] to [Bk26-R30] then via the [D] line and end at [Bk59-B12]. [W]",
@@ -60,9 +63,13 @@ let event_messages = {
 					"service_resumed",
 					"mechanical_problems",
 				],
+				tag: ['MTAD-046'],
 				time: null,
 				durration: null,
 				message: "[4] and [5] train service has resumed following an earlier train with mechanical problems at Bowling Green.",
+				boro: {
+					'global': ['Mn'],
+				},
 				stations: {
 					"MTA NYCT_4": {
 						"stations": {
@@ -85,10 +92,13 @@ let event_messages = {
 				type_detail: [
 					"route_change",
 				],
-				tag: ["MTAD-014", "MTAD-001", 'MTAD-035'],
+				tag: ["MTAD-014", "MTAD-001", 'MTAD-035', 'MTAD-046'],
 				time: null,
 				durration: '9:45 PM to 11:45 PM, Mon to Thu, Jan 15 - 18',
 				message: '9:45 PM to 11:45 PM, Mon to Thu, Jan 15 - 18 No [R] trains between Bay Ridge-95 St and 36 St, Brooklyn, due to track maintenance. Take free shuttle buses and the [N]. [R] service operates between 71 Av and 36 St, and via the [D] to/from 9 Av, the last stop. For 45 St, 53 St, and 59 St, take the [N] via transfer at 36 St. Free shuttle buses make all [R] stops between 59 St and Bay Ridge-95 St. Transfer between the [N] and shuttle buses at 59 St. 11:45 PM to 5 AM, Mon to Fri, Jan 15 - 19 No [R] trains running, due to track maintenance. Take free shuttle buses and the [N]. For service between Whitehall St and 59 St, take the [N]. Free shuttle buses make all [R] stops between 59 St and Bay Ridge-95 St. Transfer between the [N] and shuttle buses at 59 St. [AD] These service changes affect one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
+				boro: {
+					'global': ['Mn', 'Bk', 'Qs'],
+				},
 				route_change: {
 					tag: ['A-operates-then-overC'],
 					message: "No [R] trains between [Bk39-R45] and [Bk32-R36], ``` [R] service operates between [Qs261-G08] and [Bk32-R36], and via the [D] to/from [Bk59-B12], the last stop.",
@@ -124,12 +134,7 @@ let event_messages = {
 				parsed_message: 'WEEKEND 6:15 AM to 11:45 PM, Sat, Jan 13 8 AM to 10 PM, Sun, Jan 14 No [M] trains between [Mn625-M18] and [Bk621-J27], due to track replacement. Take the [J] instead. NIGHTS 9 PM to 12 midnight, Friday, Jan 12 No [M] trains between [Qs261-G08] and [Mn625-M18], due to signal improvements. Take the [E][R]. [M] service operates between [Qs4-R05] Junction and Essex St, and is rerouted via the [J] to/from [Mn622-M21]. Trains stop at [Mn103-M19] and [Mn623-M20]. For [Mn619-D21] and stations along 6 Av, use nearby [N]/[Q]/[R] stations on Broadway. Transfer at [Qs616-G14] [E]/[R], Times Sq-[Mn611-A27] [E]/[R], and/or [Mn169-A34] M/R. All times until April 30, 2018 No [M] trains between [Bk630-M08] and [Bk97-M11] (Broadway), due to viaduct reconstruction. Take free shuttle buses. [M] service operates in two sections: 1. Between Essex St and [Bk97-M11], and via the [J] to/from Broadway Junction, days/evenings*. 2. Between Metropolitan Av and Myrtle-Wyckoff Avs (trains run every 20 minutes, Sat and Sun, from 7:30 AM to 9:30 AM). Free shuttle buses operate between Myrtle-Wyckoff Avs and Myrtle Av. *Suspended this weekend. [AD] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
 				route_change: {
 					tag: ['A-operates-then-overC', 'A-1-operates-then-viaC-2-operates'],
-					message:
-
-						"No [M] trains between [Mn625-M18] and [Bk621-J27], ``` No [M] trains between [Qs261-G08] and [Mn625-M18], ``` [M] service operates between [Bk621-J27] and [Mn625-M18], and is rerouted via the [J] to/from [Mn622-M21]. ``` No [M] trains between [Bk630-M08] and [Bk97-M11] ```[M] [__operates-section-1__] Between [Mn625-M18] and [Bk97-M11], and via the [J] to/from [Bk621-J27], days/evenings*. ```[M] [__operates-section-2__] Between [Qs108-M01] and [Bk630-M08] ``` operate between [Bk630-M08] and [Bk97-M11]. *",
-				/**
-					"replace ``` [M] service operates between [Bk621-J27] and [Mn625-M18], and is rerouted via the [J] to/from [Mn622-M21]. ```[M] [__operates-section-1__] Between [Mn625-M18] and [Bk97-M11], and via the [J] to/from [Bk621-J27], days/evenings*. ```[M] [__operates-section-2__] Between [Qs108-M01] and [Bk630-M08] ``` operate between [Bk630-M08] and [Bk97-M11]. *",
-					*/
+					message: "No [M] trains between [Mn625-M18] and [Bk621-J27], ``` No [M] trains between [Qs261-G08] and [Mn625-M18], ``` [M] service operates between [Bk621-J27] and [Mn625-M18], and is rerouted via the [J] to/from [Mn622-M21]. ``` No [M] trains between [Bk630-M08] and [Bk97-M11] ```[M] [__operates-section-1__] Between [Mn625-M18] and [Bk97-M11], and via the [J] to/from [Bk621-J27], days/evenings*. ```[M] [__operates-section-2__] Between [Qs108-M01] and [Bk630-M08] ``` operate between [Bk630-M08] and [Bk97-M11]. *",
 					trains: ['M'],
 					route: [
 						{
@@ -158,9 +163,12 @@ let event_messages = {
 					"route_change",
 					"no_trains_partial"
 				],
-				tag: ["MTAD-006", "MTAD-001"],
+				tag: ["MTAD-006", "MTAD-001", "MTAD-046"],
 				time: null,
 				durration: null,
+				boro: {
+					'global': ['Mn', 'Bk'],
+				},
 				message: "Some southbound [2] and [3] trains end at Chambers St or Wall St. Some southbound [2] and [3] trains are stopping along the [1] line from Chambers St to South Ferry then end. Southbound [4] and [5] trains end at Bowling Green or Brooklyn Bridge-City Hall. These service changes are because of a person struck by a train at Atlantic Av-Barclays Ctr.",
 				message_station_parse: "Some southbound [2] and [3] trains end at [Mn327-137] or [Mn333-230]. Some southbound [2] and [3] trains are stopping along the [1] line from [Mn327-137] to South Ferry then end. Southbound [4] and [5] trains end at [Mn414-420] or [Mn622-640]. These service changes are because of a person struck by a train at [Bk617-235].",
 				line: [
@@ -192,9 +200,15 @@ let event_messages = {
 					"delays",
 					"signal_problems"
 				],
+				tag: ['MTAD-046'],
 				time: null,
 				durration: null,
 				message: "Southbound [E] and [F] trains are running with delays because of signal problems at Woodhaven Blvd.",
+/**
+				boro: {
+					'global': ['Qs'],
+				},
+ */
 				stations: {
 					'MTA NYCT_E': {
 						processed_message: "Southbound [E] and [F] trains are running with delays because of signal problems at Woodhaven Blvd.",
@@ -207,9 +221,9 @@ let event_messages = {
 						analysis: [ ]
 					}
 				},
-				trains: [
-				"MTA NYCT_E",
-				"MTA NYCT_F"
+				line: [
+					{ 'line': "MTA NYCT_E"},
+					{ 'line': "MTA NYCT_F"},
 				],
 				alt_instructions: null,
 				ad_message: null,
@@ -221,12 +235,15 @@ let event_messages = {
 				type_detail: [
 					"running_local"
 				],
-				tag: [ "MTAD-002" ],
+				tag: [ "MTAD-002", 'MTAD-046' ],
 				time: null,
 				durration: "Late Evenings, beginning 10 PM, Mon to Thu, Dec 4 - 7",
 				message: "[E] Trains run local in both directions between Roosevelt Av and 71 Av Trains stop at Elmhurst, Grand Avs, Woodhaven Blvd, 63 Dr, and 67 Av. Please allow additional travel time.",
 				message_raw: "[E] Trains run local in both directions between Roosevelt Av and 71 Av Late Evenings, beginning 10 PM, Mon to Thu, Dec 4 - 7 Trains stop at Elmhurst, Grand Avs, Woodhaven Blvd, 63 Dr, and 67 Av. Please allow additional travel time.",
 				message_station_parse: "[E] Trains run local in both directions between Roosevelt Av and [Qs261-G08] Late Evenings, beginning 10 PM, Mon to Thu, Dec 4 - 7 Trains stop at Elmhurst, Grand Avs, Woodhaven Blvd, 63 Dr, and 67 Av. Please allow additional travel time.",
+				boro: {
+					'global': ['Qs'],
+				},
 				stations: {
 					'MTA NYCT_E': {
 						processed_message: "[E] Trains run local in both directions between Roosevelt Av and [Qs261-G08] Late Evenings, beginning 10 PM, Mon to Thu, Dec 4 - 7 Trains stop at Elmhurst, Grand Avs, Woodhaven Blvd, 63 Dr, and 67 Av. Please allow additional travel time.",
@@ -236,8 +253,8 @@ let event_messages = {
 						},
 					},
 				},
-				trains: [
-					"MTA NYCT_E"
+				line: [
+					{ line: "MTA NYCT_E"}
 				],
 			},
 			{
@@ -245,11 +262,14 @@ let event_messages = {
 				type_detail: [
 					'route_change',
 				],
-				tag: ["MTAD-001", "MTAD-004"],
+				tag: ["MTAD-001", "MTAD-004", 'MTAD-046'],
 				time: "Posted: 11/25/2017 7:12PM",
 				durration: null,
 				message: "Some northbound [N] trains are stopping on the [Q] line from 57 St-7 Av and end at 96 St. Some northbound [R] trains are stopping on the [Q] line from 57 St-7 Av to Lexington Av-63 St, then over the [F] line from Lexington Av-63 St to Jackson Heights-Roosevelt Av. This service change is because of a train with mechanical problems at 5 Av-59 St. Expect delays in [F][N][Q][R] train service.",
 				alt_instructions: null,
+				boro: {
+					'global': ['Mn', 'Qs'],
+				},
 				route_change: {
 					tag: ['AB-overC-end', 'A-overC-thenD'],
 					message: "Some northbound [N] trains are stopping on the [Q] line from [Mn9-R14] and end at [Mn475-Q05]. Some northbound [R] trains are stopping on the [Q] line from [Mn9-R14] to [Mn223-B08], then over the [F] line from [Mn223-B08] to [Qs616-G14].",
@@ -316,8 +336,12 @@ let event_messages = {
 				type_detail: null,
 				time: 'Posted: 11/15/2017 12:22PM',
 				durration: null,
+				tag: ['MTAD-046'],
 				message: " [2], [3], [4] and [5] trains are running with delays in both directions because of signal maintenance at Eastern Pkwy-Brooklyn Museum.",
 				message_raw: "<span class=\"TitleDelay\">Delays</span> <span class=\"DateStyle\"> Posted: 11/15/2017 12:22PM  </span> [2], [3], [4] and [5] trains are running with delays in both directions because of signal maintenance at Eastern Pkwy-Brooklyn Museum.",
+				boro: {
+					'global': ['Bk'],
+				},
 				alt_instructions: null,
 				stations: {
 					'MTA NYCT_2': {
@@ -361,10 +385,16 @@ let event_messages = {
 
 					// Stations can exist in multiple lines
 					"MTAD-026",
+
+					// Affected Boro for message.
+					'MTAD-046',
 				],
 				time: null,
 				durration: null,
 				message: "Some northbound [E] trains are running local from Queens Plaza to Jackson Hts-Roosevelt Av. Some northbound [E] trains are stopping long the [C] line from 50 St to 168 St.   Some northbound [F] trains are running local from 21 St-Queensbridge to Jackson Hts-Roosevelt Av.  [M] trains no service between Essex St and Forest Hills-71 Av. These service changes are because of signal problems at 36 St (Queens). Expect delays on [E], [F], [M] and [R] trains.",
+				boro: {
+					'global': ['Mn', 'Qs'],
+				},
 				route_change: {
 					tag: ['A-overC'],
 					message: "Some northbound [E] trains are running local from [Qs273-G21] to [Qs616-G14]. Some northbound [E] trains are stopping long the [C] line from [Mn162-A25] to [Mn605-A09].   Some northbound [F] trains are running local from [Qs221-B04] to [Qs616-G14].  [M] trains no service between [Mn625-M18] and [Qs261-G08].",
@@ -445,8 +475,15 @@ let event_messages = {
 				type: 'PlannedWork',
 				type_detail: null,
 				time: null,
+				tag: ['MTAD-046'],
 				durration: 'Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1',
 				message: 'SCHEDULED MAINTENANCE  [SIR] Trains board at the Tottenville-bound platform from Arthur Kill to Prince\'s Bay Stations Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1   Boarding change includes  Arthur Kill ,  Richmond Valley ,  Pleasant Plains  and     Prince\'s Bay Stations .',
+				boro: {
+					'global': ['SI'],
+				},
+				line: [
+					'MTA NYCT_SIR',
+				],
 			},
 			{
 				type: 'PlannedWork',
@@ -593,12 +630,15 @@ let event_messages = {
 				type: "PlannedWork",
 				type_detail: ['skip_stations'],
 				time: null,
-				tag: ['MTAD-033', 'MTAD-040', 'MTAD-047', 'MTAD-060'],
+				tag: ['MTAD-033', 'MTAD-040', 'MTAD-046', 'MTAD-047', 'MTAD-060'],
 				durration: 'Late Nights, 9:45 PM Tue to 5 AM Wed, Dec 5 - 6                     9:45 PM Thu to 5 AM Fri, Dec 7 - 8',
 				message: 'SIGNAL MAINTENANCE [6] Brooklyn Bridge-bound trains skip 33, 28, 23 Sts, Astor Pl, Bleecker, Spring and Canal Sts Late Nights, 9:45 PM Tue to 5 AM Wed, Dec 5 - 6                     9:45 PM Thu to 5 AM Fri, Dec 7 - 8 For service to these stations, take the [6] to 14 St-Union Sq or Brooklyn Bridge and transfer to an uptown [4] local or [6]. For service from these stations, take the [4] or [6] to 14 St-Union Sq or Grand Central-42 St and transfer to a Brooklyn Bridge-bound [6]. Alternate travel note: For service from Canal St, take the [J] to Chambers St-Brooklyn Bridge.   [ad]  This service change affects one or more ADA accessible stations. Please call 511 for help with planning<br>your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.',
 				alt_instructions: 'For service to these stations, take the [6] to 14 St-Union Sq or Brooklyn Bridge and transfer to an uptown [4] local or [6]. For service from these stations, take the [4] or [6] to 14 St-Union Sq or Grand Central-42 St and transfer to a Brooklyn Bridge-bound [6]. Alternate travel note: For service from Canal St, take the [J] to Chambers St-Brooklyn Bridge.',
 				station_prep: 'SIGNAL MAINTENANCE [6] Brooklyn Bridge-bound trains skip 33 St, 28 St, 23 St, Astor Pl, Bleecker St, Spring St, Canal St Late Nights, 9:45 PM Tue to 5 AM Wed, Dec 5 - 6                     9:45 PM Thu to 5 AM Fri, Dec 7 - 8 For service to these stations, take the [6] to 14 St-Union Sq or Brooklyn Bridge and transfer to an uptown [4] local or [6]. For service from these stations, take the [4] or [6] to 14 St-Union Sq or Grand Central-42 St and transfer to a Brooklyn Bridge-bound [6]. Alternate travel note: For service from Canal St, take the [J] to Chambers St-Brooklyn Bridge.   [ad]  This service change affects one or more ADA accessible stations. Please call 511 for help with planning<br>your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.',
 				message_station_parse: 'SIGNAL MAINTENANCE [6] Brooklyn Bridge-bound trains skip 33, 28, 23 Sts, Astor Pl, Bleecker, Spring and Canal Sts Late Nights, 9:45 PM Tue to 5 AM Wed, Dec 5 - 6                     9:45 PM Thu to 5 AM Fri, Dec 7 - 8 For service to these stations, take the [6] to 14 St-Union Sq or Brooklyn Bridge and transfer to an uptown [4] local or [6]. For service from these stations, take the [4] or [6] to 14 St-Union Sq or Grand Central-42 St and transfer to a Brooklyn Bridge-bound [6]. Alternate travel note: For service from Canal St, take the [J] to Chambers St-Brooklyn Bridge.   [ad]  This service change affects one or more ADA accessible stations. Please call 511 for help with planning<br>your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.',
+				boro: {
+					'global': ['Mn'],
+				},
 				bound: {
 					'MTA NYCT_6': {
 						stations: {
@@ -658,7 +698,7 @@ let event_messages = {
 				type: "PlannedWork",
 				type_detail: ['skip_stations'],
 				time: null,
-				tag: ['MTAD-047', 'MTAD-060'],
+				tag: ['MTAD-046', 'MTAD-047', 'MTAD-060'],
 				durration: 'Days, 9:45 AM to 3:30 PM, Mon and Tue, Dec 11 - 12    Mon to Fri, Dec 18 - 22    Tue to Fri, Dec 26 - 29',
 				message: 'TRACK MAINTENANCE [2] Flatbush Av-bound trains skip Burke Av, Allerton Av, Pelham Pkwy and Bronx Park East Days, 9:45 AM to 3:30 PM, Mon and Tue, Dec 11 - 12    Mon to Fri, Dec 18 - 22    Tue to Fri, Dec 26 - 29 For service to these stations, take the [2] to E 180 St and transfer to a Wakefield-bound [2]. For service from these stations, take the [2] to Gun Hill Rd and transfer to a Flatbush Av-bound [2]. Alternate travel note: For service to these stations, transfer to the Bx39 bus at Gun Hill Rd.',
 				alt_instructions: 'For service to these stations, take the [2] to E 180 St and transfer to a Wakefield-bound [2]. For service from these stations, take the [2] to Gun Hill Rd and transfer to a Flatbush Av-bound [2]. Alternate travel note: For service to these stations, transfer to the Bx39 bus at Gun Hill Rd.',
@@ -669,6 +709,9 @@ let event_messages = {
 							'Bx416-201': 'Wakefield-bound',
 						}
 					}
+				},
+				boro: {
+					'global': ['Bx'],
 				},
 				route_change: {
 					message: '[2] [Bk359-247]-bound trains skip [Bx422-209], [Bx423-210], [Bx424-211] and [Bx425-212]',
