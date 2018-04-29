@@ -91,6 +91,10 @@ const name_problems = {
 		'Mn625-M18',
 		'Mn625-F15'
 	],
+	'Bay Ridge': [
+		'Bk36-R42', // Bay Ridge Av
+		'Bk39-R45' // Bay Ridge - 95 St
+	],
 
 //	'Clinton - Washington Avs': [
 //		'Bk177-A44',
@@ -121,7 +125,7 @@ const hyphen_station_suffix = [
 	'Roosevelt Av',
 	'71 Av',
 	'9 St',
-	'95 St',
+	'95', //  Bay Ridge - 95 St
 ];
 
 const hyphen_station_avs = [

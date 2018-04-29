@@ -197,6 +197,8 @@ function stationCommonName(name, boro) {
 			'Coney Island - Stillwell Av': 'Stillwell Av',
 			'36 St': '36 St',
 			'Crown Hts - Utica Av': 'Utica Av',
+			'Bay Ridge Av': 'Bay Ridge',
+			'Bay Ridge - 95 St': 'Bay Ridge',
 		},
 
 		Bx: {
@@ -427,6 +429,7 @@ function stationAliases(name, boro) {
 				'71/Continental',
 				'71 Av',
 				'Forest Hills 71st',
+				'Forest Hills',
 			],
 			'63 Dr - Rego Park': [
 				'63 Dr',
@@ -605,6 +608,7 @@ function stationAliases(name, boro) {
 				'Rockaway Pkwy',
 			],
 			'Bay Ridge - 95 St': [
+				'Bay Ridge',
 				'95 St-Bay Ridge',
 				'95 St',
 			],

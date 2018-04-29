@@ -79,6 +79,11 @@ describe('Parse Stations', function() {
 		tests.stationTestByTag(stations.false_positive, CheckStationsListForExpected, ' [-,/] 57 St-7 Av, Lexington Av/59 St');
 	});
 
+	describe('MTAD-060 -- Direction-bound stations should be added to a separate array.', () => {
+
+		tests.boundStationTestByTag(event_messages.normal, CheckBoundStationsListForExpected, 'Detect Direction-Bound Stations', ['MTAD-060']);
+	});
+
 	describe.skip('MTAD-004 -- Identify Multiple Stations with the same name.', () => {
 		it('36 St', () => { });
 	});
@@ -195,6 +200,43 @@ function CheckStationsListForExpected (event) {
 				let msg = '[' + l + '] -- ' + event.message;
 				let stations_expected = Object.keys(event.stations[l].stations);
 				let stations_found = Object.keys(data.stations[l].stations);
+
+				// Message to help find data culprate.
+				msg = '[' +stations_found.join(',') + '] <--> [' + stations_expected.join(',') + '] -- ' + msg;
+
+				expect(stations_found, msg).to.have.members(stations_expected);
+			}
+
+			expect(results, 'Event should have at least one station -- ' + mocha_msg + event.line).to.equal(true);
+		});
+}
+
+
+function CheckBoundStationsListForExpected (event) {
+	return mtaStations.
+		matchAllLinesRouteStationsMessage(event.line, event.message)
+		.then( data => {
+
+			let results = false;
+			let mocha_msg = event.message;
+
+			for (let l in event.bound) {
+				results = true;
+
+				if (Object.keys(event.bound[l].stations).length > 0) {
+					// console.log(' >>> ', event.stations[l]);
+					// Make sure our results had an entry for this line before
+					// we access that property, and a general error is thrown.
+					expect(data.bound, event.message).to.have.property(l);
+				}
+				else {
+					expect(data.bound, event.message).not.to.have.property(l);
+					continue;
+				}
+
+				let msg = '[' + l + '] -- ' + event.message;
+				let stations_expected = Object.keys(event.bound[l].stations);
+				let stations_found = Object.keys(data.bound[l].stations);
 
 				// Message to help find data culprate.
 				msg = '[' +stations_found.join(',') + '] <--> [' + stations_expected.join(',') + '] -- ' + msg;
