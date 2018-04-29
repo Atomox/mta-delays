@@ -29,7 +29,7 @@ class StationList extends React.Component {
 
 		return (
       <div key={_.uniqueId('stations-')} className="station-list">
-  			<em>Stations (alpha) | </em>
+  			<em>Stations</em>
   			{	station_list }
   		</div>
     );

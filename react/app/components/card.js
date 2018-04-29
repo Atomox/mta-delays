@@ -11,6 +11,9 @@ class Card extends React.Component {
 			  <div className={this.props.headerClass}>
 			    <h3>{this.props.header}</h3>
 			  </div>
+				<div className="subtitle">
+					{this.props.headerSubtitle}
+				</div>
 			  <div className="card-section">
 			    {this.props.children}
 			  </div>

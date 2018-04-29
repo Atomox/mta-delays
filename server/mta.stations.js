@@ -338,6 +338,7 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 		let stations_first = problem_stations;
 
 		let results = {};
+		let bound = {};
 		let result_message = (processed_message) ? processed_message : message;
 		let problem_results = (problems) ? problems : {};
 
@@ -367,6 +368,9 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 //			}
 
 			res_re.map( m => {
+
+				let name = (typeof m === 'object') ? m.station : m;
+
 				// Problem stations get stored and compared after this process finishes. Until then, we don't count them as a final match.
 				if (problem_stations[stations[s].common]) {
 					// Init empty station common name in array.
@@ -379,16 +383,22 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 					problem_results[stations[s].common].push(
 						{
 							name: stations[s].name,
-							found: m,
+							found: name,
 							sid: s,
-							line: line_id
+							line: line_id,
+							bound: (typeof m === 'object') ? true : false,
 						}
 					);
 				}
 				else {
 					// Check station ID against message.
-					results[s] = m;
-					result_message = mtaRegEx.replaceRegexString(stations[s].regex, m, result_message, s);
+					// Only include station if this was not a direction
+					// !(Euclid Av-bound trains...)
+					(typeof m === 'object')
+						? bound[s] = name
+						: results[s] = name;
+
+					result_message = mtaRegEx.replaceRegexString(stations[s].regex, name, result_message, s);
 				}
 			});
 		}
@@ -396,6 +406,7 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 		return {
 			processed_message: result_message,
 			stations: results,
+			bound: bound,
 			problems: problem_results,
 		};
 	}
@@ -434,6 +445,7 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
 
 	let result = {
 		stations: {},
+		bound: {},
 		parsed_message: (processed_message) ? processed_message : message,
 		problems: {},
 	};
@@ -457,6 +469,7 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
 
 			// Get an stations related to this line.
 			result.stations[line] = {stations: rs.stations};
+			result.bound[line] = {stations: rs.bound};
 		}
 		catch (err) {
 			console.warn('\n\n', '<!> Error while fetching stations in event msg: ', err, '\n\n');
@@ -465,7 +478,7 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
 	}
 
 	// Now, examine any problem stations, and include them in the results.
-	return processProblemStations (problems, result.stations, result.parsed_message);
+	return processProblemStations (problems, result.stations, result.parsed_message, result.bound);
 }
 
 
@@ -502,7 +515,7 @@ function unwrapLineObject (line, translate_ids) {
  *   All resulting winning stations (including passed in non-problem results),
  *   along with the parsed messages.
  */
-function processProblemStations (problem_results, results, message) {
+function processProblemStations (problem_results, results, message, bound) {
 
 	if (Object.keys(problem_results).length > 0 ) {
 
@@ -572,8 +585,10 @@ function processProblemStations (problem_results, results, message) {
 						// Make sure there is a place to put the result, if not already set.
 						if (!results[stObj.line]) { results[stObj.line] = {stations: []}; }
 
-						// Push the winner back into it's line's stations list.
-						results[stObj.line].stations[stObj.sid] = stObj.found;
+						// Push the winner back into it's line's stations (or bound) list.
+						(stObj.bound)
+							? bound[stObj.line].stations[stObj.sid] = stObj.found
+							:	results[stObj.line].stations[stObj.sid] = stObj.found;
 
 						// Store these until after we parse all of the same length.
 						length_found_stations.push(stObj.sid);
@@ -602,8 +617,19 @@ function processProblemStations (problem_results, results, message) {
 		});
 	}
 
+	// Filter out any lines without stations.
+	results = filterObj(results);
+	bound = filterObj(bound);
+
+	function filterObj(Obj) {
+		return Object.keys(Obj)
+			.filter(s => (Object.keys(Obj[s].stations).length > 0))
+			.reduce((res, key) => (res[key] = Obj[key], res), {});
+	}
+
 	return {
 		stations: results,
+		bound: bound,
 		parsed_message: message,
 	}
 }

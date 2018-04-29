@@ -30,6 +30,7 @@ async function main(message) {
     message = await mtaStatus.getStationsInEventMessage(lines, message);
     message = message;
     section('Stations', message.stations);
+    section('Direction-only Stations', message.bound);
 
     let boro = mtaStations.getBorosFromStations(message.stations);
     section('Affected Boros', boro);
@@ -57,5 +58,6 @@ function header(title, header) {
 
 function section(title, data) {
   header(title);
-  console.log(data, '\n');
+  console.log(data);
+  console.log('\n');
 }

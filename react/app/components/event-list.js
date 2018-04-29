@@ -39,42 +39,39 @@ class EventList extends React.Component {
 
 			<Card key="event-list" id={e.id}
 				header={e.type}
-				headerSubtitle={e.type}
-				headerClass={titleClass}>
-			  <div>
-			    <h3>
-			    {
-					Object.keys(trains).map((key, i) => {
-						let line = trains[key].line;
-						let dir = mta.getlineDirectionByID(trains[key].dir);
-
-						return <TrainLine
-							key={_.uniqueId('train-' + line)}
-							line={line}
-							dir={dir} />;
+				headerSubtitle={
+					e.detail.boros.global.map(b => {
+					return <Boro
+						key={_.uniqueId('boro-' + b)}
+						boro={b} />;
 					})
 				}
-				</h3>
-				<h5>{
-					(e.detail.type_detail)
-						? e.detail.type_detail.join(' | ')
-						: ''}</h5>
+				headerClass={titleClass}>
+			  <div>
 
+			    <h3>
+			    {
+						Object.keys(trains).map((key, i) => {
+							let line = trains[key].line;
+							let dir = mta.getlineDirectionByID(trains[key].dir);
+
+							return <TrainLine
+								key={_.uniqueId('train-' + line)}
+								line={line}
+								dir={dir} />;
+						})
+					}
+					</h3>
+					<h5>
+						{ (e.detail.type_detail)
+							? e.detail.type_detail.join(' | ')
+							: ''}
+					</h5>
 					{ (e.detail.route_change
 						&& typeof e.detail.route_change.route == 'object'
 						&& e.detail.route_change.route.length > 0)
 						? <RouteChange routeInfo={e.detail.route_change} stations={e.detail.stations} />
 						: '' }
-
-					<p>Affects:
-						{
-							e.detail.boros.global.map(b => {
-							return <Boro
-								key={_.uniqueId('boro-' + b)}
-								boro={b} />;
-							})
-						}
-					</p>
 
 					<p>{e.detail.message}</p>
 

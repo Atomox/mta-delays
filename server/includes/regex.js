@@ -202,12 +202,15 @@ function matchRegexStation(pattern, haystack, return_all, greedy) {
 
 		let bound_pattern = /[-]\s*(?:bound)/i;
 
-		if (match[2] == 'bound' || match[0].indexOf('bound') !== -1) {
-			let m = match[0];
-			match[0] = match[0].replace(bound_pattern, '');
-		}
+		match[0] = match[0].trim();
 
-		results.push(match[0].trim());
+		if (match[2] == 'bound' || match[0].indexOf('bound') !== -1) {
+			match[0] = match[0].replace(bound_pattern, '');
+			results.push({ station: match[0].trim(), bound: true});
+		}
+		else {
+			results.push(match[0].trim());
+		}
 	}
 
 	if (return_all === true && results.length > 0) {

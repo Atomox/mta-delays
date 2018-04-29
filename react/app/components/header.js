@@ -7,12 +7,14 @@ class Header extends React.Component {
 
 	render() {
 		return (
-			<div className="text-center">
+			<div className="header">
+				<h5>{moment(this.props.age).format('dddd, MMMM Do')}</h5>
 				<h1>{moment(this.props.age).format('h:mm A')}</h1>
-				<h6>{moment(this.props.age).format('dddd, MMMM Do')}</h6>
-				{(this.props.status == 'initializing' || this.props.status === false) 
+				<h4><span className="station">Astoria/Ditmars</span> Release</h4>
+
+				{(this.props.status == 'initializing' || this.props.status === false)
 					? <StateMessage status={this.props.status} />
-					: (this.props.numEvents === 0) 
+					: (this.props.numEvents === 0)
 						? <AllClear />
 						: null
 				}
@@ -38,7 +40,7 @@ class StateMessage extends React.Component {
 		let message = '';
 
 		switch (this.props.status) {
-			case 'initializing': 
+			case 'initializing':
 				message = 'Initializing System...';
 				break;
 
