@@ -2,6 +2,9 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 
+const _ = require('lodash');
+const moment = require('moment');
+
 const mtaApi = require('./svc/mta/subway/mta.api');
 const mtaStations = require('./mta.stations');
 const mtaStatus = require('./mta.event');
@@ -54,10 +57,70 @@ app.get(['/subway/status', '/subway/status/archive/:id'], (req, resp, next) => {
 		.then(data => (!data || data.length <= 0) ? Promise.reject('No data loaded from file or endpoint.') : data)
 		.then(data => mtaStatus.checkReports(data))
 		.then(data => mtaStatus.parseStatusFeed(data))
+    .then(data => addResponseInfo(data, req))
 		.then(data => resp.json(data))
 		.catch(err => handleRequestError(req,resp, err, 'Error fetching normal subway status.'));
 });
 
+function addResponseInfo(data, req) {
+  data.archive = {};
+  data.archive.detail = (archive.archive_status.files[req.params.id])
+    ? archive.archive_status.files[req.params.id]
+    : null;
+  data.archive.id = req.params.id;
+
+  data.summary = {
+    count: data.events.length,
+    lines: []
+  };
+
+  function getLines(interrupted, planned) {
+    let result = getEvents(interrupted, planned);
+
+    return (result && result.length > 0)
+      ? _.uniq(
+        result.map( e => _.uniq(e.line.map( l => mtaStations.getTrainById(l.line))) )
+        .reduce( (c, i) => c = _.union(c, i) )).sort()
+      : [];
+  }
+
+  function getEvents(interrupted, planned) {
+    return (data.events && data.events.length > 0)
+      ? data.events
+        .filter(e => (!interrupted || (interrupted && !e.planned)))
+        .filter(e => (!planned || (planned && e.planned)))
+      : [];
+  }
+  function getEventTime(time) {
+    let hour = moment(time).format('H'),
+      day = moment(time).format('d'),
+      rush_hour = ((hour > 7 && hour < 10) || hour > 15 && hour < 19),
+      period = (hour < 5 || hour > 21)
+        ? 'Late Night'
+        : (hour >= 5 && hour <= 11)
+          ? 'Morning'
+          : (hour >= 12 && hour <= 16)
+            ? 'Afternoon'
+            : (hour >= 17)
+              ? 'Evening'
+              : 'Unknown';
+
+    return {
+      time_of_day: period,
+      rush_hour: rush_hour,
+      weekend: (day === 0 || day === 6) ? true : false
+    }
+  }
+
+  data.summary.lines = getLines();
+  data.summary.interrupted_lines = getLines(true, false);
+  data.summary.planned_work_lines = getLines(false, true);
+  data.summary.planned_events = getEvents(false, true).length;
+  data.summary.unplanned_events = getEvents(true, false).length;
+  data.summary.time = (data.events[0].date) ? getEventTime(data.events[0].date.fetched) : null;
+
+  return data;
+}
 
 app.get('/subway/status/archive', (req, resp, next) => {
 	let list = archive.get_archive_list();

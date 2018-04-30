@@ -9,7 +9,7 @@ let Header = require('./header').Header;
 const api = require('../../../config/settings');
 
  const endpoint = 'subway/status';
-// const endpoint = 'subway/status/archive/6'; // 43 (lcl/exp) // 15 (route change) 27 (d/f crazy route change) 74
+// const endpoint = 'subway/status/archive/8'; // 43 (lcl/exp) // 15 (route change) 27 (d/f crazy route change) 74
 
 /**
  * The main app container.
@@ -54,6 +54,8 @@ class App extends React.Component {
       prevState.status = (data.status) ? data.status : false;
       prevState.events = (data.events) ? data.events : [];
       prevState.age = (data.timestamp) ? data.timestamp : Date.now();
+      prevState.archive = (data.archive) ? data.archive : null;
+      prevState.summary = (data.summary) ? data.summary : null;
 
       return prevState;
     });
@@ -66,7 +68,9 @@ class App extends React.Component {
         <Header
           age={this.state.age}
           status={this.state.status}
-          numEvents={this.state.events.length}/>
+          numEvents={this.state.events.length}
+          archive={this.state.archive}
+          summary={this.state.summary}/>
 
         {Object.keys(this.state.events).map(key =>
             <EventList

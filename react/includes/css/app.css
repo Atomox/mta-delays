@@ -2,6 +2,9 @@
 .bad {
 	color: red;
 }
+.warn {
+	color: orange;
+}
 
 .good {
 	color: green;
@@ -22,6 +25,67 @@
 .header {
 	text-align: right;
 	margin-right: 1rem;
+}
+
+.header > .Archive {
+	z-index: 999;
+	position: fixed;
+	bottom: 0;
+	right: 2rem;
+	background-color: #eee;
+
+	text-align: left;
+	float: right;
+	display: inline-block;
+	border: 1px solid #333;
+	padding-left: 1rem;
+	margin-left: .5rem;
+	width: 24rem;
+	border-top-left-radius: .5rem;
+	border-top-right-radius: .5rem;
+	min-height: 5rem;
+	word-wrap: normal;
+	font-size: .85rem;
+}
+.header > .Archive > .id {
+	float: right;
+	margin-left: .25rem;
+	font-size: 5rem;
+	line-height: 5rem;
+	padding: 0 .5rem;
+	border-bottom-left-radius: .5rem;
+	border-top-right-radius: .5rem;
+	background-color: #333;
+	color: #fff;
+}
+.header > .Archive > .id > h1 {
+	font-size: 3rem;
+	line-height: 3rem;
+	padding: 0 .5rem;
+}
+.header > .Archive > .id > h2 {
+	font-size: 1.5rem;
+	line-height: 1.5rem;
+	padding: 0 .5rem;
+}
+.header > .Archive > div > h4 {
+	font-size: 1rem;
+	line-height: 1rem;
+	margin: .25rem 0 .5rem 0;
+}
+.header > .Archive > div > h2 {
+	font-size: 3rem;
+	line-height: 3rem;
+	padding: 0rem;
+	margin: 0rem;
+}
+.header > .Archive > .description {
+	display: block;
+	padding-bottom: .25rem;
+	border: 0px;
+	border-bottom: 1px;
+	border-style: dashed;
+	border-color: #ccc;
 }
 
 .header h5 {
