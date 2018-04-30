@@ -18,7 +18,8 @@ const archive = require('./data/archive/archive');
 
 
 // How long before we refresh the feeds?
-const cacheMinutes = 1;
+const cacheMinutes = 2;
+
 
 const port = 8100;
 
@@ -56,17 +57,22 @@ app.get(['/subway/status', '/subway/status/archive/:id'], (req, resp, next) => {
 	// Check the filesystem first.
 	mtaFile.loadStatusFromFile(cached_parse_file, 'json')
     // Check freshness of cache.
-    .then(data => (data.timestamp && mtaFile.checkFreshnessDate(data.timestamp, my_cache_time))
-      ? data : false)
+    .then(data => (data.timestamp
+      && mtaFile.checkFreshnessDate(data.timestamp, my_cache_time))
+        ? data
+        : false )
 
     // If stale, rebuild.
     .then(data => {
       if (data === false) {
         console.log(' (!) Reparsing Status.');
       }
+      else {
+        console.log(' (+) Using Cached Data.', data.status);
+      }
 
       return (data !== false)
-        ? data
+        ? { data: data }
         : mtaApi.getSubwayStatus(req_file, my_cache_time)
             // Now we play with the data.
             .then(data => (!data || data.length <= 0) ? Promise.reject('No data loaded from file or endpoint.') : data)
