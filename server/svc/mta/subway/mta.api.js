@@ -4,14 +4,18 @@ const axios = require('axios');
 // Require FileStream library for read/write.
 const fs = require('fs');
 
+const mtaFile = require('../../../includes/fileManage');
+
+
 // MTA Status endpoint.
 // const url = "http://web.mta.info/status/serviceStatus.txt";
 const url = "http://web.mta.info/status/ServiceStatusSubway.xml";
 
 
 
+
 /**
- * 
+ *
  *
  *  @TODO
  *
@@ -22,23 +26,23 @@ const url = "http://web.mta.info/status/ServiceStatusSubway.xml";
  *
  *
  *
- * 
+ *
  */
 const future_url = 'http://travel.mtanyct.info/serviceadvisory/routeStatusResult.aspx'
-		+ '?tag=ALL&date=' 
-		+ '12/31/2017' 
-		+ '&time=' 
+		+ '?tag=ALL&date='
+		+ '12/31/2017'
+		+ '&time='
 		+ '&method=getstatus4';
 
 /**
  * Get the latest, return it, and store it in a local file.
- * 
+ *
  * @param  {string} mta_status_file
  *   A filename where we should store (cache) our request.
  * @param  {int} cacheMinutes
- *   How many minutes old can we use this data for before refreshing? 
+ *   How many minutes old can we use this data for before refreshing?
  *   Note: If [false], this will be ignored, and data will not be refreshed.
- *   
+ *
  * @return {object}
  *   The Subway status in a data object. Not cleaned or restructured!
  */
@@ -65,11 +69,11 @@ function getSubwayStatus (mta_status_file, cacheMinutes) {
 				if (cacheMinutes === false) {
 					throw new Error('Error loading file during archive mode.');
 				}
-			
+
 				return getLocation(url, mta_status_file);
 			})
 
-			// Catch an errors from API load or 
+			// Catch an errors from API load or
 			.catch(err => console.error('Problem after loading API data. ', err))
 
 			// Resolve with the parsed data.
@@ -94,12 +98,12 @@ function getSubwayStations(stations_json_file) {
 
 /**
  * Given a url, fetch the data, load, prepare and save it. Finally, return it.
- * 
+ *
  * @param  {string} url
  *   A URL where we can find data to fetch.
  * @param  {string} filename
  *   A file name (without extension) where we will save our data, first in raw XML, then in JSON.
- *   
+ *
  * @return {data}
  *   The contents of the provided endpoint.
  */
@@ -124,43 +128,12 @@ function getLocation (url, filename) {
 	});
 }
 
-
-function checkFreshnessDate(packed_date, expires) {
-
-	if (expires === false) {
-		console.log(' -- [', 'Cached timing disabled. Using cached data.', '] --');
-		return true;
-	}
-
-	let lastUpdated = new Date(packed_date);
-	let expiresIn = new Date(packed_date);
-	expiresIn.setMinutes(expiresIn.getMinutes() + expires);
-
-	// Get the age of the data.
-	let minutesOld = Math.abs(Date.now() - lastUpdated.getTime());
-	minutesOld = Math.floor((minutesOld/1000/60) << 0);
-
-	let time_msg = 'Cached data is of age ' + lastUpdated.getTime() 
-		+ ' (' + minutesOld  + ' minutes ago).';
-
-	console.warn(' -- [', time_msg, '] -- ');
-
-	if (minutesOld > expires) {
-		let message = 'Refreshing cached data at [' + Date.now() + ']';
-		console.warn(' -- [', message, '] -- ');
-		return false;
-	}
-	console.log(' -- [', 'Still fresh. Using cached data.', '] --');
-	return true;
-}
-
-
 /**
  * Get data from the provided url.
- * 
+ *
  * @param  {string} url
  *   A URL to get the data from.
- * 
+ *
  * @return {mixed}
  *   The content body.
  */
@@ -172,57 +145,19 @@ async function getEndpoint (url) {
 
 
 /**
- * Write data to a file. If one exists, we'll overwrite this.
+ * Aliases to broken-out file library.
  */
+function checkFreshnessDate(packed_date, expires) {
+ 	return mtaFile.checkFreshnessDate(packed_date, expires);
+}
 function saveStatusToFile(data, filename) {
-
-	return new Promise((resolve, reject) => {
-		fs.writeFile(filename, data, (err) => {
-			if (err) { reject('Problem writing to file: ' + filename + '. Err: ' + err); }
-
-			resolve(data);
-		});
-	});
+	return mtaFile.saveStatusToFile(data, filename);
 }
-
-
 function loadStatusFromFile(filename, type) {
-	return new Promise((resolve, reject) => {
-		fs.readFile(filename, 'utf8', (err, contents) => {
-			if (err) {
-				reject(err);
-			}
-			else if (contents.length <= 0) {
-				reject("File has no contents.");
-			}
-
-			// Contents were stringified, and must be rebuilt into a true object.
-			if (type == 'json') {
-				try {					
-					contents = JSON.parse(contents);
-				}
-				catch (err) {
-					reject(err);
-				}
-			}
-
-			resolve(contents);
-		});
-	});
+	return mtaFile.loadStatusFromFile(filename, type);
 }
-
-
 function makeJson(data) {
-	return new Promise((resolve, reject) => {
-
-		var parseString = require('xml2js').parseString;
-		parseString(data, function (err, result) {
-	    	if (err) {
-	    		reject('Error parsing to JSON. Error:' + err);
-	    	}
-	    	resolve(JSON.stringify(result));
-		});	
-	});
+	return mtaFile.makeJsonFromXml(data);
 }
 
 

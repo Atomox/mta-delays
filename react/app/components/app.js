@@ -9,7 +9,7 @@ let Header = require('./header').Header;
 const api = require('../../../config/settings');
 
  const endpoint = 'subway/status';
-// const endpoint = 'subway/status/archive/8'; // 43 (lcl/exp) // 15 (route change) 27 (d/f crazy route change) 74
+// const endpoint = 'subway/status/archive/12'; // 43 (lcl/exp) // 15 (route change) 27 (d/f crazy route change) 74
 
 /**
  * The main app container.

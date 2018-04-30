@@ -8,9 +8,11 @@ const moment = require('moment');
 const mtaApi = require('./svc/mta/subway/mta.api');
 const mtaStations = require('./mta.stations');
 const mtaStatus = require('./mta.event');
+const mtaFile = require('./includes/fileManage');
 
 // File where we'll store things. No extension, please.
 const mta_status_file = './data/generated/mta_status.cache';
+const cached_parse_file = './data/generated/mta_status.final.cache';
 const root_json = require('./data/root_response');
 const archive = require('./data/archive/archive');
 
@@ -49,17 +51,41 @@ app.get(['/subway/status', '/subway/status/archive/:id'], (req, resp, next) => {
 
 	console.log(' -- [', 'Serving request from file: ', req_file, ', with cache: ' + my_cache_time + '] --');
 
+
 	// Load the data.
 	// Check the filesystem first.
-	mtaApi.getSubwayStatus(req_file, my_cache_time)
+	mtaFile.loadStatusFromFile(cached_parse_file, 'json')
+    // Check freshness of cache.
+    .then(data => (data.timestamp && mtaFile.checkFreshnessDate(data.timestamp, my_cache_time))
+      ? data : false)
 
-		// Now we play with the data.
-		.then(data => (!data || data.length <= 0) ? Promise.reject('No data loaded from file or endpoint.') : data)
-		.then(data => mtaStatus.checkReports(data))
-		.then(data => mtaStatus.parseStatusFeed(data))
-    .then(data => addResponseInfo(data, req))
-		.then(data => resp.json(data))
+    // If stale, rebuild.
+    .then(data => {
+      if (data === false) {
+        console.log(' (!) Reparsing Status.');
+      }
+
+      return (data !== false)
+        ? data
+        : mtaApi.getSubwayStatus(req_file, my_cache_time)
+            // Now we play with the data.
+            .then(data => (!data || data.length <= 0) ? Promise.reject('No data loaded from file or endpoint.') : data)
+            .then(data => mtaStatus.checkReports(data))
+            .then(data => mtaStatus.parseStatusFeed(data))
+            .then(data => addResponseInfo(data, req))
+
+            // Handle post-play caching.
+            .then(data =>  (my_cache_time)
+              ? mtaFile.cacheJsonResponse(data, cached_parse_file)
+              : { data: data });
+    })
+
+    // Serve the file, or handle errors.
+		.then(data => resp.json(data.data))
 		.catch(err => handleRequestError(req,resp, err, 'Error fetching normal subway status.'));
+
+
+
 });
 
 function addResponseInfo(data, req) {
