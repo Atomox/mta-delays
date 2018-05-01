@@ -13,8 +13,9 @@ WORKDIR /usr/src/server
 RUN mkdir data && mkdir data/generated \
 	&& touch data/generated/mta_status.xml \
 	&& touch data/generated/mta_status.json \
-	&& touch data/generated/mta_stations.compiled.json
-	
+	&& touch data/generated/mta_stations.compiled.json \
+	&& touch data/generated/mta.status.final.cache
+
 
 # Install dependencies
 COPY package.json .
@@ -23,6 +24,9 @@ RUN npm install
 
 # Copy in the repo.
 COPY . .
+
+# Build stations data.
+RUN npm run stations
 
 EXPOSE 8100
 
