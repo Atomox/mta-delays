@@ -98,7 +98,15 @@ let archive_status = {
 		'mta_status.103.Weekday_Morning_-_MTAD-057_examples',
 		'mta_status.104.Evening_delay_7D',
 		'mta_status.105.April_14_-_Sat_morning_planned_work',
-		'mta_status.106.power_loss'
+		'mta_status.106.power_loss',
+		'mta_status.107.weeknight_planned_work',
+		'mta_status.108.April_22_-_Weekend_Planned_Work',
+		'mta_status.109.Morning_Major_Delays_EFM',
+		'mta_status.110.April_24_-_Weeknight_-_Monday_-_Planned_Work',
+		'mta_status.111.April_27_-_Weekend_Planned_Work',
+		'mta_status.112.Weekend_-_person_struck_by_train',
+		'mta_status.113.April_30_-_Monday_Morning_Delays',
+		'mta_status.114.April_30_-_Monday_Morning_-_Planned_Work',
 	],
 	path: './data/archive/',
 };
