@@ -52,10 +52,11 @@ app.get(['/subway/status', '/subway/status/archive/:id'], (req, resp, next) => {
 
 	console.log(' -- [', 'Serving request from file: ', req_file, ', with cache: ' + my_cache_time + '] --');
 
+  let target_file = (req_file) ? req_file + '.json' : cached_parse_file;
 
 	// Load the data.
 	// Check the filesystem first.
-	mtaFile.loadStatusFromFile(cached_parse_file, 'json')
+	mtaFile.loadStatusFromFile(target_file, 'json')
     // Check freshness of cache.
     .then(data => (data.timestamp
       && mtaFile.checkFreshnessDate(data.timestamp, my_cache_time))
