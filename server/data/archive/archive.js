@@ -107,6 +107,10 @@ let archive_status = {
 		'mta_status.112.Weekend_-_person_struck_by_train',
 		'mta_status.113.April_30_-_Monday_Morning_Delays',
 		'mta_status.114.April_30_-_Monday_Morning_-_Planned_Work',
+		'mta_status.115.Weeknight_Planned_Work',
+		'mta_status.116.weeknight_planned_work',
+		'mta_status.117.May_05_-_Weekend_Planned_work',
+		'mta_status.118.Weekend_Sunday_-_Delays_Planned_Work',
 	],
 	path: './data/archive/',
 };
