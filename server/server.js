@@ -104,7 +104,7 @@ function addResponseInfo(data, req) {
 
   data.summary = {
     count: data.events.length,
-    lines: []
+    lines: [],
   };
 
   function getLines(interrupted, planned) {

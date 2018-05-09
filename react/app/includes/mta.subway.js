@@ -25,7 +25,7 @@ let mtaSubway = (() => {
 				return 'C';
 			case 'MTA NYCT_E':
 				return 'E';
-			
+
 			case 'MTA NYCT_N':
 				return 'N';
 			case 'MTA NYCT_Q':
@@ -59,12 +59,81 @@ let mtaSubway = (() => {
 			case 'MTA NYCT_GS':
 			case 'MTA NYCT_FS':
 				return 'S';
-			
+
 			case 'MTA NYCT_SI':
 				return 'SIR';
 
 			default:
 				return id;
+		}
+	}
+
+	function getLineGroup(l) {
+
+		l = getlineById (l);
+
+		switch(l) {
+			case 'A':
+			case 'C':
+			case 'E':
+				return 'a-c-e';
+			case 'B':
+			case 'D':
+			case 'F':
+			case 'M':
+				return 'b-d-f-m';
+			case 'N':
+			case 'Q':
+			case 'R':
+			case 'W':
+				return 'n-q-r-w';
+			case 'J':
+			case 'Z':
+				return 'j-z';
+			case 1:
+			case 2:
+			case 3:
+				return '1-2-3';
+			case 4:
+			case 5:
+			case 6:
+				return '4-5-6';
+
+			case '7':
+			case 'L':
+			case 'S':
+			case 'SIR':
+			case 'G':
+			default:
+				return l;
+		}
+	}
+
+	function getLineGroupColor(line_id) {
+		switch(line_id) {
+			case 'a-c-e':
+				return '#0039A6';
+			case 'b-d-f-m':
+				return '#FF6319';
+			case 'n-q-r-w':
+				return '#FCCC0A';
+			case 'g':
+				return '#6CBE45';
+			case 'j-z':
+				return '#996633';
+			case '1-2-3':
+				return '#EE352E';
+			case '4-5-6':
+				return '#00933C';
+			case '7':
+				return '#B933AD';
+			case 'L':
+				return '#A7A9AC';
+			case 'S':
+				return '#808183';
+			case 'SIR':
+			default:
+				return '#CCCCCC';
 		}
 	}
 
@@ -76,6 +145,8 @@ let mtaSubway = (() => {
 
 	return({
 		getlineById: getlineById,
+		getLineGroup: getLineGroup,
+		getLineGroupColor: getLineGroupColor,
 		getlineDirectionByID:getlineDirectionByID,
 	});
 })();

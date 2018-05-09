@@ -14,6 +14,47 @@
 	display: block;
 }
 
+.group-line-card {
+	margin: .25rem .25rem .35rem .25rem;
+	padding-bottom: .35rem;
+	padding-top: .05rem;
+	padding-left: .5rem;
+}
+
+.group-line-card h3 .line strong {
+	margin: 0rem;
+	margin-right: .5rem;
+}
+
+.group-line-card ul {
+	list-style-type: none;
+	padding-left: 0;
+	margin: 0;
+}
+.group-line-card li {
+	list-style-type: none;
+	padding-left: 0;
+}
+.group-line-card li .boro{
+	padding-left: .5rem;
+	padding-right: .5rem;
+}
+.group-line-card li .boro strong,
+.group-line-card .boro strong {
+	font-weight: normal;
+}
+
+.group-line-card h3 {
+	line-height: 1.15rem;
+}
+.group-line-card .line strong {
+	width: 1.5rem;
+	height: 1.5rem;
+	margin: 0 .25rem;
+	padding: .1em;
+	font-size: 1.15rem;
+}
+
 .release {
 	font-size: 18pt;
 	color: #c8c8c8;
@@ -149,28 +190,3 @@ span.boro {
 .station-list-line .station {
 	margin: .3rem;
 }
-
-/**
- *
- *   FIGURE OUT CIRCLE Subway div.
- *
- *
-div.line {
-  background:red;
-  margin:auto;
-  text-align:center;
-  border-radius:50%;
-}
-#test{
-  width: 20%;
-}
-#test:before{
-  content:'';
-  padding:50% 0;
-  display:inline-block;
-  vertical-align:middle;
-}
-span {
-  display:inline-block;
-}
-*/

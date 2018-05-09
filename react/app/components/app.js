@@ -4,11 +4,12 @@ let _ = require('lodash');
 // Components.
 let EventList = require('./event-list').EventList;
 let Header = require('./header').Header;
+let Summary = require('./summary').Summary;
 
 // Config
 const api = require('../../../config/settings');
 
-const endpoint = 'subway/status';
+ const endpoint = 'subway/status';
 // const endpoint = 'subway/status/archive/15'; // 43 (lcl/exp) // 15 (route change) 27 (d/f crazy route change) 74
 
 /**
@@ -71,6 +72,10 @@ class App extends React.Component {
           numEvents={this.state.events.length}
           archive={this.state.archive}
           summary={this.state.summary}/>
+
+        <Summary
+          events={this.state.events}
+          />
 
         {Object.keys(this.state.events).map(key =>
             <EventList
