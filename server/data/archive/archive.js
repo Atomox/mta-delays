@@ -111,6 +111,13 @@ let archive_status = {
 		'mta_status.116.weeknight_planned_work',
 		'mta_status.117.May_05_-_Weekend_Planned_work',
 		'mta_status.118.Weekend_Sunday_-_Delays_Planned_Work',
+		'mta_status.119.Monday_Morning_Delays',
+		'mta_status.120.Monday_Morning_More_Delays',
+		'mta_status.121.Monday_Night_Planned_Work',
+		'mta_status.122.Tuesday_Morning_Delays',
+		'mta_status.123.Morning_Delays_and_Work',
+		'mta_status.124.Week_Night_Planned_Work',
+		'mta_status.125.Weeknight_Many_F_delays',
 	],
 	path: './data/archive/',
 };
