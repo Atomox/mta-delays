@@ -44,6 +44,11 @@
 	font-weight: normal;
 }
 
+.group-line-card .boro,
+.group-line-card li .boro {
+	padding: 0;
+}
+
 .group-line-card h3 {
 	line-height: 1.15rem;
 }

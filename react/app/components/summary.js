@@ -87,6 +87,15 @@ class Summary extends React.Component {
 
 
 class GroupLineCard extends React.Component {
+
+	assembleBoros(boros, short, caps) {
+		return (boros && Array.isArray(boros))
+			? boros
+				.map( b => (<Boro boro={b} short={short} caps={caps}/> ) )
+				.reduce((prev, curr) => [prev, ', ', curr])
+				: null;
+	}
+
 	render() {
 
 		let lines = this.props.line_group.split('-');
@@ -117,11 +126,7 @@ class GroupLineCard extends React.Component {
 						}
 					</h3>
 					<div className="cell small-8 text-right">
-						{
-							(this.props.boros && this.props.boros.length > 0)
-								? this.props.boros.map(b => (<Boro boro={b} short={false}/>))
-								: ''
-						}
+						{ this.assembleBoros(this.props.boros, false, false) }
 					</div>
 				</div>
 
@@ -132,11 +137,9 @@ class GroupLineCard extends React.Component {
 								{ (e.lines) ? e.lines.join('/') : '' }
 							</div>
 							<div className="cell small-4 large-3">
-							{
-								(e.boro && e.boro.length > 0)
-									? e.boro.map(b => (<Boro boro={b} short={true}/>))
-									: ''
-							}
+
+
+							{	this.assembleBoros(e.boro, true, false)	}
 							</div>
 							<div className="cell small-4 large-5">
 								{	(e.keyword) ? e.keyword : '' }

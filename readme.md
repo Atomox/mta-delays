@@ -120,3 +120,75 @@ turns into this:
  },
 }
 ```
+
+```
+{
+  trains: [ 'A', 'E' ],
+  route: [
+    {
+      allTrains: true,
+      dir: null,
+      exp_lcl: 'local',
+      lines: [Array],
+      along: null,
+      from: 'Mn614-A24',
+      to: 'Bk636-A41',
+      section: null,
+      process: 'RouteChangeStandard',
+      parsed: '[A] Trainsrun local and are rerouted between [Mn614-125|Mn614-A24] and [Bk636-A41]'
+    },
+    {
+      allTrains: true,
+      dir: null,
+      exp_lcl: null,
+      lines: [Array],
+      along: 'D',
+      from: 'Mn614-A24',
+      to: 'Mn607-D17',
+      section: null,
+      process: 'RouteChangeStandard',
+      parsed: '[A] Trains make local stops and are rerouted in both directions as follows:Via the [D] between [Mn614-125|Mn614-A24] and [Mn607-D17].',
+      action: 'Via'
+    },
+    {
+      allTrains: true,
+      dir: null,
+      exp_lcl: null,
+      lines: [Array],
+      along: 'F',
+      from: 'Mn607-D17',
+      to: 'Bk636-A41',
+      section: null,
+      process: 'RouteChangeStandard',
+      parsed: 'Via the [F] between [Mn607-D17] and [Bk636-A41].',
+      action: 'Via'
+    },
+    {
+      allTrains: true,
+      dir: null,
+      exp_lcl: null,
+      lines: [Array],
+      along: 'M',
+      from: 'Mn276-F12',
+      to: 'Mn607-D17',
+      section: null,
+      process: 'RouteChangeStandard',
+      parsed: '[E] Trains are rerouted in both directions in Manhattan as follows:Via the [M] between [Mn276-F12] and [Mn607-D17].',
+      action: 'Via'
+    },
+    {
+      allTrains: true,
+      dir: null,
+      exp_lcl: null,
+      lines: [Array],
+      along: 'F',
+      from: 'Mn607-D17',
+      to: 'Mn232-F14',
+      section: null,
+      process: 'RouteChangeStandard',
+      parsed: 'Via the [F] between [Mn607-D17] and [Mn232-F14]',
+      action: 'Via'
+    }
+  ],
+}
+```
