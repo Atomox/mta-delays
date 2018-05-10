@@ -45,13 +45,18 @@ class Summary extends React.Component {
 
 					// Determine affected lines, add them, and add affected boros for each line.
 					e.line.map( l => {
-						let key = mta.getLineGroup(l.line);
+						let key = mta.getLineGroup(l.line),
+							my_line = mta.getlineById(l.line);
 
 						if (!line_grp[key]) {	line_grp[key] = msg; }
-						if (line_grp[key].lines.indexOf(key) !== -1) { return; }
-						line_grp[key].lines.push(mta.getlineById(l.line));
 
-						line_boros[key] = [];
+						// Push a line to the message list, but only once.
+						if (line_grp[key].lines.indexOf(my_line) !== -1) { return; }
+						line_grp[key].lines.push(my_line);
+
+						if (!line_boros[key]) {
+							line_boros[key] = [];
+						}
 
 						// Boros, if available.
 						if (!e.detail.boros[l.line]) { return; }
