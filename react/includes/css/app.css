@@ -179,6 +179,11 @@ span.boro {
   align-items: center;
 }
 
+.line.disabled strong {
+	background-color: #eee;
+	border: 1px solid #e0e0e0;
+}
+
 .route-change {
 	padding-bottom: 1rem;
 	border-bottom: 1px dashed #eee;

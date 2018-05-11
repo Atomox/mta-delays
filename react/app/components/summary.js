@@ -15,7 +15,8 @@ class Summary extends React.Component {
 			if (!this.props.events || this.props.events.length <= 0) { return null; }
 
 			let lines = {},
-					line_boros = {};
+					line_boros = {},
+					lines_affected = [];
 
 			Object.keys(this.props.events).map(key => {
 					let e = this.props.events[key];
@@ -51,6 +52,9 @@ class Summary extends React.Component {
 						// Push a line to the message list, but only once.
 						if (line_grp[key].lines.indexOf(my_line) !== -1) { return; }
 						line_grp[key].lines.push(my_line);
+						if (lines_affected.indexOf(my_line) === -1) {
+							lines_affected.push(my_line);
+						}
 
 						if (!line_boros[key]) {
 							line_boros[key] = [];
@@ -78,6 +82,7 @@ class Summary extends React.Component {
 						Object.keys(lines).map(l => (<GroupLineCard
 								key={_.uniqueId('lineCard-')}
 								line_group={l}
+								affectedLines={lines_affected}
 								boros={line_boros[l]}
 								events={lines[l]}/>) )
 							}
@@ -108,11 +113,16 @@ class GroupLineCard extends React.Component {
 
 	assembleLines(lines) {
 		return (lines && lines.length > 0 && Array.isArray(lines))
-			? lines.map( t => (
-				<TrainLine
-					key={_.uniqueId('train-' + t)}
-					line={t.toUpperCase()}/>
-				))
+			? lines
+				.map( t => (isNaN(parseInt(t)))
+					? t.toUpperCase()
+					: parseInt(t) )
+				.map( t => (
+					<TrainLine
+						key={_.uniqueId('train-' + t)}
+						line={t}
+						disabled={(this.props.affectedLines.indexOf(t) === -1)}/>
+					))
 			: null;
 	}
 
