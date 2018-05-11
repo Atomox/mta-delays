@@ -18,6 +18,7 @@ class StationList extends React.Component {
           {
             Object.keys(this.props.stations[line].stations).map( sid =>  (
               <Station
+								key={_.uniqueId('sid-')}
                 stations={this.props.stations}
                 line={line}
                 sid={sid} />

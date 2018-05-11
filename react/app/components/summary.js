@@ -80,6 +80,7 @@ class Summary extends React.Component {
 					<div className="cell small-offset-1 small-11 medium-6">
 					{
 						Object.keys(lines).map(l => (<GroupLineCard
+								key={_.uniqueId('lineCard-')}
 								line_group={l}
 								boros={line_boros[l]}
 								events={lines[l]}/>) )
@@ -95,19 +96,54 @@ class GroupLineCard extends React.Component {
 
 	assembleBoros(boros, short, caps) {
 		return (boros && Array.isArray(boros))
-			? boros
-				.map( b => (<Boro boro={b} short={short} caps={caps}/> ) )
-				.reduce((prev, curr) => [prev, ', ', curr])
-				: null;
+			? boros.map( b => (
+					<Boro
+						key={_.uniqueId('boro-' + b)}
+						boro={b}
+						short={short}
+						caps={caps}/>
+					))
+				.reduce((prev, curr) => ((prev === null)
+					? [curr]
+					: [prev, ', ', curr]),
+				null)
+			: null;
+	}
+
+	assembleLines(lines) {
+		return (lines && lines.length > 0 && Array.isArray(lines))
+			? lines.map( t => (
+				<TrainLine
+					key={_.uniqueId('train-' + t)}
+					line={t.toUpperCase()}/>
+				))
+			: null;
+	}
+
+	assembleEvents(events) {
+		return (events && Array.isArray(events))
+			? events.map( e => (
+				<li className="grid-x" key={_.uniqueId('sum-event')}>
+					<div className="cell small-2 large-1">
+						{ (e.lines && Array.isArray(e.lines)) ? e.lines.join('/') : '' }
+					</div>
+
+					<div className="cell small-4 large-3">
+					{	(e.boro)
+						? this.assembleBoros(e.boro, true, false)
+						: null	}
+					</div>
+
+					<div className="cell small-4 large-5">
+						{	(e.keyword) ? e.keyword : '' }
+					</div>
+				</li>))
+			: null;
 	}
 
 	render() {
 
 		let lines = this.props.line_group.split('-');
-
-
-		console.log('[line card]', lines, this.props);
-
 
 		if (!lines || !this.props.events) {
 			return null;
@@ -123,12 +159,7 @@ class GroupLineCard extends React.Component {
 			<div style={style} className="group-line-card">
 				<div className="grid-x">
 					<h3 className="cell small-4">
-						{ (lines && lines.length > 0)
-							? lines.map( t => <TrainLine
-								key={_.uniqueId('train-' + t)}
-								line={t.toUpperCase()}/>)
-							: ''
-						}
+						{ this.assembleLines(lines) }
 					</h3>
 					<div className="cell small-8 text-right">
 						{ this.assembleBoros(this.props.boros, false, false) }
@@ -136,20 +167,7 @@ class GroupLineCard extends React.Component {
 				</div>
 
 				<ul>
-					{this.props.events.map( e => (
-						<li className="grid-x">
-							<div className="cell small-2 large-1">
-								{ (e.lines) ? e.lines.join('/') : '' }
-							</div>
-							<div className="cell small-4 large-3">
-
-
-							{	this.assembleBoros(e.boro, true, false)	}
-							</div>
-							<div className="cell small-4 large-5">
-								{	(e.keyword) ? e.keyword : '' }
-							</div>
-						</li>))}
+					{ this.assembleEvents(this.props.events) }
 				</ul>
 			</div>
 		);

@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 class Boro extends React.Component {
@@ -38,9 +38,6 @@ class Boro extends React.Component {
 
 		if (this.props.caps && typeof val === 'string') {
 			val = val.toUpperCase();
-		}
-		else {
-			console.warn(this.props.boro, 'is of type', typeof val);
 		}
 
 		return (

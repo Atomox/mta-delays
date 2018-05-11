@@ -1,4 +1,4 @@
-let React = require('React');
+let React = require('react');
 
 class TrainLine extends React.Component {
 

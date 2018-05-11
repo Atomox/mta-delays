@@ -57,22 +57,28 @@ class RouteChange extends React.Component {
               dir={'both'} />)
           : 'run between';
 
-  			let from = (<Station
-  					stations={this.props.stations}
+  			let from = (r.from) ? (<Station
+            key={_.uniqueId('station-' + r.from)}
+            stations={this.props.stations}
   					line={_.union([r.along],r.lines)}
   					sid={r.from}/>
-  			);
-  			let to = (<Station
+  			) : null;
+
+  			let to = (r.to) ? (<Station
+            key={_.uniqueId('station-' + r.to)}
   					stations={this.props.stations}
   					line={_.union([r.along],r.lines)}
   					sid={r.to}/>
-  			);
+  			) : null;
+
         let boro_general = (r.in)
           ? r.in
           : null;
+          
         let bypass_stations = (r.bypass)
           ? r.bypass
               .map( s => (<Station
+                key={_.uniqueId('station-' + s)}
       					stations={this.props.stations}
       					line={_.union([r.along],r.lines)}
       					sid={s}/> ) )
