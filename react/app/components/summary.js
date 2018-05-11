@@ -14,8 +14,6 @@ class Summary extends React.Component {
 
 			if (!this.props.events || this.props.events.length <= 0) { return null; }
 
-			console.log(this.props.events);
-
 			let lines = {},
 					line_boros = {};
 
@@ -70,8 +68,6 @@ class Summary extends React.Component {
 						lines[i].push(line_grp[i]);
 					});
 			});
-
-			console.log(' <LINES> . . .', lines);
 
 			return (
 				<div className="Summary grid-x">

@@ -8,7 +8,6 @@ class StationList extends React.Component {
 
 	render() {
 		if (Object.keys(this.props.stations).length === 0) {
-        console.log(this.props.stations);
 			return null;
 		}
 

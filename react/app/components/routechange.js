@@ -74,7 +74,7 @@ class RouteChange extends React.Component {
         let boro_general = (r.in)
           ? r.in
           : null;
-          
+
         let bypass_stations = (r.bypass)
           ? r.bypass
               .map( s => (<Station
@@ -101,8 +101,6 @@ class RouteChange extends React.Component {
         if (no_svc_between) {
           pre += ' ' + 'No';
         }
-
-        console.log(r.lines, r);
 
   			return (
           <div key={_.uniqueId()}>
