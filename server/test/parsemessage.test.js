@@ -149,23 +149,29 @@ describe('Parse Service Messages', function() {
 				],
 				library = {
 					text: {
-						'signal_problems': ['signal problems'],
-						'route_change': ['route change']
+						wrapper: {
+							'signal_problems': ['signal problems'],
+							'route_change': ['route change']
+						}
 					},
 					regex: {
-						'signal_problems': [/signal\s*problems/i],
-						'route_change': [
-							/route\s*change/i,
-							/running\s*over\s*the\s*\[[A-Z0-9]\]/i,
-						]
+						wrapper: {
+							'signal_problems': [/signal\s*problems/i],
+							'route_change': [
+								/route\s*change/i,
+								/running\s*over\s*the\s*\[[A-Z0-9]\]/i,
+							]
+						}
 					},
 					mixed: {
-						'signal_problems': ['signal problems', /signal\s*problems/i],
-						'route_change': [
-							'route change',
-							/route\s*change/i,
-							/running\s*over\s*the\s*\[[A-Z0-9]\]/i,
-						]
+						'wrapper': {
+							'signal_problems': ['signal problems', /signal\s*problems/i],
+							'route_change': [
+								'route change',
+								/route\s*change/i,
+								/running\s*over\s*the\s*\[[A-Z0-9]\]/i,
+							]
+						}
 					},
 				};
 			Object.keys(library).map( (l) => {

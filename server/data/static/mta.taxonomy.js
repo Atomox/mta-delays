@@ -1,17 +1,14 @@
 const taxonomy = {
 
-	incident_types: {
-		// Incidents
+
+	// Incidents
+	incident_unplanned: {
 		'service_resumed': [
 			'resumed making stops',
 			'service has resumed',
 			'following an earlier incident',
 			'resumed service',
 			'service resumed',
-		],
-		'delays': [
-			'delays',
-			'running with delays',
 		],
 		'illness': [
 			'sick passenger',
@@ -56,9 +53,20 @@ const taxonomy = {
 			'track condition',
 		],
 		'switch_problems': ['switch problems'],
+	},
 
 
-		// Diversions.
+
+	incident_byproduct: {
+		'delays': [
+			'delays',
+			'running with delays',
+		],
+	},
+
+
+	// Diversions.
+	incident_diversion: {
 		'operate_sections': [
 			'operates in two sections',
 			'operate in two sections',
@@ -130,8 +138,11 @@ const taxonomy = {
 			'slow speed order',
 			'slow speed'
 		],
+	},
 
-		// Misc
+
+	// Misc
+	incident_misc: {
 		'additional_service': ['Additional service'],
 		'bad_weather': [
 			'weather conditions',
@@ -142,9 +153,11 @@ const taxonomy = {
 			'New Year\'s Eve',
 			'Celebrations',
 		],
+	},
 
 
-		// Construction
+	// Construction
+	incident_planned: {
 		'general_maintenance': [
 			'PRIORITY REPAIRS',
 			'SCHEDULED MAINTENANCE',

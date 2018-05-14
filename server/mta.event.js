@@ -1261,42 +1261,72 @@ async function getMessageRouteChange(text) {
  */
 function getMessageAction(text, action, external_library) {
 
-	let my_status = [],
-		source = (external_library)
-			? external_library
-			: mtaTaxonomy.incident_types;
+	let my_status = getWeightedMessageTaxonomy(text, action, external_library);
 
-	text = text.toUpperCase();
+	return my_status.tags;
+}
 
-	for (type in source) {
-		if (action && action.indexOf(type) === -1) { continue; }
 
-		for (variation in source[type]) {
-			if (!source[type][variation]) {
-				continue;
-			}
+function getWeightedMessageTaxonomy(text, action, external_library) {
 
-			if (source[type][variation] instanceof RegExp) {
-				try {
-					if (text.match(source[type][variation])) {
-						my_status.push(type);
-						break;
+		let my_status = [],
+			my_status_detailed = {},
+			source = (external_library)
+				? external_library
+				: mtaTaxonomy;
+
+		// Adding layer for external libraries, due to boject structure change for
+		// main taxonomy file.
+		if (external_library) {
+			external_library = {
+				padding_layer: external_library
+			};
+		}
+
+		text = text.toUpperCase();
+
+		for (let group in source) {
+			for (let type in source[group]) {
+				if (action && action.indexOf(type) === -1) { continue; }
+
+				for (let variation in source[group][type]) {
+
+					if (!source[group][type][variation]) {
+						continue;
 					}
-				}
-				catch (err) {
-					console.log('getMessageAction(): failed to execute a regex taxonomy. -- ', err);
-				}
-			}
-			else if (typeof source[type][variation] == 'string') {
-				if (text.indexOf(source[type][variation].toUpperCase()) !== -1) {
-					my_status.push(type);
-					break;
+					else if (!(source[group][type][variation] instanceof RegExp)
+						&& typeof source[group][type][variation] !== 'string') {
+						continue;
+					}
+
+					try {
+						let inSource = ((source[group][type][variation] instanceof RegExp))
+							? text.match(source[group][type][variation])
+							: (text.indexOf(source[group][type][variation].toUpperCase()) !== -1)
+
+						if (inSource) {
+							my_status.push(type);
+							if (!my_status_detailed[group]) {
+								my_status_detailed[group] = [];
+							}
+							my_status_detailed[group].push(type);
+							console.log('<T>', type);
+							break;
+						}
+					}
+					catch (err) {
+						console.log('getMessageAction(): failed to execute a regex taxonomy. -- ', err);
+					}
 				}
 			}
 		}
-	}
 
-	return (my_status.length > 0) ? my_status : [];
+		console.log(my_status_detailed);
+
+		return {
+			tags: (my_status.length > 0) ? my_status : [],
+			tags_detailed: (my_status_detailed.length > 0) ? my_status_detailed : []
+		};
 }
 
 
