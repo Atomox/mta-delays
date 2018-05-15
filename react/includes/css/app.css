@@ -49,6 +49,18 @@
 	padding: 0;
 }
 
+.group-line-card .weight-1 {
+	color: red;
+}
+.group-line-card .weight-2 {
+	color: orange;
+}
+
+.group-line-card .weight-4,
+.group-line-card .weight-5 {
+	color: #999;
+}
+
 .group-line-card h3 {
 	line-height: 1.15rem;
 }

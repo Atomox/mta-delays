@@ -40,7 +40,7 @@ class Summary extends React.Component {
 						line_grp = {};
 
 					// Detail of event.
-					msg.keyword.push(e.detail.type_detail[0]);
+					msg.keyword.push(e.detail.type);
 
 					// Determine affected lines, add them, and add affected boros for each line.
 					e.line.map( l => {
@@ -75,9 +75,9 @@ class Summary extends React.Component {
 
 			return (
 				<div className="Summary grid-x">
-					<div className="cell medium-4">
+					<div className="cell medium-3 large-5">
 					</div>
-					<div className="cell small-offset-1 small-11 medium-6">
+					<div className="cell small-offset-1 small-11 medium-9 large-7">
 					{
 						Object.keys(lines).map(l => (<GroupLineCard
 								key={_.uniqueId('lineCard-')}
@@ -127,23 +127,32 @@ class GroupLineCard extends React.Component {
 	}
 
 	assembleEvents(events) {
+
 		return (events && Array.isArray(events))
-			? events.map( e => (
-				<li className="grid-x" key={_.uniqueId('sum-event')}>
-					<div className="cell small-2 large-1">
-						{ (e.lines && Array.isArray(e.lines)) ? e.lines.join('/') : '' }
-					</div>
+			? events.map( e => {
 
-					<div className="cell small-4 large-3">
-					{	(e.boro)
-						? this.assembleBoros(e.boro, true, false)
-						: null	}
-					</div>
+				let tagClass = 'cell small-4 large-5',
+					mainTag = (e.keyword[0]) ? e.keyword[0] : null;
+				tagClass += (mainTag.weight) ? ' weight-' + mainTag.weight : 'weight-5';
 
-					<div className="cell small-4 large-5">
-						{	(e.keyword) ? e.keyword : '' }
-					</div>
-				</li>))
+				return (
+					<li className="grid-x" key={_.uniqueId('sum-event')}>
+						<div className="cell small-2 x-large-1">
+							{ (e.lines && Array.isArray(e.lines)) ? e.lines.join('/') : '' }
+						</div>
+
+						<div className="cell small-4 large-3">
+						{	(e.boro)
+							? this.assembleBoros(e.boro, true, false)
+							: null }
+						</div>
+
+						<div className={tagClass}>
+							{	(mainTag.tag) ? mainTag.tag : 'Foo' }
+						</div>
+					</li>
+				);
+			})
 			: null;
 	}
 

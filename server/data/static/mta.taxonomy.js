@@ -23,7 +23,10 @@ const taxonomy = {
 		'death': [
 			'fatal injury',
 		],
-		'signal_problems': ['signal problems'],
+		'signal_problems': [
+			'signal problems',
+			'signal problem'
+		],
 		'power_loss': ['loss of power'],
 		'unautherized_person': [
 			'unauthorized person on the tracks',

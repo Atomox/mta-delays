@@ -194,6 +194,7 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 			e = {
 				type: null,
 				type_detail: null,
+				tags: [],
 				boros: [],
 				time: null,
 				durration: null,
@@ -206,7 +207,10 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 			};
 
 			// Determine if the event type has more detail.
-			e.type_detail = getMessageAction(event);
+			let tags = getWeightedMessageTaxonomy(event);
+			e.type = getPrimaryTag(tags['tags_detailed']);
+			e.type_detail = tags['tags'];
+			e.tags = tags['tags_detailed'];
 
 			// Get an interruption time
 			e.time = null;
@@ -1310,7 +1314,6 @@ function getWeightedMessageTaxonomy(text, action, external_library) {
 								my_status_detailed[group] = [];
 							}
 							my_status_detailed[group].push(type);
-							console.log('<T>', type);
 							break;
 						}
 					}
@@ -1321,12 +1324,42 @@ function getWeightedMessageTaxonomy(text, action, external_library) {
 			}
 		}
 
-		console.log(my_status_detailed);
-
 		return {
 			tags: (my_status.length > 0) ? my_status : [],
-			tags_detailed: (my_status_detailed.length > 0) ? my_status_detailed : []
+			tags_detailed: (my_status_detailed) ? my_status_detailed : []
 		};
+}
+
+function getTagWeight(tag, tag_group) {
+	switch (tag_group) {
+		case 'incident_unplanned':
+			return 1;
+
+		case 'incident_byproduct':
+			return 5;
+
+		case 'incident_diversion':
+			return 2;
+
+		case 'incident_misc':
+		case 'incident_planned':
+			return 4;
+
+		default:
+			return 5;
+	}
+}
+
+function getPrimaryTag(weighted_tags) {
+	let first_key = Object.keys(weighted_tags)[0],
+		first = weighted_tags[first_key],
+		tag = (first.length > 0) ? first[0] : null,
+		weight = getTagWeight(tag, first_key);
+
+	return {
+		tag: tag,
+		weight: weight
+	}
 }
 
 
