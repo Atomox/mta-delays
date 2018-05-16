@@ -6,6 +6,7 @@ import { TrainLine } from './trains';
 import { Boro } from './boro';
 
 import { mtaSubway as mta } from '../includes/mta.subway';
+import { helpers } from '../includes/helpers';
 
 
 class Summary extends React.Component {
@@ -132,7 +133,11 @@ class GroupLineCard extends React.Component {
 			? events.map( e => {
 
 				let tagClass = 'cell small-4 large-5',
-					mainTag = (e.keyword[0]) ? e.keyword[0] : null;
+					mainTag = (e.keyword[0])
+						// ? e.keyword[0]
+						? e.keyword[0]
+						: {tag: '', weight: 5};
+				mainTag.tag = helpers.underscoreToCaps(e.keyword[0].tag);
 				tagClass += (mainTag.weight) ? ' weight-' + mainTag.weight : 'weight-5';
 
 				return (
