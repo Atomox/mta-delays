@@ -1353,7 +1353,7 @@ function getTagWeight(tag, tag_group) {
 function getPrimaryTag(weighted_tags) {
 	let first_key = Object.keys(weighted_tags)[0],
 		first = weighted_tags[first_key],
-		tag = (first.length > 0) ? first[0] : null,
+		tag = (first && first.length > 0) ? first[0] : null,
 		weight = getTagWeight(tag, first_key);
 
 	return {

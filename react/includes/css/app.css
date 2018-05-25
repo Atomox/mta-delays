@@ -14,6 +14,41 @@
 	display: block;
 }
 
+svg path: {
+	fill: inherit;
+}
+use.manhattan,
+use.queens,
+use.bronx,
+use.brooklyn,
+use.staten_island {
+	fill: #6B4D51;
+}
+
+use.severity-1 {
+	fill: #DF5A7F;
+}
+use.severity-2 {
+	fill: #FE9CB7;
+}
+use.severity-3 {
+	fill: #F0855B;
+}
+use.severity-4 {
+	fill: #FFA67E;
+}
+use.severity-5 {
+	fill: #9C7076;
+}
+
+use.manhattan:hover,
+use.queens:hover,
+use.bronx:hover,
+use.brooklyn:hover,
+use.staten_island:hover {
+	fill: #999;
+}
+
 .group-line-card {
 	margin: .25rem .25rem .35rem .25rem;
 	padding-bottom: .35rem;

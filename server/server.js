@@ -150,7 +150,7 @@ function addResponseInfo(data, req) {
   data.summary.planned_work_lines = getLines(false, true);
   data.summary.planned_events = getEvents(false, true).length;
   data.summary.unplanned_events = getEvents(true, false).length;
-  data.summary.time = (data.events[0].date) ? getEventTime(data.events[0].date.fetched) : null;
+  data.summary.time = (data.events[0] && data.events[0].date) ? getEventTime(data.events[0].date.fetched) : null;
 
   return data;
 }
