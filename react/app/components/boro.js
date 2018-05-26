@@ -23,12 +23,27 @@ class Boro extends React.Component {
 
 		function getShortName(b) {
 			switch(b) {
-				case 'Mn': return 'Man';
-				case 'Bk': return 'Bklyn';
-				case 'Qs': return 'Qns';
-				case 'Bx': return 'Bronx';
+
+				case 'manhattan':
+				case 'Mn':
+					return 'Man';
+
+				case 'brooklyn':
+				case 'Bk':
+					return 'Bklyn';
+
+				case 'queens':
+				case 'Qs':
+					return 'Qns';
+
+				case 'bronx':
+				case 'Bx':
+					return 'Bronx';
+
+				case 'statenIsland':
 				case 'SI':
-				case 'Si': return 'S.I.';
+				case 'Si':
+					return 'S.I.';
 			}
 		}
 

@@ -8,6 +8,9 @@ import { Boro } from './boro';
 import { mtaSubway as mta } from '../includes/mta.subway';
 import { helpers } from '../includes/helpers';
 import BoroMap from './maps/BoroMap';
+import Logo from './Header/Logo';
+import BoroSummary from './Header/BoroSummary';
+import DateDisplay from './Header/DateDisplay';
 
 class Summary extends React.Component {
 
@@ -46,23 +49,28 @@ class Summary extends React.Component {
 					boro_count = {
 						Mn: {
 							highest: 5,
-							severity: []
+							severity: [],
+							lines_affected: []
 						},
 						Qs: {
 							highest: 5,
-							severity: []
+							severity: [],
+							lines_affected: []
 						},
 						Bk: {
 							highest: 5,
-							severity: []
+							severity: [],
+							lines_affected: []
 						},
 						Bx: {
 							highest: 5,
-							severity: []
+							severity: [],
+							lines_affected: []
 						},
 						SI: {
 							highest: 5,
-							severity: []
+							severity: [],
+							lines_affected: []
 						},
 					};
 
@@ -125,6 +133,9 @@ class Summary extends React.Component {
 								boro_count[b].severity[severity] = 0;
 							}
 							boro_count[b].severity[severity] ++;
+
+							boro_count[b].lines_affected.push(l.line);
+							boro_count[b].lines_affected = _.uniq(boro_count[b].lines_affected);
 						});
 					});
 
@@ -150,28 +161,48 @@ class Summary extends React.Component {
 			let { lines, line_boros, lines_affected, boro_count} = this.prepareEvents(this.props.events);
 
 			// Get a final boro_severity for each boro.
-			boro_count = this.determineSeverity(boro_count);
+			let boro_severity = this.determineSeverity(boro_count);
 
 			return (
-				<div className="Summary grid-x">
+				<div className="Summary grid-x grid-padding-x">
 
-					<div className="cell small-12 medium-3 large-5">
-						<BoroMap
-						 	manhattan={boro_count['Mn']}
-							brooklyn={boro_count['Bk']}
-							queens={boro_count['Qs']}
-							bronx={boro_count['Bx']}
-							statenIsland={boro_count['SI']} />
+					<div className="cell small-12 medium-5 large-5">
+						<div className="grid-x">
+							<div className="small-centered small-6 medium-12 large-8">
+								<BoroMap
+								 	manhattan={boro_severity['Mn']}
+									brooklyn={boro_severity['Bk']}
+									queens={boro_severity['Qs']}
+									bronx={boro_severity['Bx']}
+									statenIsland={boro_severity['SI']} />
+							</div>
+							<div className="small-6 medium-12">
+
+								<Logo />
+
+								<BoroSummary
+									manhattan={boro_count['Mn']}
+									brooklyn={boro_count['Bk']}
+									queens={boro_count['Qs']}
+									bronx={boro_count['Bx']}
+									statenIsland={boro_count['SI']}
+									/>
+							</div>
+						</div>
 					</div>
-					<div className="cell small-11 medium-9 large-7">
-					{
-						Object.keys(lines).map(l => (<GroupLineCard
-							key={_.uniqueId('lineCard-')}
-							line_group={l}
-							affectedLines={lines_affected}
-							boros={line_boros[l]}
-							events={lines[l]}/>) )
-					}
+					<div className="cell small-11 medium-7 large-7">
+
+						<DateDisplay
+							age={this.props.age} />
+
+						{
+							Object.keys(lines).map(l => (<GroupLineCard
+								key={_.uniqueId('lineCard-')}
+								line_group={l}
+								affectedLines={lines_affected}
+								boros={line_boros[l]}
+								events={lines[l]}/>) )
+						}
 					</div>
 				</div>
 			);
@@ -227,7 +258,7 @@ class GroupLineCard extends React.Component {
 
 				return (
 					<li className="grid-x" key={_.uniqueId('sum-event')}>
-						<div className="cell small-2 x-large-1">
+						<div className="cell small-2 x-large-1 lines">
 							{ (e.lines && Array.isArray(e.lines)) ? e.lines.join('/') : '' }
 						</div>
 
@@ -238,7 +269,7 @@ class GroupLineCard extends React.Component {
 						</div>
 
 						<div className={tagClass}>
-							{	(mainTag.tag) ? mainTag.tag : 'Foo' }
+							{	(mainTag.tag) ? mainTag.tag : 'UNKNOWN' }
 						</div>
 					</li>
 				);
@@ -255,7 +286,7 @@ class GroupLineCard extends React.Component {
 		}
 		let color = mta.getLineGroupColor(this.props.line_group);
 		let style = {
-			borderLeft: '3px',
+			borderLeft: '4px',
 			borderLeftStyle: 'solid',
 			borderLeftColor: color
 		};

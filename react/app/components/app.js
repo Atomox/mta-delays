@@ -9,8 +9,8 @@ let Summary = require('./summary').Summary;
 // Config
 const api = require('../../../config/settings');
 
-// const endpoint = 'subway/status';
- const endpoint = 'subway/status/archive/5'; // 43 (lcl/exp) // 15 (route change) 27 (d/f crazy route change) 74, 117
+ const endpoint = 'subway/status';
+// const endpoint = 'subway/status/archive/5'; // 43 (lcl/exp) // 15 (route change) 27 (d/f crazy route change) 74, 117
 
 /**
  * The main app container.
@@ -75,6 +75,11 @@ class App extends React.Component {
 
         <Summary
           events={this.state.events}
+          age={this.state.age}
+          status={this.state.status}
+          numEvents={this.state.events.length}
+          archive={this.state.archive}
+          summary={this.state.summary}
           />
 
         {Object.keys(this.state.events).map(key =>

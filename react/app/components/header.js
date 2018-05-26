@@ -61,12 +61,6 @@ class Header extends React.Component {
 
 				<Archive archive={this.props.archive} stats={this.props.summary}/>
 
-				<div>
-					<h5>{moment(this.props.age).format('dddd, MMMM Do')}</h5>
-					<h1>{moment(this.props.age).format('h:mm A')}</h1>
-					<h4><span className="station">Astoria/Ditmars</span> Release</h4>
-				</div>
-
 				{(this.props.status == 'initializing' || this.props.status === false)
 					? <StateMessage status={this.props.status} />
 					: (this.props.numEvents === 0)
