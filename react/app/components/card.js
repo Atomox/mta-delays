@@ -8,13 +8,16 @@ class Card extends React.Component {
 
 		return(
 			<div className="card" key={key}>
-			  <div className={this.props.headerClass}>
-			    <h3>{this.props.header}</h3>
-			  </div>
-				<div className="subtitle">
-					{this.props.headerSubtitle}
+			  <div className={this.props.headerClass}></div>
+				<div className="grid-x">
+					<div className="subtitle small-12 medium-5">
+						{this.props.headerSubtitle}
+					</div>
+					<div className="title small-12 medium-7">
+						<h3>{this.props.header}</h3>
+					</div>
 				</div>
-			  <div className="card-section">
+			  <div className="card-section small-12 medium-6">
 			    {this.props.children}
 			  </div>
 			</div>

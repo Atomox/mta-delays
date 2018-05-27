@@ -11,11 +11,20 @@ class TrainLine extends React.Component {
 			: this.props.line;
 	}
 
+	getDirection() {
+		return (this.props.dir !== 'both' && this.props.dir)
+			? (<span className="direction"> { mta.getlineDirectionAbbreviation(this.props.dir)}</span> )
+			: null;
+	}
+
 	render() {
 
 		let classes = 'line';
 		if (this.props.disabled) {
 			classes = classes + ' ' + 'disabled';
+		}
+		if (this.props.outline) {
+			classes = classes + ' ' + 'outline';
 		}
 
 		return (
@@ -24,7 +33,7 @@ class TrainLine extends React.Component {
 					{ this.getLine() }
 				</strong>
 
-				{(this.props.dir !== 'both') ? this.props.dir : null}
+				{ this.getDirection() }
 			</span>
 		);
 	}

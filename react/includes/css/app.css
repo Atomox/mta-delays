@@ -2,16 +2,60 @@
 .bad {
 	color: red;
 }
+.card-divider.bad-background {
+	background-color: red;
+}
 .warn {
 	color: orange;
 }
+.card-divider.caution-background {
+	background-color: orange;
+}
+
 
 .good {
 	color: green;
 }
 
-.card .subtitle{
+.card .subtitle,
+.card .title h3 {
+	font-size: 1.2rem;
+}
+.card .title h3 {
+	color: #999;
+	text-align: right;
+	padding-right: .75rem;
+}
+.card .subtitle {
 	display: block;
+}
+.card .subtitle strong{
+	color: #D8D8D8;
+}
+
+.card h2 {
+	font-size: 1.2rem;
+	color: #8A8A8A;
+	font-weight: 200;
+	border-bottom: 1px solid #ddd;
+	margin-top: 1.5rem;
+}
+
+.card .detail-message {
+	padding-left: 2rem;
+	color: #8A8A8A;
+}
+
+
+
+#app .card {
+	margin: .5rem;
+	border-bottom-left-radius: .5rem;
+	border-bottom-right-radius: .5rem;
+}
+
+#app .card-divider {
+	padding: .5rem;
 }
 
 svg path: {
@@ -289,6 +333,7 @@ ul.BoroSummary {
 .BoroSummary .line {
 	font-size: .65rem;
 }
+.line.outline strong,
 .BoroSummary .line.disabled strong{
 	background-color: #FFF;
 	color: #AAA;
@@ -303,6 +348,21 @@ span.line {
 span.boro {
 	padding-right: .85em;
 	color: #999;
+}
+
+.line {
+	display: inline-block;
+	max-width: 2em;
+	border-radius: .5rem;
+}
+
+.line .direction {
+	display: inline-block;
+	font-size: .5em;
+	line-height: 1em;
+	clear: left;
+	text-align: center;
+	color: #AAA;
 }
 
 .line strong {
@@ -322,14 +382,20 @@ span.boro {
   align-items: center;
 }
 
+.line.outline strong,
+.line.disabled strong {
+	border: 1px solid #e0e0e0;
+}
 .line.disabled strong {
 	background-color: #eee;
-	border: 1px solid #e0e0e0;
 }
 
 .route-change {
-	padding-bottom: 1rem;
-	border-bottom: 1px dashed #eee;
+	padding: 1rem .5rem 1rem 1rem;
+	border-left: 1px dashed #eee;
+}
+.route-change > div {
+	margin-top: .25rem;
 }
 
 .station {

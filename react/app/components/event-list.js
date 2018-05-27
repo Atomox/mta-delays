@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 
 import Card from './card';
@@ -9,6 +10,7 @@ import { Station } from './stations';
 import { TrainLine } from './trains';
 import { Boro } from './boro';
 import { mtaSubway as mta } from '../includes/mta.subway';
+import { helpers as mtaHelp } from '../includes/helpers';
 
 
 class EventList extends React.Component {
@@ -18,7 +20,7 @@ class EventList extends React.Component {
 		let e = this.props.event;
 
 		let titleClass = "card-divider ";
-		titleClass += (e.planned === true) ? 'caution' : 'bad';
+		titleClass += (e.planned === true) ? 'caution-background' : 'bad-background';
 
 		let trains = {};
 		for (let i in e.line) {
@@ -38,52 +40,65 @@ class EventList extends React.Component {
 		return (
 
 			<Card key="event-list" id={e.id}
-				header={e.type}
+				header={ (e.detail.type_detail)	? e.detail.type_detail
+							.map(tag => mtaHelp.underscoreToCaps(tag))
+							.join(' | ') : '' }
 				headerSubtitle={
 					e.detail.boros.global.map(b => {
 					return <Boro
 						key={_.uniqueId('boro-' + b)}
-						boro={b} />;
+						boro={b}
+						caps={false} />;
 					})
 				}
 				headerClass={titleClass}>
 			  <div>
+					<div className="grid-x">
+						<div className="small-12 medium-4 large-3">
+					  	<h3>
+					    {
+								Object.keys(trains).map((key, i) => {
+									let line = trains[key].line;
+									let dir = mta.getlineDirectionByID(trains[key].dir);
 
-			    <h3>
-			    {
-						Object.keys(trains).map((key, i) => {
-							let line = trains[key].line;
-							let dir = mta.getlineDirectionByID(trains[key].dir);
+									return <TrainLine
+										key={_.uniqueId('train-' + line)}
+										line={line}
+										dir={dir} />;
+								})
+							}
+							</h3>
+						</div>
+						<div className="small-12 medium-8 large-9">
+							{ (e.detail.route_change
+								&& typeof e.detail.route_change.route == 'object'
+								&& e.detail.route_change.route.length > 0)
+								? <RouteChange routeInfo={e.detail.route_change} stations={e.detail.stations} />
+								: '' }
+						</div>
+					</div>
+					<h2>{e.detail.type.tag}</h2>
 
-							return <TrainLine
-								key={_.uniqueId('train-' + line)}
-								line={line}
-								dir={dir} />;
-						})
-					}
-					</h3>
-					<h5>
-						{ (e.detail.type_detail)
-							? e.detail.type_detail.join(' | ')
-							: ''}
-					</h5>
-					{ (e.detail.route_change
-						&& typeof e.detail.route_change.route == 'object'
-						&& e.detail.route_change.route.length > 0)
-						? <RouteChange routeInfo={e.detail.route_change} stations={e.detail.stations} />
-						: '' }
+					<div className="detail-message">
+						<p>{e.detail.message}</p>
 
-					<p>{e.detail.message}</p>
 
-					{(e.detail.stations)
-						? <StationList stations={e.detail.stations} /> : ''}
+						<div className="grid-x">
+							<div className="medium-8">
+								{(e.detail.stations)
+									? <StationList stations={e.detail.stations} /> : ''}
+							</div>
+							<div className="medium-4 text-right">
 
-			    <small>
-			    	{(e.planned === true)
-			    		? e.detail.durration
-			    		: new Date(e.date.start).toString()
-			    	}</small>
-			    </div>
+						    <small>
+						    	{(e.planned === true)
+						    		? e.detail.durration
+					    			: moment(e.date.start).format('h:mm A, dddd, MMMM Do')
+					    	}</small>
+							</div>
+						</div>
+					</div>
+		    </div>
 			</Card>
 		);
 	}

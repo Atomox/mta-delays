@@ -142,12 +142,24 @@ let mtaSubway = (() => {
 		return (id == 0) ? 'northbound' : 'southbound';
 	}
 
+	function getlineDirectionAbbreviation(dir) {
+		switch (dir) {
+			case 'northbound':
+				return 'North Bound';
+			case 'southbound':
+				return 'South Bound';
+			default:
+				return dir;
+		}
+	}
+
 
 	return({
 		getlineById: getlineById,
 		getLineGroup: getLineGroup,
 		getLineGroupColor: getLineGroupColor,
 		getlineDirectionByID:getlineDirectionByID,
+		getlineDirectionAbbreviation: getlineDirectionAbbreviation
 	});
 })();
 

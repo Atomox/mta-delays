@@ -3,6 +3,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 
 import { mtaSubway as mta } from '../includes/mta.subway';
+import { TrainLine } from './trains';
 
 class StationList extends React.Component {
 
@@ -13,7 +14,10 @@ class StationList extends React.Component {
 
     let station_list = (Object.keys(this.props.stations).map(line => (
         <div key={_.uniqueId()} className="station-list-line">
-          {mta.getlineById(line)} :
+					<TrainLine
+						key={_.uniqueId('train-' + line)}
+						line={line}
+						outline={true} />
           {
             Object.keys(this.props.stations[line].stations).map( sid =>  (
               <Station
@@ -29,7 +33,6 @@ class StationList extends React.Component {
 
 		return (
       <div key={_.uniqueId('stations-')} className="station-list">
-  			<em>Stations</em>
   			{	station_list }
   		</div>
     );
