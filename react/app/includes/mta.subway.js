@@ -109,6 +109,34 @@ let mtaSubway = (() => {
 		}
 	}
 
+	function getLineGroupClass(group_id) {
+		switch (group_id) {
+			case 'a-c-e':
+			case 'b-d-f-m':
+			case 'n-q-r-w':
+ 			case 'j-z':
+				return group_id;
+
+			case 'L':
+			case 'S':
+			case 'SIR':
+			case 'G':
+				return group_id.toLowerCase();
+
+			case '1-2-3':
+				return 'one-two-three';
+
+			case '4-5-6':
+				return 'four-five-six';
+
+			case '7':
+				return 'seven';
+
+			default:
+				return l;
+		}
+	}
+
 	function getLineGroupColor(line_id) {
 		switch(line_id) {
 			case 'a-c-e':
@@ -159,7 +187,8 @@ let mtaSubway = (() => {
 		getLineGroup: getLineGroup,
 		getLineGroupColor: getLineGroupColor,
 		getlineDirectionByID:getlineDirectionByID,
-		getlineDirectionAbbreviation: getlineDirectionAbbreviation
+		getlineDirectionAbbreviation: getlineDirectionAbbreviation,
+		getLineGroupClass: getLineGroupClass
 	});
 })();
 

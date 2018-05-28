@@ -12,6 +12,41 @@
 	background-color: orange;
 }
 
+.card .one-two-three-background {
+	background-color: #EE352E;
+}
+.card .four-five-six-background {
+	background-color: #00933C;
+}
+.card .seven-background {
+	background-color: #B933AD;
+}
+.card .a-c-e-background {
+	background-color: #0039A6;
+}
+.card .b-d-f-m-background {
+	background-color: #FF6319;
+}
+.card .n-q-r-w-background {
+	background-color: #FCCC0A;
+}
+.card .g-background {
+	background-color: #6CBE45;
+}
+.card .j-z-background {
+	background-color: #996633;
+}
+.card .l-background {
+	background-color: #A7A9AC;
+}
+.card .s-background {
+	background-color: #808183;
+}
+
+.card .SIR-background {
+	background-color: #CCCCCC;
+}
+
 
 .good {
 	color: green;

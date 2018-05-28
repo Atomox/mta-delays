@@ -6,8 +6,6 @@ import { Boro } from '../boro';
 
 const BoroSummary = (props) => {
 
-  console.log(props);
-
   function getDelays(boro) {
     return (props[boro].severity[1])
       ? (<span className="delays">

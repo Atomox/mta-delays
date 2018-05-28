@@ -22,6 +22,12 @@ class EventList extends React.Component {
 		let titleClass = "card-divider ";
 		titleClass += (e.planned === true) ? 'caution-background' : 'bad-background';
 
+		let group = mta.getLineGroup(e.line[0].line);
+
+		titleClass += ' ' + mta.getLineGroupClass(group) + '-background';
+
+		let color = mta.getLineGroupColor(group);
+
 		let trains = {};
 		for (let i in e.line) {
 			let line = mta.getlineById(e.line[i].line);
