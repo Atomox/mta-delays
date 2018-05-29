@@ -248,7 +248,7 @@ class GroupLineCard extends React.Component {
 		return (events && Array.isArray(events))
 			? events.map( e => {
 
-				let tagClass = 'cell small-4 large-5',
+				let tagClass = 'cell small-6 large-5',
 					mainTag = (e.keyword[0])
 						// ? e.keyword[0]
 						? e.keyword[0]

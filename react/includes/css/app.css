@@ -52,6 +52,16 @@
 	color: green;
 }
 
+.card.unplanned-incident .subtitle strong,
+.card.unplanned-incident .title h3 {
+	color: red;
+}
+
+.card.unplanned-incident .subtitle,
+.card.unplanned-incident .title {
+	background-color: #ffe2e2;
+}
+
 .card .subtitle,
 .card .title h3 {
 	font-size: 1.2rem;
@@ -90,7 +100,7 @@
 }
 
 #app .card-divider {
-	padding: .5rem;
+	padding: .35rem;
 }
 
 svg path: {

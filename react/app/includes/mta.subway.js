@@ -130,10 +130,12 @@ let mtaSubway = (() => {
 				return 'four-five-six';
 
 			case '7':
+			case 7:
 				return 'seven';
 
 			default:
-				return l;
+				console.warn('Unknown Line Group ID: ', group_id);
+				return group_id;
 		}
 	}
 

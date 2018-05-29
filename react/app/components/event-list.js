@@ -15,18 +15,49 @@ import { helpers as mtaHelp } from '../includes/helpers';
 
 class EventList extends React.Component {
 
-	render() {
+	/**
+	 * @TODO
+	 *    Testing debugging in child components.
+	 */
+	componentDidCatch(error, info) {
 
+		console.error('Error occured:', error, '\n', info);
+	}
+
+
+	/**
+	 * Determine all classes to assign to this event card.
+	 *
+	 * @return {String}
+	 *   A single string of space-seperated class names.
+	 */
+	getCardClassHeader() {
 		let e = this.props.event;
 
 		let titleClass = "card-divider ";
-		titleClass += (e.planned === true) ? 'caution-background' : 'bad-background';
+		titleClass += (e.planned === true)
+			? 'caution-background planned-work'
+			: 'bad-background unplanned-incident';
 
 		let group = mta.getLineGroup(e.line[0].line);
 
 		titleClass += ' ' + mta.getLineGroupClass(group) + '-background';
 
-		let color = mta.getLineGroupColor(group);
+		return titleClass;
+	}
+
+	getCardClass() {
+		let e = this.props.event;
+
+		let titleClass = (e.planned === true)
+			? 'planned-work'
+			: 'unplanned-incident';
+
+		return titleClass;
+	}
+
+	getEventTrains() {
+		let e = this.props.event;
 
 		let trains = {};
 		for (let i in e.line) {
@@ -42,6 +73,16 @@ class EventList extends React.Component {
 				}
 			}
 		}
+		return trains;
+	}
+
+	render() {
+
+			let e = this.props.event;
+
+			let titleClass = this.getCardClassHeader();
+			let cardClass = this.getCardClass();
+			let trains = this.getEventTrains();
 
 		return (
 
@@ -57,7 +98,8 @@ class EventList extends React.Component {
 						caps={false} />;
 					})
 				}
-				headerClass={titleClass}>
+				headerClass={titleClass}
+				cardClass={cardClass}>
 			  <div>
 					<div className="grid-x">
 						<div className="small-12 medium-4 large-3">
@@ -91,7 +133,7 @@ class EventList extends React.Component {
 
 						<div className="grid-x">
 							<div className="medium-8">
-								{(e.detail.stations)
+								{(e.detail.stations && Object.keys(e.detail.stations).length <= 2)
 									? <StationList stations={e.detail.stations} /> : ''}
 							</div>
 							<div className="medium-4 text-right">

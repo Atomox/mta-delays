@@ -5,9 +5,14 @@ class Card extends React.Component {
 
 	render() {
 		let key = (this.props.id) ? this.props.id : _.uniqueId('card');
+		let mainClass = "card";
+
+		if (this.props.cardClass) {
+			mainClass += " " + this.props.cardClass;
+		}
 
 		return(
-			<div className="card" key={key}>
+			<div className={mainClass} key={key}>
 			  <div className={this.props.headerClass}></div>
 				<div className="grid-x">
 					<div className="subtitle small-12 medium-5">
