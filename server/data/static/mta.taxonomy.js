@@ -155,6 +155,10 @@ const taxonomy = {
 			'crowd conditions',
 			'New Year\'s Eve',
 			'Celebrations',
+			'graduation ceremony',
+		],
+		'crowded_trains': [
+			'heavy ridership',
 		],
 	},
 

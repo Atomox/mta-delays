@@ -47,6 +47,27 @@
 	background-color: #CCCCCC;
 }
 
+.card .ribbon-container {
+	/* Keep that ribbon in it's cage. */
+	position: relative;
+	width: 3rem;
+	display: inline-block;
+}
+.card .ribbon {
+	border: 1px dashed red;
+	width: 8rem;
+  background-color: red;
+  position: absolute;
+  top: -2.5rem;
+  left: -3rem;
+  text-align: center;
+  line-height: 2.5rem;
+  letter-spacing: 1px;
+	font-size: 1.2rem;
+  color: #fff;
+  /* transform: rotate(-45deg); */
+  -webkit-transform: rotate(-45deg);
+}
 
 .good {
 	color: green;

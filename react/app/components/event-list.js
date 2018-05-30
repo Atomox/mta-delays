@@ -98,6 +98,7 @@ class EventList extends React.Component {
 						caps={false} />;
 					})
 				}
+				ribbon={ (e.planned) ? null : '!' }
 				headerClass={titleClass}
 				cardClass={cardClass}>
 			  <div>
