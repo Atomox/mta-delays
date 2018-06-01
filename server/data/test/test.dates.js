@@ -64,6 +64,24 @@ let dateMessages = {
 			'Weekend ... Until Summer 2018 including Dec 25, 2017 and Jan 1, 2018',
 		],
 	},
+	updated_2018: {
+		simple: [
+			'May 29 - Jun 1, Tue to Fri, 9:45 AM to 3:30 PM',
+			'May 29 - Jun 1, Tue to Fri, 9:45 AM to 1 PM',
+			'May 29 - Jun 1, Tue to Fri, 9:45 AM to 3:30 PM',
+			'Jun 1, Friday, 9 AM to 3 PM',
+			'Until May 18, Mon to Fri, from 9:45 PM to 5 AM',
+			'Until May 17 , Mon to Thu, beginning 9:45 PM',
+			'May 7 to May 24, Mon to Thu, beginning 10 PM each night',
+			'Until May 25, Mon to Fri, from 11:30 PM to 5 AM',
+			'May 7 - 11, Mon to Fri, From 11 PM to 5 AM',
+			'May 7 - 11, Mon to Fri, from 10:45 PM to 5 AM',
+			'Until May 11, Mon to Fri, from 9:45 PM to 5 AM',
+			'9:45 PM Wed, May 9 to 5 AM Thu, May 10',
+			'May 7 - 11 -- May 14 - 18, Mon to Fri, from 11 PM to 5 AM',
+			'May 7 - 11 -- May 14 - 18 , Mon to Fri, from 11:45 PM to 5 AM',
+		]
+	},
 	spellingErrors: [
 		'Late Evenng, 9:45 PM to 11 PM, Friday, Dec 22',
 	],

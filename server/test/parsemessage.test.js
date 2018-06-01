@@ -7,6 +7,8 @@ var mtaStatus = mtaStatus || require('../mta.event');
 let status_dates = require('../data/test/test.dates').dateMessages;
 let event_messages = require('../data/test/test.messages').event_messages.structured;
 
+let s = status_dates;
+let f = mtaStatus.getMessagePlannedWorkDate;
 
 
 describe('Parse Service Messages', function() {
@@ -35,58 +37,15 @@ describe('Parse Service Messages', function() {
 
 	describe('Parse Planned Work Dates', () => {
 
-		let s = status_dates;
-		let f = mtaStatus.getMessagePlannedWorkDate;
+		testDates('Should find basic [weekdays] planned work dates.', s.weekdays.simple);
+		testDates('Should find basic [weekend] planned work dates.', s.weekend.simple);
+		testDates('Should find [multi-weekend] planned work dates.', s.weekend.multiweekend);
+		testDates('Should find [complex] planned work dates.', s.weekend.complex);
+		testDates('Should find [multi-weekday] planned work dates.', s.weekdays.multiweek);
+		testDates('Should find [long-term] planned work dates.', s.longterm.simple);
+		testDates('Should find [unique] planned work dates, like Holidays.', s.weekend.unique);
 
-		it ('Should find basic [weekdays] planned work dates.', function() {
-			for (let x in s.weekdays.simple) {
-				let result = f(s.weekdays.simple[x]);
-				assert.equal(s.weekdays.simple[x], result);
-			}
-		});
-
-		it ('Should find basic [weekend] planned work dates.', function() {
-			for (let x in s.weekend.simple) {
-				let result = f(s.weekend.simple[x]);
-				assert.equal(s.weekend.simple[x], result);
-			}
-		});
-
-		it ('Should find [multi-weekend] planned work dates.', function() {
-			for (let x in s.weekend.multiweekend) {
-				let result = f(s.weekend.multiweekend[x]);
-				assert.equal(s.weekend.multiweekend[x], result);
-			}
-		});
-
-		it ('Should find [complex] planned work dates.', function() {
-			for (let x in s.weekend.complex) {
-				let result = f(s.weekend.complex[x]);
-				assert.equal(s.weekend.complex[x], result);
-			}
-		});
-
-		it ('Should find [multi-weekday] planned work dates.', function() {
-			for (let x in s.weekdays.multiweek) {
-				let result = f(s.weekdays.multiweek[x]);
-				assert.equal(s.weekdays.multiweek[x], result);
-			}
-		});
-
-		it ('Should find [long-term] planned work dates.', function() {
-			for (let x in s.longterm.simple) {
-				let result = f(s.longterm.simple[x]);
-				assert.equal(s.longterm.simple[x], result);
-			}
-		});
-
-		it ('Should find [unique] planned work dates, like Holidays.', function() {
-			for (let x in s.weekend.unique) {
-				let result = f(s.weekend.unique[x]);
-				expect(s.weekend.unique[x]).to.equal(result);
-			}
-		});
-
+//		testDates('MTAD-072 -- Should find 2018 updated dates, by Month/Day', s.updated_2018.simple);
 	});
 
 
@@ -108,6 +67,28 @@ describe('Parse Service Messages', function() {
 			}
 		});
 	});
+
+	/**
+	 * Test a string that contains only a date, and make sure the Date Regex catches the entire thing.
+	 * @param  {string} desc
+	 *   Description for the Test Heading
+	 * @param  {Array} DateArr
+	 *   Array of date strings we should test. 
+	 */
+	function testDates(desc, DateArr) {
+
+		console.log(desc, DateArr);
+
+		let count = DateArr.length,
+			description = desc + ' ' + '(' + count + '/' + count + ')';
+
+		it (description, function() {
+			for (let x in DateArr) {
+				let result = f(DateArr[x]);
+				assert.equal(DateArr[x], result);
+			}
+		});
+	}
 
 
 	describe('Taxonomy', () => {
