@@ -1,7 +1,8 @@
 # MTA Interruption Feeds
 A simple API that interprets MTA Subway Disruption Messaging.
 
-[![Build Status](https://travis-ci.org/Atomox/mta-delays.svg?branch=master)](https://travis-ci.org/Atomox/mta-delays)
+[![Build Status](https://travis-ci.com/Atomox/mta-delays.svg?token=YPsbPRcxMesANxvV4Fy2&branch=master)](https://travis-ci.org/Atomox/mta-delays)
+
 
 
 
