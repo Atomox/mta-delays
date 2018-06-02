@@ -67,6 +67,10 @@ function checkFreshnessDate(packed_date, expires) {
 		console.log(' -- [', 'Cached timing disabled. Using cached data.', '] --');
 		return true;
 	}
+	// Make sure we even have a date, or fail (in case of empty cache files).
+	else if (!packed_date) {
+		return false;
+	}
 
 	let lastUpdated = new Date(packed_date);
 	let expiresIn = new Date(packed_date);
