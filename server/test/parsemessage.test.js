@@ -45,7 +45,7 @@ describe('Parse Service Messages', function() {
 		testDates('Should find [long-term] planned work dates.', s.longterm.simple);
 		testDates('Should find [unique] planned work dates, like Holidays.', s.weekend.unique);
 
-//		testDates('MTAD-072 -- Should find 2018 updated dates, by Month/Day', s.updated_2018.simple);
+		testDates('MTAD-072 -- Should find 2018 updated dates, by Month/Day', s.updated_2018.simple);
 	});
 
 
@@ -73,11 +73,9 @@ describe('Parse Service Messages', function() {
 	 * @param  {string} desc
 	 *   Description for the Test Heading
 	 * @param  {Array} DateArr
-	 *   Array of date strings we should test. 
+	 *   Array of date strings we should test.
 	 */
 	function testDates(desc, DateArr) {
-
-		console.log(desc, DateArr);
 
 		let count = DateArr.length,
 			description = desc + ' ' + '(' + count + '/' + count + ')';

@@ -340,7 +340,7 @@ function prepareEventMessage(message, status, use_placeholder, summary) {
  *   A matched [TP]/Travel Alternative string. Otherwise, [null].
  */
 function getMessageAlternateInstructions(text) {
-	let alternateInstructionPattern = /((\[TP\]|(\b(For\s*service\s*(to|from)|use\s*(nearby)?|take\s*the|Transfer\s*(to|between)?|Travel\s*Alternatives|As\s*an\s*alternative\s*(?:customers\s*may\s*)take\s*the)\b))+((\s*((stations|these stations|trains|transfer\s*to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\'\.\/\:\;&\(\)\*]*)*)?)*(\s*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]|(\[(ad)\]))*\s*)*)+/i;
+	let alternateInstructionPattern = /(((?:--\s*)?\[(?:TP|AS)\]|Show\s*Alternate\s*Service|(\b(For\s*service\s*(to|from)|use\s*(nearby)?|take\s*the|Transfer\s*(to|between)?|Travel\s*Alternatives|As\s*an\s*alternative\s*(?:customers\s*may\s*)take\s*the)\b))+((\s*((stations|these stations|trains|transfer\s*to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\'\.\/\:\;&\(\)\*]*)*)?)*(\s*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]|(\[(ad)\]))*\s*)*)+/i;
 
 	// We must remove the Ad note suppliment before we can perform a TP match.
 	let ad_message = getMessageADNote(text);
@@ -386,7 +386,7 @@ function getMessageADNote(text) {
  *   A work-date string. Otherwise, [null].
  */
 function getMessagePlannedWorkDate(text) {
-	let workDatePattern = /(?:\b(Weekend[s]?|Late\s*Night[s]?|Night[s]?|Day[s]?|Late\s*Evening[s]?|Evening[s]?|Rush\s*Hour[s]?|All\s*times|Until)\b\s*,?(\s*((?:(?:[0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(?:AM|PM)\s*)|([0-9]{1,2}\s*(-\s*[0-9]{1,2})?\s*(20[0-9]{2})?)?|(20[0-9]{2}))?\s*[,-]?\s*((Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|beginning(?:\s*at)?|further\snotice|and|including)|(Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter|Holiday[s]?))?\s*(?:\,|&bull\;|&|\*|\;)?\s*)*\s*)+/i;
+	let workDatePattern = /(?:\b(?:(?:Weekend[s]?|Late\s*Night[s]?|Night[s]?|Day[s]?|Late\s*Evening[s]?|Evening[s]?|Rush\s*Hour[s]?|All\s*times|Until|(?:Jan|Feb|Mar|Apr|May|Jun|June|July|Aug|Sept|Oct|Nov|Dec)\s*[0-9]*(?:to|until)*\s*|(?:\b[0-9]{1,2}(?:\:[0-9]{1,2})?\s*(?:AM|PM)\s*\b))\b\s*[-,]*\s*)+(?:\s*(?:(?:(?:[0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(?:AM|PM)\s*)|(?:[0-9]{1,2}\s*(?:-\s*[0-9]{1,2})?\s*(?:20[0-9]{2})?)?|(?:20[0-9]{2}))?\s*[,-]?\s*(?:(?:Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|from|beginning(?:\s*at)?|further\snotice|and|including|each)|(?:Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter|Holiday[s]?))?\s*(?:\,|&bull\;|&|\*|\;)?\s*)*\s*)+/i;
 
 	let dateResults = text.match(workDatePattern);
 
