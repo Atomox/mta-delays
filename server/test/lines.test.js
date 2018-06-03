@@ -69,8 +69,8 @@ describe ('Detect Train Lines', () => {
 		tests.bypassTestByTag(m,c,'[Bypass Stations -- Simple] Should Map', ['MTAD-047']);
 	});
 
-	describe('MTAD-106 -- A over C in Boro', () => {
-		tests.bypassTestByTag(m,c,'[Over line in Boro] Should Map', ['MTAD-106'], null, ['A-overC-inBoro']);
+	describe('MTAD-107 -- A over C in Boro', () => {
+		tests.bypassTestByTag(m,c,'[Over line in Boro] Should Map', ['MTAD-107'], null, ['A-overC-inBoro']);
 	});
 });
 
