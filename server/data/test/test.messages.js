@@ -2717,7 +2717,7 @@ let event_messages = {
 					date: {
 						start: "2018-01-27T00:00:00-05:00",
 					},
-					tag: ['MTAD-002', 'MTAD-040', 'MTAD-060'],
+					tag: ['MTAD-002', 'MTAD-030', 'MTAD-040', 'MTAD-060'],
 					type: null,
 					type_detail: [
 						"running_express",
@@ -3481,6 +3481,103 @@ let event_messages = {
 							{line: "MTA NYCT_N"},
 						],
 					},
+					{
+						id: "MTA NYCT_187265",
+						type: "Planned Work",
+						planned: true,
+						date: {fetched: "2018-05-25T00:00:00-04:00",},
+						type: {
+							tag: "skip_stations",
+							weight: 2
+						},
+						type_detail: [
+							"skip_stations",
+							"track_maintenance"
+						],
+						tag: ['MTAD-030'],
+						tags: {
+							incident_diversion: [
+								"skip_stations"
+							],
+							incident_planned: [
+								"track_maintenance"
+							]
+						},
+						durration: "11:45 PM Fri, May 25 to 5 AM Tue, May 29",
+						message: "TRACK REPLACEMENT | 11:45 PM Fri, May 25 to 5 AM Tue, May 29 Coney Island-bound [F] trains skip Sutphin Blvd, Briarwood and 75 Av in Queens For service to Sutphin Blvd , take the [F] to Union Tpke and transfer to a Jamaica-bound [F] or [R]*. For service to Briarwood and 75 Av , take the [F] to Union Tpke or 71 Av and transfer to a Jamaica Center-bound [E], Jamaica-bound [F] or [R]. For service from Sutphin Blvd and Briarwood , take the [F] or [R] to Parsons Blvd and transfer to a Coney Island-bound [F]. For service from 75 Av , take the [E] [F] or [R] to Union Tpke and transfer to a Coney Island-bound [F]. *[R] trains operate between 95 St and 71 Av and via the [F] to/from 179 St days and evenings.",
+					},
+					{
+						archive: 125,
+						id: "MTA NYCT_187265",
+						type: "Planned Work",
+						planned: true,
+						date: {fetched: "2018-05-25T00:00:00-04:00",},
+						type: {
+							tag: "skip_stations",
+							weight: 2
+						},
+						type_detail: [
+							"skip_stations",
+							"track_maintenance"
+						],
+						tag: ['MTAD-014', 'MTAD-087'],
+						tags: {
+							incident_diversion: [
+								"skip_stations"
+							],
+							incident_planned: [
+								"track_maintenance"
+							]
+						},
+						durration: "11:45 PM Fri, May 25 to 5 AM Tue, May 29",
+						message: "TRACK REPLACEMENT | 11:45 PM Fri, May 25 to 5 AM Tue, May 29 Coney Island-bound [F] trains skip Sutphin Blvd, Briarwood and 75 Av in Queens For service to Sutphin Blvd , take the [F] to Union Tpke and transfer to a Jamaica-bound [F] or [R]*. For service to Briarwood and 75 Av , take the [F] to Union Tpke or 71 Av and transfer to a Jamaica Center-bound [E], Jamaica-bound [F] or [R]. For service from Sutphin Blvd and Briarwood , take the [F] or [R] to Parsons Blvd and transfer to a Coney Island-bound [F]. For service from 75 Av , take the [E] [F] or [R] to Union Tpke and transfer to a Coney Island-bound [F]. *[R] trains operate between 95 St and 71 Av and via the [F] to/from 179 St days and evenings.",
+						alt_instructions: "For service to Sutphin Blvd , take the [F] to Union Tpke and transfer to a Jamaica-bound [F] or [R]*. For service to Briarwood and 75 Av , take the [F] to Union Tpke or 71 Av and transfer to a Jamaica Center-bound [E], Jamaica-bound [F] or [R]. For service from Sutphin Blvd and Briarwood , take the [F] or [R] to Parsons Blvd and transfer to a Coney Island-bound [F]. For service from 75 Av , take the [E] [F] or [R] to Union Tpke and transfer to a Coney Island-bound [F]. *[R] trains operate between 95 St and 71 Av and via the [F] to/from 179 St days and evenings.",
+						stations_bound: {},
+						route_change: {
+							message: "[Bk58-D43]-bound [F] trains skip [Qs257-F04], [Qs258-F05] and [Qs260-F07] in Queens ``` [R] trains operate between [Bk39-R45] and [Qs261-G08] and via the [F] to/from [Qs254-F01] days and evenings.",
+							tag: ['A-operates-then-overC'],
+							trains: ["F","R"],
+							route: [
+								{
+									allTrains: true,
+									dir: "[Bk58-D43]-bound",
+									lines: [
+									"F"
+									],
+									along: null,
+									bypass: [
+										"Qs257-F04",
+										"Qs258-F05",
+										"Qs260-F07"
+									],
+									action: "bypass",
+									parsed: "[Bk58-D43]-bound [F] trains skip [Qs257-F04], [Qs258-F05] and [Qs260-F07] ",
+									process: "RouteChangeBypass"
+								},
+								{
+									allTrains: true,
+									lines: ["R"],
+									along: null,
+									from: "Bk39-R45",
+									to: "Qs261-G08",
+									parsed: "[R] trains operate between [Bk39-R45] and [Qs261-G08] and",
+									process: "RouteChangeStandard"
+								},
+								{
+									allTrains: true,
+									lines: ["R"],
+									along: "F",
+									from: "Qs261-G08",
+									to: "Qs254-F01",
+									process: "RouteChangeStandard",
+									parsed: "via the [F] to/from [Qs254-F01]",
+									action: "via"
+								}
+							],
+						},
+						line: [ {	line: "MTA NYCT_F", dir: "1" }]
+					},
+
 		],
 
 		complex: [
