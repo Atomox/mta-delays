@@ -80,6 +80,7 @@ const taxonomy = {
 		],
 		'bus_detour': [
 			'buses are detoured',
+			'buses rerouted',
 		],
 		'skip_stations': [
 			'trains skip',
