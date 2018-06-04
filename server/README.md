@@ -25,11 +25,12 @@ All following steps are `BASH` commands, unless a URL is mentioned.
   - `mta_status.cache.xml` (The original XML pulled from the MTA's status API -- Used mostly to avoid too many pings to the MTA API)
   - `mta_status.final.cache` (A cache of the parsed response, used mostly in PROD for performance)
   - `mta.stations.compiled.json` (A compiled list of all stations, with generated IDs, regex, aliases, etc. See Building Stations in the Scripts section below)
-4. Once this completes, `npm run start`.
-5. Test by hitting: `localhost:8100/` (static API welcome page).
-6. Test full API by hitting: `localhost:8100/subway/status`. You should see a huge JSON response with the current status.
-7. See `localhost:8100`'s root directory for a list of API paths, for things like station lists, line station order, etc.
-8. `localhost:8100/subway/status/archive` will list all archives, which are loaded locally, and do not require an internet connection. Good for testing/developing offline.
+4. `npm run stations`, to build the stations array (See Scripts section below).
+5. Once this completes, `npm run start`.
+6. Test by hitting: `localhost:8100/` (static API welcome page).
+7. Test full API by hitting: `localhost:8100/subway/status`. You should see a huge JSON response with the current status.
+8. See `localhost:8100`'s root directory for a list of API paths, for things like station lists, line station order, etc.
+9. `localhost:8100/subway/status/archive` will list all archives, which are loaded locally, and do not require an internet connection. Good for testing/developing offline.
 
 See the Troubleshooting section at the end of this document if you have trouble installing.
 
