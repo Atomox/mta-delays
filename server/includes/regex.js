@@ -151,10 +151,12 @@ function matchRegexString(pattern, haystack, return_all, greedy) {
 		: false;
 }
 
-function matchRegexStation(pattern, haystack, return_all, greedy) {
+function matchRegexStation(pattern, haystack, return_all, greedy, include_boro) {
 	if (!haystack) {
 		return false;
 	}
+
+	pattern = '(?:' + pattern + ')' + '(?:\\b\\s*[,]?\\s*(Manhattan|Brooklyn|Queens|(?:the\\s*)?Bronx|Staten\\s*Island)+\\b)?';
 
 	let flags = 'i';
 	if (greedy === true) {
@@ -198,18 +200,59 @@ function matchRegexStation(pattern, haystack, return_all, greedy) {
 			continue;
 		}*/
 
-//		console.log('-', match[0], match[2], '-');
-
 		let bound_pattern = /[-]\s*(?:bound)/i;
+		let boro_group = match.length - 1,
+				boro = getBoro(match[boro_group]);
+
+		function getBoro(boro) {
+			if (!boro) {
+				return undefined;
+			}
+
+			boro = boro.trim().toLowerCase();
+
+			switch(boro) {
+				case 'brooklyn':
+				case 'bklyn':
+				case 'bk':
+					return 'Bk';
+				case 'queens':
+				case 'qns':
+				case 'qs':
+					return 'Qs';
+				case 'manhattan':
+				case 'man':
+				case 'mn':
+					return 'Mn';
+				case 'the bronx':
+				case 'bronx':
+				case 'brx':
+				case 'bx':
+					return 'Bx';
+				case 'staten island':
+				case 'staten is':
+				case 's.i.':
+				case 'si':
+					return 'SI';
+				default:
+					console.log('\n<!> Boro Detect in Station Regex mismatch: ', boro, ' --- \n\n', pattern, '\n\n\n', match);
+					return undefined;
+			}
+		}
 
 		match[0] = match[0].trim();
 
 		if (match[2] == 'bound' || match[0].indexOf('bound') !== -1) {
 			match[0] = match[0].replace(bound_pattern, '');
-			results.push({ station: match[0].trim(), bound: true});
+
+			(include_boro)
+				? results.push({ station: match[0], bound: true, boro: boro})
+				: results.push({ station: match[0], bound: true})
 		}
 		else {
-			results.push(match[0].trim());
+			(include_boro)
+				?	results.push({ station: match[0], boro: boro})
+				: results.push(match[0]);
 		}
 	}
 

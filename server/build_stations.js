@@ -592,10 +592,8 @@ function stationAliases(name, boro) {
 			],
 			'36 St': [
 				'36 St (Bklyn)',
-				'36 St , Brooklyn',
 			],
 			'59 St': [
-				'59 St , Brooklyn',
 				'59 St (Bklyn)',
 			],
 			'Crown Hts - Utica Av': [

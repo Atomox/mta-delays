@@ -105,7 +105,7 @@ let event_messages = {
 					trains: ['R'],
 					route: [
 						{
-							lines: ["R"],
+							lines: ['R'],
 							along: null,
 							from: 'Qs261-G08',
 							to: 'Bk32-R36',

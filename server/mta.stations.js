@@ -322,17 +322,8 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 		let line_id = line;
 		line = getTrainById(line_id);
 
-//		if (line == 'C') {
-//			console.log('\n\n', '[' + line + ']', 'Station Parse:', message, '\n');
-//		}
-
-
 		// Get all stations for this line.
 		let stations = await getRouteStationsArray(line, true, true);
-
-//		if (line == 'C') {
-//			console.log('[' + line + '] >>>', '.... begin ...');
-//		}
 
 		// Get problem stations we should replace first.
 		let stations_first = problem_stations;
@@ -345,27 +336,12 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 		// Search each station.
 		for (let s in stations) {
 
-//			if (line == 'C') {
-//				console.log('[' + line + '] ... ', stations[s].name);
-//				if (stations[s].name == '25 St') {
-//					console.log('[' + line + '] ... ', stations[s]);
-//				}
-//			}
-
 			// Check station name regex against the message.
 			// let res_re = mtaRegEx.matchRegexString(stations[s].regex, message, true, true);
-			let res_re = mtaRegEx.matchRegexStation(stations[s].regex, message, true, true);
+			let res_re = mtaRegEx.matchRegexStation(stations[s].regex, message, true, true, true);
 
 			// If there were no results, move on.
 			if (res_re === false ) { continue; }
-
-//			if (stations[s].name == '25 St') {
-//				console.log('[' + line + '] ... ', res_re);
-//			}
-
-//			if (line == 'R') {
-//				console.log('[' + line + '] >>>', res_re);
-//			}
 
 			res_re.map( m => {
 
@@ -378,15 +354,16 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 						problem_results[stations[s].common] = [];
 					}
 
-//					console.log('>>>', res_re, '<<<');
 					// Push onto the problem list.
 					problem_results[stations[s].common].push(
 						{
 							name: stations[s].name,
 							found: name,
 							sid: s,
+							sid_boro: stations[s].boro,
 							line: line_id,
-							bound: (typeof m === 'object') ? true : false,
+							bound: (typeof m === 'object' && m.bound) ? true : false,
+							boro: (m.boro && m.boro === stations[s].boro) ? m.boro : undefined
 						}
 					);
 				}
@@ -394,7 +371,7 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 					// Check station ID against message.
 					// Only include station if this was not a direction
 					// !(Euclid Av-bound trains...)
-					(typeof m === 'object')
+					(typeof m === 'object' && m.bound)
 						? bound[s] = name
 						: results[s] = name;
 
@@ -528,13 +505,19 @@ function processProblemStations (problem_results, results, message, bound) {
 
 			let st_length = 0,
 					st_obj = [],
-					st_lines = {};
+					st_lines = {},
+					boro = undefined;
 
 			// Find the longest match, and choose that one.
 			problem_results[key].map( ps => {
 
 				// Sort matches by length, and add a list of train lines.
 				if (ps.found.length > 2) {
+
+					if (ps.boro) {
+						boro = ps.boro;
+					}
+
 					st_length = ps.found.length;
 					if (!st_obj[st_length]) { st_obj[st_length] = []; }
 					st_lines[ps.line] = ps;
@@ -553,15 +536,6 @@ function processProblemStations (problem_results, results, message, bound) {
 						console.log(i, ' <!> COULD BE EMPTY.');
 						return; }
 
-/**
-	@TODO -- If a single line matches MULTIPLE station names, we shouldn't bail early!
-
-					// Have we found all lines?
-					if (Object.keys(lines_found).length == Object.keys(st_lines).length ) {
-						console.log(i, ' <!> WE GOT EVERYTHING.');
-						return;
-					}
-*/
 					let length_found_stations = [],
 						length_token_found = '';
 
@@ -580,7 +554,21 @@ function processProblemStations (problem_results, results, message, bound) {
 							&& lines_found[stObj.line].sid !== stObj.sid) {
 								return;
 						}
-//						console.log('\n\n', i, '--', stObj);
+
+						// If a boro was associated with this station, make sure that only
+						// found stations (for this common name) from that boro are included.
+						// Make sure that we allow stations without a found Boro in the name
+						// to be included, if their station's boro is still the found boro.
+						//
+						// E.G. if we find '36 St, Brooklyn', allow other 36 St (Bk32-R36 IDs)
+						// to be replaced elsewhere in the message. In the below message,
+						// both should be matched, now that we have a context for 36 St.
+						//
+						// E.G. [R] trains reroutes at 36 St, Brooklyn. [R] trains run from
+						// 71st Av to 36 St, then via the D to Coney Island.
+						if (boro && stObj.boro !== boro && stObj.sid_boro !== boro) {
+							return;
+						}
 
 						// Make sure there is a place to put the result, if not already set.
 						if (!results[stObj.line]) { results[stObj.line] = {stations: []}; }
