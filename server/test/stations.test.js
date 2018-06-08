@@ -89,6 +89,10 @@ describe('Parse Stations', function() {
 		tests.boundStationTestByTag(event_messages.normal, CheckBoundStationsListForExpected, 'Detect Direction-Bound Stations', ['MTAD-060']);
 	});
 
+	describe('MTAD-098 -- Stations Followed by Boro Names should Provide Context', () => {
+		tests.stationTestByTag(stations['MTAD-098'], CheckStationsListForExpected, 'Detect Direction-Bound Stations');
+	});
+
 	describe.skip('MTAD-004 -- Identify Multiple Stations with the same name.', () => {
 		it('36 St', () => { });
 	});
