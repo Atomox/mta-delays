@@ -134,7 +134,7 @@ let event_messages = {
 				parsed_message: 'WEEKEND 6:15 AM to 11:45 PM, Sat, Jan 13 8 AM to 10 PM, Sun, Jan 14 No [M] trains between [Mn625-M18] and [Bk621-J27], due to track replacement. Take the [J] instead. NIGHTS 9 PM to 12 midnight, Friday, Jan 12 No [M] trains between [Qs261-G08] and [Mn625-M18], due to signal improvements. Take the [E][R]. [M] service operates between [Qs4-R05] Junction and Essex St, and is rerouted via the [J] to/from [Mn622-M21]. Trains stop at [Mn103-M19] and [Mn623-M20]. For [Mn619-D21] and stations along 6 Av, use nearby [N]/[Q]/[R] stations on Broadway. Transfer at [Qs616-G14] [E]/[R], Times Sq-[Mn611-A27] [E]/[R], and/or [Mn169-A34] M/R. All times until April 30, 2018 No [M] trains between [Bk630-M08] and [Bk97-M11] (Broadway), due to viaduct reconstruction. Take free shuttle buses. [M] service operates in two sections: 1. Between Essex St and [Bk97-M11], and via the [J] to/from Broadway Junction, days/evenings*. 2. Between Metropolitan Av and Myrtle-Wyckoff Avs (trains run every 20 minutes, Sat and Sun, from 7:30 AM to 9:30 AM). Free shuttle buses operate between Myrtle-Wyckoff Avs and Myrtle Av. *Suspended this weekend. [AD] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay. For more information, click on the mta.info link in this email and read station signs.',
 				route_change: {
 					tag: ['A-operates-then-overC', 'A-1-operates-then-viaC-2-operates'],
-					message: "No [M] trains between [Mn625-M18] and [Bk621-J27], ``` No [M] trains between [Qs261-G08] and [Mn625-M18], ``` [M] service operates between [Bk621-J27] and [Mn625-M18], and is rerouted via the [J] to/from [Mn622-M21]. ``` No [M] trains between [Bk630-M08] and [Bk97-M11] ```[M] [__operates-section-1__] Between [Mn625-M18] and [Bk97-M11], and via the [J] to/from [Bk621-J27], days/evenings*. ```[M] [__operates-section-2__] Between [Qs108-M01] and [Bk630-M08] ``` operate between [Bk630-M08] and [Bk97-M11]. *",
+					message: "No [M] trains between [Mn625-M18] and [Bk621-J27], ``` No [M] trains between [Qs261-G08] and [Mn625-M18], ``` [M] service operates between [Bk621-J27] and [Mn625-M18], and is rerouted via the [J] to/from [Mn622-M21]. ``` No [M] trains between [Bk630-M08] and [Bk97-M11] ```[M] [__operates-section-1__] Between [Mn625-M18] and [Bk97-M11], and via the [J] to/from [Bk621-J27], days/evenings*. ```[M] [__operates-section-2__] Between [Qs108-M01] and [Bk630-M08] ``` trains run ``` operate between [Bk630-M08] and [Bk97-M11]. *",
 					trains: ['M'],
 					route: [
 						{
@@ -1170,7 +1170,7 @@ let event_messages = {
 				route_change: {
 					tag: ['A-overC'],
 					message_raw: "[E] trains are rerouted in both directions via the [F] between Jackson Hts-Roosevelt Av and West 4 St",
-					message: "[E] No service between [Qs616-G14] and [Mn167-A32] [M] ``` [E] trains are rerouted in both directions via the [F] between [Qs616-G14] and [Mn167-A32] * [E] trains run local between [Qs261-G08] and [Qs221-B04] ``` [M] Shuttle trains operate all times between [Qs108-M01] and [Bk630-M08] . [M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18] . ``` [7] stopping",
+					message: "[E] No service between [Qs616-G14] and [Mn167-A32] [M] ``` [E] trains are rerouted in both directions via the [F] between [Qs616-G14] and [Mn167-A32] * [E] trains run local between [Qs261-G08] and [Qs221-B04] ``` [M] Shuttle trains operate all times between [Qs108-M01] and [Bk630-M08] . [M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18] . ``` [7] stopping ``` [E] trains run to",
 					trains: ["E"],
 					route: [
 						{
@@ -3155,7 +3155,7 @@ let event_messages = {
 						durration: "Days, 10 AM to 3:30 PM, Tue to Fri, Dec 26 - 29",
 						message: "TRACK MAINTENANCE [W] No trains between 57 St-7 Av and Ditmars Blvd - Take the [N] instead [W] trains run every 20 minutes in Manhattan Days, 10 AM to 3:30 PM, Tue to Fri, Dec 26 - 29 [W] service operates between Whitehall St and 57 St-7 Av, and via the [Q] to/from 96 St . Transfer between [N]* and [W] trains at Times Sq-42 St (across the platform). *Please review [N] advisories for additional information that may affect your trip. Alternate travel note: [R] service is also available at 5 Av/59 St and Lexington Av/59 St. Transfer between [R] and [W] trains at 57 St-7 Av.",
 						route_change: {
-							message: "[W] No trains between [Mn9-R14] and [Qs1-R01] ``` [W] service operates between [Mn635-R27] and [Mn9-R14], and via the [Q] to/from [Mn475-Q05] .",
+							message: "[W] No trains between [Mn9-R14] and [Qs1-R01] ``` [W] trains run ``` [W] service operates between [Mn635-R27] and [Mn9-R14], and via the [Q] to/from [Mn475-Q05] .",
 							tag: ['A-operates-then-overC'],
 							trains: ["W"],
 							route: [
@@ -3214,7 +3214,7 @@ let event_messages = {
 						durration: "Late Nights, 9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29",
 						message: "TRACK MAINTENANCE [E] No trains between W 4 St and World Trade Center [A] [C] trains provide alternate service Late Nights, 9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29 After W 4 St, [E] trains run to/from the 2 Av [F] Station. For Spring St*, Canal St and World Trade Center (Chambers St), take the [A] or [C] instead. Transfer between trains at W 4 St. *Please review [A] [C] advisories for additional information that may affect your trip.",
 						route_change: {
-							message: '[E] No trains between [Mn167-A32] and [Mn624-E01] [A] [C]',
+							message: '[E] No trains between [Mn167-A32] and [Mn624-E01] [A] [C] ``` [E] trains run to',
 						  trains: [ 'E' ],
 						  route:
 						   [
@@ -3577,7 +3577,67 @@ let event_messages = {
 						},
 						line: [ {	line: "MTA NYCT_F", dir: "1" }]
 					},
-
+					{
+						type_detail: [
+							'route_change',
+							'operate_sections',
+							'shuttle_bus',
+						  'service_ends_early',
+						  'running_local',
+						  'no_trains_partial'
+						],
+						tag: ['MTAD-009', 'MTAD-065'],
+						message: "FASTRACK PROGRAM No [A] trains in Manhattan between 59 St-Columbus Circle and 207 St No [D] trains between 59 St-Columbus Circle, Manhattan and 161 St-Yankee Stadium, Bronx [B] [C] Service ends early Apr 30 - May 4, Mon to Fri, from 9:30 PM to 5 AM [A] trains run between Lefferts Blvd/Mott Av, Queens and 59 St-Columbus Circle, Manhattan , making local stops . [D] trains run in two sections: 1. Between Stillwell Av, Brooklyn and 59 St-Columbus Circle, Manhattan 2. In the Bronx between 161 St-Yankee Stadium and 205 St [SB] Free shuttle buses operate on three routes: 1. Between 110 St [1] and 168 St [1] Stations, making [A] stations stops at 110, 116, 125, 135, 145, 155 Sts and the 155 St [D] Station, connecting with the [2] [3] at 135 St and the [1] at 157 St. 2. Between 168 St [1] and 190 St, operating along the M4 route making nearby stops for the 181 St and 175 St [A] Stations. 3. Between Dyckman St [1] and [A] Stations.",
+						stations_bound: {},
+						route_change: {
+							message: 'No [A] trains in Manhattan between [Mn614-A24|Mn614-125] and [Mn143-A02] No [D] trains between [Mn614-A24|Mn614-125] and [Bx604-D11] [B] [C] ``` [A] trains run between [Qs195-A65] ```[D] [__operates-section-1__] Between [Bk58-D43] and [Mn614-A24|Mn614-125] ```[D] [__operates-section-2__] In the Bronx between [Bx604-D11] and [Bx210-D01] [SB] ``` operate on ``` along the',
+							tag: ['A-1-operates-2-operates'],
+	  					trains: [ 'D' ],
+	  					route: [
+								{
+									allTrains: true,
+									dir: null,
+									exp_lcl: null,
+									lines: ['D'],
+									along: null,
+									from: 'Bk58-D43',
+									to: 'Mn614-A24',
+									section: '1',
+									parsed: '[D] [__operates-section-1__] Between [Bk58-D43] and [Mn614-125|Mn614-A24]',
+									process: 'RouteChangeSections'
+								},
+	     					{
+									allTrains: true,
+									dir: null,
+									exp_lcl: null,
+									lines: ['D'],
+									along: null,
+									from: 'Bx604-D11',
+									to: 'Bx210-D01',
+									section: '2',
+									parsed: '[D] [__operates-section-2__] In the Bronx between [Bx604-D11] and [Bx210-D01]',
+									process: 'RouteChangeSections'
+			 					},
+	     					{
+									noTrains: true,
+									allTrains: true,
+									dir: null,
+									lines: ['D'],
+									along: null,
+									from: 'Mn614-A24',
+									to: 'Bx604-D11',
+									section: null,
+									action: 'No',
+									parsed: 'No [D] trains between [Mn614-125|Mn614-A24] and [Bx604-D11]',
+									process: 'NoServiceBetween'
+								}
+							],
+						},
+						line: [
+							{	line: "MTA NYCT_A", dir: "1" },
+							{	line: "MTA NYCT_D", dir: "1" }
+						]
+					},
 		],
 
 		complex: [

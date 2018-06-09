@@ -73,6 +73,7 @@ const taxonomy = {
 		'operate_sections': [
 			'operates in two sections',
 			'operate in two sections',
+			'run in two sections',
 		],
 		'shuttle_bus': [
 			'[SB]',
