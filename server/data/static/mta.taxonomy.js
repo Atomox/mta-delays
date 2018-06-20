@@ -153,6 +153,7 @@ const taxonomy = {
 			'weather conditions',
 		],
 		'event': [
+			'SPECIAL EVENT',
 			'Women\'s March',
 			'crowd conditions',
 			'New Year\'s Eve',
@@ -161,6 +162,9 @@ const taxonomy = {
 		],
 		'crowded_trains': [
 			'heavy ridership',
+		],
+		'exit_only': [
+			'EXIT ONLY'
 		],
 	},
 

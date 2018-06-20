@@ -132,6 +132,12 @@ let archive_status = {
 		'mta_status.137.Monday_Morning_Delays',
 		'mta_status.138.Weeknight_-_Planned_Work',
 		'mta_status.139.June_02_-_Weekend_Late_Night_Planned_Work',
+		'mta_status.140.Weekend_Saturday_Morning_Planned_Work',
+		'mta_status.141.Weeknight_-_Service_neds_early',
+		'mta_status.142.Weeknight_-_Planned_Work',
+		'mta_status.143.Morning_-_BUG_-_Map_not_reflecting_all_changes',
+		'mta_status.144.June-09_-_Weekend_Night_Work',
+		'mta_status.145.Weekend_Sat_Morning_-_Planned_Work',
 	],
 	path: './data/archive/',
 };

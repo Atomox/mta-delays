@@ -3638,6 +3638,37 @@ let event_messages = {
 							{	line: "MTA NYCT_D", dir: "1" }
 						]
 					},
+					{
+						archive: 142,
+						id: "MTA NYCT_188662",
+						type: "Planned Work",
+						planned: true,
+						type_detail: [
+							'no_trains_partial',
+						],
+						tag: ['MTAD-035', 'MTAD-065', 'MTAD-098'],
+						message: "No [2] trains between Chambers St in Manhattan and Atlantic Av-Barclays Ctr in Brooklyn",
+						route_change: {
+							message: 'No [2] trains between [Mn327-137] and [Bk617-235]',
+							tag: ['A-noTrains-between'],
+							trains: [ '2' ],
+							route: [
+								{
+									noTrains: true,
+						      allTrains: true,
+						      lines: ['2'],
+									along: null,
+									from: 'Mn327-137',
+									to: 'Bk617-235',
+									action: 'No',
+									parsed: 'No [2] trains between [Mn327-137] and [Bk617-235]',
+								}
+							],
+						},
+						line: [
+							{	line: "MTA NYCT_2", dir: "1" },
+						]
+					},
 		],
 
 		complex: [
