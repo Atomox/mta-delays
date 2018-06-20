@@ -637,6 +637,7 @@ function stationAliases(name, boro) {
 			],
 			'Bedford Park Blvd - Lehman College': [
 				'Bedford Park Blvd',
+				'Bedford Pk Blvd',
 				'Lehman College'
 			],
 			'161 St - Yankee Stadium': [
