@@ -3669,6 +3669,80 @@ let event_messages = {
 							{	line: "MTA NYCT_2", dir: "1" },
 						]
 					},
+					{
+						archive: 148,
+						id: "MTA NYCT_190082",
+						date: {fetched: "2018-06-19T00:00:00-04:00"},
+						tag: ['MTAD-009','MTAD-115'],
+						type_detail: [
+							"route_change",
+							"operate_sections",
+							"skip_stations",
+							"no_trains_partial",
+							"track_maintenance"
+						],
+						message: "TRACK REPLACEMENT | Jun 19 - 22 -- Jun 26 - 29, Tue to Fri, 12:01 AM to 5 AM [4] Service operates in two sections: 1. Between Woodlawn, the Bronx and 125 St, Manhattan 2. Between 125 St, Manhattan and Utica Av*/New Lots Av, Brooklyn -- Transfer at 125 St to continue your trip. Note: Manhattan-bound trains skip 138 St-Grand Concourse. *No [4] trains between Utica Av and New Lots Av, Jun 26 - 29.",
+						route_change: {
+							tag: ['A-1-operates-2-operates'],
+							message: "[4] [__operates-section-1__] Between [Bx378-401] and [Mn392-621] ```[4] [__operates-section-2__] Between [Mn392-621] and [Bk345-250]*/[Bk352-257], Brooklyn -- Transfer at [Mn392-621] to continue your trip. Note: Manhattan-bound [4] trains skip [Bx391-416]. *No [4] trains between [Bk345-250] and [Bk352-257],",
+							trains: ["4"],
+							route: [
+								{
+									allTrains: true,
+									dir: "Mn392-621] to continue your trip. Note: Manhattan-bound",
+									lines: ["4"],
+									along: null,
+									bypass: ["Bx391-416"],
+									action: "bypass",
+									section: null,
+									parsed: "Mn392-621] to continue your trip. Note: Manhattan-bound [4] trains skip [Bx391-416]",
+									process: "RouteChangeBypass"
+								},
+								{
+									allTrains: true,
+									dir: null,
+									exp_lcl: null,
+									lines: ["4"],
+									along: null,
+									from: "Bx378-401",
+									to: "Mn392-621",
+									section: "1",
+									parsed: "[4] [__operates-section-1__] Between [Bx378-401] and [Mn392-621]",
+									process: "RouteChangeSections"
+								},
+								{
+									allTrains: true,
+									dir: null,
+									exp_lcl: null,
+									lines: ["4"],
+									along: null,
+									from: "Mn392-621",
+									to: "Bk345-250",
+									section: "2",
+									parsed: "[4] [__operates-section-2__] Between [Mn392-621] and [Bk345-250]",
+									process: "RouteChangeSections"
+								},
+								{
+									noTrains: true,
+									allTrains: true,
+									dir: null,
+									lines: ["4"],
+									along: null,
+									from: "Bk345-250",
+									to: "Bk352-257",
+									section: null,
+									action: "No",
+									parsed: "No [4] trains between [Bk345-250] and [Bk352-257]",
+									process: "NoServiceBetween"
+								}
+							],
+						},
+						line: [{line: "MTA NYCT_4",dir: "0"}],
+					},
+
+
+
+
 		],
 
 		complex: [
