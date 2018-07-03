@@ -11,6 +11,7 @@
 const striptags = require('striptags');
 const decode = require('unescape');
 const _ = require('lodash');
+const moment = require('moment');
 
 const mtaStations = require('./mta.stations');
 const mtaRegEx = require('./includes/regex');
@@ -393,6 +394,187 @@ function getMessagePlannedWorkDate(text) {
 	return (dateResults && dateResults[0])
 		? dateResults[0].trim()
 		: null;
+}
+
+
+function getMessageDates(text) {
+	let result = {
+		parsed: null,
+		tokenized: null,
+		type: [],
+	};
+
+	result.parsed = getMessagePlannedWorkDate(text);
+
+	if (result.parsed) {
+		let parsed_upper = markDates(markTimes(result.parsed.toUpperCase()));
+
+		result.tokenized = parsed_upper;
+
+		// Analyze date tokens for any identifiable tags, such as weekend, week_day, etc.
+		result.type = _.union(result.type, analyzeTokenizedDates(result.tokenized));
+
+		Object.keys(mtaTaxonomy.date_tags).map(tag => {
+
+			mtaTaxonomy.date_tags[tag].map(variation => {
+				let exists = ((variation instanceof RegExp))
+					? result.parsed.match(variation)
+					: (parsed_upper.indexOf(variation.toUpperCase()) !== -1);
+
+				if (exists && result.type.indexOf(tag) === -1) {
+					result.type.push(tag);
+				}
+			});
+		});
+	}
+
+	return result;
+}
+
+function markTimes(txt) {
+	if (typeof txt === 'string') {
+		console.log('<BEFORE>', txt);
+		txt = txt.replace(/(?:[0-9]{1,2}(?:\:[0-9]{2})?\s*(?:AM|PM))/gi,
+			(x) => {
+				// Enforce full time (include :00),
+				// which moment requires for a valid date/time.
+				if (x.indexOf(':') === -1) {
+					x = x.trim().split(' ');
+					x = x[0] + ':00 ' + x[1];
+				}
+				let date = '5/31/2018 ' + x;
+				return '[T--' + moment(date).format('H:mm') + ']';
+			});
+		console.log('<AFTER>', txt);
+	}
+	return txt;
+}
+
+function markDates(txt, year) {
+
+	year = (year) ? year : moment().format('YYYY');
+
+	if (typeof txt === 'string') {
+		console.log('<BEFORE>', txt);
+
+		// Identify date ranges, like Jun 18 - 23,
+		// and conver them to proper ranges.
+		// Do this before normal dates, so we don't have false positives.
+		txt = txt.replace(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s*([0-9]+)\s*-\s*([0-9]+)/gi,
+			(x) => {
+				let month = x.split(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i),
+					dates = month[2].split('-');
+
+				// Since we split on month, there will always be a value
+				// before month, even if it is empty.
+				month = month[1];
+
+				let date_range = dates.map(z => makeDateStamp(year, month, z));
+
+				console.log(' . + + . ', x, ' | ', date_range);
+
+				return date_range[0] + ' - ' + date_range[1];
+			});
+
+		// Identify standard dates, like: Fri, Jun 23.
+		txt = txt.replace(/(?:Mon|Tue|Wed|Thu|Thur|Fri|Sat|Sun)[,-]*\s*(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s*[0-9]*/gi,
+			(x) => {
+				console.log(' . . . (B) ', x, year);
+
+				let dateStamp = makeDateStamp(year, x);
+
+				console.log(' . . . (A) ', dateStamp);
+				return dateStamp;
+			});
+		console.log('<AFTER>', txt);
+	}
+	return txt;
+}
+
+function makeDateStamp(year, month, day) {
+
+	let dateObj = (day)
+		? moment(month + ' ' + day + ', ' + year)
+		: moment(month + ', ' + year);
+	let date = dateObj.format('YYYY-MM-DD');
+	let dayOfWeek = dateObj.format('ddd');
+	return '[D--' + date + '--' + dayOfWeek + ']';
+}
+
+function analyzeTokenizedDates(txt) {
+	// [D--2018-06-19--Tue] - [D--2018-06-22--Fri]
+	// [T--23:45] [D--2018-05-25--Fri] TO [T--5:00] [D--2018-05-29--Tue]
+
+	let result = [];
+
+	let day_range_pattern = /(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--[0-9]{4}\-[0-9]{2}\-[0-9]{1,2}--([a-z]{3})\]\s*(-|TO)\s*(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--[0-9]{4}\-[0-9]{2}\-[0-9]{1,2}--([a-z]{3})\]/gi;
+
+	let results = mtaRegEx.matchRegexString(day_range_pattern, txt, true);
+
+//	console.log('<><><>', results);
+
+	if (results[1] && results[3]) {
+		results[1] = results[1].toUpperCase();
+		results[3] = results[3].toUpperCase();
+
+		switch(results[1]) {
+			case 'MON':
+			case 'TUE':
+			case 'WED':
+				if (['TUE', 'WED', 'THU', 'FRI'].indexOf(results[3]) !== -1) {
+					result.push('week_day');
+				}
+				break;
+
+			case 'THU':
+			case 'FRI':
+			case 'SAT':
+			case 'SUN':
+				if (['SAT', 'SUN', 'MON', 'TUE'].indexOf(results[3]) !== -1) {
+					result.push('weekend');
+				}
+				break;
+		}
+	}
+
+//	console.log('<><><> ->', result);
+
+	return result;
+}
+
+function parseMessageDates(txt) {
+/**
+ *
+ *   @TODO
+ *     *
+ *     *
+ *     *
+ *     *
+ *     *
+ *
+ *
+ *
+ *
+ *
+ *
+
+
+
+	'9:30 PM Fri, Jun 8 to 5 AM Mon, Jun 11'
+	'Late Nights 10 PM Fri, Jun 8 to 5 AM Mon, Jun 11'
+	'Jun 4 - 8 -- Jun 11 - 15, Mon to Fri, from 9:45 PM to 5 AM'
+	'Jun 19 - 22 -- Jun 26 - 29, Tue to Fri, 12:01 AM to 5 AM'
+	'11:45 PM Fri, May 25 to 5 AM Tue, May 29'
+	'11:45 PM Fri, May 25 to 5 AM Tue, May 29'
+	'Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9'
+	'Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25'
+	'Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9'
+	'Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15'
+	'All Times, 5 AM Tue, Dec 26 until 8 AM Sun, Dec 31'
+	'Weekend , Saturday and Sunday, Nov 25 - 26'
+	'Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4'
+	'Weekend, 11:45 PM Fri to 7 AM Sun , Dec 22 - 24'
+*/
 }
 
 
@@ -1368,6 +1550,7 @@ module.exports = {
 	parseStatusFeed,
 	getMessageAlternateInstructions,
 	getMessagePlannedWorkDate,
+	getMessageDates,
 	getMessageTrainLines,
 	getMessageAction,
 	getMessageRouteChange,

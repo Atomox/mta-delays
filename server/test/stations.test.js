@@ -89,6 +89,10 @@ describe('Parse Stations', function() {
 		tests.boundStationTestByTag(event_messages.normal, CheckBoundStationsListForExpected, 'Detect Direction-Bound Stations', ['MTAD-060']);
 	});
 
+	describe('MTAD-090 -- Stations exclude Turtiary Copy', () => {
+		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Detect only Stations in Main Message.', ['MTAD-090']);
+	});
+
 	describe('MTAD-098 -- Stations Followed by Boro Names should Provide Context', () => {
 		tests.stationTestByTag(stations['MTAD-098'], CheckStationsListForExpected, 'Detect Direction-Bound Stations');
 	});

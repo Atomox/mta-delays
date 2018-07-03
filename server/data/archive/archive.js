@@ -149,6 +149,7 @@ let archive_status = {
 		'mta_status.147.Weeknight_-_9pm_Planned_Work',
 		'mta_status.148.Weekday_Morning_-_Planned_Work',
 		'mta_status.149.Weeknight_Planned_Work',
+		'mta_status.150.Weekend_Latenight_-_Planned_Work',
 	],
 	path: './data/archive/',
 };

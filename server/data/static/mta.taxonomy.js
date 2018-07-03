@@ -204,6 +204,44 @@ const taxonomy = {
 		'tunnel_maintenance': ['TUNNEL RECONSTRUCTION'],
 		'flood_proofing': ['Long-Term Flood Protection'],
 	},
+
+	date_tags: {
+		'late_night': [
+			'Late Nights',
+			'Late Night'
+		],
+		'night': [
+			'Late Evenings',
+			'Late Evening',
+			'Evenings',
+			'Evening'
+		],
+		'day': [
+			'days',
+			'Rush Hours',
+			'Rush Hour'
+		],
+		'morning': [
+
+		],
+		'weekend': [
+			'Weekends',
+			'Weekend'
+		],
+		'week_day': [
+			'Mon to Fri',
+		],
+		'all_times': [
+			'All Times'
+		],
+
+		// Jun 4 - 8 -- Jun 11 - 15, Mon to Fri, from 9:45 PM to 5 AM
+		// Late Nights, 11 PM Fri, Jun 8 to 5 AM Mon, Jun 11
+		// 9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11
+		// Late Nights 10 PM Fri, Jun 8 to 5 AM Mon, Jun 11
+		// Late Nights, 9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11
+		// 9:30 PM Fri, Jun 8 to 5 AM Mon, Jun 11
+	},
 };
 
 module.exports = taxonomy;

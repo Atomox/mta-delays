@@ -2,6 +2,25 @@ let assert = require('assert');
 let expect = require('chai').expect;
 let _ = require('lodash');
 
+function basicTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
+  let counter = 0;
+	let total = repository.length;
+	let m = [];
+
+	// Get tests to run:
+	let my_tests = repository.map( event => {
+		if (filterTest(event, 'basic',	main_tags, omit_tags)) {
+			if (!route_tags || filterTestSubsection(event, 'message', route_tags)) {
+				counter++;
+				m.push(event);
+			}
+		}
+	});
+
+  return setupTest(description, counter, total, m, callback);
+}
+
+
 function routeTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
 	let counter = 0;
 	let total = repository.length;
@@ -193,6 +212,14 @@ function filterTest(event, type, tags, omit) {
 	}
 
 	switch (type) {
+
+		case 'basic':
+			if (!event.type_detail
+				|| !event.message) {
+					return false;
+				}
+				break;
+
 		case 'route_change':
 			if (!event.type_detail
 				|| event.type_detail.indexOf('route_change') === -1
@@ -280,6 +307,7 @@ function filterTest(event, type, tags, omit) {
 
 
 module.exports = {
+	basicTestByTag,
   routeTestByTag,
 	bypassTestByTag,
   stationTestByTag,

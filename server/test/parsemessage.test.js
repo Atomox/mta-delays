@@ -1,7 +1,8 @@
 let assert = require('assert');
 let expect = require('chai').expect;
 
-var mtaStatus = mtaStatus || require('../mta.event');
+let tests = require('./mta.test');
+let mtaStatus = require('../mta.event');
 
 // Test data.
 let status_dates = require('../data/test/test.dates').dateMessages;
@@ -48,6 +49,10 @@ describe('Parse Service Messages', function() {
 		testDates('MTAD-072 -- Should find 2018 updated dates, by Month/Day', s.updated_2018.simple);
 	});
 
+	describe('MTAD-118 -- Tag messages by Time Tag', () => {
+		tests.basicTestByTag(event_messages.normal, testTimeTag, 'Should Parse Weekends', ['MTAD-118']);
+	});
+
 
 	describe('Should Separate messages', () => {
 		it ('Should split simple message [alternate travel].', function() {
@@ -86,6 +91,47 @@ describe('Parse Service Messages', function() {
 				assert.equal(DateArr[x], result);
 			}
 		});
+	}
+
+	function testTimeTag(event) {
+		/**
+		 *
+		 * Filter messages....
+		 */
+		// console.log(' >>> ', event.message, '\n');
+
+		let date = mtaStatus.getMessageDates(event.message);
+
+		console.log(' ... ', date, '\n');
+
+		/**
+		 *
+		 *
+		 *
+		 *
+		 *   *
+		 *   *
+		 *   *
+		 *   *
+		 *   *
+		 *   *
+		 *   *
+		 * @TODO
+		 *   * 1. Pass message to time tag in mta.events,
+		 *   * 2. Assert results are contained within the event object.
+		 *   *
+		 *   *
+		 *   *
+		 *   *
+		 *   *
+		 *   *
+		 *   *
+		 *   *
+		 *
+		 *
+		 *
+		 */
+
 	}
 
 
