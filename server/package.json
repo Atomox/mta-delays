@@ -10,6 +10,10 @@
   },
   "author": "Ben Helmer <Atomox@gmail.com> (http://www.benhelmer.com)",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Atomox/mta-delays.git"
+  },
   "dependencies": {
     "axios": "^0.17.1",
     "deep-object-diff": "^1.1.0",
