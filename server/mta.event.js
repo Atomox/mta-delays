@@ -213,11 +213,9 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 			e.type_detail = tags['tags'];
 			e.tags = tags['tags_detailed'];
 
-			// Get an interruption time
-			e.time = null;
-
 			// Get a scheduled time from the body. (Planned Work)
-			e.durration = getMessagePlannedWorkDate(event);
+			// e.durration = getMessagePlannedWorkDate(event);
+			e.durration = getMessageDates(event);
 
 			// Get AD note (always at the bottom).
 			// <!> Must run before Travel Alt, which WILL match this.
@@ -321,7 +319,7 @@ function getMessageTrainLines(text) {
  */
 function prepareEventMessage(message, status, use_placeholder, summary) {
 	if (summary) {	message = message.replace(summary, (use_placeholder) ? '[-SUMMARY-]' : ''); }
-	if (status.durration !== null) { message = message.replace(status.durration, (use_placeholder) ? '[-DATES-]' : ''); }
+	if (status.durration.parsed !== null) { message = message.replace(status.durration.parsed, (use_placeholder) ? '[-DATES-]' : ''); }
 	if (status.alt_instructions !== null) { message = message.replace(status.alt_instructions, (use_placeholder) ? '[-ALT-INSTRUCT-]' : ''); }
 	if (status.ad_message !== null) {	message = message.replace(status.ad_message, (use_placeholder) ? '[-AD-MESSAGE-]' : ''); }
 
@@ -387,7 +385,7 @@ function getMessageADNote(text) {
  *   A work-date string. Otherwise, [null].
  */
 function getMessagePlannedWorkDate(text) {
-	let workDatePattern = /(?:\b(?:(?:Weekend[s]?|Late\s*Night[s]?|Night[s]?|Day[s]?|Late\s*Evening[s]?|Evening[s]?|Rush\s*Hour[s]?|All\s*times|Until|Except|(?:Jan|Feb|Mar|Apr|May|Jun|June|Jul|July|Aug|Sept|Oct|Nov|Dec)\s*[0-9]*(?:to|until)*\s*|(?:\b[0-9]{1,2}(?:\:[0-9]{1,2})?\s*(?:AM|PM)\s*\b))\b\s*[-,\(\)]*\s*)+(?:\s*(?:(?:(?:[0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(?:AM|PM)\s*)|(?:[0-9]{1,2}\s*(?:-\s*[0-9]{1,2})?\s*(?:20[0-9]{2})?)?|(?:20[0-9]{2}))?\s*[-,\(\)]?\s*(?:(?:Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|from|beginning(?:\s*at)?|further\snotice|and|including|each)|(?:Jan|Feb|Mar|Apr|May|June|July|Aug|Sept|Oct|Nov|Dec|Spring|Summer|Fall|Winter|Holiday[s]?))?\s*(?:\,|&bull\;|&|\*|\;)?\s*)*\s*)+/i;
+	let workDatePattern = /(?:\b(?:(?:Weekend[s]?|Late\s*Night[s]?|Night[s]?|Day[s]?|Late\s*Evening[s]?|Evening[s]?|Rush\s*Hour[s]?|All\s*times|Until|Except|(?:Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sept|September|Oct|October|Nov|November|Dec|December)\s*[0-9]*(?:to|until)*\s*|(?:\b[0-9]{1,2}(?:\:[0-9]{1,2})?\s*(?:AM|PM)\s*\b))\b\s*[-,\(\)]*\s*)+(?:\s*(?:(?:(?:[0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(?:AM|PM)\s*)|(?:[0-9]{1,2}\s*(?:-\s*[0-9]{1,2})?\s*(?:20[0-9]{2})?)?|(?:20[0-9]{2}))?\s*[-,\(\)]?\s*(?:(?:Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|from|beginning(?:\s*at)?|further\s*notice|and|including|each)|(?:Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sept|September|Oct|October|Nov|November|Dec|December|Spring|Summer|Fall|Winter|Holiday[s]?))?\s*(?:\,|&bull\;|&|\*|\;)?\s*)*\s*)+/i;
 
 	let dateResults = text.match(workDatePattern);
 
@@ -401,7 +399,7 @@ function getMessageDates(text) {
 	let result = {
 		parsed: null,
 		tokenized: null,
-		type: [],
+		tags: [],
 	};
 
 	result.parsed = getMessagePlannedWorkDate(text);
@@ -412,7 +410,7 @@ function getMessageDates(text) {
 		result.tokenized = parsed_upper;
 
 		// Analyze date tokens for any identifiable tags, such as weekend, week_day, etc.
-		result.type = _.union(result.type, analyzeTokenizedDates(result.tokenized));
+		result.tags = _.union(result.tags, analyzeTokenizedDates(result.tokenized));
 
 		Object.keys(mtaTaxonomy.date_tags).map(tag => {
 
@@ -421,8 +419,8 @@ function getMessageDates(text) {
 					? result.parsed.match(variation)
 					: (parsed_upper.indexOf(variation.toUpperCase()) !== -1);
 
-				if (exists && result.type.indexOf(tag) === -1) {
-					result.type.push(tag);
+				if (exists && result.tags.indexOf(tag) === -1) {
+					result.tags.push(tag);
 				}
 			});
 		});

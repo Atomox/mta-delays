@@ -141,7 +141,7 @@ class EventList extends React.Component {
 
 						    <small>
 						    	{(e.planned === true)
-						    		? e.detail.durration
+						    		? e.detail.durration.parsed
 					    			: moment(e.date.start).format('h:mm A, dddd, MMMM Do')
 					    	}</small>
 							</div>

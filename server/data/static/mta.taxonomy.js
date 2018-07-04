@@ -126,7 +126,7 @@ const taxonomy = {
 			'No service between',
 			'No weekday service between',
 			'Service is suspended',
-			/No\s*(\[[A-z0-9]{1,2}\]\s*(?:,|and|or)?)+(?:weekday|weekend|evening|late\s*night|overnight)?\s*(?:train[s]?|train\s*service|service)\s*(?:running\s*)?(between|in|along)/i
+			/No\s*(\[[A-z0-9]{1,2}\]\s*(?:,|and|or)?)+\s*(?:weekday|weekend|evening|late\s*night|overnight)?\s*(?:train[s]?|train\s*service|service)\s*(?:running\s*)?(between|in|along|to)/i
 		],
 		'platform_change' :[
 			'trains board at',
@@ -202,7 +202,10 @@ const taxonomy = {
 		],
 		'switch_maintenance': ['switch maintenance'],
 		'tunnel_maintenance': ['TUNNEL RECONSTRUCTION'],
-		'flood_proofing': ['Long-Term Flood Protection'],
+		'flood_proofing': [
+			'Long-Term Flood Protection',
+			'FLOOD PROTECTION'
+		],
 	},
 
 	date_tags: {
