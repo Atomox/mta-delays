@@ -98,11 +98,21 @@ describe('Parse Service Messages', function() {
 		 *
 		 * Filter messages....
 		 */
-		// console.log(' >>> ', event.message, '\n');
 
-		let date = mtaStatus.getMessageDates(event.message);
 
-		console.log(' ... ', date, '\n');
+		let txt = (event.message_raw) ? event.message_raw : event.message;
+		let date = mtaStatus.getMessageDates(txt);
+
+		expect(event).to.have.property('expect');
+
+		if (event.expect && event.expect.durration && event.expect.durration.tags) {
+//			console.log(' ... ', date, '\n');
+			expect(date).to.have.property('tags');
+			expect(date.tags).to.be.an('array');
+			expect(event.expect.durration.tags).to.be.an('array');
+			expect(date.tags, txt).to.have.members(event.expect.durration.tags);
+		}
+
 
 		/**
 		 *

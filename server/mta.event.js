@@ -431,19 +431,48 @@ function getMessageDates(text) {
 
 function markTimes(txt) {
 	if (typeof txt === 'string') {
-		console.log('<BEFORE>', txt);
+//		console.log('<BEFORE>', txt);
 		txt = txt.replace(/(?:[0-9]{1,2}(?:\:[0-9]{2})?\s*(?:AM|PM))/gi,
 			(x) => {
+				if (!x) {
+					return x;
+				}
+
+				x = x.trim();
+
 				// Enforce full time (include :00),
 				// which moment requires for a valid date/time.
 				if (x.indexOf(':') === -1) {
 					x = x.trim().split(' ');
 					x = x[0] + ':00 ' + x[1];
 				}
-				let date = '5/31/2018 ' + x;
-				return '[T--' + moment(date).format('H:mm') + ']';
+
+				x = x.split(':');
+				x = (x[0] < 10)
+					? '0' + x[0] + ':' + x[1]
+					: x[0] + ':' + x[1];
+
+//				if (x.indexOf('PM') !== -1 || x.indexOf('AM') !== -1) {
+//					x = x.slice(0, -1);
+//					console.log('>>', x);
+//				}
+
+				let date = '05-31-2018 ' + x;
+
+				try {
+					let res = moment(date, 'MM-DD-YYYY hh:mm');
+					if (!res.isValid()) {
+						throw new Error('Invalid date format detected: ' + date);
+					}
+					res = res.format('H:mm');
+					return '[T--' + res + ']';
+				}
+				catch(err) {
+					console.log(' <!> ', err, date);
+				}
+				return null;
 			});
-		console.log('<AFTER>', txt);
+//		console.log('<AFTER>', txt);
 	}
 	return txt;
 }
@@ -453,7 +482,7 @@ function markDates(txt, year) {
 	year = (year) ? year : moment().format('YYYY');
 
 	if (typeof txt === 'string') {
-		console.log('<BEFORE>', txt);
+//		console.log('<BEFORE>', txt);
 
 		// Identify date ranges, like Jun 18 - 23,
 		// and conver them to proper ranges.
@@ -469,7 +498,7 @@ function markDates(txt, year) {
 
 				let date_range = dates.map(z => makeDateStamp(year, month, z));
 
-				console.log(' . + + . ', x, ' | ', date_range);
+//				console.log(' . + + . ', x, ' | ', date_range);
 
 				return date_range[0] + ' - ' + date_range[1];
 			});
@@ -477,23 +506,89 @@ function markDates(txt, year) {
 		// Identify standard dates, like: Fri, Jun 23.
 		txt = txt.replace(/(?:Mon|Tue|Wed|Thu|Thur|Fri|Sat|Sun)[,-]*\s*(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s*[0-9]*/gi,
 			(x) => {
-				console.log(' . . . (B) ', x, year);
+//				console.log(' . . . (B) ', x, year);
 
 				let dateStamp = makeDateStamp(year, x);
 
-				console.log(' . . . (A) ', dateStamp);
+//				console.log(' . . . (A) ', dateStamp);
 				return dateStamp;
 			});
-		console.log('<AFTER>', txt);
+//		console.log('<AFTER>', txt);
 	}
 	return txt;
 }
 
 function makeDateStamp(year, month, day) {
 
-	let dateObj = (day)
-		? moment(month + ' ' + day + ', ' + year)
-		: moment(month + ', ' + year);
+	month = month.replace(/(?:Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sept|September|Oct|October|Nov|November|Dec|December)/gi, (x) => {
+		switch(x.toLowerCase()) {
+			case 'jan':
+			case 'january':
+				return '01';
+
+			case 'feb':
+			case 'february':
+				return '02';
+
+			case 'mar':
+			case 'march':
+				return '03';
+
+			case 'apr':
+			case 'april':
+				return '04';
+
+			case 'may':
+				return '05';
+
+			case 'jun':
+			case 'june':
+				return '06';
+
+			case 'jul':
+			case 'july':
+				return '07';
+
+			case 'aug':
+			case 'august':
+				return '08';
+
+			case 'sep':
+			case 'sept':
+			case 'september':
+				return '09';
+
+			case 'oct':
+			case 'october':
+				return '10';
+
+			case 'nov':
+			case 'november':
+				return '11';
+
+			case 'dec':
+			case 'december':
+				return '12';
+
+			default:
+				return x;
+		}
+	});
+
+	if (!day) {
+		month = month.split(/\s+/);
+		day = (month.length > 2) ? month[month.length -1] : month[1];
+		month = (month.length > 2) ? month[month.length - 2] : month[0];
+	}
+
+	day = (day < 10)
+		? '0' + day.trim()
+		: day.trim();
+	month = month.trim();
+
+//	console.log('+++ M:', month, '   D:', day);
+
+	let dateObj = moment(year + '-' + month + '-' + day);
 	let date = dateObj.format('YYYY-MM-DD');
 	let dayOfWeek = dateObj.format('ddd');
 	return '[D--' + date + '--' + dayOfWeek + ']';
@@ -538,41 +633,6 @@ function analyzeTokenizedDates(txt) {
 //	console.log('<><><> ->', result);
 
 	return result;
-}
-
-function parseMessageDates(txt) {
-/**
- *
- *   @TODO
- *     *
- *     *
- *     *
- *     *
- *     *
- *
- *
- *
- *
- *
- *
-
-
-
-	'9:30 PM Fri, Jun 8 to 5 AM Mon, Jun 11'
-	'Late Nights 10 PM Fri, Jun 8 to 5 AM Mon, Jun 11'
-	'Jun 4 - 8 -- Jun 11 - 15, Mon to Fri, from 9:45 PM to 5 AM'
-	'Jun 19 - 22 -- Jun 26 - 29, Tue to Fri, 12:01 AM to 5 AM'
-	'11:45 PM Fri, May 25 to 5 AM Tue, May 29'
-	'11:45 PM Fri, May 25 to 5 AM Tue, May 29'
-	'Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9'
-	'Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25'
-	'Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9'
-	'Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15'
-	'All Times, 5 AM Tue, Dec 26 until 8 AM Sun, Dec 31'
-	'Weekend , Saturday and Sunday, Nov 25 - 26'
-	'Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4'
-	'Weekend, 11:45 PM Fri to 7 AM Sun , Dec 22 - 24'
-*/
 }
 
 
