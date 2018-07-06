@@ -1,6 +1,7 @@
 let assert = require('assert');
 let expect = require('chai').expect;
-let _ = require('lodash');
+let _get = require('lodash').get;
+let _isEqual = require('lodash').isEqual;
 
 function basicTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
   let counter = 0;
@@ -20,6 +21,23 @@ function basicTestByTag(repository, callback, description, main_tags, omit_tags,
   return setupTest(description, counter, total, m, callback);
 }
 
+function dateTestByTag(repository, callback, description, main_tags, omit_tags, date_tags) {
+  let counter = 0;
+	let total = repository.length;
+	let m = [];
+
+	// Get tests to run:
+	let my_tests = repository.map( event => {
+		if (filterTest(event, 'basic',	main_tags, omit_tags)) {
+			if (!date_tags || filterTestSubsection(event, 'expect.durration.tags', date_tags, null, false)) {
+				counter++;
+				m.push(event);
+			}
+		}
+	});
+
+  return setupTest(description, counter, total, m, callback);
+}
 
 function routeTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
 	let counter = 0;
@@ -174,10 +192,17 @@ function setupTest(description, num_tests, total, data, callback) {
 }
 
 
-function filterTestSubsection(obj, property, tags, omit) {
-	return (obj[property] && obj[property].hasOwnProperty('tag'))
-		? filterTags(obj[property].tag, tags, omit)
-		: false;
+function filterTestSubsection(obj, property, tags, omit, tag_extend = true) {
+  if (!_get(obj, property, false)) {
+    return false;
+  }
+  if (tag_extend && !_get(obj,property, {}).hasOwnProperty('tag')) {
+    return false;
+  }
+
+  return (tag_extend)
+		? filterTags(_get(obj, property, {}).tag, tags, omit)
+		: filterTags(_get(obj, property, {}), tags, omit);
 }
 
 function filterTags(tags, include, exclude) {
@@ -286,7 +311,7 @@ function filterTest(event, type, tags, omit) {
  				missed.push(k);
  			}
        else if (typeof a[k] == 'object' && a[k]) {
-       	if (_.isEqual(a[k], b[k])) {
+       	if (_isEqual(a[k], b[k])) {
            missed_match.push(k);
        	}
        }
@@ -308,6 +333,7 @@ function filterTest(event, type, tags, omit) {
 
 module.exports = {
 	basicTestByTag,
+  dateTestByTag,
   routeTestByTag,
 	bypassTestByTag,
   stationTestByTag,

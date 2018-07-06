@@ -38,19 +38,24 @@ describe('Parse Service Messages', function() {
 
 	describe('Parse Planned Work Dates', () => {
 
-		testDates('Should find basic [weekdays] planned work dates.', s.weekdays.simple);
-		testDates('Should find basic [weekend] planned work dates.', s.weekend.simple);
-		testDates('Should find [multi-weekend] planned work dates.', s.weekend.multiweekend);
-		testDates('Should find [complex] planned work dates.', s.weekend.complex);
-		testDates('Should find [multi-weekday] planned work dates.', s.weekdays.multiweek);
-		testDates('Should find [long-term] planned work dates.', s.longterm.simple);
-		testDates('Should find [unique] planned work dates, like Holidays.', s.weekend.unique);
+		tests.basicTest(s.weekdays.simple, testParseDate, 'Should find basic [weekdays] planned work dates.');
+		tests.basicTest(s.weekend.simple, testParseDate, 'Should find basic [weekend] planned work dates.');
+		tests.basicTest(s.weekend.multiweekend, testParseDate, 'Should find [multi-weekend] planned work dates.');
+		tests.basicTest(s.weekend.complex, testParseDate, 'Should find [complex] planned work dates.');
+		tests.basicTest(s.weekdays.multiweek, testParseDate, 'Should find [multi-weekday] planned work dates.');
+		tests.basicTest(s.longterm.simple, testParseDate, 'Should find [long-term] planned work dates.');
 
-		testDates('MTAD-072 -- Should find 2018 updated dates, by Month/Day', s.updated_2018.simple);
+
+		tests.basicTest(s.weekend.unique, testParseDate, 'Should find [unique] planned work dates, like Holidays.');
+
+
+		tests.basicTest(s.updated_2018.simple, testParseDate, 'MTAD-072 -- Should find 2018 updated dates, by Month/Day');
 	});
 
-	describe('MTAD-118 -- Tag messages by Time Tag', () => {
-		tests.basicTestByTag(event_messages.normal, testTimeTag, 'Should Parse Weekends', ['MTAD-118']);
+	describe('MTAD-118 -- Tag messages by Date Tag', () => {
+		tests.dateTestByTag(event_messages.normal, testTimeTag, 'Should Parse Weekends', ['MTAD-118'], null, ['weekend']);
+		tests.dateTestByTag(event_messages.normal, testTimeTag, 'Should Parse Weekdays', ['MTAD-118'], null, ['week_day']);
+		tests.dateTestByTag(event_messages.normal, testTimeTag, 'Should Parse All Times', ['MTAD-118'], null, ['all_times']);
 	});
 
 
@@ -93,54 +98,27 @@ describe('Parse Service Messages', function() {
 		});
 	}
 
-	function testTimeTag(event) {
-		/**
-		 *
-		 * Filter messages....
-		 */
+	function testParseDate(txt) {
+		let result = f(txt);
+		assert.equal(txt, result);
+	}
 
+	function testTimeTag(event) {
 
 		let txt = (event.message_raw) ? event.message_raw : event.message;
 		let date = mtaStatus.getMessageDates(txt);
 
 		expect(event).to.have.property('expect');
 
-		if (event.expect && event.expect.durration && event.expect.durration.tags) {
-//			console.log(' ... ', date, '\n');
+		if (event.expect
+			&& event.expect.durration
+			&& event.expect.durration.tags) {
+
 			expect(date).to.have.property('tags');
 			expect(date.tags).to.be.an('array');
 			expect(event.expect.durration.tags).to.be.an('array');
 			expect(date.tags, txt).to.have.members(event.expect.durration.tags);
 		}
-
-
-		/**
-		 *
-		 *
-		 *
-		 *
-		 *   *
-		 *   *
-		 *   *
-		 *   *
-		 *   *
-		 *   *
-		 *   *
-		 * @TODO
-		 *   * 1. Pass message to time tag in mta.events,
-		 *   * 2. Assert results are contained within the event object.
-		 *   *
-		 *   *
-		 *   *
-		 *   *
-		 *   *
-		 *   *
-		 *   *
-		 *   *
-		 *
-		 *
-		 *
-		 */
 
 	}
 
