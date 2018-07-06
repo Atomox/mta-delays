@@ -39,6 +39,24 @@ function altInstrTestByTag(repository, callback, description, main_tags, omit_ta
   return setupTest(description, counter, total, m, callback);
 }
 
+function plannedWorkDurrationTestByTag(repository, callback, description, main_tags, omit_tags, tags) {
+  let counter = 0;
+	let total = repository.length;
+	let m = [];
+
+	// Get tests to run:
+	let my_tests = repository.map( event => {
+		if (filterTest(event, 'planned_work_durration',	main_tags, omit_tags)) {
+			if (!tags || filterTestSubsection(event, 'type', 'PlannedWork', null, false)) {
+				counter++;
+				m.push(event);
+			}
+		}
+	});
+
+  return setupTest(description, counter, total, m, callback);
+}
+
 function dateTestByTag(repository, callback, description, main_tags, omit_tags, date_tags) {
   let counter = 0;
 	let total = repository.length;
@@ -263,6 +281,14 @@ function filterTest(event, type, tags, omit) {
 				}
 				break;
 
+    case 'planned_work_durration':
+      if (!event.message
+        || !event.type
+        || !event.durration) {
+          return false;
+        }
+        break;
+
     case 'alt_instructions':
       if (!event.message
         || !event.alt_instructions) {
@@ -360,6 +386,7 @@ module.exports = {
 	basicTestByTag,
   dateTestByTag,
   altInstrTestByTag,
+  plannedWorkDurrationTestByTag,
   routeTestByTag,
 	bypassTestByTag,
   stationTestByTag,

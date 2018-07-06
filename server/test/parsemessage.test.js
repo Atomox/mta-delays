@@ -19,9 +19,12 @@ describe('Parse Service Messages', function() {
 
 	describe('Parse Planned Work Dates inside messages.', function() {
 
-		tests.basicTest(e.normal, testParsePlannedWorkDates, 'Should Parse [basic] Planned Work Posted dates from messages.');
+		tests.plannedWorkDurrationTestByTag(e.normal, testParsePlannedWorkDates, 'Should Parse [basic] Planned Work Posted dates from messages.');
 
-		tests.basicTest(e.complex, testParsePlannedWorkDates, 'Should Parse [complex] Planned Work Posted dates from messages.');
+/**
+ * @TODO
+ */
+//		tests.plannedWorkTestByTag(e.complex, testParsePlannedWorkDates, 'Should Parse [complex] Planned Work Posted dates from messages.');
 	});
 
 
@@ -59,15 +62,15 @@ describe('Parse Service Messages', function() {
 
 	describe('Parse Event Messages', () => {
 
-		it ('Should Parse simple planned event messages.', function() {
+		it.skip('Should Parse simple planned event messages.', function() {
 //			assert.equal(s.longterm.simple[x], result);
 		});
 
-		it ('Should Parse complex planned event messages.', function() {
+		it.skip('Should Parse complex planned event messages.', function() {
 //			assert.equal(s.longterm.simple[x], result);
 		});
 
-		it ('Should Parse service change event messages.', function() {
+		it.skip('Should Parse service change event messages.', function() {
 //			assert.equal(s.longterm.simple[x], result);
 		});
 	});
@@ -84,11 +87,9 @@ describe('Parse Service Messages', function() {
 	 */
 	function testParsePlannedWorkDates(event) {
 
-		if (event.type !== 'PlannedWork') { return; }
-
 		let result = mtaStatus.getMessagePlannedWorkDate(event.message);
 
-		expect(result).to.equal(event.durration);
+		expect(result, event.message).to.equal(event.durration);
 	}
 
 	function testParseDate(txt) {
