@@ -21,6 +21,24 @@ function basicTestByTag(repository, callback, description, main_tags, omit_tags,
   return setupTest(description, counter, total, m, callback);
 }
 
+function altInstrTestByTag(repository, callback, description, main_tags, omit_tags, date_tags) {
+  let counter = 0;
+	let total = repository.length;
+	let m = [];
+
+	// Get tests to run:
+	let my_tests = repository.map( event => {
+		if (filterTest(event, 'alt_instructions',	main_tags, omit_tags)) {
+			if (!date_tags || filterTestSubsection(event, 'message', date_tags, null, false)) {
+				counter++;
+				m.push(event);
+			}
+		}
+	});
+
+  return setupTest(description, counter, total, m, callback);
+}
+
 function dateTestByTag(repository, callback, description, main_tags, omit_tags, date_tags) {
   let counter = 0;
 	let total = repository.length;
@@ -245,6 +263,13 @@ function filterTest(event, type, tags, omit) {
 				}
 				break;
 
+    case 'alt_instructions':
+      if (!event.message
+        || !event.alt_instructions) {
+          return false;
+        }
+        break;
+
 		case 'route_change':
 			if (!event.type_detail
 				|| event.type_detail.indexOf('route_change') === -1
@@ -334,6 +359,7 @@ function filterTest(event, type, tags, omit) {
 module.exports = {
 	basicTestByTag,
   dateTestByTag,
+  altInstrTestByTag,
   routeTestByTag,
 	bypassTestByTag,
   stationTestByTag,

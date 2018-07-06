@@ -7,34 +7,23 @@ let mtaStatus = require('../mta.event');
 // Test data.
 let status_dates = require('../data/test/test.dates').dateMessages;
 let event_messages = require('../data/test/test.messages').event_messages.structured;
+let taxonomy = require('../data/test/test.taxonomy').taxonomy;
 
 let s = status_dates;
 let f = mtaStatus.getMessagePlannedWorkDate;
+let e = event_messages;
+let t = taxonomy;
 
 
 describe('Parse Service Messages', function() {
 
 	describe('Parse Planned Work Dates inside messages.', function() {
 
-		it ('Should Parse [basic] Planned Work Posted dates from messages.', () => {
-			for (let x in event_messages.normal) {
-				if (event_messages.normal[x].type !== 'PlannedWork') { continue; }
+		tests.basicTest(e.normal, testParsePlannedWorkDates, 'Should Parse [basic] Planned Work Posted dates from messages.');
 
-				let result = mtaStatus.getMessagePlannedWorkDate(event_messages.normal[x].message);
-
-				expect(result).to.equal(event_messages.normal[x].durration);
-			}
-		});
-		it.skip ('Should Parse [complex] Planned Work Posted dates from messages.', () => {
-			for (let x in event_messages.complex) {
-				if (event_messages.complex[x].type !== 'PlannedWork') { continue; }
-
-				let result = mtaStatus.getMessagePlannedWorkDate(event_messages.complex[x].message);
-
-				expect(result).to.equal(event_messages.complex[x].durration);
-			}
-		});
+		tests.basicTest(e.complex, testParsePlannedWorkDates, 'Should Parse [complex] Planned Work Posted dates from messages.');
 	});
+
 
 	describe('Parse Planned Work Dates', () => {
 
@@ -44,39 +33,47 @@ describe('Parse Service Messages', function() {
 		tests.basicTest(s.weekend.complex, testParseDate, 'Should find [complex] planned work dates.');
 		tests.basicTest(s.weekdays.multiweek, testParseDate, 'Should find [multi-weekday] planned work dates.');
 		tests.basicTest(s.longterm.simple, testParseDate, 'Should find [long-term] planned work dates.');
-
-
 		tests.basicTest(s.weekend.unique, testParseDate, 'Should find [unique] planned work dates, like Holidays.');
-
-
 		tests.basicTest(s.updated_2018.simple, testParseDate, 'MTAD-072 -- Should find 2018 updated dates, by Month/Day');
 	});
 
 	describe('MTAD-118 -- Tag messages by Date Tag', () => {
-		tests.dateTestByTag(event_messages.normal, testTimeTag, 'Should Parse Weekends', ['MTAD-118'], null, ['weekend']);
-		tests.dateTestByTag(event_messages.normal, testTimeTag, 'Should Parse Weekdays', ['MTAD-118'], null, ['week_day']);
-		tests.dateTestByTag(event_messages.normal, testTimeTag, 'Should Parse All Times', ['MTAD-118'], null, ['all_times']);
+		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse Weekends', ['MTAD-118'], null, ['weekend']);
+		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse Weekdays', ['MTAD-118'], null, ['week_day']);
+		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse All Times', ['MTAD-118'], null, ['all_times']);
 	});
 
 
 	describe('Should Separate messages', () => {
-		it ('Should split simple message [alternate travel].', function() {
-			for (let x in event_messages.normal) {
-				if (!event_messages.normal[x].alt_instructions) { continue; }
-				let result = mtaStatus.getMessageAlternateInstructions(event_messages.normal[x].message);
 
-				expect(result).to.equal(event_messages.normal[x].alt_instructions);
-			}
+		tests.altInstrTestByTag(e.normal, testAltInstructions, 'Should split simple message [alternate travel]');
+
+//		tests.altInstrTestByTag(e.complex, testAltInstructions, 'Should split complex messages [alternate travel].');
+	});
+
+
+	describe('Taxonomy', () => {
+		testTaxonomy(t.text, t.library, 'MTAD-053 -- Taxonomy Should Handle Regex');
+	});
+
+
+	describe('Parse Event Messages', () => {
+
+		it ('Should Parse simple planned event messages.', function() {
+//			assert.equal(s.longterm.simple[x], result);
 		});
-		it.skip ('Should split complex messages [alternate travel].', function() {
-			for (let x in event_messages.complex) {
-				if (!event_messages.complex[x].alt_instructions) { continue; }
-				let result = mtaStatus.getMessageAlternateInstructions(event_messages.complex[x].message);
 
-				expect(result).to.equal(event_messages.complex[x].alt_instructions);
-			}
+		it ('Should Parse complex planned event messages.', function() {
+//			assert.equal(s.longterm.simple[x], result);
+		});
+
+		it ('Should Parse service change event messages.', function() {
+//			assert.equal(s.longterm.simple[x], result);
 		});
 	});
+
+
+
 
 	/**
 	 * Test a string that contains only a date, and make sure the Date Regex catches the entire thing.
@@ -85,17 +82,13 @@ describe('Parse Service Messages', function() {
 	 * @param  {Array} DateArr
 	 *   Array of date strings we should test.
 	 */
-	function testDates(desc, DateArr) {
+	function testParsePlannedWorkDates(event) {
 
-		let count = DateArr.length,
-			description = desc + ' ' + '(' + count + '/' + count + ')';
+		if (event.type !== 'PlannedWork') { return; }
 
-		it (description, function() {
-			for (let x in DateArr) {
-				let result = f(DateArr[x]);
-				assert.equal(DateArr[x], result);
-			}
-		});
+		let result = mtaStatus.getMessagePlannedWorkDate(event.message);
+
+		expect(result).to.equal(event.durration);
 	}
 
 	function testParseDate(txt) {
@@ -122,71 +115,25 @@ describe('Parse Service Messages', function() {
 
 	}
 
+	function testAltInstructions(event) {
+		if (!event.alt_instructions) { return; }
+		let result = mtaStatus.getMessageAlternateInstructions(event.message);
 
-	describe('Taxonomy', () => {
-		it ('MTAD-053 -- Taxonomy Should Handle Regex', function() {
+		expect(result).to.equal(event.alt_instructions);
+	}
 
-			let text = [
-					{
-						txt: 'signal problems',
-						expect: {
-							text: ['signal_problems'],
-							regex: ['signal_problems'],
-							mixed: ['signal_problems'],
-						},
-					},
-					{
-						txt: 'route change',
-						expect: {
-							text: ['route_change'],
-							regex: ['route_change'],
-							mixed: ['route_change'],
-						},
-					},
-					{
-						txt: 'routechange',
-						expect: {
-							text: [],
-							regex: ['route_change'],
-							mixed: ['route_change'],
-						},
-					},
-					{
-						txt: 'some [A] running over the [F] from ... to ...',
-						expect: {
-							text: [],
-							regex: ['route_change'],
-							mixed: ['route_change'],
-						},
-					},
-				],
-				library = {
-					text: {
-						wrapper: {
-							'signal_problems': ['signal problems'],
-							'route_change': ['route change']
-						}
-					},
-					regex: {
-						wrapper: {
-							'signal_problems': [/signal\s*problems/i],
-							'route_change': [
-								/route\s*change/i,
-								/running\s*over\s*the\s*\[[A-Z0-9]\]/i,
-							]
-						}
-					},
-					mixed: {
-						'wrapper': {
-							'signal_problems': ['signal problems', /signal\s*problems/i],
-							'route_change': [
-								'route change',
-								/route\s*change/i,
-								/running\s*over\s*the\s*\[[A-Z0-9]\]/i,
-							]
-						}
-					},
-				};
+
+	/**
+	 * Test taxonomy regex evaluates the matched text.
+	 *
+	 * @param  {array} text
+	 *   Text array from the taxonomy test data.
+	 * @param  {array} library
+	 *   Library array from the taxonomy test data.
+	 */
+	function testTaxonomy(text, library, desc) {
+
+		it (desc, function() {
 			Object.keys(library).map( (l) => {
 				text.map( o => {
 					let tmp = mtaStatus.getMessageAction(o.txt, null, library[l]),
@@ -198,22 +145,6 @@ describe('Parse Service Messages', function() {
 				});
 			});
 		});
-	});
+	}
 
-
-	describe('Parse Event Messages', () => {
-
-		it ('Should Parse simple planned event messages.', function() {
-//			assert.equal(status_dates.longterm.simple[x], result);
-		});
-
-		it ('Should Parse complex planned event messages.', function() {
-//			assert.equal(status_dates.longterm.simple[x], result);
-		});
-
-		it ('Should Parse service change event messages.', function() {
-//			assert.equal(status_dates.longterm.simple[x], result);
-		});
-
-	});
 });

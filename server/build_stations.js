@@ -443,6 +443,8 @@ function stationAliases(name, boro) {
 			],
 			'Jamaica Center - Parsons/Archer': [
 				'Jamaica Center',
+				'Jamaica Ctr',
+				'Jamaica Ctr-Parsons/Archer',
 				'Parsons Blvd/Archer Ave',
 				'Parsons Blvd',
 			],
