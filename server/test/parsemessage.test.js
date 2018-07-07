@@ -51,28 +51,14 @@ describe('Parse Service Messages', function() {
 
 		tests.altInstrTestByTag(e.normal, testAltInstructions, 'Should split simple message [alternate travel]');
 
+		tests.adMessageTestByTag(e.normal, testAdMessage, 'MTAD-012 -- Should split simple acessability messages [AD]', ['MTAD-012']);
+
 //		tests.altInstrTestByTag(e.complex, testAltInstructions, 'Should split complex messages [alternate travel].');
 	});
 
 
 	describe('Taxonomy', () => {
 		testTaxonomy(t.text, t.library, 'MTAD-053 -- Taxonomy Should Handle Regex');
-	});
-
-
-	describe('Parse Event Messages', () => {
-
-		it.skip('Should Parse simple planned event messages.', function() {
-//			assert.equal(s.longterm.simple[x], result);
-		});
-
-		it.skip('Should Parse complex planned event messages.', function() {
-//			assert.equal(s.longterm.simple[x], result);
-		});
-
-		it.skip('Should Parse service change event messages.', function() {
-//			assert.equal(s.longterm.simple[x], result);
-		});
 	});
 
 
@@ -89,14 +75,28 @@ describe('Parse Service Messages', function() {
 
 		let result = mtaStatus.getMessagePlannedWorkDate(event.message);
 
-		expect(result, event.message).to.equal(event.durration);
+		// @TODO
+		//   Until we convert all old date to an object,
+		//   we need to handle durration objects vs depricated strings.
+		(typeof event.durration === 'object')
+			? expect(result, event.message).to.equal(event.durration.parsed)
+			: expect(result, event.message).to.equal(event.durration);
 	}
 
+
+	/**
+	 * Parse non-event simple text,
+	 * and assert planned work dates parse the entire text.
+	 */
 	function testParseDate(txt) {
 		let result = f(txt);
 		assert.equal(txt, result);
 	}
 
+
+	/**
+	 * Check parsed durrations to be tagged with expected date tags.
+	 */
 	function testTimeTag(event) {
 
 		let txt = (event.message_raw) ? event.message_raw : event.message;
@@ -113,14 +113,28 @@ describe('Parse Service Messages', function() {
 			expect(event.expect.durration.tags).to.be.an('array');
 			expect(date.tags, txt).to.have.members(event.expect.durration.tags);
 		}
-
 	}
 
+
+	/**
+	 * Check that alternate travel instructions are parsed from the event message.
+	 */
 	function testAltInstructions(event) {
+
 		if (!event.alt_instructions) { return; }
 		let result = mtaStatus.getMessageAlternateInstructions(event.message);
 
 		expect(result).to.equal(event.alt_instructions);
+	}
+
+
+	/**
+	 * Check that AD (accessability messaging) tags are parsed from the message.
+	 */
+	function testAdMessage(event) {
+
+		let result = mtaStatus.getMessageADNote(event.message);
+		expect(result, event.message).to.equal(event.ad_message);
 	}
 
 

@@ -366,7 +366,7 @@ function getMessageAlternateInstructions(text) {
  *   A matched [AD] string. Otherwise, [null].
  */
 function getMessageADNote(text) {
-	let adPattern = /\[ad\](\s*This\s*service\s*change\s*affects)\s*(\s*[\'\|a-zA-Z0-9\-\.\/\:\;&\(\)\*\,]+)+/i;
+	let adPattern = /\[ad[0-9]?\]\s*(?:(?:This|These)\s*service\s*change[s]*\s*affect[s]?|For\s*an accessible\s*connection)\s*(\s*(?:[\'\|a-zA-Z0-9\-\.\/\:\;&\(\)\*\,]+|\[(S[a-z]?|[a-z0-9]{1,2})\]))+/i;
 	let results = text.match(adPattern);
 
 	return (results && results[0])
@@ -1607,6 +1607,7 @@ module.exports = {
 	checkReports,
 	parseStatusFeed,
 	getMessageAlternateInstructions,
+	getMessageADNote,
 	getMessagePlannedWorkDate,
 	getMessageDates,
 	getMessageTrainLines,
