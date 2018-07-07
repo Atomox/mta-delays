@@ -1,10 +1,11 @@
-const mtaApi = require('./svc/mta/subway/mta.api');
-
-const mtaRegEx = require('./includes/regex');
+// These should be relative to this directory.
+const mtaApi = require('../svc/mta/subway/mta.api');
+const mtaRegEx = require('../includes/regex');
 
 // File where we'll store things. No extension, please.
-const mta_stations_file = './data/static/mta.stations';
-const stations_generated_filename = './data/generated/mta.stations.compiled.json';
+// These paths should be relative to directory where this script is run (npm run stations).
+const mta_stations_file = 'data/static/mta.stations';
+const stations_generated_filename = 'data/generated/mta.stations.compiled.json';
 
 //{
 //  'Complex ID': 1,

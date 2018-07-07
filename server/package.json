@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha",
-    "stations": "node build_stations.js",
+    "stations": "node scripts/build_stations.js",
     "parse_message": "node scripts/station_parse_message.js  $MESSAGE"
   },
   "author": "Ben Helmer <Atomox@gmail.com> (http://www.benhelmer.com)",
