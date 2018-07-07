@@ -12,7 +12,9 @@ header('Original Message');
 console.log(message, '\n');
 
 const mtaStatus = require('../mta.event');
+const mtaTags = require('../mta.taxonomy');
 const mtaStations = require('../mta.stations');
+const mtaRouteChange = require('../mta.route_change');
 
 main(message);
 
@@ -21,7 +23,7 @@ async function main(message) {
     let lines = await mtaStatus.getMessageTrainLines(message);
     section('Find Lines', lines);
 
-    tags = mtaStatus.getMessageAction(message);
+    tags = mtaTags.getMessageAction(message);
     section('Find all Tags', tags);
 
     message = mtaStations.prepareBunchedStationNames(message);
@@ -38,10 +40,10 @@ async function main(message) {
     message = message.parsed_message;
     section('Station Parse', message);
 
-    message = await mtaStatus.getMessageRouteChange(message);
+    message = await mtaRouteChange.getMessageRouteChange(message);
     section('1st Route Change Parse', message);
 
-    message = await mtaStatus.getRouteChange(message);
+    message = await mtaRouteChange.getRouteChange(message);
     section('2nd Route Change Parse', message);
   }
   catch (err) {

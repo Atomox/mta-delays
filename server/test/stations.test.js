@@ -1,21 +1,22 @@
 'use strict';
 
-let _ = require('lodash');
+const _ = require('lodash');
 
 // Chai
-let assert = require('assert');
-let expect = require('chai').expect;
+const assert = require('assert');
+const expect = require('chai').expect;
 
 // App Files
-let mtaStatus = require('../mta.event');
-let mtaStations = require('../mta.stations');
-let mtaRegEx = require('../includes/regex');
+const mtaStatus = require('../mta.event');
+const mtaStations = require('../mta.stations');
+const mtaRegEx = require('../includes/regex');
+const mtaRouteChange = require('../mta.route_change');
 
 // Test Data
-let tests = require('./mta.test');
-let stations = require('../data/test/test.stations').stations.names;
-let r_train_msg = require('../data/test/test.messages').train_line.R;
-let event_messages = require('../data/test/test.messages').event_messages.structured;
+const tests = require('./mta.test');
+const stations = require('../data/test/test.stations').stations.names;
+const r_train_msg = require('../data/test/test.messages').train_line.R;
+const event_messages = require('../data/test/test.messages').event_messages.structured;
 
 
 describe('Parse Stations', function() {
@@ -321,7 +322,7 @@ function checkMultiStationTokenForExpected(event) {
 
 	return mtaStatus.getStationsInEventMessage(lines, event.message)
 		.then( data => {
-			let m = mtaStatus.getRouteChange(data.parsed_message, event.line, true);
+			let m = mtaRouteChange.getRouteChange(data.parsed_message, event.line, true);
 			m.original_data = data;
 			return m;
 		})
@@ -383,7 +384,7 @@ function checkMultiStationTokenForSingle(event) {
 	// Make sure the event is properly formatted.
 	multistationPrep(event);
 
-	let all_promises = event.route_change.route.map(r => mtaStatus.analyzeStationArray(r));
+	let all_promises = event.route_change.route.map(r => mtaRouteChange.analyzeStationArray(r));
 
 	return Promise.all(all_promises)
 		.then( data => {

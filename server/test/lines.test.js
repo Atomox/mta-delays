@@ -3,9 +3,11 @@ let expect = require('chai').expect;
 let _ = require('lodash');
 
 // Project files & test data.
-let tests = require('./mta.test');
-let mtaStatus = require('../mta.event');
-let mtaStations = require('../mta.stations');
+const tests = require('./mta.test');
+const mtaStatus = require('../mta.event');
+const mtaStations = require('../mta.stations');
+const mtaRouteChange = require('../mta.route_change');
+
 let event_messages = require('../data/test/test.messages').event_messages.structured;
 
 
@@ -101,7 +103,7 @@ function testStationLineRerouteObject(event) {
 			// Debug Parse Stations Message.
 //			console.log('\n\n', data, '\n\n');
 
-			let m = mtaStatus.getRouteChange(data.parsed_message, event.line, true);
+			let m = mtaRouteChange.getRouteChange(data.parsed_message, event.line, true);
 			m.original_data = data;
 			return m;
 		})

@@ -4,6 +4,7 @@ let expect = require('chai').expect;
 let tests = require('./mta.test');
 let mtaStatus = require('../mta.event');
 let mtaDates = require('../mta.dates');
+let mtaTags = require ('../mta.taxonomy');
 
 // Test data.
 let status_dates = require('../data/test/test.dates').dateMessages;
@@ -152,7 +153,7 @@ describe('Parse Service Messages', function() {
 		it (desc, function() {
 			Object.keys(library).map( (l) => {
 				text.map( o => {
-					let tmp = mtaStatus.getMessageAction(o.txt, null, library[l]),
+					let tmp = mtaTags.getMessageAction(o.txt, null, library[l]),
 						msg = o.txt + ' should contain ' + o.expect + ', but found ' + tmp;
 
 					expect(tmp, l + ' (type) : ' + msg).to.be.an('array');
