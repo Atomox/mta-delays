@@ -3,6 +3,7 @@ let expect = require('chai').expect;
 
 let tests = require('./mta.test');
 let mtaStatus = require('../mta.event');
+let mtaDates = require('../mta.dates');
 
 // Test data.
 let status_dates = require('../data/test/test.dates').dateMessages;
@@ -10,7 +11,7 @@ let event_messages = require('../data/test/test.messages').event_messages.struct
 let taxonomy = require('../data/test/test.taxonomy').taxonomy;
 
 let s = status_dates;
-let f = mtaStatus.getMessagePlannedWorkDate;
+let f = mtaDates.getMessagePlannedWorkDate;
 let e = event_messages;
 let t = taxonomy;
 
@@ -73,7 +74,7 @@ describe('Parse Service Messages', function() {
 	 */
 	function testParsePlannedWorkDates(event) {
 
-		let result = mtaStatus.getMessagePlannedWorkDate(event.message);
+		let result = mtaDates.getMessagePlannedWorkDate(event.message);
 
 		// @TODO
 		//   Until we convert all old date to an object,
@@ -100,7 +101,7 @@ describe('Parse Service Messages', function() {
 	function testTimeTag(event) {
 
 		let txt = (event.message_raw) ? event.message_raw : event.message;
-		let date = mtaStatus.getMessageDates(txt);
+		let date = mtaDates.getMessageDates(txt);
 
 		expect(event).to.have.property('expect');
 
