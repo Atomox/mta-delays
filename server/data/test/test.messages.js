@@ -97,7 +97,7 @@ let event_messages = {
 				expect: {
 					durration: {
 						pased: '9:45 PM to 11:45 PM, Mon to Thu, Jan 15 - 18',
-						tags: ['week_day'],
+						tags: ['week_day', 'evening'],
 					}
 				},
 				durration: '9:45 PM to 11:45 PM, Mon to Thu, Jan 15 - 18',
@@ -623,7 +623,7 @@ let event_messages = {
 				expect: {
 					durration: {
 						pased: 'Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8    Dec 11 - 15    Dec 18 - 22',
-						tags: ['week_day', 'late_night'],
+						tags: ['week_day', 'late_night', 'evening'],
 					}
 				},
 				durration: 'Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8    Dec 11 - 15    Dec 18 - 22',
@@ -2436,7 +2436,7 @@ let event_messages = {
 					expect: {
 						durration: {
 							pased: 'Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9',
-							tags: ['week_day', 'night'],
+							tags: ['week_day', 'night', 'evening'],
 						}
 					},
 					durration: "Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9",
@@ -2516,7 +2516,7 @@ let event_messages = {
 					expect: {
 						durration: {
 							pased: 'Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25',
-							tags: ['week_day', 'night'],
+							tags: ['week_day', 'night', 'evening'],
 						}
 					},
 					durration: "Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25",
@@ -2964,7 +2964,7 @@ let event_messages = {
 					expect: {
 						durration: {
 							pased: 'Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9',
-							tags: ['week_day', 'day'],
+							tags: ['week_day', 'day', 'morning'],
 						}
 					},
 					durration: "until Mar 9",
@@ -3054,7 +3054,7 @@ let event_messages = {
 					expect: {
 						durration: {
 							pased: 'Rush Hour, 6 AM to 10 AM, Mon to Fri, Mar 19 - 23 Mar 26 - 30',
-							tags: ['week_day', 'day'],
+							tags: ['week_day', 'day', 'morning'],
 						}
 					},
 					durration: "Rush Hour, 6 AM to 10 AM, Mon to Fri, Mar 19 - 23 Mar 26 - 30",
@@ -3824,7 +3824,7 @@ let event_messages = {
 						expect: {
 							durration: {
 								pased: 'Jun 19 - 22 -- Jun 26 - 29, Tue to Fri, 12:01 AM to 5 AM',
-								tags: ['week_day'],
+								tags: ['week_day', 'late_night'],
 							}
 						},
 						message: "TRACK REPLACEMENT | Jun 19 - 22 -- Jun 26 - 29, Tue to Fri, 12:01 AM to 5 AM [4] Service operates in two sections: 1. Between Woodlawn, the Bronx and 125 St, Manhattan 2. Between 125 St, Manhattan and Utica Av*/New Lots Av, Brooklyn -- Transfer at 125 St to continue your trip. Note: Manhattan-bound trains skip 138 St-Grand Concourse. *No [4] trains between Utica Av and New Lots Av, Jun 26 - 29.",
@@ -3898,7 +3898,7 @@ let event_messages = {
 						expect: {
 							durration: {
 								pased: 'Jun 4 - 8 -- Jun 11 - 15, Mon to Fri, from 9:45 PM to 5 AM',
-								tags: ['week_day'],
+								tags: ['week_day', 'late_night', 'evening'],
 							}
 						},
 						message: "TRACK MAINTENANCE | Jun 4 - 8 -- Jun 11 - 15, Mon to Fri, from 9:45 PM to 5 AM Jamaica-bound [F] and Bedford/Nostrand Avs-bound [G] trains skip Fort Hamilton Pkwy , 15 St-Prospect Park and 4 Av-9 St in Brooklyn For service to these stations, take the [F] or [G] to 7 Av or Smith-9 Sts and transfer to a Coney Island-bound [F] or Church Av-bound [G]. For service from these stations, take the [F] or [G] to 7 Av or Church Av and transfer to a Jamaica-bound [F] or Bedford/Nostrand Avs-bound [G]*. *No [G] trains between Bedford-Nostrand Avs and Court Sq during this time.",
