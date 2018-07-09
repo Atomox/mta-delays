@@ -110,6 +110,8 @@ describe('Parse Service Messages', function() {
 		let txt = (event.message_raw) ? event.message_raw : event.message;
 		let date = mtaDates.getMessageDates(txt);
 
+//		console.log(' --- ', event.message);
+
 		expect(event).to.have.property('expect');
 
 		if (event.expect
@@ -120,6 +122,9 @@ describe('Parse Service Messages', function() {
 			expect(date.tags).to.be.an('array');
 			expect(event.expect.durration.tags).to.be.an('array');
 			expect(date.tags, txt).to.have.members(event.expect.durration.tags);
+		}
+		else {
+			console.log(' <!> ', event.message, '\n');
 		}
 	}
 

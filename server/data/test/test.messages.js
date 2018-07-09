@@ -96,7 +96,7 @@ let event_messages = {
 				time: null,
 				expect: {
 					durration: {
-						pased: '9:45 PM to 11:45 PM, Mon to Thu, Jan 15 - 18',
+						parsed: '9:45 PM to 11:45 PM, Mon to Thu, Jan 15 - 18',
 						tags: ['week_day', 'evening'],
 					}
 				},
@@ -247,7 +247,7 @@ let event_messages = {
 				time: null,
 				expect: {
 					durration: {
-						pased: 'Late Evenings, beginning 10 PM, Mon to Thu, Dec 4 - 7',
+						parsed: 'Late Evenings, beginning 10 PM, Mon to Thu, Dec 4 - 7',
 						tags: ['week_day', 'night'],
 					}
 				},
@@ -478,7 +478,7 @@ let event_messages = {
 				durration: 'All times, Monday to Friday, Dec 4 - 8 Dec 11 - 15',
 				expect: {
 					durration: {
-						pased: 'All times, Monday to Friday, Dec 4 - 8 Dec 11 - 15',
+						parsed: 'All times, Monday to Friday, Dec 4 - 8 Dec 11 - 15',
 						tags: ['all_times', 'week_day'],
 					}
 				},
@@ -492,7 +492,7 @@ let event_messages = {
 				time: null,
 				expect: {
 					durration: {
-						pased: 'Days, 9:30 AM to 4 PM, Mon to Fri, Dec 11 - 15    Dec 18 - 22',
+						parsed: 'Days, 9:30 AM to 4 PM, Mon to Fri, Dec 11 - 15    Dec 18 - 22',
 						tags: ['days', 'week_day'],
 					}
 				},
@@ -506,7 +506,7 @@ let event_messages = {
 				tag: ['MTAD-046', 'MTAD-118'],
 				expect: {
 					durration: {
-						pased: 'Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1',
+						parsed: 'Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1',
 						tags: ['days', 'week_day'],
 					}
 				},
@@ -527,7 +527,7 @@ let event_messages = {
 				time: null,
 				expect: {
 					durration: {
-						pased: 'Weekend , Saturday, Dec 23',
+						parsed: 'Weekend , Saturday, Dec 23',
 						tags: ['weekend'],
 					}
 				},
@@ -587,7 +587,7 @@ let event_messages = {
 				tag: ['MTAD-047', 'MTAD-118'],
 				expect: {
 					durration: {
-						pased: 'Weekend, 11:45 PM Fri to 7 AM Sun , Dec 22 - 24',
+						parsed: 'Weekend, 11:45 PM Fri to 7 AM Sun , Dec 22 - 24',
 						tags: ['weekend'],
 					}
 				},
@@ -622,7 +622,7 @@ let event_messages = {
 				tag: ['MTAD-047', 'MTAD-118'],
 				expect: {
 					durration: {
-						pased: 'Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8    Dec 11 - 15    Dec 18 - 22',
+						parsed: 'Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8    Dec 11 - 15    Dec 18 - 22',
 						tags: ['week_day', 'late_night', 'evening'],
 					}
 				},
@@ -656,7 +656,7 @@ let event_messages = {
 				time: null,
 				expect: {
 					durration: {
-						pased: 'Evenings, Mon to Thu, Dec 4 - 7',
+						parsed: 'Evenings, Mon to Thu, Dec 4 - 7',
 						tags: ['week_day', 'night'],
 					}
 				},
@@ -761,7 +761,7 @@ let event_messages = {
 				tag: ['MTAD-046', 'MTAD-047', 'MTAD-060', 'MTAD-118'],
 				expect: {
 					durration: {
-						pased: 'Days, 9:45 AM to 3:30 PM, Mon and Tue, Dec 11 - 12    Mon to Fri, Dec 18 - 22    Tue to Fri, Dec 26 - 29',
+						parsed: 'Days, 9:45 AM to 3:30 PM, Mon and Tue, Dec 11 - 12    Mon to Fri, Dec 18 - 22    Tue to Fri, Dec 26 - 29',
 						tags: ['week_day', 'day'],
 					}
 				},
@@ -904,7 +904,7 @@ let event_messages = {
 				tag: ["MTAD-014", "MTAD-001", "MTAD-040", 'MTAD-118'],
 				expect: {
 					durration: {
-						pased: 'Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4',
+						parsed: 'Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4',
 						tags: ['weekend'],
 					}
 				},
@@ -975,7 +975,7 @@ let event_messages = {
 				tag: ['MTAD-047', 'MTAD-060', 'MTAD-118'],
 				expect: {
 					durration: {
-						pased: 'Weekend , Saturday and Sunday, Nov 25 - 26',
+						parsed: 'Weekend , Saturday and Sunday, Nov 25 - 26',
 						tags: ['weekend'],
 					}
 				},
@@ -1077,7 +1077,7 @@ let event_messages = {
 				tag: ['MTAD-118'],
 				expect: {
 					durration: {
-						pased: 'Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1',
+						parsed: 'Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1',
 						tags: ['day', 'week_day'],
 					}
 				},
@@ -1249,7 +1249,7 @@ let event_messages = {
 				time: null,
 				expect: {
 					durration: {
-						pased: 'All Times, 5 AM Tue, Dec 26 until 8 AM Sun, Dec 31',
+						parsed: 'All Times, 5 AM Tue, Dec 26 until 8 AM Sun, Dec 31',
 						tags: ['all_times'],
 					}
 				},
@@ -1731,7 +1731,7 @@ let event_messages = {
 				time: null,
 				expect: {
 					durration: {
-						pased: 'Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15',
+						parsed: 'Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15',
 						tags: ['weekend'],
 					}
 				},
@@ -2166,7 +2166,7 @@ let event_messages = {
 				time: null,
 				expect: {
 					durration: {
-						pased: '9:30 PM Fri, Jun 1 to 5 AM Mon, Jun 4',
+						parsed: '9:30 PM Fri, Jun 1 to 5 AM Mon, Jun 4',
 						tags: ['weekend'],
 					}
 				},
@@ -2435,7 +2435,7 @@ let event_messages = {
 					time: null,
 					expect: {
 						durration: {
-							pased: 'Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9',
+							parsed: 'Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9',
 							tags: ['week_day', 'night', 'evening'],
 						}
 					},
@@ -2515,7 +2515,7 @@ let event_messages = {
 					time: null,
 					expect: {
 						durration: {
-							pased: 'Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25',
+							parsed: 'Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25',
 							tags: ['week_day', 'night', 'evening'],
 						}
 					},
@@ -2963,7 +2963,7 @@ let event_messages = {
 					time: null,
 					expect: {
 						durration: {
-							pased: 'Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9',
+							parsed: 'Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9',
 							tags: ['week_day', 'day', 'morning'],
 						}
 					},
@@ -3053,7 +3053,7 @@ let event_messages = {
 					],
 					expect: {
 						durration: {
-							pased: 'Rush Hour, 6 AM to 10 AM, Mon to Fri, Mar 19 - 23 Mar 26 - 30',
+							parsed: 'Rush Hour, 6 AM to 10 AM, Mon to Fri, Mar 19 - 23 Mar 26 - 30',
 							tags: ['week_day', 'day', 'morning'],
 						}
 					},
@@ -3633,7 +3633,7 @@ let event_messages = {
 						},
 						expect: {
 							durration: {
-								pased: '11:45 PM Fri, May 25 to 5 AM Tue, May 29',
+								parsed: '11:45 PM Fri, May 25 to 5 AM Tue, May 29',
 								tags: ['weekend'],
 							}
 						},
@@ -3665,7 +3665,7 @@ let event_messages = {
 						},
 						expect: {
 							durration: {
-								pased: '11:45 PM Fri, May 25 to 5 AM Tue, May 29',
+								parsed: '11:45 PM Fri, May 25 to 5 AM Tue, May 29',
 								tags: ['weekend'],
 							}
 						},
@@ -3823,7 +3823,7 @@ let event_messages = {
 						],
 						expect: {
 							durration: {
-								pased: 'Jun 19 - 22 -- Jun 26 - 29, Tue to Fri, 12:01 AM to 5 AM',
+								parsed: 'Jun 19 - 22 -- Jun 26 - 29, Tue to Fri, 12:01 AM to 5 AM',
 								tags: ['week_day', 'late_night'],
 							}
 						},
@@ -3897,7 +3897,7 @@ let event_messages = {
 						],
 						expect: {
 							durration: {
-								pased: 'Jun 4 - 8 -- Jun 11 - 15, Mon to Fri, from 9:45 PM to 5 AM',
+								parsed: 'Jun 4 - 8 -- Jun 11 - 15, Mon to Fri, from 9:45 PM to 5 AM',
 								tags: ['week_day', 'late_night', 'evening'],
 							}
 						},
@@ -3967,7 +3967,7 @@ let event_messages = {
 						],
 						expect: {
 							durration: {
-								pased: 'Late Nights, 11 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
+								parsed: 'Late Nights, 11 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
 								tags: ['late_night', 'weekend'],
 							}
 						},
@@ -3990,7 +3990,7 @@ let event_messages = {
 						time: null,
 						expect: {
 							durration: {
-								pased: '9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
+								parsed: '9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
 								tags: ['weekend'],
 							}
 						},
@@ -4028,7 +4028,7 @@ let event_messages = {
 						],
 						expect: {
 							durration: {
-								pased: 'Late Nights 10 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
+								parsed: 'Late Nights 10 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
 								tags: ['late_night', 'weekend'],
 							}
 						},
@@ -4082,7 +4082,7 @@ let event_messages = {
 						],
 						expect: {
 							durration: {
-								pased: 'Late Nights, 9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
+								parsed: 'Late Nights, 9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
 								tags: ['late_night', 'weekend'],
 							}
 						},
@@ -4148,7 +4148,7 @@ let event_messages = {
 						],
 						expect: {
 							durration: {
-								pased: '9:30 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
+								parsed: '9:30 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
 								tags: ['weekend'],
 							}
 						},
@@ -4206,6 +4206,146 @@ let event_messages = {
 							{line: "MTA NYCT_H",dir: "0"},
 							{line: "MTA NYCT_H",dir: "1"}],
 						},
+
+						{
+							archive: 159,
+							id: "MTA NYCT_190053",
+							type: "Planned Work",
+							planned: true,
+							date: {fetched: "2018-07-09T00:00:00-04:00",},
+							tag: ['MTAD-118'],
+
+							type_detail: [
+								"day",
+								"week_day",
+								"additional_service"
+							],
+							expect: {
+								durration: {
+									parsed: 'Rush Hour | Jul 9 - Aug 17, Mon to Fri, 7:30 AM to 9:30 AM',
+									tags: [
+										"morning",
+										"day",
+										"week_day"
+									],
+								}
+							},
+
+							durration: {
+								parsed: "Rush Hour | Jul 9 - Aug 17, Mon to Fri, 7:30 AM to 9:30 AM",
+								tokenized: "RUSH HOUR | JUL 9 - AUG 17, MON TO FRI, [T--07:30] TO [T--09:30]",
+								tags: [
+									"morning",
+									"day",
+									"week_day"
+								]
+							},
+							message: "Rush Hour | Jul 9 - Aug 17, Mon to Fri, 7:30 AM to 9:30 AM Additional [G] service operates between Court Sq and Bedford-Nostrand Avs",
+							route_change: {
+								message: "[G] service operates between [Qs606-G22] and [Bk289-G33]",
+								message_mod: "[-- route-match --]",
+								trains: ["G"],
+								route: [
+									{
+										allTrains: true,
+										dir: null,
+										exp_lcl: null,
+										lines: ["G"],
+										along: null,
+										from: "Qs606-G22",
+										to: "Bk289-G33",
+										section: null,
+										parsed: "[G] service operates between [Qs606-G22] and [Bk289-G33]",
+										process: "RouteChangeSections"
+									}
+								],
+							},
+							line: [{line: "MTA NYCT_G",dir: "1"}],
+						},
+
+
+						{
+							archive: 159,
+							id: "MTA NYCT_191449",
+							type: "Planned Work",
+							planned: true,
+							tag: ['MTAD-118'],
+							date: {fetched: "2018-07-02T00:00:00-04:00",},
+							summary: "TRACK REPLACEMENT Jul 9 - 13, Mon to Fri, 945 AM to 330 PM 145 St-bound [B] trains run local from Sheepshead Bay to Prospect Park in Brooklyn",
+							type_detail: [
+								"running_local",
+								"track_maintenance",
+								"week_day"
+							],
+
+							expect: {
+								durration: {
+									parsed: 'Jul 9 - 13, Mon to Fri, 9:45 AM to 3:30 PM',
+									tags: [
+										"day",
+										"week_day"
+									],
+								}
+							},
+							durration: {
+								parsed: "Jul 9 - 13, Mon to Fri, 9:45 AM to 3:30 PM 145",
+								tokenized: "[D--2018-07-09--Mon] - [D--2018-07-13--Fri], MON TO FRI, [T--09:45] TO [T--15:30] 145",
+								tags: [
+								"week_day",
+								"day"
+								]
+							},
+							message: "TRACK REPLACEMENT | Jul 9 - 13, Mon to Fri, 9:45 AM to 3:30 PM 145 St-bound [B] trains run local from Sheepshead Bay to Prospect Park in Brooklyn",
+							route_change: {
+								message: "[Mn151-A12]-bound [B] trains run local from [Bk54-D39] to [Bk42-D26]",
+								trains: ["B"],
+								route: [
+									{
+										allTrains: true,
+										dir: "[mn151-a12]-bound",
+										exp_lcl: "local",
+										lines: ["B"],
+										along: null,
+										from: "Bk54-D39",
+										to: "Bk42-D26",
+										section: null,
+										process: "RouteChangeStandard",
+										parsed: "[Mn151-A12]-bound [B] trainsrun local from [Bk54-D39] to [Bk42-D26]"
+									}
+								],
+							},
+						},
+
+						{
+							archive: 159,
+							id: "MTA NYCT_191450",
+							tag: ['MTAD-118'],
+							date: {	fetched: "2018-07-02T00:00:00-04:00",},
+							type_detail: [
+								"running_express",
+								"track_maintenance",
+								"week_day"
+							],
+							expect: {
+								durration: {
+									parsed: 'Jul 9 - 13, Mon to Fri, 9:45 AM to 3:30 PM',
+									tags: [
+										"day",
+										"week_day"
+									],
+								}
+							},
+							durration: {
+								parsed: "Jul 9 - 13, Mon to Fri, 9:45 AM to 3:30 PM",
+								tokenized: "[D--2018-07-09--Mon] - [D--2018-07-13--Fri], MON TO FRI, [T--09:45] TO [T--15:30]",
+								tags: [
+									"week_day",
+									"day"
+								]
+							},
+							message: "TRACK REPLACEMENT | Jul 9 - 13, Mon to Fri, 9:45 AM to 3:30 PM Coney Island-bound [Q] trains run express from Prospect Park to Sheepshead Bay in Brooklyn Trains stop at Church Av, Newkirk Plaza and Kings Hwy. For service to Parkside Av, Beverley, Cortelyou Rds, Avenue H, Avenue J, Avenue M, Avenue U and Neck Rd, take the [Q] to Church Av, Newkirk Plaza, Kings Hwy or Sheepshead Bay and transfer to a Manhattan-bound [B]* or [Q]. For service from these stations, take the [B] or [Q] to Kings Hwy, Newkirk Plaza, Church Av or Prospect Park and transfer to a Coney Island-bound [Q]. *This detour has taken into account additional planned service changes. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+							},
+
 		],
 
 		complex: [

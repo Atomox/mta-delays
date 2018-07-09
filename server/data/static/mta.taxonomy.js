@@ -148,7 +148,10 @@ const taxonomy = {
 
 	// Misc
 	incident_misc: {
-		'additional_service': ['Additional service'],
+		'additional_service': [
+			'Additional service',
+			/Additional\s*(\[[A-Z0-9]{1,2}\])? service/i
+		],
 		'bad_weather': [
 			'weather conditions',
 		],

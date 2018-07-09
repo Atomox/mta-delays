@@ -84,7 +84,7 @@ function dateTestByTag(repository, callback, description, main_tags, omit_tags, 
 	let my_tests = repository.map( event => {
 		if (filterTest(event, 'basic',	main_tags, omit_tags)) {
 			if (!date_tags || filterTestSubsection(event, 'expect.durration.tags', date_tags, null, false)) {
-				counter++;
+        counter++;
 				m.push(event);
 			}
 		}
