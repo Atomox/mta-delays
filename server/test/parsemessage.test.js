@@ -47,9 +47,11 @@ describe('Parse Service Messages', function() {
 		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Weekdays]', ['MTAD-118'], null, ['week_day']);
 		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [All Times]', ['MTAD-118'], null, ['all_times']);
 		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Late Nights]', ['MTAD-118'], null, ['late_night']);
-		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Days & Mornings]', ['MTAD-118'], null, ['day', 'morning']);
+		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Days]', ['MTAD-118'], null, ['day']);
+		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Mornings]', ['MTAD-118'], null, ['morning']);
 		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Early Mornings]', ['MTAD-118'], null, ['early_morning']);
-		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Evening]', ['MTAD-118'], null, ['evening', 'late_evening']);
+		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Evening]', ['MTAD-118'], null, ['evening']);
+		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Late Evening]', ['MTAD-118'], null, ['late_evening']);
 		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Nights]', ['MTAD-118'], null, ['night']);
 
 	});

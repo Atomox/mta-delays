@@ -4344,7 +4344,45 @@ let event_messages = {
 								]
 							},
 							message: "TRACK REPLACEMENT | Jul 9 - 13, Mon to Fri, 9:45 AM to 3:30 PM Coney Island-bound [Q] trains run express from Prospect Park to Sheepshead Bay in Brooklyn Trains stop at Church Av, Newkirk Plaza and Kings Hwy. For service to Parkside Av, Beverley, Cortelyou Rds, Avenue H, Avenue J, Avenue M, Avenue U and Neck Rd, take the [Q] to Church Av, Newkirk Plaza, Kings Hwy or Sheepshead Bay and transfer to a Manhattan-bound [B]* or [Q]. For service from these stations, take the [B] or [Q] to Kings Hwy, Newkirk Plaza, Church Av or Prospect Park and transfer to a Coney Island-bound [Q]. *This detour has taken into account additional planned service changes. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
+						},
+
+						{
+							archive: 160,
+							id: "MTA NYCT_193451",
+							date: {	fetched: "2018-07-09T00:00:00-04:00",},
+							tag: ['MTAD-118'],
+							type_detail: [
+								"shuttle_bus",
+								"no_trains_partial",
+								"track_maintenance",
+								"week_day"
+							],
+							expect: {
+								durration: {
+									parsed: 'Until Jul 27, Mon to Fri, from 9:45 PM to 5 AM',
+									tags: [
+										"late_night",
+										"evening",
+										"week_day"
+									],
+								}
 							},
+							durration: {
+								parsed: "Until Jul 27, Mon to Fri, from 9:45 PM to 5 AM",
+								tokenized: "UNTIL JUL 27, MON TO FRI, FROM [T--21:45] TO [T--05:00]",
+								tags: [
+									"late_night",
+									"evening",
+									"week_day"
+								]
+							},
+							message: "TRACK REPLACEMENT | Until Jul 27, Mon to Fri, from 9:45 PM to 5 AM No [1] trains between Chambers St and South Ferry in Manhattan [SB] Free shuttle buses provide alternate service [1] service operates between 242 St and Chambers St . [SB] Buses operate between Chambers St and South Ferry . -- Transfer between trains and [SB] buses at Chambers St. For South Ferry , take the [R] ([N] overnight) at Whitehall St. Transfer at Times Sq-42 St to/from the [1]. Show Shuttle Bus Stops [TP] Station Shuttle Bus Stop Chambers St [ad] [2] West Broadway at Chambers St Fulton St [ad] [2] [4] [A] [C] [J] Broadway at Vesey St (to South Ferry) Cortlandt St Broadway at Cortlandt St (to South Ferry) Church St at Cortlandt St (to Chambers St) Rector St Broadway at Rector St (to South Ferry) Trinity Pl at Rector St (to Chambers St) Bowling Green [ad] [4] State St at Battery Pl (to Chambers St) South Ferry-Whitehall St [N] [R] State St at South Ferry bus terminal Note: [1] trains from Chambers St board at the downtown platform.",
+
+							line: [
+								{line: "MTA NYCT_1",dir: "0"},
+								{line: "MTA NYCT_1",dir: "1"}
+							],
+					},
 
 		],
 
