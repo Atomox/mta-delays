@@ -53,8 +53,12 @@ describe('Parse Service Messages', function() {
 		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Evening]', ['MTAD-118'], null, ['evening']);
 		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Late Evening]', ['MTAD-118'], null, ['late_evening']);
 		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Nights]', ['MTAD-118'], null, ['night']);
-
 	});
+
+	describe('MTAD-70 -- Tag messages by Date Tag', () => {
+		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Dates', ['MTAD-118']);
+	});
+
 
 
 	describe('Should Separate messages', () => {
@@ -128,6 +132,35 @@ describe('Parse Service Messages', function() {
 		else {
 			console.log(' <!> ', event.message, '\n');
 		}
+	}
+
+
+	/**
+	 * Check parsed durrations to be tagged with expected date tags.
+	 */
+	function testTimeEval(event) {
+
+		let txt = (event.message_raw) ? event.message_raw : event.message;
+		let date = mtaDates.getMessageDates(txt);
+
+		console.log(' --- ', date);
+
+
+
+//		expect(event).to.have.property('expect');//
+
+//		if (event.expect
+//			&& event.expect.durration
+//			&& event.expect.durration.tags) {//
+
+//			expect(date).to.have.property('tags');
+//			expect(date.tags).to.be.an('array');
+//			expect(event.expect.durration.tags).to.be.an('array');
+//			expect(date.tags, txt).to.have.members(event.expect.durration.tags);
+//		}
+//		else {
+//			console.log(' <!> ', event.message, '\n');
+//		}
 	}
 
 

@@ -589,6 +589,10 @@ let event_messages = {
 					durration: {
 						parsed: 'Weekend, 11:45 PM Fri to 7 AM Sun , Dec 22 - 24',
 						tags: ['weekend'],
+						date: [{
+							start: '2018-12-22',
+							end: '2018-12-24'
+						}],
 					}
 				},
 				durration: 'Weekend, 11:45 PM Fri to 7 AM Sun , Dec 22 - 24',

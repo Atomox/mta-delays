@@ -43,6 +43,8 @@ function getMessageDates(text) {
 		parsed: null,
 		tokenized: null,
 		tags: [],
+		time: [],
+		date: [],
 	};
 
 	result.parsed = getMessagePlannedWorkDate(text);
@@ -54,8 +56,26 @@ function getMessageDates(text) {
 
 		// Analyze date & time tokens for any identifiable tags,
 		// such as weekend, week_day, latnight, etc.
-		result.tags = _union(result.tags, analyzeTokenizedDates(result.tokenized));
-		analyzeTokenizedTimes(result.tokenized).map(t => result.tags = _union(result.tags, t.tags));
+		analyzeTokenizedDates(result.tokenized).map(t => {
+			_union(result.tags, t.tags);
+			if (t.start && t.end) {
+				result.date.push({
+					start: t.start,
+					end: t.end,
+				});
+			}
+		});
+
+
+		analyzeTokenizedTimes(result.tokenized).map(t => {
+			result.tags = _union(result.tags, t.tags);
+			if (t.start && t.end) {
+				result.time.push({
+					start: t.start.time,
+					end: t.end.time
+				});
+			}
+		});
 
 		Object.keys(mtaTaxonomy.date_tags).map(tag => {
 
@@ -430,31 +450,49 @@ function analyzeTokenizedDates(txt) {
 
 	let result = [];
 
-	let day_range_pattern = /(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--[0-9]{4}\-[0-9]{2}\-[0-9]{1,2}--([a-z]{3})\]\s*(-|TO)\s*(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--[0-9]{4}\-[0-9]{2}\-[0-9]{1,2}--([a-z]{3})\]/gi;
+	let day_range_pattern = /(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\]\s*(-|TO)\s*(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\]/gi;
 
-	let results = mtaRegEx.matchRegexString(day_range_pattern, txt, true);
+	for (let i = 0; i < 6; i++) {
+		let results = mtaRegEx.matchRegexString(day_range_pattern, txt, true);
 
-	if (results[1] && results[3]) {
-		results[1] = results[1].toUpperCase();
-		results[3] = results[3].toUpperCase();
+		if (!results[0]) {
+			break;
+		}
 
-		switch(results[1]) {
-			case 'MON':
-			case 'TUE':
-			case 'WED':
-				if (['TUE', 'WED', 'THU', 'FRI'].indexOf(results[3]) !== -1) {
-					result.push('week_day');
-				}
-				break;
+		// Don't parse this more than once.
+		txt = txt.replace(results[0], '```');
 
-			case 'THU':
-			case 'FRI':
-			case 'SAT':
-			case 'SUN':
-				if (['SAT', 'SUN', 'MON', 'TUE'].indexOf(results[3]) !== -1) {
-					result.push('weekend');
-				}
-				break;
+		// Process pairs.
+		if (results[2] && results[5]) {
+			results[2] = results[2].toUpperCase();
+			results[5] = results[5].toUpperCase();
+
+			switch(results[2]) {
+				case 'MON':
+				case 'TUE':
+				case 'WED':
+					if (['TUE', 'WED', 'THU', 'FRI'].indexOf(results[5]) !== -1) {
+						result.push({
+							tags: 'week_day',
+							start: results[1],
+							end: results[4]
+						});
+					}
+					break;
+
+				case 'THU':
+				case 'FRI':
+				case 'SAT':
+				case 'SUN':
+					if (['SAT', 'SUN', 'MON', 'TUE'].indexOf(results[5]) !== -1) {
+						result.push({
+							tags: 'weekend',
+							start: results[1],
+							end: results[4]
+						});
+					}
+					break;
+			}
 		}
 	}
 
