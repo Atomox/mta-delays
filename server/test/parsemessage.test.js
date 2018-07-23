@@ -143,24 +143,32 @@ describe('Parse Service Messages', function() {
 		let txt = (event.message_raw) ? event.message_raw : event.message;
 		let date = mtaDates.getMessageDates(txt);
 
-		console.log(' --- ', date);
+//		console.log(' --- ', date);
 
+		expect(event).to.have.property('expect');
 
+		if (event.expect
+			&& event.expect.durration
+			&& event.expect.durration.date) {
 
-//		expect(event).to.have.property('expect');//
+			expect(date).to.have.property('date');
+			expect(date.date).to.be.an('array');
+			expect(event.expect.durration.date).to.be.an('array');
 
-//		if (event.expect
-//			&& event.expect.durration
-//			&& event.expect.durration.tags) {//
+			event.expect.durration.date.map( c => {
+				let found = false;
 
-//			expect(date).to.have.property('tags');
-//			expect(date.tags).to.be.an('array');
-//			expect(event.expect.durration.tags).to.be.an('array');
-//			expect(date.tags, txt).to.have.members(event.expect.durration.tags);
-//		}
-//		else {
-//			console.log(' <!> ', event.message, '\n');
-//		}
+				date.date.map( d => {
+					if (c.start === d.start && c.end === d.end) {
+						found = true;
+					}
+				});
+				expect(found, 'Message should have dates: ' + c.start + ', ' + c.end + ' --- ' + event.message + ' --- But found: ' + JSON.stringify(date)).to.equal(true);
+			});
+		}
+		else {
+			console.log(' <!> ', event.message, '\n');
+		}
 	}
 
 

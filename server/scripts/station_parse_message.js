@@ -14,12 +14,17 @@ console.log(message, '\n');
 const mtaStatus = require('../mta.event');
 const mtaTags = require('../mta.taxonomy');
 const mtaStations = require('../mta.stations');
+const mtaDates = require('../mta.dates');
 const mtaRouteChange = require('../mta.route_change');
 
 main(message);
 
 async function main(message) {
   try {
+
+    let dates = await mtaDates.getMessageDates(message);
+    section('Find Dates', dates);
+
     let lines = await mtaStatus.getMessageTrainLines(message);
     section('Find Lines', lines);
 

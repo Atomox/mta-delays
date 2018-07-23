@@ -57,7 +57,13 @@ function getMessageDates(text) {
 		// Analyze date & time tokens for any identifiable tags,
 		// such as weekend, week_day, latnight, etc.
 		analyzeTokenizedDates(result.tokenized).map(t => {
-			_union(result.tags, t.tags);
+
+			t.tags = (typeof t.tags === 'string')
+				? [ t.tags ]
+				: t.tags;
+
+			result.tags = _union(result.tags, t.tags);
+
 			if (t.start && t.end) {
 				result.date.push({
 					start: t.start,
@@ -168,18 +174,40 @@ function markDates(txt, year) {
 		// Identify date ranges, like Jun 18 - 23,
 		// and conver them to proper ranges.
 		// Do this before normal dates, so we don't have false positives.
-		txt = txt.replace(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s*([0-9]+)\s*-\s*([0-9]+)/gi,
+		txt = txt.replace(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s*([0-9]+)\s*-\s*(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)?\s*([0-9]+)/gi,
 			(x) => {
-				let month = x.split(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i),
-					dates = month[2].split('-');
+				let month_split = x.split(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i),
+					dates = [],
+					month = [];
 
-				// Since we split on month, there will always be a value
-				// before month, even if it is empty.
-				month = month[1];
+//				console.log(month_split);
 
-				let date_range = dates.map(z => makeDateStamp(year, month, z));
+				if (month_split.length === 3) {
+					dates = month_split[2].split('-');
 
-				return date_range[0] + ' - ' + date_range[1];
+					// Since we split on month, there will always be a value
+					// before month, even if it is empty.
+					month.push(month_split[1]);
+					month.push(month_split[1]);
+				}
+				else if (month_split.length === 5) {
+
+					dates.push(month_split[2].split('-')[0].trim());
+					dates.push(month_split[4].trim());
+
+					// Since we split on month, there will always be a value
+					// before month, even if it is empty.
+					month.push(month_split[1]);
+					month.push(month_split[3]);
+				}
+
+				let date_range = dates.map( (z, index) => {
+					return makeDateStamp(year, month[index], dates[index]);
+				});
+
+				return (date_range[0])
+				 	? date_range[0] + ' - ' + date_range[1]
+					: x;
 			});
 
 		// Identify standard dates, like: Fri, Jun 23.
@@ -450,14 +478,18 @@ function analyzeTokenizedDates(txt) {
 
 	let result = [];
 
-	let day_range_pattern = /(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\]\s*(-|TO)\s*(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\]/gi;
+	let day_range_pattern = /(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\]\s*(-|TO|UNTIL)\s*(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\]/gi;
 
 	for (let i = 0; i < 6; i++) {
 		let results = mtaRegEx.matchRegexString(day_range_pattern, txt, true);
+		let pushed_result = false;
+//		console.log(' [', i, ']', txt);
 
 		if (!results[0]) {
 			break;
 		}
+
+
 
 		// Don't parse this more than once.
 		txt = txt.replace(results[0], '```');
@@ -477,6 +509,7 @@ function analyzeTokenizedDates(txt) {
 							start: results[1],
 							end: results[4]
 						});
+						pushed_result = true;
 					}
 					break;
 
@@ -490,11 +523,27 @@ function analyzeTokenizedDates(txt) {
 							start: results[1],
 							end: results[4]
 						});
+						pushed_result = true;
 					}
 					break;
 			}
+
+			if (pushed_result === false) {
+				if (results[1] && results[4]) {
+					result.push({
+						tags: null,
+						start: results[1],
+						end: results[4]
+					});
+				}
+				else {
+					console.log(' --> NADA', results);
+				}
+			}
 		}
 	}
+
+//	console.log('[final]', result, '\n\n');
 
 	return result;
 }

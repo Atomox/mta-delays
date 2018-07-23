@@ -628,6 +628,18 @@ let event_messages = {
 					durration: {
 						parsed: 'Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8    Dec 11 - 15    Dec 18 - 22',
 						tags: ['week_day', 'late_night', 'evening'],
+						date: [{
+							start: '2018-12-04',
+							end: '2018-12-08'
+						},
+						{
+							start: '2018-12-11',
+							end: '2018-12-15'
+						},
+						{
+							start: '2018-12-18',
+							end: '2018-12-22'
+						}],
 					}
 				},
 				durration: 'Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8    Dec 11 - 15    Dec 18 - 22',
@@ -662,6 +674,10 @@ let event_messages = {
 					durration: {
 						parsed: 'Evenings, Mon to Thu, Dec 4 - 7',
 						tags: ['week_day', 'night'],
+						date: [{
+							start: '2018-12-04',
+							end: '2018-12-07'
+						}],
 					}
 				},
 				durration: 'Evenings, Mon to Thu, Dec 4 - 7',
@@ -767,6 +783,18 @@ let event_messages = {
 					durration: {
 						parsed: 'Days, 9:45 AM to 3:30 PM, Mon and Tue, Dec 11 - 12    Mon to Fri, Dec 18 - 22    Tue to Fri, Dec 26 - 29',
 						tags: ['week_day', 'day'],
+						date: [{
+							start: '2018-12-11',
+							end: '2018-12-12'
+						},
+						{
+							start: '2018-12-18',
+							end: '2018-12-22'
+						},
+						{
+							start: '2018-12-26',
+							end: '2018-12-29'
+						}],
 					}
 				},
 				durration: 'Days, 9:45 AM to 3:30 PM, Mon and Tue, Dec 11 - 12    Mon to Fri, Dec 18 - 22    Tue to Fri, Dec 26 - 29',
@@ -910,6 +938,14 @@ let event_messages = {
 					durration: {
 						parsed: 'Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4',
 						tags: ['weekend'],
+						date: [{
+							start: '2018-11-24',
+							end: '2018-11-27'
+						},
+						{
+							start: '2018-12-01',
+							end: '2018-12-04'
+						},],
 					}
 				},
 				durration: 'Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4',
@@ -981,6 +1017,10 @@ let event_messages = {
 					durration: {
 						parsed: 'Weekend , Saturday and Sunday, Nov 25 - 26',
 						tags: ['weekend'],
+						date: [{
+							start: '2018-11-25',
+							end: '2018-11-26'
+						}],
 					}
 				},
 				durration: 'Weekend , Saturday and Sunday, Nov 25 - 26',
@@ -1083,6 +1123,10 @@ let event_messages = {
 					durration: {
 						parsed: 'Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1',
 						tags: ['day', 'week_day'],
+						date: [{
+							start: '2018-11-27',
+							end: '2018-12-01'
+						}],
 					}
 				},
 				durration: 'Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1',
@@ -1255,6 +1299,10 @@ let event_messages = {
 					durration: {
 						parsed: 'All Times, 5 AM Tue, Dec 26 until 8 AM Sun, Dec 31',
 						tags: ['all_times'],
+						date: [{
+							start: '2018-12-26',
+							end: '2018-12-31'
+						}],
 					}
 				},
 				durration: "All Times, 5 AM Tue, Dec 26 until 8 AM Sun, Dec 31",
@@ -1737,6 +1785,14 @@ let event_messages = {
 					durration: {
 						parsed: 'Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15',
 						tags: ['weekend'],
+						date: [{
+							start: '2018-01-05',
+							end: '2018-01-08'
+						},
+						{
+							start: '2018-01-12',
+							end: '2018-01-15'
+						}],
 					}
 				},
 				durration: "Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15",
@@ -2172,6 +2228,10 @@ let event_messages = {
 					durration: {
 						parsed: '9:30 PM Fri, Jun 1 to 5 AM Mon, Jun 4',
 						tags: ['weekend'],
+						date: [{
+							start: '2018-06-01',
+							end: '2018-06-04'
+						}],
 					}
 				},
 				durration: null,
@@ -2441,6 +2501,10 @@ let event_messages = {
 						durration: {
 							parsed: 'Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9',
 							tags: ['week_day', 'night', 'evening'],
+							date: [{
+								start: '2018-01-08',
+								end: '2018-01-09'
+							},],
 						}
 					},
 					durration: "Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9",
@@ -2521,6 +2585,14 @@ let event_messages = {
 						durration: {
 							parsed: 'Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25',
 							tags: ['week_day', 'night', 'evening'],
+							date: [{
+								start: '2018-01-15',
+								end: '2018-01-18'
+							},
+							{
+								start: '2018-01-22',
+								end: '2018-01-25'
+							}],
 						}
 					},
 					durration: "Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25",
@@ -3059,6 +3131,14 @@ let event_messages = {
 						durration: {
 							parsed: 'Rush Hour, 6 AM to 10 AM, Mon to Fri, Mar 19 - 23 Mar 26 - 30',
 							tags: ['week_day', 'day', 'morning'],
+							date: [{
+								start: '2018-03-19',
+								end: '2018-03-23'
+							},
+							{
+								start: '2018-03-26',
+								end: '2018-03-30'
+							}],
 						}
 					},
 					durration: "Rush Hour, 6 AM to 10 AM, Mon to Fri, Mar 19 - 23 Mar 26 - 30",
@@ -3639,6 +3719,10 @@ let event_messages = {
 							durration: {
 								parsed: '11:45 PM Fri, May 25 to 5 AM Tue, May 29',
 								tags: ['weekend'],
+								date: [{
+									start: '2018-05-25',
+									end: '2018-05-29'
+								}],
 							}
 						},
 						durration: "11:45 PM Fri, May 25 to 5 AM Tue, May 29",
@@ -3671,6 +3755,10 @@ let event_messages = {
 							durration: {
 								parsed: '11:45 PM Fri, May 25 to 5 AM Tue, May 29',
 								tags: ['weekend'],
+								date: [{
+									start: '2018-05-25',
+									end: '2018-05-29'
+								}],
 							}
 						},
 						durration: "11:45 PM Fri, May 25 to 5 AM Tue, May 29",
@@ -3829,6 +3917,14 @@ let event_messages = {
 							durration: {
 								parsed: 'Jun 19 - 22 -- Jun 26 - 29, Tue to Fri, 12:01 AM to 5 AM',
 								tags: ['week_day', 'late_night'],
+								date: [{
+									start: '2018-06-19',
+									end: '2018-06-22'
+								},
+								{
+									start: '2018-06-26',
+									end: '2018-06-29'
+								}],
 							}
 						},
 						message: "TRACK REPLACEMENT | Jun 19 - 22 -- Jun 26 - 29, Tue to Fri, 12:01 AM to 5 AM [4] Service operates in two sections: 1. Between Woodlawn, the Bronx and 125 St, Manhattan 2. Between 125 St, Manhattan and Utica Av*/New Lots Av, Brooklyn -- Transfer at 125 St to continue your trip. Note: Manhattan-bound trains skip 138 St-Grand Concourse. *No [4] trains between Utica Av and New Lots Av, Jun 26 - 29.",
@@ -3903,6 +3999,14 @@ let event_messages = {
 							durration: {
 								parsed: 'Jun 4 - 8 -- Jun 11 - 15, Mon to Fri, from 9:45 PM to 5 AM',
 								tags: ['week_day', 'late_night', 'evening'],
+								date: [{
+									start: '2018-06-04',
+									end: '2018-06-08'
+								},
+								{
+									start: '2018-06-11',
+									end: '2018-06-15'
+								}],
 							}
 						},
 						message: "TRACK MAINTENANCE | Jun 4 - 8 -- Jun 11 - 15, Mon to Fri, from 9:45 PM to 5 AM Jamaica-bound [F] and Bedford/Nostrand Avs-bound [G] trains skip Fort Hamilton Pkwy , 15 St-Prospect Park and 4 Av-9 St in Brooklyn For service to these stations, take the [F] or [G] to 7 Av or Smith-9 Sts and transfer to a Coney Island-bound [F] or Church Av-bound [G]. For service from these stations, take the [F] or [G] to 7 Av or Church Av and transfer to a Jamaica-bound [F] or Bedford/Nostrand Avs-bound [G]*. *No [G] trains between Bedford-Nostrand Avs and Court Sq during this time.",
@@ -3973,6 +4077,10 @@ let event_messages = {
 							durration: {
 								parsed: 'Late Nights, 11 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
 								tags: ['late_night', 'weekend'],
+								date: [{
+									start: '2018-06-08',
+									end: '2018-06-11'
+								}],
 							}
 						},
 						message: "STATION ENHANCEMENTS | Late Nights, 11 PM Fri, Jun 8 to 5 AM Mon, Jun 11 Inwood-bound [A] trains skip 81, 96, 103 and 116 Sts in Manhattan For service to these stations, take the [A] to 125 St and transfer to an Ozone Park/Far Rockaway-bound [A] local . For service from these stations, take the [A] to 59 St-Columbus Circle and transfer to an Inwood-bound [A]. Alternate travel note: Use nearby [1] stations instead; transfer between trains at 59 St-Columbus Circle. Note: 72 St, 86 St and Cathedral Pkwy (110 St) are closed for renovation.",
@@ -3996,6 +4104,10 @@ let event_messages = {
 							durration: {
 								parsed: '9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
 								tags: ['weekend'],
+								date: [{
+									start: '2018-06-08',
+									end: '2018-06-11'
+								}],
 							}
 						},
 						durration: "9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
@@ -4034,6 +4146,10 @@ let event_messages = {
 							durration: {
 								parsed: 'Late Nights 10 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
 								tags: ['late_night', 'weekend'],
+								date: [{
+									start: '2018-06-08',
+									end: '2018-06-11'
+								}],
 							}
 						},
 						durration: "Late Nights 10 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
@@ -4088,6 +4204,10 @@ let event_messages = {
 							durration: {
 								parsed: 'Late Nights, 9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
 								tags: ['late_night', 'weekend'],
+								date: [{
+									start: '2018-06-08',
+									end: '2018-06-11'
+								}],
 							}
 						},
 						durration: "Late Nights, 9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
@@ -4154,6 +4274,10 @@ let event_messages = {
 							durration: {
 								parsed: '9:30 PM Fri, Jun 8 to 5 AM Mon, Jun 11',
 								tags: ['weekend'],
+								date: [{
+									start: '2018-06-08',
+									end: '2018-06-11'
+								}],
 							}
 						},
 						durration: "9:30 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
@@ -4232,6 +4356,10 @@ let event_messages = {
 										"day",
 										"week_day"
 									],
+									date: [{
+										start: '2018-07-09',
+										end: '2018-08-17'
+									}],
 								}
 							},
 
@@ -4289,6 +4417,10 @@ let event_messages = {
 										"day",
 										"week_day"
 									],
+									date: [{
+										start: '2018-07-09',
+										end: '2018-07-13'
+									}],
 								}
 							},
 							durration: {
@@ -4337,6 +4469,10 @@ let event_messages = {
 										"day",
 										"week_day"
 									],
+									date: [{
+										start: '2018-07-09',
+										end: '2018-07-13'
+									}],
 								}
 							},
 							durration: {
