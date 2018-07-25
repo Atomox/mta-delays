@@ -333,44 +333,41 @@ function analyzeTokenizedTimes(txt) {
 	let time_pattern = /(Beginning)?\s*\[T--([0-9]{1,2}:[0-9]{2})\]\s*(?:(?:TO|UNTIL)\s*\[T--([0-9]{1,2}:[0-9]{2})\]\s*)?/i;
 	let result = [];
 
-	let results = mtaRegEx.matchRegexString(time_pattern, txt, true);
+	for (let i = 0; i < 6; i++) {
+		let results = mtaRegEx.matchRegexString(time_pattern, txt, true);
 
-	/**
-	 * @TODO
-	 *  *
-	 *  * Handle non-pairs?
-	 *  *
-	 *  *
-	 *  *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 *
-	 */
-	if (results[2] && results[3]) {
+		if (!results[0]) {
+			break;
+		}
 
-		let start = analyzeTime(results[2]),
-			end = analyzeTime(results[3]);
 
-		result.push({
-			start: start,
-			end: end,
-			tags: analyzeTimeObjectPair(start, end),
-		});
+		// Don't parse this more than once.
+		txt = txt.replace(results[0], '```');
+
+		if (results[2] && results[3]) {
+
+			let start = analyzeTime(results[2]),
+				end = analyzeTime(results[3]);
+
+			result.push({
+				start: start,
+				end: end,
+				tags: analyzeTimeObjectPair(start, end),
+			});
+		}
+		else if (results[1] && results[2]) {
+
+			let start = analyzeTime(results[2]),
+				end = null;
+
+			result.push({
+				start: start,
+				end: end,
+				tags: analyzeTimeObjectPair(start, end),
+			});
+		}
 	}
-	else if (results[1] && results[2]) {
 
-		let start = analyzeTime(results[2]),
-			end = null;
-
-		result.push({
-			start: start,
-			end: end,
-			tags: analyzeTimeObjectPair(start, end),
-		});
-	}
 	return result;
 }
 
