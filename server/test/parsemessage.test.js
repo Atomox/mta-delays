@@ -56,10 +56,17 @@ describe('Parse Service Messages', function() {
 	});
 
 	describe('MTAD-073 -- Understand message Dates', () => {
-		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Single Date', ['MTAD-118'], null, null, ['date-single']);
-		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Date Range', ['MTAD-118'], null, null, ['date-range']);
-		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Dates Range (multiple)', ['MTAD-118'], null, null, ['date-range-multi']);
-//		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Dates UNTIL', ['MTAD-118'], null, null, ['date-until']);
+		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Single Date', ['MTAD-118'], null, null, ['date-single']);
+		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Date Range', ['MTAD-118'], null, null, ['date-range']);
+		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Dates Range (multiple)', ['MTAD-118'], null, null, ['date-range-multi']);
+//		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Dates UNTIL', ['MTAD-118'], null, null, ['date-until']);
+	});
+
+	describe('MTAD-073 -- Understand message Times', () => {
+		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Time Range (all)', ['MTAD-118'], null, null, ['time-all']);
+		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Time Range (single)', ['MTAD-118'], null, null, ['time-single']);
+		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Time Range (range)', ['MTAD-118'], null, null, ['time-range']);
+		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Time Range (range/multiple)', ['MTAD-118'], null, null, ['time-range-multi']);
 	});
 
 
@@ -141,7 +148,7 @@ describe('Parse Service Messages', function() {
 	/**
 	 * Check parsed durrations to be tagged with expected date tags.
 	 */
-	function testTimeEval(event) {
+	function testDateEval(event) {
 
 		let txt = (event.message_raw) ? event.message_raw : event.message;
 		let date = mtaDates.getMessageDates(txt);
@@ -171,6 +178,40 @@ describe('Parse Service Messages', function() {
 		}
 		else {
 			console.log(' <!> ', event.message, '\n');
+		}
+	}
+
+	/**
+	 * Check parsed durrations to be tagged with expected date tags.
+	 */
+	function testTimeEval(event) {
+
+		let txt = (event.message_raw) ? event.message_raw : event.message;
+		let date = mtaDates.getMessageDates(txt);
+
+		expect(event, event.message).to.have.property('expect');
+
+		if (event.expect
+			&& event.expect.durration
+			&& event.expect.durration.time) {
+
+			expect(date).to.have.property('date');
+			expect(date.date).to.be.an('array');
+			expect(event.expect.durration.time).to.be.an('array');
+
+			event.expect.durration.time.map( c => {
+				let found = false;
+
+				date.time.map( d => {
+					if (c.start === d.start && c.end === d.end) {
+						found = true;
+					}
+				});
+				expect(found, 'Message should have times: ' + c.start + ', ' + c.end + ' --- ' + event.message + ' --- But found: ' + JSON.stringify(date)).to.equal(true);
+			});
+		}
+		else {
+			console.log(' <!> Missing Expect Time: ', event.message, '\n');
 		}
 	}
 
