@@ -75,7 +75,7 @@ function plannedWorkDurrationTestByTag(repository, callback, description, main_t
   return setupTest(description, counter, total, m, callback);
 }
 
-function dateTestByTag(repository, callback, description, main_tags, omit_tags, date_tags) {
+function dateTestByTag(repository, callback, description, main_tags, omit_tags, date_tags, expect_date_tag) {
   let counter = 0;
 	let total = repository.length;
 	let m = [];
@@ -83,10 +83,19 @@ function dateTestByTag(repository, callback, description, main_tags, omit_tags, 
 	// Get tests to run:
 	let my_tests = repository.map( event => {
 		if (filterTest(event, 'basic',	main_tags, omit_tags)) {
-			if (!date_tags || filterTestSubsection(event, 'expect.durration.tags', date_tags, null, false)) {
+
+			if (date_tags && filterTestSubsection(event, 'expect.durration.tags', date_tags, null, false)) {
         counter++;
 				m.push(event);
 			}
+      else if (expect_date_tag && filterTestSubsection(event, 'expect.durration.tag', expect_date_tag, null, false)) {
+        counter++;
+				m.push(event);
+			}
+      else if (!date_tags && !expect_date_tag) {
+        counter++;
+				m.push(event);
+      }
 		}
 	});
 

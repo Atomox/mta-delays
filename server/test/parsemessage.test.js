@@ -55,8 +55,11 @@ describe('Parse Service Messages', function() {
 		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Nights]', ['MTAD-118'], null, ['night']);
 	});
 
-	describe('MTAD-70 -- Tag messages by Date Tag', () => {
-		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Dates', ['MTAD-118']);
+	describe('MTAD-073 -- Understand message Dates', () => {
+		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Single Date', ['MTAD-118'], null, null, ['date-single']);
+		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Date Range', ['MTAD-118'], null, null, ['date-range']);
+		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Dates Range (multiple)', ['MTAD-118'], null, null, ['date-range-multi']);
+//		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Dates UNTIL', ['MTAD-118'], null, null, ['date-until']);
 	});
 
 
@@ -118,7 +121,7 @@ describe('Parse Service Messages', function() {
 
 //		console.log(' --- ', event.message);
 
-		expect(event).to.have.property('expect');
+		expect(event, event.message).to.have.property('expect');
 
 		if (event.expect
 			&& event.expect.durration
@@ -145,7 +148,7 @@ describe('Parse Service Messages', function() {
 
 //		console.log(' --- ', date);
 
-		expect(event).to.have.property('expect');
+		expect(event, event.message).to.have.property('expect');
 
 		if (event.expect
 			&& event.expect.durration

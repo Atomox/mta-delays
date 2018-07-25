@@ -81,6 +81,12 @@ function getMessageDates(text) {
 					end: t.end.time
 				});
 			}
+			else if (t.start) {
+				result.time.push({
+					start: t.start.time,
+					end: null
+				});
+			}
 		});
 
 		Object.keys(mtaTaxonomy.date_tags).map(tag => {
@@ -180,8 +186,6 @@ function markDates(txt, year) {
 					dates = [],
 					month = [];
 
-//				console.log(month_split);
-
 				if (month_split.length === 3) {
 					dates = month_split[2].split('-');
 
@@ -211,7 +215,7 @@ function markDates(txt, year) {
 			});
 
 		// Identify standard dates, like: Fri, Jun 23.
-		txt = txt.replace(/(?:Mon|Tue|Wed|Thu|Thur|Fri|Sat|Sun)[,-]*\s*(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s*[0-9]*/gi,
+		txt = txt.replace(/(?:(?:Mon|Tue|Wed|Thu|Thur|Fri|Sat|Sun)[,-]*\s*)?(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s*[0-9]*/gi,
 			(x) => {
 
 				let dateStamp = makeDateStamp(year, x);
@@ -326,7 +330,7 @@ function makeDateStamp(year, month, day) {
  */
 function analyzeTokenizedTimes(txt) {
 
-	let time_pattern = /\[T--([0-9]{1,2}:[0-9]{2})\]\s*TO\s*\[T--([0-9]{1,2}:[0-9]{2})\]\s*/i;
+	let time_pattern = /(Beginning)?\s*\[T--([0-9]{1,2}:[0-9]{2})\]\s*(?:(?:TO|UNTIL)\s*\[T--([0-9]{1,2}:[0-9]{2})\]\s*)?/i;
 	let result = [];
 
 	let results = mtaRegEx.matchRegexString(time_pattern, txt, true);
@@ -345,10 +349,10 @@ function analyzeTokenizedTimes(txt) {
 	 *
 	 *
 	 */
-	if (results[1] && results[2]) {
+	if (results[2] && results[3]) {
 
-		let start = analyzeTime(results[1]),
-			end = analyzeTime(results[2]);
+		let start = analyzeTime(results[2]),
+			end = analyzeTime(results[3]);
 
 		result.push({
 			start: start,
@@ -356,7 +360,17 @@ function analyzeTokenizedTimes(txt) {
 			tags: analyzeTimeObjectPair(start, end),
 		});
 	}
+	else if (results[1] && results[2]) {
 
+		let start = analyzeTime(results[2]),
+			end = null;
+
+		result.push({
+			start: start,
+			end: end,
+			tags: analyzeTimeObjectPair(start, end),
+		});
+	}
 	return result;
 }
 
@@ -372,12 +386,18 @@ function analyzeTokenizedTimes(txt) {
  *   Empty if invalide params were passed, or none could be assigned.
  */
 function analyzeTimeObjectPair(start, end) {
-	if (!start || !end) {
+	if (!start) {
 		return [];
 	}
 	let result = [];
 
-	if (start.day && end.day) {
+	if (!end && start) {
+		result.push(start.tag);
+	}
+	else if (!end) {
+		return [];
+	}
+	else if (start.day && end.day) {
 		// 9:45AM - 3:30PM -- Days
 		result.push(end.tag);
 	}
@@ -478,7 +498,7 @@ function analyzeTokenizedDates(txt) {
 
 	let result = [];
 
-	let day_range_pattern = /(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\]\s*(-|TO|UNTIL)\s*(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\]/gi;
+	let day_range_pattern = /(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\]\s*(?:(-|TO|UNTIL)\s*(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\])?/gi;
 
 	for (let i = 0; i < 6; i++) {
 		let results = mtaRegEx.matchRegexString(day_range_pattern, txt, true);
@@ -539,6 +559,24 @@ function analyzeTokenizedDates(txt) {
 				else {
 					console.log(' --> NADA', results);
 				}
+			}
+		}
+		else if (results[2]) {
+			if (['MON', 'TUE', 'WED', 'THU', 'FRI'].indexOf(results[2].toUpperCase()) !== -1) {
+				result.push({
+					tags: 'week_day',
+					start: results[1],
+					end: results[1]
+				});
+				pushed_result = true;
+			}
+			else if (['SAT', 'SUN'].indexOf(results[2].toUpperCase()) !== -1) {
+				result.push({
+					tags: 'weekend',
+					start: results[1],
+					end: results[1]
+				});
+				pushed_result = true;
 			}
 		}
 	}

@@ -98,6 +98,13 @@ let event_messages = {
 					durration: {
 						parsed: '9:45 PM to 11:45 PM, Mon to Thu, Jan 15 - 18',
 						tags: ['week_day', 'evening'],
+						date: [
+							{
+								start: '2018-01-15',
+								end: '2018-01-18'
+							}
+						],
+						tag: ['date-range'],
 					}
 				},
 				durration: '9:45 PM to 11:45 PM, Mon to Thu, Jan 15 - 18',
@@ -248,7 +255,12 @@ let event_messages = {
 				expect: {
 					durration: {
 						parsed: 'Late Evenings, beginning 10 PM, Mon to Thu, Dec 4 - 7',
-						tags: ['week_day', 'night'],
+						tags: ['week_day', 'night', 'evening'],
+						date: [{
+							start: '2018-12-04',
+							end: '2018-12-07',
+						}],
+						tag: ['date-range'],
 					}
 				},
 				durration: "Late Evenings, beginning 10 PM, Mon to Thu, Dec 4 - 7",
@@ -480,6 +492,15 @@ let event_messages = {
 					durration: {
 						parsed: 'All times, Monday to Friday, Dec 4 - 8 Dec 11 - 15',
 						tags: ['all_times', 'week_day'],
+						date: [{
+							start: '2018-12-04',
+							end: '2018-12-08'
+						},
+						{
+							start: '2018-12-11',
+							end: '2018-12-15'
+						}],
+						tag: ['date-range-multi'],
 					}
 				},
 				message: "TRACK & TRACK PLATE INSTALLATION, REPLACEMENT OF POWER & COMMUNICATION CABLES [2] [3] Trains run at reduced speed through the Clark St Tunnel between Manhattan and Brooklyn All times, Monday to Friday, Dec 4 - 8 Dec 11 - 15 The slower speed will keep everyone safe as our crews make critical repairs to the tunnel. Please allow additional travel time.",
@@ -494,6 +515,17 @@ let event_messages = {
 					durration: {
 						parsed: 'Days, 9:30 AM to 4 PM, Mon to Fri, Dec 11 - 15    Dec 18 - 22',
 						tags: ['days', 'week_day'],
+						date: [
+							{
+								start: '2018-12-11',
+								end: '2018-12-15'
+							},
+							{
+								start: '2018-12-18',
+								end: '2018-12-22'
+							}
+						],
+						tag: ['date-range-multi'],
 					}
 				},
 				durration: 'Days, 9:30 AM to 4 PM, Mon to Fri, Dec 11 - 15    Dec 18 - 22',
@@ -508,6 +540,11 @@ let event_messages = {
 					durration: {
 						parsed: 'Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1',
 						tags: ['days', 'week_day'],
+						date: [{
+							start: '2018-11-27',
+							end: '2018-12-01'
+						}],
+						tag: ['date-range'],
 					}
 				},
 				durration: 'Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1',
@@ -529,6 +566,11 @@ let event_messages = {
 					durration: {
 						parsed: 'Weekend , Saturday, Dec 23',
 						tags: ['weekend'],
+						date: [{
+							start: '2018-12-23',
+							end: '2018-12-23'
+						}],
+						tag: ['date-single'],
 					}
 				},
 				durration: 'Weekend , Saturday, Dec 23',
@@ -593,6 +635,7 @@ let event_messages = {
 							start: '2018-12-22',
 							end: '2018-12-24'
 						}],
+						tag: ['date-range'],
 					}
 				},
 				durration: 'Weekend, 11:45 PM Fri to 7 AM Sun , Dec 22 - 24',
@@ -640,6 +683,7 @@ let event_messages = {
 							start: '2018-12-18',
 							end: '2018-12-22'
 						}],
+						tag: ['date-range-multi'],
 					}
 				},
 				durration: 'Late Nights, 9:45 PM to 5 AM, Mon to Fri, Dec 4 - 8    Dec 11 - 15    Dec 18 - 22',
@@ -678,6 +722,7 @@ let event_messages = {
 							start: '2018-12-04',
 							end: '2018-12-07'
 						}],
+						tag: ['date-range'],
 					}
 				},
 				durration: 'Evenings, Mon to Thu, Dec 4 - 7',
@@ -795,6 +840,7 @@ let event_messages = {
 							start: '2018-12-26',
 							end: '2018-12-29'
 						}],
+						tag: ['date-range-multi'],
 					}
 				},
 				durration: 'Days, 9:45 AM to 3:30 PM, Mon and Tue, Dec 11 - 12    Mon to Fri, Dec 18 - 22    Tue to Fri, Dec 26 - 29',
@@ -945,7 +991,9 @@ let event_messages = {
 						{
 							start: '2018-12-01',
 							end: '2018-12-04'
-						},],
+						},
+						],
+						tag: ['date-range-multi'],
 					}
 				},
 				durration: 'Weekends, 11:15 PM Fri to 5 AM Mon, Nov 24 - 27 &bull; Dec 1 - 4',
@@ -1021,6 +1069,7 @@ let event_messages = {
 							start: '2018-11-25',
 							end: '2018-11-26'
 						}],
+						tag: ['date-range'],
 					}
 				},
 				durration: 'Weekend , Saturday and Sunday, Nov 25 - 26',
@@ -1127,6 +1176,7 @@ let event_messages = {
 							start: '2018-11-27',
 							end: '2018-12-01'
 						}],
+						tag: ['date-range'],
 					}
 				},
 				durration: 'Days, 9 AM to 3 PM, Mon to Fri, Nov 27 - Dec 1',
@@ -1303,6 +1353,7 @@ let event_messages = {
 							start: '2018-12-26',
 							end: '2018-12-31'
 						}],
+						tag: ['date-range'],
 					}
 				},
 				durration: "All Times, 5 AM Tue, Dec 26 until 8 AM Sun, Dec 31",
@@ -1793,6 +1844,7 @@ let event_messages = {
 							start: '2018-01-12',
 							end: '2018-01-15'
 						}],
+						tag: ['date-range-multi'],
 					}
 				},
 				durration: "Weekends, 9:30 PM Fri to 5 AM Mon, Jan 5 - 8 Jan 12 - 15",
@@ -2232,6 +2284,7 @@ let event_messages = {
 							start: '2018-06-01',
 							end: '2018-06-04'
 						}],
+						tag: ['date-single'],
 					}
 				},
 				durration: null,
@@ -2505,6 +2558,7 @@ let event_messages = {
 								start: '2018-01-08',
 								end: '2018-01-09'
 							},],
+							tag: ['date-range'],
 						}
 					},
 					durration: "Late Evenings, 9:30 PM to 11:30 PM, Mon and Tue, Jan 8 - 9",
@@ -2593,6 +2647,7 @@ let event_messages = {
 								start: '2018-01-22',
 								end: '2018-01-25'
 							}],
+							tag: ['date-range-multi'],
 						}
 					},
 					durration: "Evenings, 8:30 PM to 11:59 PM, Mon to Thu, Jan 15 - 18 Jan 22 - 25",
@@ -3041,6 +3096,11 @@ let event_messages = {
 						durration: {
 							parsed: 'Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9',
 							tags: ['week_day', 'day', 'morning'],
+							date: [{
+								start: null,
+								end: '2018-03-09'
+							}],
+							tag: ['date-until'],
 						}
 					},
 					durration: "until Mar 9",
@@ -3139,6 +3199,7 @@ let event_messages = {
 								start: '2018-03-26',
 								end: '2018-03-30'
 							}],
+							tag: ['date-range-multi'],
 						}
 					},
 					durration: "Rush Hour, 6 AM to 10 AM, Mon to Fri, Mar 19 - 23 Mar 26 - 30",
@@ -3723,6 +3784,7 @@ let event_messages = {
 									start: '2018-05-25',
 									end: '2018-05-29'
 								}],
+								tag: ['date-single'],
 							}
 						},
 						durration: "11:45 PM Fri, May 25 to 5 AM Tue, May 29",
@@ -3759,6 +3821,7 @@ let event_messages = {
 									start: '2018-05-25',
 									end: '2018-05-29'
 								}],
+								tag: ['date-range'],
 							}
 						},
 						durration: "11:45 PM Fri, May 25 to 5 AM Tue, May 29",
@@ -3925,6 +3988,7 @@ let event_messages = {
 									start: '2018-06-26',
 									end: '2018-06-29'
 								}],
+								tag: ['date-range-multi'],
 							}
 						},
 						message: "TRACK REPLACEMENT | Jun 19 - 22 -- Jun 26 - 29, Tue to Fri, 12:01 AM to 5 AM [4] Service operates in two sections: 1. Between Woodlawn, the Bronx and 125 St, Manhattan 2. Between 125 St, Manhattan and Utica Av*/New Lots Av, Brooklyn -- Transfer at 125 St to continue your trip. Note: Manhattan-bound trains skip 138 St-Grand Concourse. *No [4] trains between Utica Av and New Lots Av, Jun 26 - 29.",
@@ -4007,6 +4071,7 @@ let event_messages = {
 									start: '2018-06-11',
 									end: '2018-06-15'
 								}],
+								tag: ['date-range-multi'],
 							}
 						},
 						message: "TRACK MAINTENANCE | Jun 4 - 8 -- Jun 11 - 15, Mon to Fri, from 9:45 PM to 5 AM Jamaica-bound [F] and Bedford/Nostrand Avs-bound [G] trains skip Fort Hamilton Pkwy , 15 St-Prospect Park and 4 Av-9 St in Brooklyn For service to these stations, take the [F] or [G] to 7 Av or Smith-9 Sts and transfer to a Coney Island-bound [F] or Church Av-bound [G]. For service from these stations, take the [F] or [G] to 7 Av or Church Av and transfer to a Jamaica-bound [F] or Bedford/Nostrand Avs-bound [G]*. *No [G] trains between Bedford-Nostrand Avs and Court Sq during this time.",
@@ -4081,6 +4146,7 @@ let event_messages = {
 									start: '2018-06-08',
 									end: '2018-06-11'
 								}],
+								tag: ['date-range'],
 							}
 						},
 						message: "STATION ENHANCEMENTS | Late Nights, 11 PM Fri, Jun 8 to 5 AM Mon, Jun 11 Inwood-bound [A] trains skip 81, 96, 103 and 116 Sts in Manhattan For service to these stations, take the [A] to 125 St and transfer to an Ozone Park/Far Rockaway-bound [A] local . For service from these stations, take the [A] to 59 St-Columbus Circle and transfer to an Inwood-bound [A]. Alternate travel note: Use nearby [1] stations instead; transfer between trains at 59 St-Columbus Circle. Note: 72 St, 86 St and Cathedral Pkwy (110 St) are closed for renovation.",
@@ -4108,6 +4174,7 @@ let event_messages = {
 									start: '2018-06-08',
 									end: '2018-06-11'
 								}],
+								tag: ['date-range'],
 							}
 						},
 						durration: "9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
@@ -4150,6 +4217,7 @@ let event_messages = {
 									start: '2018-06-08',
 									end: '2018-06-11'
 								}],
+								tag: ['date-range'],
 							}
 						},
 						durration: "Late Nights 10 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
@@ -4208,6 +4276,7 @@ let event_messages = {
 									start: '2018-06-08',
 									end: '2018-06-11'
 								}],
+								tag: ['date-range'],
 							}
 						},
 						durration: "Late Nights, 9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
@@ -4278,6 +4347,7 @@ let event_messages = {
 									start: '2018-06-08',
 									end: '2018-06-11'
 								}],
+								tag: ['date-range'],
 							}
 						},
 						durration: "9:30 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
@@ -4360,6 +4430,7 @@ let event_messages = {
 										start: '2018-07-09',
 										end: '2018-08-17'
 									}],
+									tag: ['date-range'],
 								}
 							},
 
@@ -4421,6 +4492,7 @@ let event_messages = {
 										start: '2018-07-09',
 										end: '2018-07-13'
 									}],
+									tag: ['date-range'],
 								}
 							},
 							durration: {
@@ -4473,6 +4545,7 @@ let event_messages = {
 										start: '2018-07-09',
 										end: '2018-07-13'
 									}],
+									tag: ['date-range'],
 								}
 							},
 							durration: {
@@ -4505,6 +4578,13 @@ let event_messages = {
 										"evening",
 										"week_day"
 									],
+									date: [
+										{
+											start: null,
+											end: '2018-07-27',
+										}
+									],
+									tag: ['date-until'],
 								}
 							},
 							durration: {
@@ -4522,7 +4602,197 @@ let event_messages = {
 								{line: "MTA NYCT_1",dir: "0"},
 								{line: "MTA NYCT_1",dir: "1"}
 							],
-					},
+						},
+
+
+						{
+							archive: 166,
+							id: "MTA NYCT_195705",
+							date: {fetched: "2018-07-23T00:00:00-04:00",},
+							tag: ['MTAD-118'],
+							type_detail: [
+								"running_express",
+								"track_maintenance"
+							],
+							expect: {
+								durration: {
+									parsed: "Jul 23, Monday, 9:45 AM to 3:30 PM",
+									tokenized: "JUL 23, MONDAY, [T--09:45] TO [T--15:30]",
+									tags: [
+										"day",
+										"week_day"
+									],
+									time: [
+											{
+												start: "09:45",
+												end: "15:30"
+											}
+										],
+									date: [
+										{
+											start: '2018-07-23',
+											end: '2018-07-23'
+										}
+									],
+									tag: ['date-single'],
+								}
+							},
+							durration: {
+								parsed: "Jul 23, Monday, 9:45 AM to 3:30 PM",
+								tokenized: "JUL 23, MONDAY, [T--09:45] TO [T--15:30]",
+								tags: [
+									"day"
+								],
+								time: [
+										{
+											start: "09:45",
+											end: "15:30"
+										}
+									],
+								date: [
+									{
+										start: '2018-07-23',
+										end: '2018-07-23'
+									}
+								]
+							},
+							message: "TRACK MAINTENANCE | Jul 23, Monday, 9:45 AM to 3:30 PM Brooklyn Bridge-bound [6] trains run express from Pelham Bay Park to Parkchester in the Bronx For service to Buhre Av, Middletown Rd, Westchester Sq, Zerega and Castle Hill Avs, take the [6] to Parkchester and transfer to a Pelham Bay Park-bound [6]. For service from these stations take the [6] to Pelham Bay Park and transfer to a Brooklyn Bridge-bound [6].",
+
+							route_change: {
+								message: "[Mn622-640]-bound [6] trains run express from [Bx360-601] to [Bx366-608]",
+								trains: ["6"],
+								route: [
+									{
+										allTrains: true,
+										dir: "[mn622-640]-bound",
+										exp_lcl: "express",
+										lines: ["6"],
+										along: null,
+										from: "Bx360-601",
+										to: "Bx366-608",
+										section: null,
+										process: "RouteChangeStandard",
+										parsed: "[Mn622-640]-bound [6] trainsrun express from [Bx360-601] to [Bx366-608]"
+									}
+								],
+							},
+							line: [{line: "MTA NYCT_6",dir: "1"}],
+						},
+
+
+							{
+								archive: 149,
+								id: "MTA NYCT_191323",
+								date: {fetched: "2018-07-02T00:00:00-04:00",},
+								tag: ['MTAD-118'],
+								type_detail: [
+									"running_local",
+									"track_maintenance"
+								],
+								expect: {
+									durration: {
+										parsed: "Jul 5, Thursday , beginning 9:45 PM",
+										tokenized: "JUL 5, THURSDAY , BEGINNING [T--21:45]",
+										tags: [
+											"evening",
+											"week_day"
+										],
+										time: [
+												{
+													start: "21:45",
+												}
+											],
+										date: [
+											{
+												start: '2018-07-05',
+												end: '2018-07-05'
+											}
+										],
+										tag: ['date-single'],
+									}
+								},
+								durration: {
+									parsed: "Jul 5, Thursday , beginning 9:45 PM",
+									tokenized: "JUL 5, THURSDAY , BEGINNING [T--21:45]",
+									tags: [ ],
+									time: [ ],
+									date: [
+										{
+											start: 2018-07-05,
+											end: 2018-07-05
+										}
+									]
+								},
+								message: "TRACK REPLACEMENT | Jul 5, Thursday , beginning 9:45 PM [2] Trains run local in both directions between 96 St and Chambers St in Manhattan",
+
+								route_change: {
+									message: "[2] Trains run local in both directions between [Mn310-120] and [Mn327-137]",
+									trains: ["2"],
+									route: [
+										{
+											allTrains: true,
+											dir: null,
+											exp_lcl: "local",
+											lines: ["2"],
+											along: null,
+											from: "Mn310-120",
+											to: "Mn327-137",
+											section: null,
+											process: "RouteChangeStandard",
+											parsed: "[2] Trainsrun local in both directions between [Mn310-120] and [Mn327-137]"
+										}
+									],
+								},
+								line: [
+									{line: "MTA NYCT_2",dir: "0"},
+									{line: "MTA NYCT_2",dir: "1"}
+								],
+							},
+							{
+								archive: 169,
+								id: "MTA NYCT_193549",
+								date: {fetched: "2018-07-09T00:00:00-04:00",},
+								tags: ['MTAD-118', 'MTAD-073'],
+								type_detail: [
+									"running_local",
+									"track_maintenance",
+									"day",
+									"week_day"
+								],
+								expect: {
+									durration: {
+										parsed: "Until Jul 27, Mon to Fri, 6 AM to 10 AM and 3 PM to 10 PM",
+										tokenized: "UNTIL JUL 27, MON TO FRI, [T--06:00] TO [T--10:00] AND [T--15:00] TO [T--22:00]",
+										tags: [
+											"morning",
+											"week_day"
+										],
+										time: [
+											{
+												start: "06:00",
+												end: "10:00"
+											},
+											{
+												start: "15:00",
+												end: "22:00"
+											}
+										],
+										date: [ ],
+										tag: ['date-until'],
+									},
+								},
+								message: "TRACK REPLACEMENT | Until Jul 27, Mon to Fri, 6 AM to 10 AM and 3 PM to 10 PM [7D] Express trains make local stops in both directions at 33, 40, 46, 52, 69 and 74 Sts Rush hour [7D] express service runs between Mets-Willets Point and 74 St-Broadway For Midtown Manhattan, consider [E] and [F] service via transfer at 74 St-Broadway/Roosevelt Av.",
+								line: [
+									{
+										line: "MTA NYCT_7",
+										dir: "0"
+									},
+									{
+										line: "MTA NYCT_7",
+										dir: "1"
+									}
+								],
+							},
 
 		],
 
