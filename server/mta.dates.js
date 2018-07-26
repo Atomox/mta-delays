@@ -64,7 +64,7 @@ function getMessageDates(text) {
 
 			result.tags = _union(result.tags, t.tags);
 
-			if (t.start && t.end) {
+			if (t.start || t.end) {
 				result.date.push({
 					start: t.start,
 					end: t.end,
@@ -499,7 +499,7 @@ function analyzeTokenizedDates(txt) {
 
 	let result = [];
 
-	let day_range_pattern = /(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\]\s*(?:(-|TO|UNTIL)\s*(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\])?/gi;
+	let day_range_pattern = /(UNTIL)?\s*(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\]\s*(?:(-|TO|UNTIL)\s*(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\])?/gi;
 
 	for (let i = 0; i < 6; i++) {
 		let results = mtaRegEx.matchRegexString(day_range_pattern, txt, true);
@@ -516,9 +516,9 @@ function analyzeTokenizedDates(txt) {
 		txt = txt.replace(results[0], '```');
 
 		// Process pairs.
-		if (results[2] && results[5]) {
-			results[2] = results[2].toUpperCase();
-			results[5] = results[5].toUpperCase();
+		if (results[3] && results[6]) {
+			results[3] = results[3].toUpperCase();
+			results[6] = results[6].toUpperCase();
 
 			switch(results[2]) {
 				case 'MON':
@@ -527,8 +527,8 @@ function analyzeTokenizedDates(txt) {
 					if (['TUE', 'WED', 'THU', 'FRI'].indexOf(results[5]) !== -1) {
 						result.push({
 							tags: 'week_day',
-							start: results[1],
-							end: results[4]
+							start: results[2],
+							end: results[5]
 						});
 						pushed_result = true;
 					}
@@ -538,11 +538,11 @@ function analyzeTokenizedDates(txt) {
 				case 'FRI':
 				case 'SAT':
 				case 'SUN':
-					if (['SAT', 'SUN', 'MON', 'TUE'].indexOf(results[5]) !== -1) {
+					if (['SAT', 'SUN', 'MON', 'TUE'].indexOf(results[6]) !== -1) {
 						result.push({
 							tags: 'weekend',
-							start: results[1],
-							end: results[4]
+							start: results[2],
+							end: results[5]
 						});
 						pushed_result = true;
 					}
@@ -550,11 +550,11 @@ function analyzeTokenizedDates(txt) {
 			}
 
 			if (pushed_result === false) {
-				if (results[1] && results[4]) {
+				if (results[2] && results[5]) {
 					result.push({
 						tags: null,
-						start: results[1],
-						end: results[4]
+						start: results[2],
+						end: results[5]
 					});
 				}
 				else {
@@ -563,19 +563,20 @@ function analyzeTokenizedDates(txt) {
 			}
 		}
 		else if (results[2]) {
-			if (['MON', 'TUE', 'WED', 'THU', 'FRI'].indexOf(results[2].toUpperCase()) !== -1) {
+
+			if (['MON', 'TUE', 'WED', 'THU', 'FRI'].indexOf(results[3].toUpperCase()) !== -1) {
 				result.push({
 					tags: 'week_day',
-					start: results[1],
-					end: results[1]
+					start: (results[1]) ? null : results[2],
+					end: results[2]
 				});
 				pushed_result = true;
 			}
-			else if (['SAT', 'SUN'].indexOf(results[2].toUpperCase()) !== -1) {
+			else if (['SAT', 'SUN'].indexOf(results[3].toUpperCase()) !== -1) {
 				result.push({
 					tags: 'weekend',
-					start: results[1],
-					end: results[1]
+					start: (results[1]) ? null : results[2],
+					end: results[2]
 				});
 				pushed_result = true;
 			}

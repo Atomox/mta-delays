@@ -3107,6 +3107,62 @@ let event_messages = {
 					],
 				},
 				{
+					id: "MTA NYCT_190053",
+					type: "Planned Work",
+					tag: ['MTAD-073', 'MTAD-118'],
+					date: {fetched: "2018-07-09T00:00:00-04:00",},
+					type_detail: [
+						"additional_service",
+						"day",
+						"week_day"
+					],
+					expect: {
+						durration: {
+							parsed: "Rush Hour | Until Aug 17, Mon to Fri, 7:30 AM to 9:30 AM",
+							tokenized: "RUSH HOUR | UNTIL [D--2018-08-17--Fri], MON TO FRI, [T--07:30] TO [T--09:30]",
+							tags: [
+								"week_day",
+								"morning",
+								"day"
+							],
+							time: [
+								{
+									start: "07:30",
+									end: "09:30"
+								}
+							],
+							date: [
+								{
+									start: null,
+									end: "2018-08-17"
+								}
+							],
+							tag: ['date-until','time-range'],
+						},
+					},
+					message: "Rush Hour | Until Aug 17, Mon to Fri, 7:30 AM to 9:30 AM Additional [G] service operates between Court Sq and Bedford-Nostrand Avs",
+
+					route_change: {
+						message: "[G] service operates between [Qs606-G22] and [Bk289-G33]",
+						trains: ["G"],
+						route: [
+							{
+								allTrains: true,
+								dir: null,
+								exp_lcl: null,
+								lines: ["G"],
+								along: null,
+								from: "Qs606-G22",
+								to: "Bk289-G33",
+								section: null,
+								parsed: "[G] service operates between [Qs606-G22] and [Bk289-G33]",
+								process: "RouteChangeSections"
+							}
+						],
+					},
+					line: [{line: "MTA NYCT_G",dir: "1"}],
+				},
+				{
 					id: "MTA NYCT_179620",
 					archive: 78,
 					date: {

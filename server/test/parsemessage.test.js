@@ -59,7 +59,7 @@ describe('Parse Service Messages', function() {
 		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Single Date', ['MTAD-118'], null, null, ['date-single']);
 		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Date Range', ['MTAD-118'], null, null, ['date-range']);
 		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Dates Range (multiple)', ['MTAD-118'], null, null, ['date-range-multi']);
-//		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Dates UNTIL', ['MTAD-118'], null, null, ['date-until']);
+		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Dates UNTIL', ['MTAD-118'], null, null, ['date-until']);
 	});
 
 	describe('MTAD-073 -- Understand message Times', () => {
