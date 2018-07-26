@@ -180,9 +180,9 @@ function markDates(txt, year) {
 		// Identify date ranges, like Jun 18 - 23,
 		// and conver them to proper ranges.
 		// Do this before normal dates, so we don't have false positives.
-		txt = txt.replace(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s*([0-9]+)\s*-\s*(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)?\s*([0-9]+)/gi,
+		txt = txt.replace(/\b(Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sep|Sept|September|Oct|October|Nov|November|Dec|December)\b\s*([0-9]+)\s*-\s*(?:\b(Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sep|Sept|September|Oct|October|Nov|November|Dec|December)?\b)\s*([0-9]+)/gi,
 			(x) => {
-				let month_split = x.split(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i),
+				let month_split = x.split(/\b(Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sep|Sept|September|Oct|October|Nov|November|Dec|December)\b/i),
 					dates = [],
 					month = [];
 
@@ -215,7 +215,7 @@ function markDates(txt, year) {
 			});
 
 		// Identify standard dates, like: Fri, Jun 23.
-		txt = txt.replace(/(?:(?:Mon|Tue|Wed|Thu|Thur|Fri|Sat|Sun)[,-]*\s*)?(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s*[0-9]*/gi,
+		txt = txt.replace(/(?:(?:Mon|Tue|Wed|Thu|Thur|Fri|Sat|Sun)[,-]*\s*)?\b(Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sep|Sept|September|Oct|October|Nov|November|Dec|December)\b\s*[0-9]*/gi,
 			(x) => {
 
 				let dateStamp = makeDateStamp(year, x);
@@ -243,7 +243,7 @@ function markDates(txt, year) {
  */
 function makeDateStamp(year, month, day) {
 
-	month = month.replace(/(?:Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sept|September|Oct|October|Nov|November|Dec|December)/gi, (x) => {
+	month = month.replace(/\b(?:Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sep|Sept|September|Oct|October|Nov|November|Dec|December)\b/gi, (x) => {
 		switch(x.toLowerCase()) {
 			case 'jan':
 			case 'january':
@@ -304,9 +304,13 @@ function makeDateStamp(year, month, day) {
 		month = (month.length > 2) ? month[month.length - 2] : month[0];
 	}
 
+	if (day) {
+		day = day.trim();
+	}
+
 	day = (day < 10)
-		? '0' + day.trim()
-		: day.trim();
+		? '0' + day
+		: day;
 	month = month.trim();
 
 	let dateObj = moment(year + '-' + month + '-' + day);

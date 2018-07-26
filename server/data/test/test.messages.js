@@ -4444,7 +4444,7 @@ let event_messages = {
 						archive: 158,
 						id: "MTA NYCT_191353",
 						date: {fetched: "2018-07-01T00:00:00-04:00",},
-						tag: ['MTAD-012'],
+						tag: ['MTAD-012', 'MTAD-073', 'MTAD-118'],
 						type: {
 							tag: "no_trains_partial",
 							weight: 2
@@ -4453,6 +4453,21 @@ let event_messages = {
 							"no_trains_partial",
 							"flood_proofing"
 						],
+						expect: {
+							durration: {
+								parsed: 'Until September 3, 2018',
+  							tokenized: 'UNTIL [D--2018-09-03--Mon], 2018',
+  							tags: [ 'week_day' ],
+  							time: [],
+  							date: [{
+									start: '2018-09-03',
+									end: '2018-09-03'
+								}],
+								tag: [
+									'time-all', 'time-range', 'parse-full'
+								],
+							}
+						},
 						durration: {
 							parsed: "Until September 3, 2018",
 							tokenized: "UNTIL SEPTEMBER 3, 2018",
