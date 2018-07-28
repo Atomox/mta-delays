@@ -190,12 +190,20 @@ function CheckStationPrep (event) {
 
 function CheckStationsListExcludeAltInstructions (event) {
 
+		// Handle existing, old-style message data.
+		if (typeof event.alt_instructions === 'string') {
+			let alt_msg = event.alt_instructions;
+			event.alt_instructions = {};
+			event.alt_instructions.raw = alt_msg;
+		}
+
 		if (!event.alt_instructions) {
 			event.alt_instructions = {};
 		}
 
 		// Break out any alternate route information from the body.
 		event.alt_instructions.raw = mtaStatus.getMessageAlternateInstructions(event.message);
+
 		event.message = (event.alt_instructions.raw !== null)
 			? event.message.replace(event.alt_instructions.raw, '[-ALT-INSTRUCT-]')
 			: event.message;

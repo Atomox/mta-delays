@@ -4151,7 +4151,7 @@ let event_messages = {
 						id: "MTA NYCT_188746",
 						archive: 134,
 						date: { fetched: "2018-06-04T00:00:00-04:00",},
-						tag: ['MTAD-058', /*'MTAD-090',*/ 'MTAD-118'],
+						tag: ['MTAD-058', 'MTAD-090', 'MTAD-118'],
 						type_detail: [
 							"skip_stations",
 							"no_trains_partial",
@@ -4277,7 +4277,17 @@ let event_messages = {
 									end: '2018-06-11'
 								}],
 								tag: ['date-range'],
-							}
+							},
+							stations_no_alt: {
+								'MTA NYCT_A': {
+								  stations: {
+										'Mn159-A21': "81 St - Museum of Natural History",
+										'Mn157-A19': "96 St",
+										'Mn156-A18': "103 St",
+										'Mn154-A16': "8th Av - Fulton St",
+									}
+								},
+							},
 						},
 						message: "STATION ENHANCEMENTS | Late Nights, 11 PM Fri, Jun 8 to 5 AM Mon, Jun 11 Inwood-bound [A] trains skip 81, 96, 103 and 116 Sts in Manhattan For service to these stations, take the [A] to 125 St and transfer to an Ozone Park/Far Rockaway-bound [A] local . For service from these stations, take the [A] to 59 St-Columbus Circle and transfer to an Inwood-bound [A]. Alternate travel note: Use nearby [1] stations instead; transfer between trains at 59 St-Columbus Circle. Note: 72 St, 86 St and Cathedral Pkwy (110 St) are closed for renovation.",
 /**
@@ -4379,7 +4389,16 @@ let event_messages = {
 									end: '2018-06-11'
 								}],
 								tag: ['date-range'],
-							}
+							},
+							stations_no_alt: {
+								"MTA NYCT_D": {
+									stations: {
+										"Bk608-R33": "4th Av-9 St",
+										"Bk30-R34": "Prospect Av",
+										"Bk31-R35": "25 St",
+									}
+								}
+							},
 						},
 						durration: "Late Nights 10 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
 						message: "TRACK MAINTENANCE | Late Nights 10 PM Fri, Jun 8 to 5 AM Mon, Jun 11 Norwood -bound [D] trains skip 25 St, Prospect Av, 4 Av-9 St and Union St in Brooklyn For service to these stations, take the [D] to Atlantic Av-Barclays Ctr and transfer to a local Coney Island-bound [D] Bay Pkwy-bound* [N] or Bay Ridge-bound [R]. For service from these stations, take the [D] [N] or [R] to 36 St and transfer to a Norwood-bound [D]. *[N] trains run via the [D] in both directions between 36 St and Bay Pkwy during this time.",
@@ -4456,7 +4475,16 @@ let event_messages = {
 									end: '2018-06-11'
 								}],
 								tag: ['date-range'],
-							}
+							},
+							stations_no_alt: {
+								'MTA NYCT_N': {
+									stations: {
+										'Bk617-R31': 'Atlantic Av-Barclays Ctr',
+						        'Bk76-N07': 'Bay Pkwy',
+						        'Bk32-R36': '36 St'
+									}
+								},
+							},
 						},
 						durration: "Late Nights, 9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
 						message: "TRACK MAINTENANCE | Late Nights, 9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11 Manhattan-bound [N] trains skip 25 St, Prospect Av, 4 Av-9 St and Union St in Brooklyn For service to these stations, take the [N] to Atlantic Av-Barclays Ctr and transfer to a local Coney Island-bound [D] Bay Pkwy-bound * [N] or Bay Ridge-bound [R]. For service from these stations, take the [D] [N] or [R] to 36 St and transfer to a Manhattan-bound [N] local . *[N] trains run via the [D] in both directions between 36 St and Bay Pkwy during this time.",
