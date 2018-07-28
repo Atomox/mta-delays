@@ -91,7 +91,7 @@ describe('Parse Stations', function() {
 	});
 
 	describe('MTAD-090 -- Stations exclude Turtiary Copy', () => {
-		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Detect only Stations in Main Message.', ['MTAD-090']);
+		tests.stationTestByTag(event_messages.normal, CheckStationsListExcludeAltInstructions, 'Detect only Stations in Main Message.', ['MTAD-090']);
 	});
 
 	describe('MTAD-098 -- Stations Followed by Boro Names should Provide Context', () => {
@@ -188,7 +188,36 @@ function CheckStationPrep (event) {
 }
 
 
-function CheckStationsListForExpected (event) {
+function CheckStationsListExcludeAltInstructions (event) {
+
+		if (!event.alt_instructions) {
+			event.alt_instructions = {};
+		}
+
+		// Break out any alternate route information from the body.
+		event.alt_instructions.raw = mtaStatus.getMessageAlternateInstructions(event.message);
+		event.message = (event.alt_instructions.alt_instructions !== null)
+			? event.message.replace(event.alt_instructions.alt_instructions, '[-ALT-INSTRUCT-]')
+			: event.message;
+
+		return CheckStationsListForExpected(event, 'expect.stations_no_alt');
+}
+
+
+function CheckStationsListForExpected (event, data_path) {
+
+	data_path = (!data_path)
+		? 'stations' : data_path;
+
+	let e_stations = _.get(event, data_path, false);
+
+	if (e_stations === false) {
+		console.log(e_stations);
+		expect(event, event.message).to.not.equal(false);
+	}
+
+//	console.log(' >>> ', data_path, ' | ',  e_stations);
+
 	return mtaStations.
 		matchAllLinesRouteStationsMessage(event.line, event.message)
 		.then( data => {
@@ -196,22 +225,26 @@ function CheckStationsListForExpected (event) {
 			let results = false;
 			let mocha_msg = event.message;
 
-			for (let l in event.stations) {
+
+//			console.log('\n\n V)', trim_message);
+
+			for (let l in e_stations) {
 				results = true;
 
-				if (Object.keys(event.stations[l].stations).length > 0) {
-					// console.log(' >>> ', event.stations[l]);
+				if (Object.keys(e_stations[l].stations).length > 0) {
+//					console.log(' >>> ', event.stations[l]);
+//					console.log(' >>> . . . ', data.stations);
 					// Make sure our results had an entry for this line before
 					// we access that property, and a general error is thrown.
-					expect(data.stations, event.message).to.have.property(l);
+					expect(e_stations, event.message).to.have.property(l);
 				}
 				else {
-					expect(data.stations, event.message).not.to.have.property(l);
+//					expect(e_stations, event.message).not.to.have.property(l);
 					continue;
 				}
 
 				let msg = '[' + l + '] -- ' + event.message;
-				let stations_expected = Object.keys(event.stations[l].stations);
+				let stations_expected = Object.keys(_.get(event, data_path, {})[l].stations);
 				let stations_found = Object.keys(data.stations[l].stations);
 
 				// Message to help find data culprate.

@@ -3178,7 +3178,7 @@ let event_messages = {
 					expect: {
 						durration: {
 							parsed: 'Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9',
-							tags: ['week_day', 'day', 'morning'],
+							tags: ['week_day', 'day', 'evening', 'morning'],
 							time: [{
 								start: '06:00',
 								end: '10:00'
@@ -4151,7 +4151,7 @@ let event_messages = {
 						id: "MTA NYCT_188746",
 						archive: 134,
 						date: { fetched: "2018-06-04T00:00:00-04:00",},
-						tag: ['MTAD-058','MTAD-090', 'MTAD-118'],
+						tag: ['MTAD-058', /*'MTAD-090',*/ 'MTAD-118'],
 						type_detail: [
 							"skip_stations",
 							"no_trains_partial",
@@ -4174,23 +4174,47 @@ let event_messages = {
 									end: '2018-06-15'
 								}],
 								tag: ['date-range-multi', 'time-range'],
-							}
+							},
+							stations_no_alt: {
+								'MTA NYCT_F': {
+								  stations: {
+										'Bk608-F23': '4 Av-9 St in Brooklyn',
+						        'Bk241-F25': '15 St-Prospect Park',
+						        'Bk242-F26': 'Fort Hamilton Pkwy'
+									}
+								},
+						  	'MTA NYCT_G': {
+								 	stations: {
+										'Bk608-F23': '4 Av-9 St in Brooklyn',
+						        'Bk241-F25': '15 St-Prospect Park',
+						        'Bk242-F26': 'Fort Hamilton Pkwy'
+									}
+								}
+							},
 						},
 						message: "TRACK MAINTENANCE | Jun 4 - 8 -- Jun 11 - 15, Mon to Fri, from 9:45 PM to 5 AM Jamaica-bound [F] and Bedford/Nostrand Avs-bound [G] trains skip Fort Hamilton Pkwy , 15 St-Prospect Park and 4 Av-9 St in Brooklyn For service to these stations, take the [F] or [G] to 7 Av or Smith-9 Sts and transfer to a Coney Island-bound [F] or Church Av-bound [G]. For service from these stations, take the [F] or [G] to 7 Av or Church Av and transfer to a Jamaica-bound [F] or Bedford/Nostrand Avs-bound [G]*. *No [G] trains between Bedford-Nostrand Avs and Court Sq during this time.",
 						alt_instructions: "For service to these stations, take the [F] or [G] to 7 Av or Smith-9 Sts and transfer to a Coney Island-bound [F] or Church Av-bound [G]. For service from these stations, take the [F] or [G] to 7 Av or Church Av and transfer to a Jamaica-bound [F] or Bedford/Nostrand Avs-bound [G]*. *No [G] trains between Bedford-Nostrand Avs and Court Sq during this time.",
 						stations: {
 							'MTA NYCT_F': {
-							  stations: {
-									'Bk608-F23': '4 Av-9 St in Brooklyn',
-					        'Bk241-F25': '15 St-Prospect Park',
-					        'Bk242-F26': 'Fort Hamilton Pkwy'
+								stations: {
+									"Bk238-F22": 'Smith - 9 Sts',
+									"Bk608-F23": '4 Av-9 St in Brooklyn',
+									"Bk240-F24": '7 Av',
+									"Bk241-F25": '15 St-Prospect Park',
+									"Bk242-F26": 'Fort Hamilton Pkwy',
+									"Bk243-F27": 'Church Av',
 								}
 							},
-					  	'MTA NYCT_G': {
-							 	stations: {
-									'Bk608-F23': '4 Av-9 St in Brooklyn',
-					        'Bk241-F25': '15 St-Prospect Park',
-					        'Bk242-F26': 'Fort Hamilton Pkwy'
+							'MTA NYCT_G': {
+								stations: {
+									"Qs606-G22": 'Court Sq',
+      						"Bk289-G33": 'Bedford - Nostrand Avs',
+									"Bk238-F22": 'Smith - 9 Sts',
+									"Bk608-F23": '4 Av-9 St in Brooklyn',
+									"Bk240-F24": '7 Av',
+									"Bk241-F25": '15 St-Prospect Park',
+									"Bk242-F26": 'Fort Hamilton Pkwy',
+									"Bk243-F27": 'Church Av',
 								}
 							}
 						},
@@ -4234,7 +4258,7 @@ let event_messages = {
 					{
 						archive: 136,
 						id: "MTA NYCT_188754",
-						tag: ['MTAD-090', 'MTAD-118'],
+						tag: [/*'MTAD-090',*/ 'MTAD-118'],
 						date: {fetched: "2018-06-08T00:00:00-04:00",},
 						type_detail: [
 							"skip_stations",
@@ -4256,6 +4280,21 @@ let event_messages = {
 							}
 						},
 						message: "STATION ENHANCEMENTS | Late Nights, 11 PM Fri, Jun 8 to 5 AM Mon, Jun 11 Inwood-bound [A] trains skip 81, 96, 103 and 116 Sts in Manhattan For service to these stations, take the [A] to 125 St and transfer to an Ozone Park/Far Rockaway-bound [A] local . For service from these stations, take the [A] to 59 St-Columbus Circle and transfer to an Inwood-bound [A]. Alternate travel note: Use nearby [1] stations instead; transfer between trains at 59 St-Columbus Circle. Note: 72 St, 86 St and Cathedral Pkwy (110 St) are closed for renovation.",
+/**
+
+	@TODO BLOCKED until we add late_night routes.
+
+						stations: {
+							'MTA NYCT_A': {
+							  stations: {
+									'Mn159-A21': "81 St - Museum of Natural History",
+									'Mn157-A19': "96 St",
+									'Mn156-A18': "103 St",
+									'Mn154-A16': "8th Av - Fulton St",
+								}
+							},
+						},
+	*/
 						route_change: {
 
 						},
@@ -4281,10 +4320,26 @@ let event_messages = {
 									end: '2018-06-11'
 								}],
 								tag: ['date-range'],
-							}
+							},
+							stations_no_alt: {
+								'MTA NYCT_D': {
+								  stations: {
+										'Mn220-D12': "Concourse",
+									}
+								},
+							},
 						},
 						durration: "9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
 						message: "TRACK REPLACEMENT | 9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11 Coney Island-bound [D] trains skip 155 St in Manhattan For service to this station, take the [D] to 145 St and transfer to a Norwood-bound [D]. For service from this station, take the [D] to 161 St and transfer to a Coney Island-bound [D].",
+						stations: {
+							'MTA NYCT_D': {
+							  stations: {
+									"Bx604-D11": '',
+      						"Mn151-A12": '',
+									'Mn220-D12': "Concourse",
+								}
+							},
+						},
 						route_change: {
 							message: "[Bk58-D43]-bound [D] trains skip [Mn220-D12]",
 							trains: ["D"],
@@ -4328,6 +4383,18 @@ let event_messages = {
 						},
 						durration: "Late Nights 10 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
 						message: "TRACK MAINTENANCE | Late Nights 10 PM Fri, Jun 8 to 5 AM Mon, Jun 11 Norwood -bound [D] trains skip 25 St, Prospect Av, 4 Av-9 St and Union St in Brooklyn For service to these stations, take the [D] to Atlantic Av-Barclays Ctr and transfer to a local Coney Island-bound [D] Bay Pkwy-bound* [N] or Bay Ridge-bound [R]. For service from these stations, take the [D] [N] or [R] to 36 St and transfer to a Norwood-bound [D]. *[N] trains run via the [D] in both directions between 36 St and Bay Pkwy during this time.",
+/**
+ * @TODO: LATE_NIGHTS
+						stations: {
+							"MTA NYCT_D": {
+								stations: {
+									"Bk608-R33": "4th Av-9 St",
+									"Bk30-R34": "Prospect Av",
+									"Bk31-R35": "25 St",
+								}
+							}
+						},
+*/
 						route_change: {
 							message: "[Bx210-D01] -bound [D] trains skip [Bk31-R35], [Bk30-R34], [Bk608-R33] and [Bk28-R32] ``` [N] trains run via the [D] in both directions between [Bk32-R36|Qs272-G20] and [Bk68-B21]",
 							trains: ["D","N"],
@@ -4368,7 +4435,7 @@ let event_messages = {
 					{
 						archive: 136,
 						id: "MTA NYCT_188997",
-						tag: ['MTAD-090', 'MTAD-118', 'MTAD-119'],
+						tag: [/* 'MTAD-090', */ 'MTAD-118', 'MTAD-119'],
 						date: {fetched: "2018-06-08T00:00:00-04:00",},
 						type_detail: [
 							"skip_stations",
@@ -4393,6 +4460,8 @@ let event_messages = {
 						},
 						durration: "Late Nights, 9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
 						message: "TRACK MAINTENANCE | Late Nights, 9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11 Manhattan-bound [N] trains skip 25 St, Prospect Av, 4 Av-9 St and Union St in Brooklyn For service to these stations, take the [N] to Atlantic Av-Barclays Ctr and transfer to a local Coney Island-bound [D] Bay Pkwy-bound * [N] or Bay Ridge-bound [R]. For service from these stations, take the [D] [N] or [R] to 36 St and transfer to a Manhattan-bound [N] local . *[N] trains run via the [D] in both directions between 36 St and Bay Pkwy during this time.",
+/**
+		@TODO -- Pending Late_Night route
 						stations: {
 							'MTA NYCT_N': {
 								stations: {
@@ -4402,6 +4471,7 @@ let event_messages = {
 								}
 							},
 						},
+*/
 						route_change: {
 							message: "TRACK MAINTENANCE | Late Nights, 9:45 PM Fri, Jun 8 to 5 AM Mon, Jun 11 Manhattan-bound [N] trains skip [Bk31-R35], [Bk30-R34], [Bk608-R33] and [Bk28-R32] ``` [N] trains run via the [D] in both directions between [Bk32-R36|Qs272-G20] and [Bk76-N07]",
 							trains: ["N"],
@@ -4470,6 +4540,31 @@ let event_messages = {
 						},
 						durration: "9:30 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
 						message: "STRUCTURAL IMPROVEMENTS | 9:30 PM Fri, Jun 8 to 5 AM Mon, Jun 11 [N] Trains run via the [D] in both directions between 36 St and Bay Pkwy in Brooklyn [D] [R] trains and [SB] free shuttle buses provide alternate service No [N] trains at 45, 53, 59 Sts, 8 Av, Fort Hamilton Pkwy, 18, 20 Avs, Bay Pkwy, Kings Hwy, Avenue U, 86 St and Stillwell Av. Travel Alternatives [SB] Buses operate between 59 St and Stillwell Av, making all [N] stops . [R] trains provide alternate service between 36 St and 59 St . For service to/from Stillwell Av take the [D], transfer between trains at Bay Pkwy. -- Transfer between [N] and [R] trains at 36 St. -- Transfer between [N] and [D] trains or [SB] buses at 62 St/New Utrecht Av . -- Transfer between [R] trains and [SB] buses at 59 St . Show Shuttle Bus Stops Station Shuttle Bus Stop Bus 59 St [R] 4 Av at 59 St -- 8 Av 60 St at 8 Av B9 Fort Hamilton Pkwy 60 St at Fort Hamilton Pkwy B9 New Utrecht Av/62 St [D] [N] New Utrecht Av at 62 St -- 18 Av 65 St at 18 Av -- 20 Av 65 St at 20 Av -- Bay Pkwy Bay Pkwy at W 7 St (to 36 St) B82 Bay Pkwy at 65 St (to Stillwell Av) -- Kings Hwy Kings Hwy at W 7 St B82 Avenue U W 6 St at Avenue U -- 86 St W 6 St at Avenue W (to Stillwell Av) -- Stillwell Av [ad] [D] [F] [Q] Surf Av at Stillwell Av --",
+						stations: {
+							'MTA NYCT_N': {
+								stations: {
+									'Bk71-N02': '8 Av',
+					        'Bk72-N03': 'Fort Hamilton Pkwy',
+									'Bk615-N04': 'New Utrecht Av',
+					        'Bk74-N05': '18 Av',
+					        'Bk75-N06': '20 Av',
+					        'Bk76-N07': 'Bay Pkwy',
+					        'Bk77-N08': 'Kings Hwy',
+					        'Bk78-N09': 'Avenue U',
+					        'Bk79-N10': '86 St',
+					        'Bk58-D43': 'Stillwell Av',
+					        'Bk32-R36': '36 St',
+									/**
+									 * @TODO late_night
+									 *
+									'Bk33-R39': '45 St',
+									'Bk34-R40': '53 St',
+									*/
+									'Bk35-R41': '59 St'
+								}
+							},
+						},
+
 						route_change: {
 							message: "[N] Trains run via the [D] in both directions between [Bk32-R36|Qs272-G20] and [Bk76-N07] [D] [R] ``` No [N] trains at [Bk33-R39], [Bk34-R40], [Bk35-R41|Mn614-A24], [Bk71-N02], [Bk72-N03], [Bk74-N05], [Bk75-N06], [Bk76-N07], [Bk77-N08], [Bk78-N09], [Bk79-N10] and [Bk58-D43]. Travel ``` operate between [Bk35-R41|Mn614-A24] and [Bk58-D43],",
 							trains: ["N"],

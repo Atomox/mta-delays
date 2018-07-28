@@ -204,6 +204,12 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 				message: event,
 				message_raw: event,
 				message_station_parse: null,
+				alt_instructions: {
+					raw: null,
+					parsed: null,
+					stations_bound: [],
+					stations: []
+				},
 				stations: {},
 				trains: [],
 				train_context: [],
@@ -223,7 +229,7 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 			e.ad_message = getMessageADNote(event);
 
 			// Break out any alternate route information from the body.
-			e.alt_instructions = getMessageAlternateInstructions(event);
+			e.alt_instructions.raw = getMessageAlternateInstructions(event);
 
 			// Get a train lines in main message.
 			// Add them to the lines set for station parsing.
@@ -235,14 +241,30 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 				.filter((value, index, self) => self.indexOf(value) === index));
 			e.train_context = _union(e.trains,e.train_context);
 
+			// Remove alt instructions before gathering affected stations,
+			// for accuracy of event over unaffected stations listed only for
+			// alternate service. This also affects the accuracy of affected boros.
+			let trim_message = (e.alt_instructions.raw !== null)
+				? e.message.replace(e.alt_instructions.raw, '[-ALT-INSTRUCT-]')
+				: e.message;
+
 			// Get all stations per line. Also get a formatted message, with station names
 			// substituted with their IDs, for easier parsing of line and route changes.
-			let station_result = await getStationsInEventMessage(e.train_context, e.message);
+			let station_result = await getStationsInEventMessage(e.train_context, trim_message);
 			e.stations = station_result.stations;
 			e.stations_bound = station_result.bound;
-
-			e.boros = mtaStations.getBorosFromStations(e.stations);
 			e.message_station_parse = station_result.parsed_message;
+
+			// Get a formatted alt instructions message, with station names
+			// substituted with their IDs.
+			let station_result_alt = await getStationsInEventMessage(e.train_context, e.alt_instructions.raw);
+
+			e.alt_instructions.stations = station_result_alt.stations;
+			e.alt_instructions.stations_bound = station_result_alt.bound;
+			e.alt_instructions.parsed = station_result_alt.parsed_message;
+
+			// Determine affected boros using affected station list.
+			e.boros = mtaStations.getBorosFromStations(e.stations);
 
 			// Route Change Processing.
 			e.route_change = await mtaRouteChange.getRouteChange(e.message_station_parse, e.trains, id);
@@ -321,7 +343,7 @@ function getMessageTrainLines(text) {
 function prepareEventMessage(message, status, use_placeholder, summary) {
 	if (summary) {	message = message.replace(summary, (use_placeholder) ? '[-SUMMARY-]' : ''); }
 	if (status.durration.parsed !== null) { message = message.replace(status.durration.parsed, (use_placeholder) ? '[-DATES-]' : ''); }
-	if (status.alt_instructions !== null) { message = message.replace(status.alt_instructions, (use_placeholder) ? '[-ALT-INSTRUCT-]' : ''); }
+	if (status.alt_instructions.raw !== null) { message = message.replace(status.alt_instructions.raw, (use_placeholder) ? '[-ALT-INSTRUCT-]' : ''); }
 	if (status.ad_message !== null) {	message = message.replace(status.ad_message, (use_placeholder) ? '[-AD-MESSAGE-]' : ''); }
 
 	return message.trim();

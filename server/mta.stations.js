@@ -429,6 +429,9 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
 	let problems = {};
 	let debugLines = lines.map(l => getTrainById(unwrapLineObject(l, false)));
 
+//	console.log(' [Parse Stations|msg]', processed_message);
+//	console.log(' [Parse Stations|line]', lines);
+
 	for (let l in lines) {
 		try {
 			let line = unwrapLineObject(lines[l], false);
@@ -447,6 +450,8 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
 			// Get an stations related to this line.
 			result.stations[line] = {stations: rs.stations};
 			result.bound[line] = {stations: rs.bound};
+
+//			console.log(' [Parse Stations|', lines[l]['line'], '] --> ', rs);
 		}
 		catch (err) {
 			console.warn('\n\n', '<!> Error while fetching stations in event msg: ', err, '\n\n');

@@ -510,21 +510,22 @@ function analyzeTokenizedDates(txt) {
 			break;
 		}
 
+//		console.log(' [', i, ']', results);
 
 
 		// Don't parse this more than once.
 		txt = txt.replace(results[0], '```');
 
 		// Process pairs.
-		if (results[3] && results[6]) {
+		if (results[2] && results[5]) {
 			results[3] = results[3].toUpperCase();
 			results[6] = results[6].toUpperCase();
 
-			switch(results[2]) {
+			switch(results[3]) {
 				case 'MON':
 				case 'TUE':
 				case 'WED':
-					if (['TUE', 'WED', 'THU', 'FRI'].indexOf(results[5]) !== -1) {
+					if (['TUE', 'WED', 'THU', 'FRI'].indexOf(results[6]) !== -1) {
 						result.push({
 							tags: 'week_day',
 							start: results[2],
