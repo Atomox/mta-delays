@@ -196,8 +196,8 @@ function CheckStationsListExcludeAltInstructions (event) {
 
 		// Break out any alternate route information from the body.
 		event.alt_instructions.raw = mtaStatus.getMessageAlternateInstructions(event.message);
-		event.message = (event.alt_instructions.alt_instructions !== null)
-			? event.message.replace(event.alt_instructions.alt_instructions, '[-ALT-INSTRUCT-]')
+		event.message = (event.alt_instructions.raw !== null)
+			? event.message.replace(event.alt_instructions.raw, '[-ALT-INSTRUCT-]')
 			: event.message;
 
 		return CheckStationsListForExpected(event, 'expect.stations_no_alt');
@@ -212,8 +212,7 @@ function CheckStationsListForExpected (event, data_path) {
 	let e_stations = _.get(event, data_path, false);
 
 	if (e_stations === false) {
-		console.log(e_stations);
-		expect(event, event.message).to.not.equal(false);
+		expect(event, 'TEST MESSING path:' + data_path + '--' + event.message).to.not.equal(false);
 	}
 
 //	console.log(' >>> ', data_path, ' | ',  e_stations);
@@ -225,8 +224,7 @@ function CheckStationsListForExpected (event, data_path) {
 			let results = false;
 			let mocha_msg = event.message;
 
-
-//			console.log('\n\n V)', trim_message);
+//			console.log('\n\n V)', event.message);
 
 			for (let l in e_stations) {
 				results = true;

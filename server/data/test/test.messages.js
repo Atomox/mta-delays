@@ -4536,7 +4536,30 @@ let event_messages = {
 									end: '2018-06-11'
 								}],
 								tag: ['date-range'],
-							}
+							},
+							stations_no_alt: {
+								'MTA NYCT_N': {
+									stations: {
+										'Bk71-N02': '8 Av',
+						        'Bk72-N03': 'Fort Hamilton Pkwy',
+						        'Bk74-N05': '18 Av',
+						        'Bk75-N06': '20 Av',
+						        'Bk76-N07': 'Bay Pkwy',
+						        'Bk77-N08': 'Kings Hwy',
+						        'Bk78-N09': 'Avenue U',
+						        'Bk79-N10': '86 St',
+						        'Bk58-D43': 'Stillwell Av',
+						        'Bk32-R36': '36 St',
+										/**
+										 * @TODO late_night
+										 *
+										'Bk33-R39': '45 St',
+										'Bk34-R40': '53 St',
+										*/
+										'Bk35-R41': '59 St'
+									}
+								},
+							},
 						},
 						durration: "9:30 PM Fri, Jun 8 to 5 AM Mon, Jun 11",
 						message: "STRUCTURAL IMPROVEMENTS | 9:30 PM Fri, Jun 8 to 5 AM Mon, Jun 11 [N] Trains run via the [D] in both directions between 36 St and Bay Pkwy in Brooklyn [D] [R] trains and [SB] free shuttle buses provide alternate service No [N] trains at 45, 53, 59 Sts, 8 Av, Fort Hamilton Pkwy, 18, 20 Avs, Bay Pkwy, Kings Hwy, Avenue U, 86 St and Stillwell Av. Travel Alternatives [SB] Buses operate between 59 St and Stillwell Av, making all [N] stops . [R] trains provide alternate service between 36 St and 59 St . For service to/from Stillwell Av take the [D], transfer between trains at Bay Pkwy. -- Transfer between [N] and [R] trains at 36 St. -- Transfer between [N] and [D] trains or [SB] buses at 62 St/New Utrecht Av . -- Transfer between [R] trains and [SB] buses at 59 St . Show Shuttle Bus Stops Station Shuttle Bus Stop Bus 59 St [R] 4 Av at 59 St -- 8 Av 60 St at 8 Av B9 Fort Hamilton Pkwy 60 St at Fort Hamilton Pkwy B9 New Utrecht Av/62 St [D] [N] New Utrecht Av at 62 St -- 18 Av 65 St at 18 Av -- 20 Av 65 St at 20 Av -- Bay Pkwy Bay Pkwy at W 7 St (to 36 St) B82 Bay Pkwy at 65 St (to Stillwell Av) -- Kings Hwy Kings Hwy at W 7 St B82 Avenue U W 6 St at Avenue U -- 86 St W 6 St at Avenue W (to Stillwell Av) -- Stillwell Av [ad] [D] [F] [Q] Surf Av at Stillwell Av --",
