@@ -759,6 +759,8 @@ function getTrainById (id) {
 
 
 	switch (id) {
+		case 'MTA NYCT_6D':
+			return '6D';
 		case 'MTA NYCT_6':
 			return 6;
 		case 'MTA NYCT_5':
@@ -773,6 +775,8 @@ function getTrainById (id) {
 		case 'MTA NYCT_3':
 			return 3;
 
+		case 'MTA NYCT_7D':
+			return '7D';
 		case 'MTA NYCT_7':
 			return 7;
 

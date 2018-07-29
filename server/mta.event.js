@@ -313,7 +313,7 @@ async function getStationsInEventMessage(lines, message, parsed_message) {
  */
 function getMessageTrainLines(text) {
 
-	let train_pattern = /\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SI|SIR|[1-7]|SH)\]/ig;
+	let train_pattern = /\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SI|SIR|[1-7]|6D|7D|SH|SF)\]/ig;
 
 	let results = {};
 	do {

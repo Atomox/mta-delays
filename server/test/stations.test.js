@@ -85,6 +85,11 @@ describe('Parse Stations', function() {
 		tests.stationTestByTag(stations.false_positive, CheckStationsListForExpected, ' [-,/] 57 St-7 Av, Lexington Av/59 St');
 	});
 
+	describe('MTAD-057 -- Parse Express Lines, like 6D, 7D', () => {
+
+		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Parse Stations on 6D, 7D', ['MTAD-057']);
+	});
+
 	describe('MTAD-060 -- Direction-bound stations should be added to a separate array.', () => {
 
 		tests.boundStationTestByTag(event_messages.normal, CheckBoundStationsListForExpected, 'Detect Direction-Bound Stations', ['MTAD-060']);

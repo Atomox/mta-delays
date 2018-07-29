@@ -305,13 +305,42 @@ let routes = {
 
 	],
 	'6D': [
-		/**
-		 *
-		 * @TODO
-		 *
-		 *
-		 *
-		 */
+
+				// "Pelham" -- "Bx"
+				'Bx360-601',  // "Pelham Bay Park",
+				'Bx361-602',  // "Buhre Av"
+				'Bx362-603',  // "Middletown Rd"
+				'Bx363-604',  // "Westchester Sq - E Tremont Av"
+				'Bx364-606',  // "Zerega Av"
+				'Bx365-607',  // "Castle Hill Av"
+				'Bx366-608',  // "Parkchester"
+				// Express Skips Stations
+				'Bx371-613',  // "Hunts Point Av"
+				// Express Skips Stations
+				'Bx377-619',  // "3 Av - 138 St"
+
+				// "Lexington - Shuttle" -- "Mn"
+				'Mn392-621',  // "125 St"
+				'Mn393-622',  // "116 St"
+				'Mn394-623',  // "110 St"
+				'Mn395-624',  // "103 St"
+				'Mn396-625',  // "96 St"
+				'Mn397-626',  // "86 St"
+				'Mn398-627',  // "77 St"
+				'Mn399-628',  // "68 St - Hunter College"
+				'Mn613-629',  // "59 St"
+				'Mn612-630',  // "51 St"
+				'Mn610-631',  // "Grand Central - 42 St"
+				'Mn403-632',  // "33 St"
+				'Mn404-633',  // "28 St"
+				'Mn405-634',  // "23 St"
+				'Mn602-635',  // "14 St - Union Sq"
+				'Mn407-636',  // "Astor Pl"
+				'Mn619-637',  // "Bleecker St"
+				'Mn409-638',  // "Spring St"
+				'Mn623-639',  // "Canal St"
+				'Mn622-640',  // "Brooklyn Bridge - City Hall"
+
 	],
 	6: [
 

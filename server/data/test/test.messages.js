@@ -5095,6 +5095,99 @@ let event_messages = {
 								],
 							},
 
+							{
+								tag: ['MTAD-057'],
+								type_detail: [
+									"running_local",
+								],
+								message: "TRACK MAINTENANCE [6D] Brooklyn Bridge-bound trains run local from Hunts Point Av to 3 Av-138 St Please allow additional travel time.",
+/**
+
+	@TODO
+
+	   Local Stops on an Express Line: Do we parse these?
+
+		 Blocked, pending MTAD-064
+
+								stations: {
+									'MTA NYCT_6D': {
+										stations: {
+											'Bx371-613': 'Hunts Point Av',
+											'Bx377-619': '3 Av-138 St'
+										}
+									}
+								},
+*/
+								line: [
+									{
+										line: "MTA NYCT_6D",
+										dir: "0"
+									},
+									{
+										line: "MTA NYCT_6D",
+										dir: "1"
+									}
+								],
+							},
+
+							{
+								tag: ['MTAD-057'],
+								type_detail: [
+									"running_local",
+								],
+								message: "TRACK REPLACEMENT [7D] Hudson Yards-bound trains make local stops at 74, 69, 52, 46, 40 and 33 Sts Mornings, 10 AM to 10:15 AM, Mon to Fri, Please allow additional travel time.",
+								stations: {
+									'MTA NYCT_7D': {
+										stations: {
+										}
+									}
+								},
+								line: [
+									{
+										line: "MTA NYCT_7D",
+										dir: "0"
+									},
+									{
+										line: "MTA NYCT_7D",
+										dir: "1"
+									}
+								],
+							},
+
+							{
+								tag: ['MTAD-057'],
+								type_detail: [
+									"running_local",
+								],
+								message: "[7D] express trains are running local from 33 St-Rawson St to Flushing-Main St as a result of an earlier gap in service caused by an investigation at Times Sq-42 St . Some [7] and [7D] express trains will end at Mets-Willets Point or 111 St . Expect delays in [7] train service in both",
+/**
+
+	@TODO
+
+	   Local Stops on an Express Line: Do we parse these?
+
+		 Blocked, pending MTAD-064
+
+								stations: {
+									'MTA NYCT_7D': {
+										stations: {
+
+										}
+									}
+								},
+*/
+								line: [
+									{
+										line: "MTA NYCT_7D",
+										dir: "0"
+									},
+									{
+										line: "MTA NYCT_7D",
+										dir: "1"
+									}
+								],
+							},
+
 		],
 
 		complex: [
