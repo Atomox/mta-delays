@@ -5188,6 +5188,54 @@ let event_messages = {
 								],
 							},
 
+							{
+								archive: 148,
+								id: "MTA NYCT_191341",
+								type: "Planned Work",
+								tag: ['MTAD-057'],
+								date: {fetched: "2018-07-03T00:00:00-04:00",},
+								type_detail: [
+									"running_local",
+									"track_maintenance"
+								],
+								message: "TRACK MAINTENANCE | Jul 3 - 6, Tue to Fri, 9:45 AM to 1 PM Brooklyn Bridge-bound [6D] trains run local from Parkchester to 3 Av-138 St in the Bronx",
+/**
+
+	@TODO
+
+	   Local Stops on an Express Line: Do we parse these?
+
+		 Blocked, pending MTAD-064
+
+								stations: {
+									'MTA NYCT_6': {
+										stations: {
+											'Bx366-608': "Parkchester",
+											'Bx377-619': "3 Av-138 St in the Bronx"
+										}
+									}
+								},
+*/
+								route_change: {
+									message: "[Mn622-640]-bound [6D] trains run local from [Bx366-608] to [Bx377-619]",
+									trains: ["6D"],
+									route: [
+										{
+											allTrains: true,
+											dir: "[mn622-640]-bound",
+											exp_lcl: "local",
+											lines: ["6D"],
+											along: null,
+											from: "Bx366-608",
+											to: "Bx377-619",
+											section: null,
+											process: "RouteChangeStandard",
+											parsed: "[Mn622-640]-bound [6D] trainsrun local from [Bx366-608] to [Bx377-619]"
+										}
+									],
+								},
+								line: [{ line: "MTA NYCT_6", dir: "1" }],
+							},
 		],
 
 		complex: [
