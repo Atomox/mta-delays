@@ -755,7 +755,7 @@ async function analyzeStationArray(r) {
 			throw new Error('Analyze station expects a line ID on either -lines- or -along-, but found none.');
 		}
 
-		let line = await mtaStations.getTrainRoute(along);
+		let line = await mtaStations.getTrainRouteBasic(along);
 
 		for (let i in keys) {
 			if (!r[keys[i]]) {	continue; }

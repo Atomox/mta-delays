@@ -105,40 +105,100 @@ async function getStationsByLine() {
 }
 
 
-function getTrainRoute(line, include_all_times) {
+function getTrainRoute(line, include_all_times, tags) {
 	if (!trainRoutes[line]) {	return Promise.reject(line + ' Line unavailable'); }
 
-	// If all lines are to be included,
-	// then merge in any found alternate time routes for this line.
-	let route = trainRoutes[line];
-
-	// Include alternate route (MTAD-030), trains run past normal line.
-	route = _.union(route, trainRoutesAlternate[line]);
-
-	if (include_all_times === true && trainRoutes[line+'LN']) {
-		route = _.union(route, trainRoutes[line+'LN']);
-	}
+	let routeList = {
+		day: _.get(trainRoutes, line, []),
+		night: _.get(trainRoutes, line + 'LN', []),
+		weekend: _.get(trainRoutes, line + 'WKND', []),
+		alternate: _.get(trainRoutesAlternate, line, []),
+		express: _.get(trainRoutes, line + 'EXP', []),
+		local: _.get(trainRoutes, line + 'LCL', []),
+	};
 
 	return new Promise( (resolve, reject) => {
 		getStations()
-		.then(data => Promise.resolve(filterStations(data, route)) )
+		.then(data => {
+			let results = {};
+			Object.keys(routeList).map( key => {
+				results[key] = (routeList[key].length > 0)
+					? filterStations(data, routeList[key])
+					: [];
+			});
+			return results;
+		})
 		.then(data => resolve(data))
 		.catch(err => reject('Error fetching train route... ' + err) );
 	});
 }
 
 
-async function getRouteStationsArray(line, include_stats, include_late_night) {
+function getTrainRouteBasic(line) {
+
+	// Substitute for: getTrainRoute(line)
+
+	return getTrainRoute(line)
+		.then(data => _.union(data['day'], data['alternate']));
+}
+
+
+/**
+ * Get and assemble a train route of stations, optionally modified
+ * depending upon passed tags, such as running_local or late_night.
+ *
+ * @param  {strign} line
+ *   The line in question.
+ * @param  {boolean} include_stats
+ *   Include the entire station object, or just key => name.
+ * @param  {boolean} include_late_night
+ *   (@DEPRICATED) Include late night stations?
+ * @param  {array} tags
+ *   (optional) a list of tags applying to this line,
+ *   which can determine how the line is assembled.
+ *
+ * @return {object}
+ *   A list of stations associated with this line,
+ *   dependant upon the passed params.
+ */
+async function getRouteStationsArray(line, include_stats, include_late_night, tags) {
 	try {
-		let data = await getTrainRoute(line, true);
+		if (!tags || typeof tags !== 'object') {
+			tags = [];
+		}
+
+		let routes = await getTrainRoute(line, true, tags);
+
+		// If all lines are to be included,
+		// then merge in any found alternate time routes for this line.
+		// Include alternate route (MTAD-030), trains run past normal line.
+		let data = _.union(routes['day'], routes['alternate']);
+
+		if (include_late_night === true || tags.indexOf('late_night') !== -1) {
+			data = _.union(data, routes['night']);
+		}
+
+		if (tags.indexOf('weekend') !== -1) {
+			data = _.union(data, routes['weekend']);
+		}
+
+		if (tags.indexOf('running_local') !== -1) {
+			data = _.union(data, routes['local']);
+		}
+
+		if (tags.indexOf('running_express') !== -1) {
+			data = _.union(data, routes['express']);
+		}
+
 		let my_result = {};
 		data.map( value => my_result[value.key] = (include_stats === true)
 			? value
 			: value.name );
+
 		return my_result;
 	}
 	catch(err) {
-		throw new Error(err);
+		throw new Error('Error getRouteStationsArray: ' + err);
 	}
 }
 
@@ -312,18 +372,22 @@ function prepareBunchedStationNames(txt) {
  *   so we may make the correct match. These are any previous results,
  *   which we can append to. They generate here,
  *   but are not finalized in this function.
+ * @tags [array] tags
+ *   Any tags related to this message. When certain tags are present, we may
+ *   parse messages differently. For example, running_local will trigger local
+ *   stations to be checked for express lines.
  *
  * @return [object]
  *   List of found stations, a list of found problems (including any passed in),
  *   and a parsed message with matches replaced with station tokens.
  */
-async function matchRouteStationsMessage(line, message, processed_message, problems) {
+async function matchRouteStationsMessage(line, message, processed_message, problems, tags) {
 	try {
 		let line_id = line;
 		line = getTrainById(line_id);
 
 		// Get all stations for this line.
-		let stations = await getRouteStationsArray(line, true, true);
+		let stations = await getRouteStationsArray(line, true, true, tags);
 
 		// Get problem stations we should replace first.
 		let stations_first = problem_stations;
@@ -412,7 +476,11 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
  *   A list of stations, keyed by line, that we found. Also, a parsed message
  *   with station tolkens replacing the names of any we could find.
  */
-async function matchAllLinesRouteStationsMessage(lines, message, processed_message) {
+async function matchAllLinesRouteStationsMessage(lines, message, processed_message, tags) {
+
+	if (!tags) {
+		tags = [];
+	}
 
 	// Do any prep to unravel bunched station/street names,
 	// like '42, 33, 23, and 14 Sts'.
@@ -429,6 +497,34 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
 	let problems = {};
 	let debugLines = lines.map(l => getTrainById(unwrapLineObject(l, false)));
 
+	/**
+	 * @TODO
+	 *    Check for "run_local". If present, get lines associated with
+	 *    this line's local counterpart.
+	 *
+	 * 		A -> C
+	 * 		C -> n/a
+	 * 		E -> R, F
+	 * 		B -> Q
+	 * 		D -> B, R
+	 * 		F -> R
+	 * 		M -> n/a
+	 * 		N -> R
+	 * 		Q -> N
+	 * 		R -> n/a
+	 * 		W -> n/a
+	 * 		L -> n/a
+	 * 		G -> n/a
+	 * 		S -> n/a
+	 * 		FS -> n/a
+	 * 		HS -> n/a
+	 * 		1 -> n/a
+	 * 		2 -> 1
+	 * 		3 -> 1
+	 * 		4 -> 6, 3
+	 * 		5 -> 2, 6
+	 */
+
 //	console.log(' [Parse Stations|msg]', processed_message);
 //	console.log(' [Parse Stations|line]', lines);
 
@@ -440,7 +536,7 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
 			if (result.stations[line]) { continue; }
 
 			// Match normal stations, and collect matched problem stations.
-			let rs = await matchRouteStationsMessage(line, message, result.parsed_message, problems);
+			let rs = await matchRouteStationsMessage(line, message, result.parsed_message, problems, tags);
 
 			// Keep track of accumulating problem stations.
 			// We won't process until all lines have completed.
@@ -664,7 +760,7 @@ async function getStationLinesRegex(lines) {
 			let n = getTrainById(lines[l]);
 
 			try {
-				let m = await getTrainRoute(n);
+				let m = await getTrainRouteBasic(n);
 				stations[n] = m.map( (item, key) => item.regex);
 
 				// Assemble line
@@ -837,6 +933,7 @@ module.exports = {
 	getStationLines,
 	getStationsByLine,
 	getTrainRoute,
+	getTrainRouteBasic,
 	getTrainById,
 	getRouteStationsArray,
 	prepareBunchedStationNames,
