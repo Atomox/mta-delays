@@ -8,6 +8,12 @@ const mtaRegEx = require('./includes/regex');
 // Date files.
 const trainRoutes = require('./data/static/mta.stations.train').routes;
 const trainRoutesAlternate = require('./data/static/mta.stations.train').alternate_routes;
+const trainRoutesLocal = require('./data/static/mta.stations.train').local_routes;
+const trainRoutesExpress = require('./data/static/mta.stations.train').express_routes;
+const trainRoutesNight = require('./data/static/mta.stations.train').night_routes;
+const trainRoutesWeekend = require('./data/static/mta.stations.train').weekend_routes;
+
+
 const mta_stations_file_path = './data/generated/mta.stations.compiled';
 const problem_stations = require('./data/static/mta.stations.suppliment').name_problems;
 const stationSuppliment = require('./data/static/mta.stations.suppliment');
@@ -110,11 +116,11 @@ function getTrainRoute(line, include_all_times, tags) {
 
 	let routeList = {
 		day: _.get(trainRoutes, line, []),
-		night: _.get(trainRoutes, line + 'LN', []),
-		weekend: _.get(trainRoutes, line + 'WKND', []),
+		night: _.get(trainRoutesNight, line + '-LN', []),
+		weekend: _.get(trainRoutesWeekend, line + '-WKND', []),
 		alternate: _.get(trainRoutesAlternate, line, []),
-		express: _.get(trainRoutes, line + 'EXP', []),
-		local: _.get(trainRoutes, line + 'LCL', []),
+		express: _.get(trainRoutesExpress, line + '-EXP', []),
+		local: _.get(trainRoutesLocal, line + '-LCL', []),
 	};
 
 	return new Promise( (resolve, reject) => {
@@ -135,9 +141,6 @@ function getTrainRoute(line, include_all_times, tags) {
 
 
 function getTrainRouteBasic(line) {
-
-	// Substitute for: getTrainRoute(line)
-
 	return getTrainRoute(line)
 		.then(data => _.union(data['day'], data['alternate']));
 }
@@ -175,18 +178,22 @@ async function getRouteStationsArray(line, include_stats, include_late_night, ta
 		let data = _.union(routes['day'], routes['alternate']);
 
 		if (include_late_night === true || tags.indexOf('late_night') !== -1) {
+//			console.log(' <route|late_night>');
 			data = _.union(data, routes['night']);
 		}
 
 		if (tags.indexOf('weekend') !== -1) {
+//			console.log(' <route|weekend>');
 			data = _.union(data, routes['weekend']);
 		}
 
 		if (tags.indexOf('running_local') !== -1) {
+//			console.log(' <route|running_local>');
 			data = _.union(data, routes['local']);
 		}
 
 		if (tags.indexOf('running_express') !== -1) {
+//			console.log(' <route|running_express>');
 			data = _.union(data, routes['express']);
 		}
 

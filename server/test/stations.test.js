@@ -95,6 +95,11 @@ describe('Parse Stations', function() {
 		tests.boundStationTestByTag(event_messages.normal, CheckBoundStationsListForExpected, 'Detect Direction-Bound Stations', ['MTAD-060']);
 	});
 
+	describe('MTAD-064 -- Express Running Local Catches Local Stations', () => {
+
+		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Parse Local Stations on an Express Line', ['MTAD-064']);
+	});
+
 	describe('MTAD-090 -- Stations exclude Turtiary Copy', () => {
 		tests.stationTestByTag(event_messages.normal, CheckStationsListExcludeAltInstructions, 'Detect only Stations in Main Message.', ['MTAD-090']);
 	});
@@ -228,10 +233,16 @@ function CheckStationsListForExpected (event, data_path) {
 		expect(event, 'TEST MESSING path:' + data_path + '--' + event.message).to.not.equal(false);
 	}
 
-//	console.log(' >>> ', data_path, ' | ',  e_stations);
+	// In order to determine weekend / late night / etc routes,
+	// we need tags from the durration object.
+	let type_detail = (event.durration)
+		? _.union(event.durration.tags, event.type_detail)
+		: event.type_detail;
+
+//	console.log(' >>> ', data_path, ' | tags:', type_detail, '\n -> [S]', e_stations, '\n -> [E]', event, '\n\n');
 
 	return mtaStations.
-		matchAllLinesRouteStationsMessage(event.line, event.message)
+		matchAllLinesRouteStationsMessage(event.line, event.message, null, type_detail)
 		.then( data => {
 
 			let results = false;
@@ -256,7 +267,7 @@ function CheckStationsListForExpected (event, data_path) {
 
 				let msg = '[' + l + '] -- ' + event.message;
 				let stations_expected = Object.keys(_.get(event, data_path, {})[l].stations);
-				let stations_found = Object.keys(data.stations[l].stations);
+				let stations_found = Object.keys(_.get(data, 'stations.' + l + '.stations', []));
 
 				// Message to help find data culprate.
 				msg = '[' +stations_found.join(',') + '] <--> [' + stations_expected.join(',') + '] -- ' + msg;

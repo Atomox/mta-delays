@@ -1,3 +1,4 @@
+const _union = require('lodash/union');
 
 if (!process.argv[2]) {
   console.error('\n', '<!> Expecting a passed message, in quotes.', '\n\n');
@@ -34,7 +35,7 @@ async function main(message) {
     message = mtaStations.prepareBunchedStationNames(message);
     section('Station Prep', message);
 
-    message = await mtaStatus.getStationsInEventMessage(lines, message);
+    message = await mtaStatus.getStationsInEventMessage(lines, message, null, _union(tags.tags, dates.tags));
     message = message;
     section('Stations', message.stations);
     section('Direction-only Stations', message.bound);

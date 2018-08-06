@@ -165,6 +165,11 @@ let archive_status = {
 		'mta_status.168.Weeknight_Planned_Work',
 		'mta_status.169.Weekday_Morning_Delays',
 		'mta_status.170.Weekend_Sat_Night_Work',
+		'mta_status.171.Mond_Morning_Planned_Work',
+		'mta_status.172.M_Service_Problems_Bus_url_bit.ly',
+		'mta_status.173.Weekend_Night_Planned_Work',
+		'mta_status.174.Saturday_Afternoon_Delays',
+		'mta_status.175.Monday_Morning_Work',
 	],
 	path: './data/archive/',
 };

@@ -254,7 +254,7 @@ let event_messages = {
 				type_detail: [
 					"running_local"
 				],
-				tag: [ "MTAD-002", 'MTAD-046', 'MTAD-118'],
+				tag: [ "MTAD-002", 'MTAD-046', 'MTAD-064', 'MTAD-118'],
 				time: null,
 				expect: {
 					durration: {
@@ -283,7 +283,12 @@ let event_messages = {
 						processed_message: "[E] Trains run local in both directions between Roosevelt Av and [Qs261-G08] Late Evenings, beginning 10 PM, Mon to Thu, Dec 4 - 7 Trains stop at Elmhurst, Grand Avs, Woodhaven Blvd, 63 Dr, and 67 Av. Please allow additional travel time.",
 						stations: {
 							'Qs261-G08': "71 Av",
-							'Qs616-G14': "Roosevelt Av"
+							'Qs616-G14': "Roosevelt Av",
+							'Qs262-G09': "Elmhurst Av",
+							'Qs263-G10': "Grand Av",
+							'Qs264-G11': "Woodhaven Blvd",
+							'Qs265-G12': "63 Dr",
+							'Qs266-G13': "67 Av",
 						},
 					},
 				},
@@ -420,7 +425,7 @@ let event_messages = {
 					// Stations can exist in multiple lines
 					"MTAD-026",
 
-					// Affected Boro for message.
+					// Affected Boro for message
 					'MTAD-046',
 				],
 				time: null,
@@ -1963,10 +1968,13 @@ let event_messages = {
 					"MTA NYCT_A": {
 						'stations': {
 							'Mn614-A24': '59 St - Columbus Circle',
+							'Mn162-A25': '50 St', // local
+							'Mn165-A30': '23 St', // local
 							'Mn611-A27': '42 St - Port Authority Bus Terminal',
 							'Mn164-A28': '34 St - Penn Station',
 							'Mn618-A31': '14 St',
 							'Mn167-A32': 'W 4 St',
+							'Mn168-A33': 'Spring St', // local
 							'Mn169-A34': 'Canal St // last E stop',
 							'Mn624-A36': 'Chambers',
 							'Mn628-A38': 'Fulton St',
@@ -3168,7 +3176,7 @@ let event_messages = {
 					date: {
 						fetched: "2018-02-20T00:00:00-05:00",
 					},
-					tag: ['MTAD-040', 'MTAD-118'],
+					tag: ['MTAD-040', 'MTAD-064', 'MTAD-118'],
 					type: null,
 					type_detail: [
 						"running_local",
@@ -3198,7 +3206,7 @@ let event_messages = {
 					message_station_parse: "STRUCTURAL IMPROVEMENTS [7D] Express trains make local stops in both directions at [Qs460-716], [Qs459-715], [Qs458-714], [Qs457-713], [Qs455-711], [Qs616-710] Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9 Please allow additional travel time.",
 					station_prep: 'STRUCTURAL IMPROVEMENTS [7D] Express trains make local stops in both directions at 33 St, 40 St, 46 St, 52 St, 69 St, 74 St Rush Hours, 6 AM to 10 AM and 2:45 PM to 10 PM, Mon to Fri, until Mar 9 Please allow additional travel time.',
 					stations: {
-						"MTA NYCT_7": {
+						"MTA NYCT_7D": {
 							"stations": {
 								"Qs616-710": "74 St",
 								"Qs460-716": "69 St",
@@ -3210,7 +3218,7 @@ let event_messages = {
 						}
 					},
 					line: [
-						{	line: "MTA NYCT_7", dir: "1" },
+						{	line: "MTA NYCT_7D", dir: "1" },
 					],
 				},
 				{
@@ -3693,6 +3701,15 @@ let event_messages = {
 						message: "TRACK REPLACEMENT [4] Woodlawn trains run local from Brooklyn Bridge to 125 St Please allow additional travel time.",
 						message_raw: "TRACK REPLACEMENT [4] Woodlawn trains run local from Brooklyn Bridge to 125 St Weekend, 10 PM Fri to 5 AM Mon, Apr 13 - 16 -- Please allow additional travel time.",
 						message_station_parse: "TRACK REPLACEMENT [4] [Bx378-401] trains run local from [Mn622-640] to [Mn392-621] Weekend, 10 PM Fri to 5 AM Mon, Apr 13 - 16 -- Please allow additional travel time.",
+						stations: {
+							'MTA NYCT_4': {
+								stations: {
+									'Bx378-401': 'Woodlawn',
+									'Mn622-640': 'Brooklyn Bridge',
+									'Mn392-621': '125 St',
+								}
+							}
+						},
 						route_change: {
 							message: "message: '[4] [Bx378-401] trains run local from [Mn622-640] to [Mn392-621]',",
 							trains: ['4'],
@@ -5053,7 +5070,7 @@ let event_messages = {
 								archive: 169,
 								id: "MTA NYCT_193549",
 								date: {fetched: "2018-07-09T00:00:00-04:00",},
-								tags: ['MTAD-118', 'MTAD-073'],
+								tags: ['MTAD-064', 'MTAD-073', 'MTAD-118'],
 								type_detail: [
 									"running_local",
 									"track_maintenance",
@@ -5082,33 +5099,44 @@ let event_messages = {
 										tag: ['date-until', 'time-range-multi'],
 									},
 								},
+								durration: {
+									tags: [
+										"morning",
+										"week_day"
+									],
+								},
 								message: "TRACK REPLACEMENT | Until Jul 27, Mon to Fri, 6 AM to 10 AM and 3 PM to 10 PM [7D] Express trains make local stops in both directions at 33, 40, 46, 52, 69 and 74 Sts Rush hour [7D] express service runs between Mets-Willets Point and 74 St-Broadway For Midtown Manhattan, consider [E] and [F] service via transfer at 74 St-Broadway/Roosevelt Av.",
+								stations: {
+									'MTA NYCT_7D': {
+										stations: {
+											'Qs448-702': "Mets-Willets Point",
+											'Qs616-710': "74 St - Broadway",
+											'Qs455-711': "69 St",
+											'Qs457-713': "52 St",
+											'Qs458-714': "46 St",
+											'Qs459-715': "40 St",
+											'Qs460-716': "33 St",
+										}
+									}
+								},
 								line: [
 									{
-										line: "MTA NYCT_7",
+										line: "MTA NYCT_7D",
 										dir: "0"
 									},
 									{
-										line: "MTA NYCT_7",
+										line: "MTA NYCT_7D",
 										dir: "1"
 									}
 								],
 							},
 
 							{
-								tag: ['MTAD-057'],
+								tag: ['MTAD-057', 'MTAD-064'],
 								type_detail: [
 									"running_local",
 								],
 								message: "TRACK MAINTENANCE [6D] Brooklyn Bridge-bound trains run local from Hunts Point Av to 3 Av-138 St Please allow additional travel time.",
-/**
-
-	@TODO
-
-	   Local Stops on an Express Line: Do we parse these?
-
-		 Blocked, pending MTAD-064
-
 								stations: {
 									'MTA NYCT_6D': {
 										stations: {
@@ -5117,7 +5145,6 @@ let event_messages = {
 										}
 									}
 								},
-*/
 								line: [
 									{
 										line: "MTA NYCT_6D",
@@ -5131,7 +5158,7 @@ let event_messages = {
 							},
 
 							{
-								tag: ['MTAD-057'],
+								tag: ['MTAD-057', 'MTAD-064'],
 								type_detail: [
 									"running_local",
 								],
@@ -5139,6 +5166,12 @@ let event_messages = {
 								stations: {
 									'MTA NYCT_7D': {
 										stations: {
+											'Qs616-710': "74 St - Broadway",
+											'Qs455-711': "69 St",
+											'Qs457-713': "52 St",
+											'Qs458-714': "46 St",
+											'Qs459-715': "40 St",
+											'Qs460-716': "33 St",
 										}
 									}
 								},
@@ -5155,27 +5188,23 @@ let event_messages = {
 							},
 
 							{
-								tag: ['MTAD-057'],
+								tag: ['MTAD-057', 'MTAD-064'],
 								type_detail: [
 									"running_local",
 								],
 								message: "[7D] express trains are running local from 33 St-Rawson St to Flushing-Main St as a result of an earlier gap in service caused by an investigation at Times Sq-42 St . Some [7] and [7D] express trains will end at Mets-Willets Point or 111 St . Expect delays in [7] train service in both",
-/**
-
-	@TODO
-
-	   Local Stops on an Express Line: Do we parse these?
-
-		 Blocked, pending MTAD-064
-
 								stations: {
 									'MTA NYCT_7D': {
 										stations: {
-
+											'Qs447-701': "Flushing - Main St",
+											'Qs448-702': "Mets - Willets Point",
+											'Qs449-705': "111 St",
+											'Qs460-716': "33 St",
+											'Mn611-725': 'Times Sq-42 St',
 										}
 									}
 								},
-*/
+
 								line: [
 									{
 										line: "MTA NYCT_7D",
@@ -5192,30 +5221,21 @@ let event_messages = {
 								archive: 148,
 								id: "MTA NYCT_191341",
 								type: "Planned Work",
-								tag: ['MTAD-057'],
+								tag: ['MTAD-057', 'MTAD-064'],
 								date: {fetched: "2018-07-03T00:00:00-04:00",},
 								type_detail: [
 									"running_local",
 									"track_maintenance"
 								],
 								message: "TRACK MAINTENANCE | Jul 3 - 6, Tue to Fri, 9:45 AM to 1 PM Brooklyn Bridge-bound [6D] trains run local from Parkchester to 3 Av-138 St in the Bronx",
-/**
-
-	@TODO
-
-	   Local Stops on an Express Line: Do we parse these?
-
-		 Blocked, pending MTAD-064
-
 								stations: {
-									'MTA NYCT_6': {
+									'MTA NYCT_6D': {
 										stations: {
 											'Bx366-608': "Parkchester",
 											'Bx377-619': "3 Av-138 St in the Bronx"
 										}
 									}
 								},
-*/
 								route_change: {
 									message: "[Mn622-640]-bound [6D] trains run local from [Bx366-608] to [Bx377-619]",
 									trains: ["6D"],
@@ -5234,7 +5254,7 @@ let event_messages = {
 										}
 									],
 								},
-								line: [{ line: "MTA NYCT_6", dir: "1" }],
+								line: [{ line: "MTA NYCT_6D", dir: "1" }],
 							},
 		],
 

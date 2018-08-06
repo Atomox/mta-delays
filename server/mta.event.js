@@ -250,14 +250,14 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 
 			// Get all stations per line. Also get a formatted message, with station names
 			// substituted with their IDs, for easier parsing of line and route changes.
-			let station_result = await getStationsInEventMessage(e.train_context, trim_message);
+			let station_result = await getStationsInEventMessage(e.train_context, trim_message, null, _union(e.type_detail, e.durration.tags));
 			e.stations = station_result.stations;
 			e.stations_bound = station_result.bound;
 			e.message_station_parse = station_result.parsed_message;
 
 			// Get a formatted alt instructions message, with station names
 			// substituted with their IDs.
-			let station_result_alt = await getStationsInEventMessage(e.train_context, e.alt_instructions.raw);
+			let station_result_alt = await getStationsInEventMessage(e.train_context, e.alt_instructions.raw, null, _union(e.type_detail, e.durration.tags));
 
 			e.alt_instructions.stations = station_result_alt.stations;
 			e.alt_instructions.stations_bound = station_result_alt.bound;
@@ -302,8 +302,8 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
  *   [stations] contains all the station results
  *   [parsed_message] contains the original message, with all stations matches replaced by their ID, wrapped in [].
  */
-async function getStationsInEventMessage(lines, message, parsed_message) {
-	return await mtaStations.matchAllLinesRouteStationsMessage(lines, message, parsed_message);
+async function getStationsInEventMessage(lines, message, parsed_message, tags) {
+	return await mtaStations.matchAllLinesRouteStationsMessage(lines, message, parsed_message, tags);
 }
 
 
