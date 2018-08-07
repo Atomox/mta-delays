@@ -5347,7 +5347,125 @@ let event_messages = {
 									{line: "MTA NYCT_N",dir: "1"},
 									{line: "MTA NYCT_N",dir: "0"}
 								],
-							}
+							},
+
+
+							{
+								archive: 164,
+								id: "MTA NYCT_193475",
+								date: {fetched: "2018-07-28T00:00:00-04:00",},
+								tag: ['MTAD-064'],
+								type: {
+									tag: "running_local",
+									weight: 2
+								},
+								type_detail: [
+									"running_local"
+								],
+								durration: {
+									parsed: "12:01 AM Sat, Jul 28 to 5 AM Mon, Jul 30",
+									tokenized: "[T--24:01] [D--2018-07-28--Sat] TO [T--05:00] [D--2018-07-30--Mon]",
+									tags: [
+										"weekend"
+									],
+									date: [
+										{
+											start: "2018-07-28",
+											end: "2018-07-30"
+										}
+									]
+								},
+								message: "SIGNAL MODERNIZATION | 12:01 AM Sat, Jul 28 to 5 AM Mon, Jul 30 [F] Trains run local in both directions between 21 St-Queensbridge and 71 Av in Queens Trains stop at 36, Steinway, 46 Sts, Northern Blvd, 65 St, Roosevelt, Elmhurst, Grand Avs, Woodhaven Blvd, 63 Dr and 67 Av.",
+								stations: {
+									'MTA NYCT_F': {
+										stations: {
+											'Qs261-G08': "71 Av in Queens",
+											'Qs616-G14': "Roosevelt Av",
+											'Qs221-B04': "21 St-Queensbridge",
+											'Qs262-G09': "67 Av",
+											'Qs263-G10': "63 Dr",
+											'Qs264-G11': "Woodhaven Blvd",
+											'Qs265-G12': "Grand Av",
+											'Qs266-G13': "Elmhurst Av",
+											'Qs268-G15': "65 St",
+											'Qs269-G16': "Northern Blvd",
+											'Qs270-G18': "46 St",
+											'Qs271-G19': "Steinway St",
+											'Qs272-G20': "36 St"
+										}
+									}
+								},
+								route_change: {
+									message: "[F] Trains run local in both directions between [Qs221-B04] and [Qs261-G08]",
+									trains: ["F"],
+									route: [
+										{
+											allTrains: true,
+											dir: null,
+											exp_lcl: "local",
+											lines: ["F"],
+											along: null,
+											from: "Qs221-B04",
+											to: "Qs261-G08",
+											section: null,
+											process: "RouteChangeStandard",
+											parsed: "[F] Trainsrun local in both directions between [Qs221-B04] and [Qs261-G08]"
+										}
+									],
+								},
+								line: [
+									{line: "MTA NYCT_F",dir: "1"},
+									{line: "MTA NYCT_F",dir: "0"}
+								],
+							},
+							{
+								archive: 162,
+								id: "MTA NYCT_193332",
+								date: {fetched: "2018-07-23T00:00:00-04:00",},
+								tag: ['MTAD-064'],
+								type_detail: [
+									"running_local",
+									"station_improvements"
+								],
+								durration: {
+									parsed: "Jul 23 - 26 -- Jul 30 - Aug 2, Mon to Thu, beginning 10 PM each night",
+									tokenized: "[D--2018-07-23--Mon] - [D--2018-07-26--Thu] -- [D--2018-07-30--Mon] - [D--2018-08-02--Thu], MON TO THU, BEGINNING [T--22:00] EACH NIGHT",
+									tags: [
+										"week_day",
+										"evening"
+									],
+									time: [
+										{
+											start: "22:00",
+											end: null
+										}
+									],
+									date: [
+										{
+											start: "2018-07-23",
+											end: "2018-07-26"
+										},
+										{
+											start: "2018-07-30",
+											end: "2018-08-02"
+										}
+									]
+								},
+								message: "STATION IMPROVEMENTS | Jul 23 - 26 -- Jul 30 - Aug 2, Mon to Thu, beginning 10 PM each night [2] Trains make local stops in both directions at 50 St, 59 St and 66 St in Manhattan",
+								stations: {
+									'MTA NYCT_2': {
+										stations: {
+											'Mn314-124': '66 St in Manhattan',
+							        'Mn614-125': '59 St',
+							        'Mn316-126': '50 St'
+										}
+									}
+								},
+								line: [
+									{line: "MTA NYCT_2",dir: "0"},
+									{line: "MTA NYCT_2",dir: "1"}
+								],
+							},
 		],
 
 		complex: [
