@@ -5256,6 +5256,98 @@ let event_messages = {
 								},
 								line: [{ line: "MTA NYCT_6D", dir: "1" }],
 							},
+							{
+								archive: 167,
+								id: "MTA NYCT_194140",
+								date: {fetched: "2018-08-03T00:00:00-04:00",},
+								tag: ['MTAD-064'],
+								type_detail: [
+									"skip_stations",
+									"running_local",
+									"station_improvements",
+									"late_night"
+								],
+								durration: {
+									parsed: "Late Nights, 10 PM Fri, Aug 3 to 5 AM Mon, Aug 6",
+									tokenized: "LATE NIGHTS, [T--22:00] [D--2018-08-03--Fri] TO [T--05:00] [D--2018-08-06--Mon]",
+									tags: [
+										"weekend",
+										"late_night"
+									],
+									date: [
+										{
+											start: "2018-08-03",
+											end: "2018-08-06"
+										}
+									]
+								},
+								message: "STATION ENHANCEMENTS | Late Nights, 10 PM Fri, Aug 3 to 5 AM Mon, Aug 6 Downtown [A] trains skip 155 St and 135 St in Manhattan For service to 155 St and 135 St, take the [A] to 145 St or 125 St and transfer to an Inwood-bound [A] local . For service from these stations, take the [A] to 145 St or 168 St and transfer to a Queens-bound [A]. Reminders: [A] trains run local during late nights only. 163 St-Amsterdam Av is closed for renovation.",
+								stations: {
+									'MTA NYCT_A': {
+										stations: {
+											'Mn150-A11': "155 St",
+											'Mn152-A14': "135 St in Manhattan",
+
+											// Alt Instructions
+										  "Mn605-A09": "168 St",
+										  "Mn151-A12": "145 St",
+										  "Mn149-A10": "163 St-Amsterdam Av",
+											"Mn153-A15": "125 St",
+										}
+									}
+								},
+								route_change: {
+									message: "Downtown [A] trains skip [Mn150-A11] and [Mn152-A14]",
+									trains: ["A"],
+									route: [
+										{
+											allTrains: true,
+											dir: "Downtown",
+											lines: ["A"],
+											along: null,
+											bypass: [
+												"Mn150-A11",
+												"Mn152-A14"
+											],
+											action: "bypass",
+											parsed: "Downtown [A] trains skip [Mn150-A11] and [Mn152-A14]",
+											process: "RouteChangeBypass"
+										}
+									],
+								},
+								line: [{line: "MTA NYCT_A",dir: "1"}],
+							},
+
+							{
+								archive: 166,
+								id: "MTA NYCT_196775",
+								date: {fetched: "2018-07-30T00:00:00-04:00",},
+								tag: ['MTAD-064'],
+								type_detail: [
+									"running_local"
+								],
+								durration: {
+									parsed: "Until July 2019",
+									tokenized: "UNTIL [D--Invalid date--Invalid date]",
+									tags: [ ],
+									time: [ ],
+									date: [ ]
+								},
+								message: "STRUCTURAL REHABILITATION | Until July 2019 [N] Trains are making local stops in Brooklyn at 53 St and 45 St in both directions",
+								stations: {
+									'MTA NYCT_N': {
+										stations: {
+											'Bk33-R39': "45 St",
+											'Bk34-R40': "53 St"
+										}
+									}
+								},
+
+								line: [
+									{line: "MTA NYCT_N",dir: "1"},
+									{line: "MTA NYCT_N",dir: "0"}
+								],
+							}
 		],
 
 		complex: [

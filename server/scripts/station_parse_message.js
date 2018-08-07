@@ -35,8 +35,11 @@ async function main(message) {
     message = mtaStations.prepareBunchedStationNames(message);
     section('Station Prep', message);
 
-    message = await mtaStatus.getStationsInEventMessage(lines, message, null, _union(tags.tags, dates.tags));
-    message = message;
+    let message_day_only = await mtaStatus.getStationsInEventMessage(lines, message);
+    section('Stations (Daytime Only)', message_day_only.stations);
+
+    message = await mtaStatus.getStationsInEventMessage(lines, message, null, _union(tags, dates.tags));
+    section('C.A.S.H', message);
     section('Stations', message.stations);
     section('Direction-only Stations', message.bound);
 
