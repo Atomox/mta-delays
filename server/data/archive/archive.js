@@ -170,6 +170,9 @@ let archive_status = {
 		'mta_status.173.Weekend_Night_Planned_Work',
 		'mta_status.174.Saturday_Afternoon_Delays',
 		'mta_status.175.Monday_Morning_Work',
+		'mta_status.176.Weeknight_Delays',
+		'mta_status.177.Evening_Delays_Post_Storm',
+		'mta_status.178.Weekday_Morning_Delays',
 	],
 	path: './data/archive/',
 };
