@@ -1437,6 +1437,7 @@ let night_routes = {
 	'B-LN': [
 		// No Service
 	],
+	'D-LN': local_routes['D-LCL'],
 	'E-LN': local_routes['E-LCL'],
 	'M-LN': [
 		// "Jamaica" -- "Qs", "Bk", "Mn"

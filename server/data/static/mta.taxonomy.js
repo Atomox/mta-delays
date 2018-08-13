@@ -111,6 +111,7 @@ const taxonomy = {
 			'trains are stopping along',
 			'route changes',
 			'Trains are rerouted',
+			/(?:via|over|along)\s*the\s*\[(?:[0-9]|[A-Z]|SF|SH)\]/i
 		],
 		'alternate_trains': [
 			'alternate trains',

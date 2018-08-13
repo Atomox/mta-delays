@@ -2933,7 +2933,7 @@ let event_messages = {
 					message_station_parse: "SIGNAL MAINTENANCE [D] Service operates in two sections and is rerouted in Manhattan[F] [N] [Q] [R] trains and [SB] free shuttle buses provide alternate service Weekend, 11:30 PM Fri to 5 AM Mon, Jan 26 - 29 No [D] service at [Mn277-D14] , [Mn225-D15] , [Mn609-D16] , [Mn607-D17] , [Mn231-D22] and [Bk26-R30] . [D] service operates in two sections: 1. Between [Bx210-D01] and [Mn619-D21], and via the [F] to/from [Mn232-F14], the last stop Trains run via the [A] local in both directions between [Mn153-A15] and [Mn167-A32]. 2. Between [Bk617-R31] and [Bk58-D43] Trains skip [Bk28-R32], [Bk608-F23], [Bk30-R34] and [Bk31-R35] in both directions. [SB] Buses operate between [Mn167-A32] and [Mn231-D22] , stopping at [Mn619-D21] . Show Shuttle Bus Stops Station Bus Stop Bus [Mn167-A32] [ad] [A] [C] [D] [E] [F] 6 Av at W 3 St M55 [Mn619-D21] [ad] [D] [F] Houston St at [Qs4-R05] M21 [Mn231-D22] [Mn231-D22] at Chrystie St -- Travel Alternatives [TP] For service between Manhattan and Brooklyn , take the [N] or [Q]. Transfer between [D] and [N] [Q] trains via the passageway at Times Sq-42 St/Port Authority. In Brooklyn, transfer between [D] and [N] [Q] trains at [Bk617-R31]. Transfer between [N] [Q] and [F] at [Mn607-D17]. For [Mn277-D14] , take the [E] via transfer at Times Sq-42 St/Port Authority. For [Mn225-D15] , [Mn609-D16] and [Mn607-D17] take the [F]. Transfer between [D] and [F] trains at [Mn167-A32]. Transfer between [N] [Q] and [F] trains at [Mn607-D17]. For [Mn231-D22] , take a [SB] bus via transfer at [Mn167-A32] or [Mn619-D21]. For [Bk26-R30] , take the [N] [Q] or [R] instead via transfer at [Bk617-R31] or Times Sq-42 St/Port Authority. For [Bk28-R32] , [Bk608-F23], [Bk30-R34] and [Bk31-R35] , take the [N] or [R] instead. Transfer between [D] and [N] [R] trains at [Bk32-R36]. [ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 					route_change: {
 						tag: ['A-operates-then-overC', 'A-1-operates-then-viaC-viaD-2-operates'],
-						message: "[D] Service operates in two sections and is rerouted in Manhattan[F] [N] [Q] [R] ```[D] [__operates-section-1__] Between [Bx210-D01] and [Mn619-D21], and via the [F] to/from [Mn232-F14], the last stop Trains run via the [A] local in both directions between [Mn153-A15] and [Mn167-A32]. ```[D] [__operates-section-2__] Between [Bk617-R31] and [Bk58-D43] [D] trains skip [Bk28-R32], [Bk608-F23], [Bk30-R34] and [Bk31-R35] in both directions. [SB] ``` operate between [Mn167-A32] and [Mn231-D22] , stopping",
+						message: "[D] Service operates in two sections and is rerouted in Manhattan[F] [N] [Q] [R] ```[D] [__operates-section-1__] Between [Bx210-D01] and [Mn619-D21], and via the [F] to/from [Mn232-F14], the last stop Trains run via the [A] local in both directions between [Mn153-A15] and [Mn167-A32]. ```[D] [__operates-section-2__] Between [Bk617-R31] and [Bk58-D43] [D] trains skip [Bk28-R32], [Bk608-R33], [Bk30-R34] and [Bk31-R35] in both directions. [SB] ``` operate between [Mn167-A32] and [Mn231-D22] , stopping",
 						trains:["D"],
 						route: [
 							{
@@ -5466,6 +5466,40 @@ let event_messages = {
 									{line: "MTA NYCT_2",dir: "1"}
 								],
 							},
+							{
+								tag: ['MTAD-118', 'MTAD-064'],
+								type_detail: [
+									'skip_stations',
+									'week_day'
+								],
+								expect: {
+									'durration': {
+										tags: ['late_night', 'week_day', 'evening'],
+									}
+								},
+								durration: {
+									parsed: 'Jul 23 - 27, Mon to Fri, from 10:45 PM to 5 AM',
+								  tokenized: '[D--2018-07-23--Mon] - [D--2018-07-27--Fri], MON TO FRI, FROM [T--22:45] TO [T--05:00]',
+								  tags: [ 'week_day', 'late_night', 'evening' ],
+								  time: [ { start: '22:45', end: '05:00' } ],
+								  date: [ { start: '2018-07-23', end: '2018-07-27' } ]
+								},
+								message: "Norwood -bound [D] trains skip 25 St , Prospect Av , 4 Av-9 St, Union St and DeKalb Av in Brooklyn Jul 23 - 27, Mon to Fri, from 10:45 PM to 5 AM",
+								stations: {
+									'MTA NYCT_D': {
+										stations: {
+											'Bk26-R30': 'DeKalb Av in Brooklyn',
+							        'Bk28-R32': 'Union St',
+							        'Bk608-R33': '4 Av-9 St',
+							        'Bk30-R34': 'Prospect Av',
+							        'Bk31-R35': '25 St'
+										}
+									}
+								},
+							line: [
+								{line: "MTA NYCT_D",dir: "0"},
+							],
+						},
 		],
 
 		complex: [

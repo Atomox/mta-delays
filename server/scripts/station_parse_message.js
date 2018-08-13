@@ -39,6 +39,7 @@ async function main(message) {
     section('Stations (Daytime Only)', message_day_only.stations);
 
     message = await mtaStatus.getStationsInEventMessage(lines, message, null, _union(tags, dates.tags));
+    section('Tags For Stations', _union(tags, dates.tags));
     section('Stations', message.stations);
     section('Direction-only Stations', message.bound);
 
