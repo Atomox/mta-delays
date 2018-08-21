@@ -5,6 +5,12 @@ const api = {
     port: 8100,
     endpoint_prefix: '',
   },
+  development: {
+    protocol: 'http://',
+    host: 'localhost',
+    port: 8100,
+    endpoint_prefix: '',
+  },
   production: {
     protocol: 'http://',
     host: 'nyc.bhelmer.com',
