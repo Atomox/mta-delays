@@ -1,13 +1,13 @@
-let React = require('react');
+import {Platform, StyleSheet, Text, View} from 'react-native';
 
 const Logo = (props) => {
 
 	return (
-		<div className="Logo">
-			<h1>Subway</h1>
-			<h2>New York City</h2>
-			<h3>Delays</h3>
-		</div>
+		<View className="Logo">
+			<Text h1>Subway</Text>
+			<Text h2>New York City</Text>
+			<Text h3>Delays</Text>
+		</View>
 	);
 }
 

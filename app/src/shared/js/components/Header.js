@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
 import Card from './Card';
+import Archive from './Archive';
 
 type HeaderProps = {
   status: 'initializing',
@@ -45,6 +46,16 @@ export class StateMessage extends Component<typeStatusMessageProps> {
 		return(
 			<Card id={'state-message'} header={''} headerClass={''}>
 				<Text>{message}</Text>
+			</Card>
+		);
+	}
+}
+
+class AllClear extends React.Component {
+	render() {
+		return(
+			<Card id={'all-clear'} header={''} headerClass={''}>
+				<Text>All Good in the 'hood</Text>
 			</Card>
 		);
 	}
