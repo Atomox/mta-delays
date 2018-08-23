@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
 import Card from './Card';
-import Archive from './Archive';
 
 type HeaderProps = {
   status: 'initializing',
