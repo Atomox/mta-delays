@@ -12,7 +12,7 @@ export default class Card extends Component <CardProps> {
   		return (this.props.ribbon)
   			? (
   				<View className="ribbon-container">
-  					<View className="ribbon">{this.props.ribbon}</View>
+  					<Text className="ribbon">{this.props.ribbon}</Text>
   				</View>
   			)
   			: null;
@@ -35,7 +35,7 @@ export default class Card extends Component <CardProps> {
   						{this.props.headerSubtitle}
   					</View>
   					<View className="title small-12 medium-7">
-  						<Text h3>{this.props.header}</Text>
+  						<Text h3="true">{this.props.header}</Text>
   					</View>
   				</View>
   			  <View className="card-section small-12 medium-6">
