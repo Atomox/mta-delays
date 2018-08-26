@@ -12,7 +12,11 @@ import { RouteChange } from './routechange';
 import { StationList } from './StationList';
 import { Station } from './Station';
 import TrainLine from './TrainLine';
-import Boro from './boro';
+import Boro from './Boro';
+
+// Styles
+import commonStyle from '../../styles/Common.styles';
+import eventStyle from '../../styles/Event.styles';
 
 import { mtaSubway as mta } from '../includes/mta.subway';
 import { helpers as mtaHelp } from '../includes/helpers';
@@ -137,10 +141,10 @@ export default class Event extends Component <EventProps> {
 */}
 					</View>
 
-					<Text h2="true">{e.detail.type.tag}</Text>
+					<Text h2="true" style={ eventStyle.title }>{e.detail.type.tag}</Text>
 
-					<View className="detail-message">
-						<Text>{e.detail.message}</Text>
+					<View className="detail-message" style={ eventStyle.detailContainer }>
+						<Text style={ eventStyle.detailMessage }>{e.detail.message}</Text>
 
 						<View className="grid-x">
 {/**
@@ -151,7 +155,7 @@ export default class Event extends Component <EventProps> {
   */}
 							<View className="medium-4 text-right">
 
-						    <Text className="small">
+						    <Text className="small" style={[ commonStyle.small]}>
 						    	{(e.planned === true)
 						    		? e.detail.durration.parsed
 					    			: moment(e.date.start).format('h:mm A, dddd, MMMM Do')

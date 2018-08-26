@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import PropTypes from 'prop-types';
 
+import commonStyle from '../../styles/Common.styles';
+
 type BoroProps = {
 	'boro': null,
 	'short': false,
@@ -64,7 +66,7 @@ export default class Boro extends Component <BoroProps> {
 
 		return (
 			<View className="boro">
-					<strong>{	val }</strong>
+					<Text style={[commonStyle.strong]}>{	val }</Text>
 			</View>
 		);
 	}
