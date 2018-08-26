@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, ScrollView, View} from 'react-native';
 
 import {styles} from '../../styles/App.styles';
 
@@ -46,6 +46,11 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
+      <ScrollView
+        contentContainerStyle={{
+            flexGrow: 1,
+            justifyContent: 'space-between'
+        }}>
         <Header
           age={this.state.age}
           status={this.state.status}
@@ -64,6 +69,7 @@ export default class App extends Component<Props> {
 
         <EventList
           events={this.state.events}/>
+      </ScrollView>
       </View>
     );
   }

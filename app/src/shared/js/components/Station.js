@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+
+import stStyle from '../../styles/Station.styles';
+
 import _ from 'lodash';
+
 import PropTypes from 'prop-types';
 
 const Station = (props) => {
@@ -32,7 +36,7 @@ const Station = (props) => {
 	let station = getStation(props.line, props.sid);
 
 	return (
-		<Text className="station">
+		<Text className="station" styles={stStyle.base}>
 			{(station) ? station.name : ''}
 			{(props.showId === true) ? '(' + props.sid + ')' : ''}
 		</Text>

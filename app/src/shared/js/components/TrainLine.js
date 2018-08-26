@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import _uniqueId from 'lodash/uniqueId';
 
+import tStyleFn from '../../styles/Train.styles';
+
+const tStyle = tStyleFn(24);
+
 import { mtaSubway as mta } from '../includes/mta.subway';
 
 type TrainLineProps = {
@@ -36,11 +40,13 @@ export default class TrainLine extends Component <TrainLineProps> {
 		}
 
 		return (
-			<View className={classes}>
-				<Text>
-					{ this.getLine() }
-				</Text>
-				<Text>
+			<View className={classes} style={tStyle.container}>
+				<View style={tStyle.base}>
+					<Text style={tStyle.text}>
+						{ this.getLine() }
+					</Text>
+				</View>
+				<Text style={tStyle.direction}>
 					{ this.getDirection() }
 				</Text>
 			</View>
