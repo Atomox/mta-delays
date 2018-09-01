@@ -115,7 +115,7 @@ let mtaSubway = (() => {
 			case 'b-d-f-m':
 			case 'n-q-r-w':
  			case 'j-z':
-				return group_id;
+				return group_id.replace('-', '_');
 
 			case 'L':
 			case 'S':
@@ -124,10 +124,10 @@ let mtaSubway = (() => {
 				return group_id.toLowerCase();
 
 			case '1-2-3':
-				return 'one-two-three';
+				return 'oneTwoThree';
 
 			case '4-5-6':
-				return 'four-five-six';
+				return 'fourFiveSix';
 
 			case '7':
 			case 7:
