@@ -13,10 +13,15 @@ export const baseSize = () => {
   // iPhone or Android Phone.
   else if (Platform.OS !== 'web') {
     console.log('I am a phone.');
-    basesize = 18;
+    basesize = 14;
   }
 
   return basesize;
+};
+
+export const colorPalette = {
+    unplanned: '#FF7272',
+    planned: 'orange',
 };
 
 const baseFontSize = baseSize();

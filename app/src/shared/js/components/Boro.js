@@ -7,7 +7,8 @@ import commonStyle from '../../styles/Common.styles';
 type BoroProps = {
 	'boro': null,
 	'short': false,
-	'caps': true
+	'caps': true,
+	'styles': []
 };
 
 export default class Boro extends Component <BoroProps> {
@@ -66,7 +67,7 @@ export default class Boro extends Component <BoroProps> {
 
 		return (
 			<View className="boro">
-					<Text style={[commonStyle.strong]}>{	val }</Text>
+					<Text style={[commonStyle.strong, ...this.props.styles]}>{	val }</Text>
 			</View>
 		);
 	}

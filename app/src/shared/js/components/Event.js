@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import _uniqueId from 'lodash/uniqueId';
+import _get from 'lodash/get';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
@@ -17,6 +18,8 @@ import Boro from './Boro';
 // Styles
 import commonStyle from '../../styles/Common.styles';
 import eventStyle from '../../styles/Event.styles';
+import cardStyle from '../../styles/Card.styles';
+import { trainBackgroundColorFn } from '../../styles/Train.styles';
 
 import { mtaSubway as mta } from '../includes/mta.subway';
 import { helpers as mtaHelp } from '../includes/helpers';
@@ -43,20 +46,33 @@ export default class Event extends Component <EventProps> {
 	 * @return {String}
 	 *   A single string of space-seperated class names.
 	 */
-	getCardClassHeader() {
+	getCardHeaderStyles() {
 		let e = this.props.event;
 
-		let titleClass = "card-divider ";
-		titleClass += (e.planned === true)
-			? 'caution-background planned-work'
-			: 'bad-background unplanned-incident';
+    let titleClass = [];
+    /**
+		let titleClass = (e.planned !== true)
+      ? [cardStyle.dividerBadBackground] // planned-work
+      : [cardStyle.dividerCautionBackground]; //unplanned-incident
+      */
 
 		let group = mta.getLineGroup(e.line[0].line);
+    let lineStyleBg = trainBackgroundColorFn(group);
 
-		titleClass += ' ' + mta.getLineGroupClass(group) + '-background';
+    if (_get(lineStyleBg, 'background')) {
+  		titleClass.push(lineStyleBg.background);
+    }
 
 		return titleClass;
 	}
+
+  getCardWarningColor() {
+    let e = this.props.event;
+
+    return (e.planned !== true)
+      ? [cardStyle.dividerBadColor] // planned-work
+      : []; //unplanned-incident
+  }
 
 	getCardClass() {
 		let e = this.props.event;
@@ -88,11 +104,23 @@ export default class Event extends Component <EventProps> {
 		return trains;
 	}
 
+  getLineHeader(trains) {
+    return Object.keys(trains).map((key, i) => {
+        let line = trains[key].line;
+        let dir = mta.getlineDirectionByID(trains[key].dir);
+
+        return <TrainLine
+          key={_uniqueId('train-' + line)}
+          line={line}
+          dir={dir} />;
+      });
+  }
+
 	render() {
 
 			let e = this.props.event;
 
-			let titleClass = this.getCardClassHeader();
+			let headerStyles = this.getCardHeaderStyles();
 			let cardClass = this.getCardClass();
 			let trains = this.getEventTrains();
 
@@ -107,29 +135,18 @@ export default class Event extends Component <EventProps> {
 					return <Boro
 						key={_uniqueId('boro-' + b)}
 						boro={b}
-						caps={false} />;
+						caps={true}
+            styles={[cardStyle.cardSubtitleStrong, cardStyle.cardSubTitle, ...this.getCardWarningColor()]} />;
 					})
 				}
 				ribbon={ (e.planned) ? null : '!' }
-				headerClass={titleClass}
+				headerStyles={headerStyles}
+        headerWarningStyle={[...this.getCardWarningColor()]}
+        lineHeader={this.getLineHeader(trains)}
 				cardClass={cardClass}>
 			  <View>
 					<View className="grid-x">
-						<View className="small-12 medium-4 large-3">
-					  	<Text h3="true">
-					    {
-								Object.keys(trains).map((key, i) => {
-									let line = trains[key].line;
-									let dir = mta.getlineDirectionByID(trains[key].dir);
 
-									return <TrainLine
-										key={_uniqueId('train-' + line)}
-										line={line}
-										dir={dir} />;
-								})
-							}
-							</Text>
-						</View>
 {/**
 						<View className="small-12 medium-8 large-9">
 							{ (e.detail.route_change
