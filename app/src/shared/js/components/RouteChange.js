@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import { mtaSubway as mta } from '../includes/mta.subway';
-import { Station } from './Station';
-import { TrainLine} from './TrainLine';
+import Station from './Station';
+import TrainLine from './TrainLine';
 
+import rcStyle from '../../styles/RouteChange.styles';
 
 export default class RouteChange extends Component {
 
-  render() {
+  componentDidCatch(err, info) {
+    console.log('<!> Route Change Error', err);
+  }
 
-		let routes = this.props.routeInfo.route.map(r => {
+
+  getRoutes() {
+    return this.props.routeInfo.route.map(r => {
       try {
 
         let line_change = true,
@@ -21,7 +27,6 @@ export default class RouteChange extends Component {
           no_svc_between = false,
           pre = null,
           action = null;
-
 
         // Along null is running on same line between stations.
         if (r.along == null) {
@@ -55,34 +60,41 @@ export default class RouteChange extends Component {
 				      key={_.uniqueId('train-' + mta.getlineById(r.along))}
 		          line={mta.getlineById(r.along)}
               dir={'both'} />)
-          : 'run between';
+          : (<Text>run between</Text>);
 
-  			let from = (r.from) ? (<Station
-            key={_.uniqueId('station-' + r.from)}
-            stations={this.props.stations}
-  					line={_.union([r.along],r.lines)}
-  					sid={r.from}/>
-  			) : null;
+  			let from = (r.from)
+          ? (
+              <Station
+                key={_.uniqueId('station-' + r.from)}
+                stations={this.props.stations}
+      					line={_.union([r.along],r.lines)}
+      					sid={r.from}/>
+		        )
+          : null;
 
-  			let to = (r.to) ? (<Station
-            key={_.uniqueId('station-' + r.to)}
-  					stations={this.props.stations}
-  					line={_.union([r.along],r.lines)}
-  					sid={r.to}/>
-  			) : null;
+  			let to = (r.to)
+          ? (
+              <Station
+                key={_.uniqueId('station-' + r.to)}
+      					stations={this.props.stations}
+      					line={_.union([r.along],r.lines)}
+      					sid={r.to}/>
+	          )
+          : null;
 
         let boro_general = (r.in)
-          ? r.in
+          ? (<Text>{ r.in }</Text>)
           : null;
 
         let bypass_stations = (r.bypass)
-          ? r.bypass
+          ? (r.bypass
               .map( s => (<Station
                 key={_.uniqueId('station-' + s)}
       					stations={this.props.stations}
       					line={_.union([r.along],r.lines)}
       					sid={s}/> ) )
               .reduce((prev, curr) => [prev, ', ', curr])
+            )
           : null;
 
         if (r.action === 'replace') { action = 'replace the'; }
@@ -102,27 +114,44 @@ export default class RouteChange extends Component {
           pre += ' ' + 'No';
         }
 
+
   			return (
-          <div key={_.uniqueId()}>
-            { pre } { trains } { action } { line_change && along }
+          <View key={_.uniqueId()} style={{ flexDirection: 'row'}}>
 
-            { // No stations, just "in Boro".
-              boro_general &&
-              <span>in { boro_general }. </span> }
+            <Text style={ rcStyle.pre }>{ pre }</Text>
+            { trains }
+            <Text>
+              { action } { line_change && along }
 
-            { // No stations, just "in Boro".
-              !boro_general && bypass_stations &&
-              <span>{ bypass_stations }. </span> }
+{
+  /**
+   *
+   * @TODO
+   *   This is breaking for iOS.
+   *
+   *
+   *
+   *
+   */
+}
 
-            { // Normal Stations from/to.
-              !boro_general && !bypass_stations && !no_svc_between &&
-              <span>from {from} until {to}.</span> }
+              { // No stations, just "in Boro".
+                boro_general &&
+                <Text>in { boro_general }. </Text> }
 
-            { // Normal Stations from/to.
-              no_svc_between &&
-              <span>between {from} and {to}.</span> }
+              { // No stations, just "in Boro".
+                !boro_general && bypass_stations &&
+                <Text>{ bypass_stations }. </Text> }
 
-          </div>
+              { // Normal Stations from/to.
+                !boro_general && !bypass_stations && !no_svc_between &&
+                <Text>from {from} until {to}.</Text> }
+
+              { // Normal Stations from/to.
+                no_svc_between &&
+                <Text>between {from} and {to}.</Text> }
+            </Text>
+          </View>
   			);
       }
       catch (err) {
@@ -130,11 +159,15 @@ export default class RouteChange extends Component {
       }
 
 		});
+  }
 
+  render() {
 		return (
-			<div className="route-change">
-				{routes}
-			</div>
+			<View>
+        { // className="route-change"
+          this.getRoutes()
+       }
+			</View>
 		);
 	}
 }

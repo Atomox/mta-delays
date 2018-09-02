@@ -7,11 +7,9 @@ import PropTypes from 'prop-types';
 
 // Components
 import Card from './Card';
-/**
-import { RouteChange } from './routechange';
-*/
+import RouteChange from './RouteChange';
 import { StationList } from './StationList';
-import { Station } from './Station';
+import Station from './Station';
 import TrainLine from './TrainLine';
 import Boro from './Boro';
 
@@ -112,8 +110,46 @@ export default class Event extends Component <EventProps> {
         return <TrainLine
           key={_uniqueId('train-' + line)}
           line={line}
-          dir={dir} />;
+          dir={dir}
+          styleType={'large'} />;
       });
+  }
+
+  getBoroHeader(boros) {
+    return boros.global
+      .map(b => {
+        return <Boro
+            key={_uniqueId('boro-' + b)}
+            boro={b}
+            caps={true}
+            styles={[cardStyle.cardSubtitleStrong, cardStyle.cardSubTitle, ...this.getCardWarningColor()]} />;
+        })
+      .reduce((prev, curr) => [prev, ', ', curr])
+  }
+
+  getTagsHeader(detail) {
+    return (detail.type_detail)
+      ? detail.type_detail
+          .map(tag => mtaHelp.underscoreToCaps(tag))
+          .join(' | ')
+      : '';
+  }
+
+  getRouteChange(detail) {
+
+    return (detail.route_change
+      && typeof detail.route_change.route == 'object'
+      && detail.route_change.route.length > 0)
+      ? <RouteChange
+          routeInfo={detail.route_change}
+          stations={detail.stations} />
+      : null;
+  }
+
+  getFormattedDate(e) {
+    return (e.planned === true)
+      ? e.detail.durration.parsed
+      : moment(e.date.start).format('h:mm A, dddd, MMMM Do');
   }
 
 	render() {
@@ -126,20 +162,10 @@ export default class Event extends Component <EventProps> {
 
 		return (
 
-			<Card key="event-list" id={e.id}
-				header={ (e.detail.type_detail)	? e.detail.type_detail
-							.map(tag => mtaHelp.underscoreToCaps(tag))
-							.join(' | ') : '' }
-				headerSubtitle={
-					e.detail.boros.global.map(b => {
-					return <Boro
-						key={_uniqueId('boro-' + b)}
-						boro={b}
-						caps={true}
-            styles={[cardStyle.cardSubtitleStrong, cardStyle.cardSubTitle, ...this.getCardWarningColor()]} />;
-					})
-				}
-				ribbon={ (e.planned) ? null : '!' }
+			<Card key="event-list" id={ e.id }
+				header={ this.getTagsHeader(e.detail) }
+				headerSubtitle={ this.getBoroHeader(e.detail.boros)}
+				ribbon={ (e.planned) ? false : true }
 				headerStyles={headerStyles}
         headerWarningStyle={[...this.getCardWarningColor()]}
         lineHeader={this.getLineHeader(trains)}
@@ -147,20 +173,21 @@ export default class Event extends Component <EventProps> {
 			  <View>
 					<View className="grid-x">
 
-{/**
+
+          { /** @TODO */}
+
+
+
 						<View className="small-12 medium-8 large-9">
-							{ (e.detail.route_change
-								&& typeof e.detail.route_change.route == 'object'
-								&& e.detail.route_change.route.length > 0)
-								? <RouteChange routeInfo={e.detail.route_change} stations={e.detail.stations} />
-								: '' }
+							{ this.getRouteChange(e.detail) }
 						</View>
-*/}
 					</View>
 
-					<Text h2="true" style={ eventStyle.title }>{e.detail.type.tag}</Text>
+					<Text h2="true" style={ eventStyle.title }>
+            { mtaHelp.underscoreToCaps(e.detail.type.tag) }
+          </Text>
 
-					<View className="detail-message" style={ eventStyle.detailContainer }>
+					<View style={ eventStyle.detailContainer }>
 						<Text style={ eventStyle.detailMessage }>{e.detail.message}</Text>
 
 						<View className="grid-x">
@@ -171,12 +198,9 @@ export default class Event extends Component <EventProps> {
 							</View>
   */}
 							<View className="medium-4 text-right">
-
 						    <Text className="small" style={[ commonStyle.small]}>
-						    	{(e.planned === true)
-						    		? e.detail.durration.parsed
-					    			: moment(e.date.start).format('h:mm A, dddd, MMMM Do')
-					    	}</Text>
+						    	{ this.getFormattedDate(e) }
+                </Text>
 							</View>
 						</View>
 					</View>
