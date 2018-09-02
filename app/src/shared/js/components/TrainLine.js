@@ -4,7 +4,8 @@ import _uniqueId from 'lodash/uniqueId';
 
 import tStyleFn from '../../styles/Train.styles';
 
-const tStyle = tStyleFn(24);
+const tStyleHeader = tStyleFn(24),
+	tStyleRouteChange = tStyleFn(12);
 
 import { mtaSubway as mta } from '../includes/mta.subway';
 
@@ -12,10 +13,17 @@ type TrainLineProps = {
 	'line': null,
 	'dir': -1,
 	'disabled': false,
-	'outline': false
+	'outline': false,
+	'styleType': 'large',
 };
 
 export default class TrainLine extends Component <TrainLineProps> {
+
+	getStyleBase() {
+		return (this.props.styleType === 'large')
+			? tStyleHeader
+			: tStyleRouteChange;
+	}
 
 	getLine() {
 		return (this.props.line.length > 4)
@@ -39,14 +47,16 @@ export default class TrainLine extends Component <TrainLineProps> {
 			classes = classes + ' ' + 'outline';
 		}
 
+		let s = this.getStyleBase();
+
 		return (
-			<View className={classes} style={tStyle.container}>
-				<View style={tStyle.base}>
-					<Text style={tStyle.text}>
+			<View className={classes} style={s.container}>
+				<View style={s.base}>
+					<Text style={s.text}>
 						{ this.getLine() }
 					</Text>
 				</View>
-				<Text style={tStyle.direction}>
+				<Text style={s.direction}>
 					{ this.getDirection() }
 				</Text>
 			</View>

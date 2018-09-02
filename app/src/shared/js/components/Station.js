@@ -36,7 +36,7 @@ const Station = (props) => {
 	let station = getStation(props.line, props.sid);
 
 	return (
-		<Text className="station" styles={stStyle.base}>
+		<Text className="station" style={stStyle.base}>
 			{(station) ? station.name : ''}
 			{(props.showId === true) ? '(' + props.sid + ')' : ''}
 		</Text>

@@ -9,6 +9,11 @@ import EventList from '../../../shared/js/components/EventList';
 
 import MTADApi from '../../../shared/js/MtaDelaysApi';
 
+
+if (global && !global.self && Platform.OS === 'ios') {
+  global.self = global;
+}
+
 type Props = {};
 export default class App extends Component<Props> {
 
