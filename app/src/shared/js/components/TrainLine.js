@@ -31,9 +31,9 @@ export default class TrainLine extends Component <TrainLineProps> {
 			: this.props.line;
 	}
 
-	getDirection() {
+	getDirection(styles) {
 		return (this.props.dir !== 'both' && this.props.dir)
-			? (<Text className="direction"> { mta.getlineDirectionAbbreviation(this.props.dir)}</Text> )
+			? (<Text className="direction" style={ styles }> { mta.getlineDirectionAbbreviation(this.props.dir)}</Text> )
 			: null;
 	}
 
@@ -56,9 +56,7 @@ export default class TrainLine extends Component <TrainLineProps> {
 						{ this.getLine() }
 					</Text>
 				</View>
-				<Text style={s.direction}>
-					{ this.getDirection() }
-				</Text>
+				{ this.getDirection(s.direction) }
 			</View>
 		);
 	}

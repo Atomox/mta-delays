@@ -114,42 +114,48 @@ export default class RouteChange extends Component {
           pre += ' ' + 'No';
         }
 
+        function getBypassText() {
+          return (<Text style={rcStyle.flex1}>{ bypass_stations }.</Text>);
+        }
+
+        function getBoroGeneralText(boro_general) {
+          return (<Text style={rcStyle.flex1}>in { boro_general }.</Text>);
+        }
+
+        function getNormalText(from, to) {
+          return (<Text style={rcStyle.flex1}>from {from} until {to}.</Text>);
+        }
+
+        function getBetweenText(from, to) {
+          return (<Text style={rcStyle.flex1}>between {from} and {to}.</Text>);
+        }
 
   			return (
-          <View key={_.uniqueId()} style={{ flexDirection: 'row'}}>
+          <View key={_.uniqueId()} style={ rcStyle.container }>
 
             <Text style={ rcStyle.pre }>{ pre }</Text>
+
             { trains }
-            <Text>
+
+            <Text style={ rcStyle.main, rcStyle.lineMessage }>
               { action } { line_change && along }
 
-{
-  /**
-   *
-   * @TODO
-   *   This is breaking for iOS.
-   *
-   *
-   *
-   *
-   */
-}
+              { // No stations, just "in Boro".
+                (boro_general) &&
+                getBoroGeneralText(boro_general) }
 
               { // No stations, just "in Boro".
-                boro_general &&
-                <Text>in { boro_general }. </Text> }
-
-              { // No stations, just "in Boro".
-                !boro_general && bypass_stations &&
-                <Text>{ bypass_stations }. </Text> }
+                (!boro_general && bypass_stations) &&
+                getBypassText(bypass_stations) }
 
               { // Normal Stations from/to.
-                !boro_general && !bypass_stations && !no_svc_between &&
-                <Text>from {from} until {to}.</Text> }
+                (!boro_general && !bypass_stations) && !no_svc_between &&
+                getNormalText(from, to) }
 
               { // Normal Stations from/to.
-                no_svc_between &&
-                <Text>between {from} and {to}.</Text> }
+                (no_svc_between) &&
+                getBetweenText(from, to) }
+
             </Text>
           </View>
   			);

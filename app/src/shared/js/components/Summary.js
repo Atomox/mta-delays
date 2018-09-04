@@ -172,18 +172,10 @@ export default class Summary extends Component<SummaryProps> {
 //			let boro_severity = this.determineSeverity(boro_count);
 
 			return (
-				<View className="Summary grid-x grid-padding-x">
-
-					<View className="cell small-12 medium-5 large-5">
-
-					</View>
-
-					<View className="cell small-11 medium-7 large-7">
-
-						<DateDisplay
-							age={this.props.age} />
-
-					</View>
+				<View> 
+          {/** Summary */ }
+					<DateDisplay
+						age={this.props.age} />
 				</View>
 			);
 		}
