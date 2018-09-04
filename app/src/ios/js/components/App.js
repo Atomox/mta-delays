@@ -51,30 +51,30 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-      <ScrollView
-        contentContainerStyle={{
-            flexGrow: 1,
-            justifyContent: 'space-between'
-        }}>
-        <Header
-          age={this.state.age}
-          status={this.state.status}
-          numEvents={this.state.events.length}
-          archive={this.state.archive}
-          summary={this.state.summary}/>
+        <ScrollView
+          contentContainerStyle={{
+              flexGrow: 1,
+              justifyContent: 'space-between'
+          }}>
+          <Header
+            age={this.state.age}
+            status={this.state.status}
+            numEvents={this.state.events.length}
+            archive={this.state.archive}
+            summary={this.state.summary}/>
 
-        <Summary
-          events={this.state.events}
-          age={this.state.age}
-          status={this.state.status}
-          numEvents={this.state.events.length}
-          archive={this.state.archive}
-          summary={this.state.summary}
-          />
+          <Summary
+            events={this.state.events}
+            age={this.state.age}
+            status={this.state.status}
+            numEvents={this.state.events.length}
+            archive={this.state.archive}
+            summary={this.state.summary}
+            />
 
-        <EventList
-          events={this.state.events}/>
-      </ScrollView>
+          <EventList
+            events={this.state.events}/>
+        </ScrollView>
       </View>
     );
   }

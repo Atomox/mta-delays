@@ -32,7 +32,7 @@ export default class Card extends Component <CardProps> {
   		}
 
   		return(
-  			<View style={ cStyle.cardDefault } key={key}>
+  			<View style={ [cStyle.cardDefault] } key={key}>
   			  <View style={ headerStyles } />
   				<View style={ cStyle.subtitleRow }>
             { this.getRibbon() }

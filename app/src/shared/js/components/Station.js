@@ -35,10 +35,16 @@ const Station = (props) => {
 
 	let station = getStation(props.line, props.sid);
 
+	console.log('<Station>', station);
+
 	return (
-		<Text className="station" style={stStyle.base}>
-			{(station) ? station.name : ''}
-			{(props.showId === true) ? '(' + props.sid + ')' : ''}
+		<Text style={stStyle.base}>
+			{(station)
+				? station.name
+				: null}
+			{(props.showId === true)
+				? '(' + props.sid + ')'
+				: null}
 		</Text>
 	);
 }

@@ -167,6 +167,9 @@ const taxonomy = {
 			'New Year\'s Eve',
 			'Celebrations',
 			'graduation ceremony',
+			/West\s*Indian-American\s*(Carnival|Parade)?/i,
+			'carnival',
+			'marathon',
 		],
 		'crowded_trains': [
 			'heavy ridership',

@@ -8,8 +8,12 @@ let helpers = ( () => {
   }
 
   function underscoreToCaps(str) {
-    str = str.split('_');
-    return str.map( s => capitalizeFirstLetter(s) ).join(' ')
+    return (typeof str === 'string')
+      ? str
+        .split('_')
+        .map( s => capitalizeFirstLetter(s) )
+        .join(' ')
+      : str;
   }
 
   return({
