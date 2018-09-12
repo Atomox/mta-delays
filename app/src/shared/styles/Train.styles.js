@@ -57,6 +57,13 @@ export default (emBaseSize) => { return StyleSheet.create({
       alignItems: 'center',
       marginRight: remCalc(.5),
     },
+    containerSmall: {
+      width: emCalc(emBaseSize, 1.75),
+      alignItems: 'center',
+      backgroundColor: "yellow",
+      paddingBottom: 0,
+      marginRight: remCalc(.25)
+    },
     text: {
       color: "#fff",
       fontSize: emCalc(emBaseSize, 1.25),
@@ -102,6 +109,13 @@ export default (emBaseSize) => { return StyleSheet.create({
       ...Platform.select({
         ios: {
           fontWeight: "800"
+        },
+        android: {
+          fontWeight: "800"
+        },
+        web: {
+          marginTop: remCalc(.5),
+          fontWeight: "400"
         }
       })
     }

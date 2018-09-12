@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import { mtaSubway as mta } from '../includes/mta.subway';
+import Txt from './common/Txt';
 import Station from './Station';
 import TrainLine from './TrainLine';
 
@@ -52,15 +53,17 @@ export default class RouteChange extends Component {
           <TrainLine
   					key={_.uniqueId('train-' + mta.getlineById(t))}
   					line={mta.getlineById(t)}
-  					dir='both' />
+  					dir='both'
+            styleType='small'/>
           ));
 
   			let along = (line_change)
           ? (<TrainLine
 				      key={_.uniqueId('train-' + mta.getlineById(r.along))}
 		          line={mta.getlineById(r.along)}
-              dir={'both'} />)
-          : (<Text>run between</Text>);
+              dir={'both'}
+              styleType='small'/>)
+          : (<Txt> run between</Txt>);
 
   			let from = (r.from)
           ? (
@@ -83,7 +86,7 @@ export default class RouteChange extends Component {
           : null;
 
         let boro_general = (r.in)
-          ? (<Text>{ r.in }</Text>)
+          ? (<Txt> { r.in }</Txt>)
           : null;
 
         let bypass_stations = (r.bypass)
@@ -115,30 +118,31 @@ export default class RouteChange extends Component {
         }
 
         function getBypassText() {
-          return (<Text style={rcStyle.flex1}>{ bypass_stations }.</Text>);
+          return (<Txt styles={[rcStyle.flex1,rcStyle.text]}>{ bypass_stations }.</Txt>);
         }
 
         function getBoroGeneralText(boro_general) {
-          return (<Text style={rcStyle.flex1}>in { boro_general }.</Text>);
+          return (<Txt styles={[rcStyle.flex1,rcStyle.text]}>in { boro_general }.</Txt>);
         }
 
         function getNormalText(from, to) {
-          return (<Text style={rcStyle.flex1}>from {from} until {to}.</Text>);
+          return (<Txt styles={[rcStyle.flex1,rcStyle.text]}>from {from} until {to}.</Txt>);
         }
 
         function getBetweenText(from, to) {
-          return (<Text style={rcStyle.flex1}>between {from} and {to}.</Text>);
+          return (<Txt styles={[rcStyle.flex1,rcStyle.text]}>between {from} and {to}.</Txt>);
         }
 
   			return (
           <View key={_.uniqueId()} style={ rcStyle.container }>
 
-            <Text style={ rcStyle.pre }>{ pre }</Text>
+            <Txt styles={ rcStyle.pre }>{ pre }</Txt>
 
             { trains }
 
-            <Text style={ rcStyle.main, rcStyle.lineMessage }>
-              { action } { line_change && along }
+            <Txt styles={ rcStyle.main, rcStyle.lineMessage }>
+              <Txt styles={rcStyle.text}> { action } </Txt>
+              { line_change && along }
 
               { // No stations, just "in Boro".
                 (boro_general) &&
@@ -156,7 +160,7 @@ export default class RouteChange extends Component {
                 (no_svc_between) &&
                 getBetweenText(from, to) }
 
-            </Text>
+            </Txt>
           </View>
   			);
       }

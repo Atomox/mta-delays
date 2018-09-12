@@ -9,6 +9,9 @@ import EventList from '../../../shared/js/components/EventList';
 
 import MTADApi from '../../../shared/js/MtaDelaysApi';
 
+// Does not seem to work, and not in the React Native docs.
+// Text.defaultProps.style = { fontFamily: 'Helvetica' };
+
 type Props = {};
 export default class App extends Component<Props> {
 

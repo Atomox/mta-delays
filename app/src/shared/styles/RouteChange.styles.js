@@ -16,7 +16,9 @@ export default StyleSheet.create({
   lineMessage: {
     flex: 1,
     flexWrap: "wrap",
-    borderBottomWidth: 3,
+  },
+  text: {
+    lineHeight: remCalc(1.6),
   },
   pre: {
     width: remCalc(2),

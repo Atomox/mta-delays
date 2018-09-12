@@ -6,10 +6,29 @@ import { remCalc, emCalc } from './Common.styles';
 // TrainLine
 export default StyleSheet.create({
   title: {
-    fontSize: remCalc(1.2),
+    fontSize: remCalc(1.5),
+//    color: "red",
     color: "#8A8A8A",
-    fontWeight: "200",
+
     marginTop: remCalc(1.5),
+    ...Platform.select({
+      ios: {
+        fontSize: remCalc(1.5),
+        fontWeight: "300",
+      },
+      android: {
+        fontSize: remCalc(1.5),
+      },
+      web: {
+        fontSize: remCalc(2),
+        fontWeight: "200",
+      },
+    })
+  },
+  date: {
+    marginTop: remCalc(.5),
+    textAlign: 'right',
+    color: "#888888"
   },
   detailContainer: {
     borderTopWidth: 1,
@@ -18,6 +37,7 @@ export default StyleSheet.create({
   },
   detailMessage: {
     paddingLeft: remCalc(2),
+    fontWeight: '300',
     color: "#8A8A8A",
 
     ...Platform.select({
@@ -30,7 +50,7 @@ export default StyleSheet.create({
      },
      web: {
        fontSize: remCalc(1.5),
-       lineHeight: remCalc(2),
+       lineHeight: remCalc(2.25),
      }
    })
   }

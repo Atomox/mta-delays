@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import _uniqueId from 'lodash/uniqueId';
 
+import Txt from './common/Txt';
 import tStyleFn from '../../styles/Train.styles';
 
 const tStyleHeader = tStyleFn(24),
@@ -32,8 +33,8 @@ export default class TrainLine extends Component <TrainLineProps> {
 	}
 
 	getDirection(styles) {
-		return (this.props.dir !== 'both' && this.props.dir)
-			? (<Text className="direction" style={ styles }> { mta.getlineDirectionAbbreviation(this.props.dir)}</Text> )
+		return (this.props.dir !== 'both' && this.props.dir && this.props.styleType === 'large')
+			? (<Txt className="direction" styles={ styles }> { mta.getlineDirectionAbbreviation(this.props.dir)}</Txt> )
 			: null;
 	}
 
@@ -48,13 +49,16 @@ export default class TrainLine extends Component <TrainLineProps> {
 		}
 
 		let s = this.getStyleBase();
+		let container = (this.props.styleType === 'large')
+			? s.container
+			: s.containerSmall;
 
 		return (
-			<View className={classes} style={s.container}>
+			<View className={classes} style={container}>
 				<View style={s.base}>
-					<Text style={s.text}>
+					<Txt styles={s.text}>
 						{ this.getLine() }
-					</Text>
+					</Txt>
 				</View>
 				{ this.getDirection(s.direction) }
 			</View>

@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import Card from './Card';
+import Txt from './common/Txt';
 import RouteChange from './RouteChange';
 import { StationList } from './StationList';
 import Station from './Station';
@@ -116,6 +117,9 @@ export default class Event extends Component <EventProps> {
   }
 
   getBoroHeader(boros) {
+    if (!Array.isArray(boros.global)) {
+      boros.global = [];
+    }
     return boros.global
       .map(b => {
         return <Boro
@@ -124,7 +128,7 @@ export default class Event extends Component <EventProps> {
             caps={true}
             styles={[cardStyle.cardSubtitleStrong, cardStyle.cardSubTitle, ...this.getCardWarningColor()]} />;
         })
-      .reduce((prev, curr) => [prev, ', ', curr])
+      .reduce((prev, curr) => [prev, ', ', curr], "")
   }
 
   getTagsHeader(detail) {
@@ -173,22 +177,17 @@ export default class Event extends Component <EventProps> {
 			  <View>
 					<View className="grid-x">
 
-
-          { /** @TODO */}
-
-
-
 						<View className="small-12 medium-8 large-9">
 							{ this.getRouteChange(e.detail) }
 						</View>
 					</View>
 
-					<Text h2="true" style={ eventStyle.title }>
+					<Txt styles={ eventStyle.title }>
             { mtaHelp.underscoreToCaps(e.detail.type.tag) }
-          </Text>
+          </Txt>
 
 					<View style={ eventStyle.detailContainer }>
-						<Text style={ eventStyle.detailMessage }>{e.detail.message}</Text>
+						<Txt styles={ eventStyle.detailMessage }>{e.detail.message}</Txt>
 
 						<View className="grid-x">
 {/**
@@ -198,9 +197,9 @@ export default class Event extends Component <EventProps> {
 							</View>
   */}
 							<View className="medium-4 text-right">
-						    <Text className="small" style={[ commonStyle.small]}>
+						    <Txt styles={[ commonStyle.small, eventStyle.date ]}>
 						    	{ this.getFormattedDate(e) }
-                </Text>
+                </Txt>
 							</View>
 						</View>
 					</View>
