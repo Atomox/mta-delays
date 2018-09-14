@@ -8,7 +8,18 @@ export default StyleSheet.create({
   container: {
     flexDirection: 'row',
     flex: 1,
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    ...Platform.select({
+      ios: {
+        marginBottom: remCalc(.15)
+      },
+      android: {
+        marginBottom: remCalc(.15)
+      },
+      web: {
+        marginBottom: remCalc(.5)
+      }
+    })
   },
   flex1: {
     flex: 1

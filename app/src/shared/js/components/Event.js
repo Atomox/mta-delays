@@ -128,7 +128,9 @@ export default class Event extends Component <EventProps> {
             caps={true}
             styles={[cardStyle.cardSubtitleStrong, cardStyle.cardSubTitle, ...this.getCardWarningColor()]} />;
         })
-      .reduce((prev, curr) => [prev, ', ', curr], "")
+      .reduce((prev, curr) => ((prev.length > 0)
+        ? [prev, ', ', curr]
+        : [curr]), )
   }
 
   getTagsHeader(detail) {

@@ -42,6 +42,6 @@ export default StyleSheet.create({
     fontWeight: "bold"
   },
   small: {
-    fontSize: remCalc(.85)
+    fontSize: remCalc(.9)
   }
 });

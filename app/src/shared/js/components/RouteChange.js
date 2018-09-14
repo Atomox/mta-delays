@@ -111,10 +111,14 @@ export default class RouteChange extends Component {
         pre = (r.section) ? '(' + r.section + ')' : '';
 
         if (r.allTrains === false) {
-          pre += ' ' + 'Some';
+          pre += (pre.length > 0)
+            ? ' ' + 'Some'
+            : 'Some';
         }
         if (no_svc_between) {
-          pre += ' ' + 'No';
+          pre += (pre.length > 0)
+            ? ' ' + 'No'
+            : 'No';
         }
 
         function getBypassText() {
