@@ -16,7 +16,12 @@ export default StyleSheet.create({
   },
   cardLineHeader: {
     flex: 1,
+    flexWrap: "wrap",
+    flexDirection: "row",
     marginTop: cardHeaderHeight
+  },
+  cardLineHeaderTxt: {
+    flex: 1,
   },
   cardHeaderRight: {
     flexDirection: 'column',

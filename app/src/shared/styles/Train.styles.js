@@ -60,7 +60,6 @@ export default (emBaseSize) => { return StyleSheet.create({
     containerSmall: {
       width: emCalc(emBaseSize, 1.75),
       alignItems: 'center',
-      backgroundColor: "yellow",
       paddingBottom: 0,
       marginRight: remCalc(.25)
     },

@@ -21,6 +21,14 @@ export default class Card extends Component <CardProps> {
   			: <View style={cStyle.ribbonEmpty}/>;
   	}
 
+    getLineHeader() {
+      return (typeof this.props.lineHeader === 'string')
+        ? (
+          <Text h3="true" style={cardLineHeaderTxt}>{ this.props.lineHeader }</Text>
+        )
+        : this.props.lineHeader;
+    }
+
   	render() {
   		let key = (this.props.id) ? this.props.id : _.uniqueId('card');
   		let mainClass = "card";
@@ -36,8 +44,8 @@ export default class Card extends Component <CardProps> {
   			  <View style={ headerStyles } />
   				<View style={ cStyle.subtitleRow }>
             { this.getRibbon() }
-            <View style={ cStyle.cardLineHeader }>
-            	<Text h3="true">{ this.props.lineHeader }</Text>
+            <View style={ [cStyle.cardLineHeader, cStyle.cardLineHeaderTxt] }>
+            	{ this.getLineHeader() }
             </View>
             <View style={ cStyle.cardHeaderRight }>
               <View>
