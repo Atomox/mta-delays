@@ -35,8 +35,6 @@ const Station = (props) => {
 
 	let station = getStation(props.line, props.sid);
 
-	console.log('<Station>', station);
-
 	return (
 		<Text style={stStyle.base}>
 			{(station)

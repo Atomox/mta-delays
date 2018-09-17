@@ -1,8 +1,8 @@
 // Config
 const api = require('../../../config/settings');
 
-// const endpoint = 'subway/status';
- const endpoint = 'subway/status/archive/15'; // 43 (lcl/exp) // 15 (route change) 27 (d/f crazy route change) 74, 117
+ const endpoint = 'subway/status';
+// const endpoint = 'subway/status/archive/15'; // 43 (lcl/exp) // 15 (route change) 27 (d/f crazy route change) 74, 117
 
 export default class MtaDelaysApi {
   constructor() {
