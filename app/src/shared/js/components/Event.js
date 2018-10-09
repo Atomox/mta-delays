@@ -135,11 +135,18 @@ export default class Event extends Component <EventProps> {
   }
 
   getTagsHeader(detail) {
-    return (detail.type_detail)
+    if (!(detail.type_detail)) {
+      return '';
+    }
+
+    console.log('Platform:', Platform);
+
+    return (Platform.OS === 'web')
       ? detail.type_detail
           .map(tag => mtaHelp.underscoreToCaps(tag))
           .join(' | ')
-      : '';
+      : detail.type_detail
+          .map(tag => (<Text key={_uniqueId()}> {mtaHelp.underscoreToCaps(tag)} </Text>));
   }
 
   getRouteChange(detail) {
