@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
+import log from '../includes/logger';
 
 import moment from 'moment';
 
@@ -92,7 +93,7 @@ export default class Summary extends Component<SummaryProps> {
 						return;
 					}
 					else if (!e.detail.boros) {
-						console.warn('<!> Event has no boro.');
+						log.warn('<!> Event has no boro.');
 					}
 
 					// Determine Message
@@ -172,7 +173,7 @@ export default class Summary extends Component<SummaryProps> {
 //			let boro_severity = this.determineSeverity(boro_count);
 
 			return (
-				<View> 
+				<View>
           {/** Summary */ }
 					<DateDisplay
 						age={this.props.age} />

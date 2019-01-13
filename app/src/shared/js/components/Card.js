@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
 import _concat from 'lodash/concat';
+import _uniqueId from 'lodash/uniqueId';
 
 import cStyle from '../../styles/Card.styles';
+import commonStyle from '../../styles/Common.styles';
 
 let CardProps = {
   ribbon: null,
@@ -45,18 +47,28 @@ export default class Card extends Component <CardProps> {
   				<View style={ cStyle.subtitleRow }>
             { this.getRibbon() }
             <View style={ [cStyle.cardLineHeader, cStyle.cardLineHeaderTxt] }>
-            	{ this.getLineHeader() }
+              { this.getLineHeader() }
             </View>
             <View style={ cStyle.cardHeaderRight }>
               <View>
-    						<Text style={[cStyle.cardSubtitleStrong, cStyle.cardSubTitle]}>
+    						<Text style={[cStyle.cardSubtitleStrong, cStyle.cardSubTitle, ]}>
                   { this.props.headerSubtitle }
                 </Text>
     					</View>
     					<View className="title small-12 medium-7">
-    						<Text h3="true" style={[cStyle.cardTitleH3, cStyle.cardTitle, ...warningStyles]}>
-                  {this.props.header}
-                </Text>
+                { (Array.isArray(this.props.header))
+                  ? this.props.header.map( h => {
+                    return (
+                      <Text h3="true"
+                        key={_uniqueId()}
+                        style={[cStyle.cardTitleH3, cStyle.cardTitle, commonStyle.viewRight, ...warningStyles]}>
+                        { h }
+                      </Text>)
+                  })
+                  : (<Text h3="true" style={[cStyle.cardTitleH3, cStyle.cardTitle, ...warningStyles]}>
+                      {this.props.header}
+                    </Text>)
+                }
     					</View>
             </View>
   				</View>

@@ -120,18 +120,24 @@ export default class Event extends Component <EventProps> {
     if (!Array.isArray(boros.global)) {
       boros.global = [];
     }
-    return boros.global
+
+    const results = boros.global
       .map(b => {
         return <Boro
             key={_uniqueId('boro-' + b)}
             boro={b}
             caps={true}
             styles={[cardStyle.cardSubtitleStrong, cardStyle.cardSubTitle, ...this.getCardWarningColor()]} />;
-        })
-      .reduce((prev, curr) => ((prev && prev.length > 0)
-        ? [prev, ', ', curr]
-        : (curr) ? [curr] : []
-        ), "")
+        });
+
+    return (Platform.OS === 'web')
+      ? results
+        .reduce((prev, curr) => ((prev && prev.length > 0)
+          ? [prev, ', ', curr]
+          : (curr) ? [curr] : []
+          ), "")
+
+      : results;
   }
 
   getTagsHeader(detail) {
@@ -139,14 +145,12 @@ export default class Event extends Component <EventProps> {
       return '';
     }
 
-    console.log('Platform:', Platform);
-
     return (Platform.OS === 'web')
       ? detail.type_detail
           .map(tag => mtaHelp.underscoreToCaps(tag))
           .join(' | ')
       : detail.type_detail
-          .map(tag => (<Text key={_uniqueId()}> {mtaHelp.underscoreToCaps(tag)} </Text>));
+          .map(tag => (<Text> {mtaHelp.underscoreToCaps(tag)} </Text>));
   }
 
   getRouteChange(detail) {

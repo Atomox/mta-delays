@@ -7,8 +7,9 @@ import Header from '../../../shared/js/components/Header';
 import Summary from '../../../shared/js/components/Summary';
 import EventList from '../../../shared/js/components/EventList';
 
-import MTADApi from '../../../shared/js/MtaDelaysApi';
+import log from '../../../shared/js/includes/logger';
 
+import MTADApi from '../../../shared/js/MtaDelaysApi';
 
 if (global && !global.self && Platform.OS === 'ios') {
   global.self = global;
@@ -20,22 +21,46 @@ export default class App extends Component<Props> {
   constructor(props) {
     super(props);
 
+    const delaysApi = new MTADApi();
+
     this.state = {
       status: 'initializing',
+      debug: 'requesting',
+      env: delaysApi.getEnv(),
+      apiUrl: delaysApi.getEnvUrl(),
       age: 0,
       events: [],
       archive: null,
       summary: null
     }
 
-    const delaysApi = new MTADApi();
     delaysApi.getStatus()
-    .then( data => this.initLists(data) )
-    .catch( data => this.initLists({ status: false }) );
+    .then( data => {
+      this.setState(prevState => {
+        prevState.debug = 'Received data of type ' + typeof data;
+        return prevState;
+      });
+      return data;
+    })
+    .then( data => {
+      this.setState(prevState => {
+        prevState.debug = 'Begin Init Lists...';
+        return prevState;
+      });
+      return this.initLists(data);
+    })
+    .catch( data => {
+      this.setState(prevState => {
+        prevState.debug = 'received with error' + data;
+        return prevState;
+      });
+      this.initLists({ status: false });
+    });
   }
 
   initLists = (data) => {
-    console.log('initLists: ', data);
+
+    log.info('initLists: ', data);
 
     this.setState(prevState => {
       prevState.status = (data.status) ? data.status : false;
