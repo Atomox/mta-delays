@@ -322,6 +322,7 @@ function stationAliases(name, boro) {
 				'Grand Central - 42 St',
 				'Grand Central',
 				'42 St',
+				'42 St-Grand Central',
 			],
 			'42 St - Bryant Pk': [
 				'Bryant Pk',

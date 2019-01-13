@@ -43,5 +43,9 @@ export default StyleSheet.create({
   },
   small: {
     fontSize: remCalc(.9)
+  },
+  viewRight: {
+    alignSelf: "flex-end",
+    // justifyContent: "flex-end",
   }
 });

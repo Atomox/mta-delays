@@ -144,25 +144,34 @@ export default class RouteChange extends Component {
 
             { trains }
 
-            <Txt styles={ rcStyle.main, rcStyle.lineMessage }>
-              <Txt styles={rcStyle.text}> { action } </Txt>
-              { line_change && along }
+            <Txt styles={ rcStyle.lineMessageContainer }>
 
-              { // No stations, just "in Boro".
-                (boro_general) &&
-                getBoroGeneralText(boro_general) }
+              { /**
 
-              { // No stations, just "in Boro".
-                (!boro_general && bypass_stations) &&
-                getBypassText(bypass_stations) }
+                  @TODO -- We need to unwrap this block from txt, while maintaining a line wrap.
 
-              { // Normal Stations from/to.
-                (!boro_general && !bypass_stations) && !no_svc_between &&
-                getNormalText(from, to) }
+                      iOS looks like be breaking the - along - out of the txt, which causes a margin of 2, and screwes up spacing of the message. The Line is bumping right a split second after the load, and overlapping with the following word.
 
-              { // Normal Stations from/to.
-                (no_svc_between) &&
-                getBetweenText(from, to) }
+                 */ }
+                <Txt styles={ [rcStyle.text, rcStyle.lineSegment] }> { action } </Txt>
+
+                { line_change && along }
+
+                { // No stations, just "in Boro".
+                  (boro_general) &&
+                  getBoroGeneralText(boro_general) }
+
+                { // No stations, just "in Boro".
+                  (!boro_general && bypass_stations) &&
+                  getBypassText(bypass_stations) }
+
+                { // Normal Stations from/to.
+                  (!boro_general && !bypass_stations) && !no_svc_between &&
+                  getNormalText(from, to) }
+
+                { // Normal Stations from/to.
+                  (no_svc_between) &&
+                  getBetweenText(from, to) }
 
             </Txt>
           </View>

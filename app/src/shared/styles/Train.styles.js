@@ -61,7 +61,22 @@ export default (emBaseSize) => { return StyleSheet.create({
       width: emCalc(emBaseSize, 1.75),
       alignItems: 'center',
       paddingBottom: 0,
-      marginRight: remCalc(.25)
+      marginBottom: 0,
+//      backgroundColor: "blue",
+      ...Platform.select({
+        ios: {
+          marginTop: remCalc(0),
+          marginBottom: remCalc(0),
+          marginRight: remCalc(.1),
+          marginLeft: remCalc(.1),
+        },
+        android: {
+//          marginBottom: remCalc(.15)
+        },
+        web: {
+          marginRight: remCalc(.25)
+        }
+      })
     },
     text: {
       color: "#fff",
@@ -73,7 +88,6 @@ export default (emBaseSize) => { return StyleSheet.create({
       width: emCalc(emBaseSize, 1.75),
       height: emCalc(emBaseSize, 1.75),
       borderRadius: emCalc(emBaseSize, 1.75)/2,
-      margin: emCalc(emBaseSize, .25),
 
       /**
        * Problems: Width/Height should be EMs, not REMs.
@@ -84,9 +98,10 @@ export default (emBaseSize) => { return StyleSheet.create({
        ios: {
          alignItems: 'center',
          justifyContent: 'center',
+         margin: emCalc(emBaseSize, .1),
        },
        android: {
-
+         margin: emCalc(emBaseSize, .25),
        },
        web: {
          display: "inline-flex",
