@@ -5,23 +5,80 @@ import { remCalc, emCalc } from './Common.styles';
 
 
 export default StyleSheet.create({
+  dateContainer: {
+    marginBottom: remCalc(3),
+    marginRight: remCalc(1),
+    ...Platform.select({
+      ios: {
+        marginBottom: remCalc(1)
+      },
+      android: {
+        marginBottom: remCalc(1)
+      },
+      web: {
+        marginBottom: remCalc(3)
+      },
+    })
+  },
+  dateBase: {
+    textAlign: "right"
+  },
   date: {
     fontSize: remCalc(3),
 //    color: "red",
 //    color: "#8A8A8A",
 
-    marginBottom: remCalc(3),
     ...Platform.select({
       ios: {
-        fontSize: remCalc(3),
-        fontWeight: "300",
+        fontSize: remCalc(1.1),
+        fontWeight: "500",
       },
       android: {
-        fontSize: remCalc(3),
+        fontSize: remCalc(1.1),
       },
       web: {
-        fontSize: remCalc(3),
-        fontWeight: "200",
+        fontSize: remCalc(1.1),
+        fontWeight: "500",
+      },
+    })
+  },
+  time: {
+    fontSize: remCalc(2.2),
+    lineHeight: remCalc(2.2),
+//    color: "red",
+//    color: "#8A8A8A",
+
+    ...Platform.select({
+      ios: {
+        fontSize: remCalc(2.2),
+        fontWeight: "500",
+      },
+      android: {
+        fontSize: remCalc(2.2),
+        fontWeight: "500",
+      },
+      web: {
+        fontSize: remCalc(2.2),
+        fontWeight: "500",
+      },
+    })
+  },
+  releaseName: {
+    fontSize: remCalc(1),
+    lineHeight: remCalc(1),
+    marginBottom: remCalc(1),
+    color: "#c8c8c8",
+
+    ...Platform.select({
+      ios: {
+        fontSize: remCalc(1),
+        color: "#b8b8b8"
+      },
+      android: {
+        fontSize: remCalc(1)
+      },
+      web: {
+        fontSize: remCalc(1)
       },
     })
   }

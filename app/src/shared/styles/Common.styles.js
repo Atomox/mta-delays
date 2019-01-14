@@ -3,7 +3,7 @@ import { Platform, AppRegistry, StyleSheet } from 'react-native';
 
 export const baseSize = () => {
   // Web + default.
-  let basesize = 10;
+  let basesize = 12;
 
   // iPad
   if (Platform.OS === 'ios' && Platform.isPad) {
