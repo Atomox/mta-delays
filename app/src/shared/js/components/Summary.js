@@ -9,8 +9,9 @@ import { Card } from './Card';
 //import { TrainLine } from './trains';
 //import { Boro } from './boro';
 
-//import { mtaSubway as mta } from '../includes/mta.subway';
-//import { helpers } from '../includes/helpers';
+import * as _ from 'lodash';
+import { mtaSubway as mta } from '../includes/mta.subway';
+import { helpers } from '../includes/helpers';
 //import BoroMap from './maps/BoroMap';
 import Logo from './Header/Logo';
 //import BoroSummary from './Header/BoroSummary';
@@ -167,7 +168,7 @@ export default class Summary extends Component<SummaryProps> {
 			if (!this.props.events || this.props.events.length <= 0) { return null; }
 
 			// Analyze all events, and gather summary information.
-//			let { lines, line_boros, lines_affected, boro_count} = this.prepareEvents(this.props.events);
+			let { lines, line_boros, lines_affected, boro_count} = this.prepareEvents(this.props.events);
 
 			// Get a final boro_severity for each boro.
 //			let boro_severity = this.determineSeverity(boro_count);
