@@ -4,7 +4,7 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 import {styles} from '../../styles/App.styles';
 
 import Header from '../../../shared/js/components/Header';
-import Summary from '../../../shared/js/components/Summary';
+import Summary from '../../../shared/js/components/Summary/Summary';
 import EventList from '../../../shared/js/components/EventList';
 
 import MTADApi from '../../../shared/js/MtaDelaysApi';
