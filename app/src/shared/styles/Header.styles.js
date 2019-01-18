@@ -5,6 +5,24 @@ import { remCalc, emCalc } from './Common.styles';
 
 
 export default StyleSheet.create({
+  logoContainer: {
+
+  },
+  logoH1: {
+    fontSize: remCalc(4.2)
+  },
+  logoH2: {
+    fontSize: remCalc(2.1),
+    color: "#999",
+    marginTop: remCalc(-1.05),
+    fontWeight: "200"
+  },
+  logoH3: {
+    fontSize: remCalc(2.1),
+    color: "#999",
+    marginTop: remCalc(-0.5),
+    fontWeight: "bold"
+  },
   dateContainer: {
     marginBottom: remCalc(3),
     marginRight: remCalc(1),
