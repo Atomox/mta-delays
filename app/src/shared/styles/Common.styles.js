@@ -22,6 +22,7 @@ export const baseSize = () => {
 export const colorPalette = {
     unplanned: '#FF7272',
     planned: 'orange',
+    minor: '#999'
 };
 
 const baseFontSize = baseSize();
