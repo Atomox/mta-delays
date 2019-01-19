@@ -132,6 +132,17 @@ export default (emBaseSize) => { return StyleSheet.create({
           fontWeight: "400"
         }
       })
+    },
+    disabledBase: {
+      backgroundColor: "#FFF"
+    },
+    disabledText: {
+      color: "#AAA"
+    },
+    outline: {
+    	borderWidth: 1,
+      borderStyle: "solid",
+      borderColor: "#e0e0e0"
     }
   });
 }
