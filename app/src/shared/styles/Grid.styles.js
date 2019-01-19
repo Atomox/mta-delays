@@ -16,5 +16,9 @@ export default StyleSheet.create({
     flex: 1,
     flexWrap: "wrap",
     flexDirection: "column",
+  },
+  rowCell: {
+    paddingLeft: remCalc(.5),
+    paddingRight: remCalc(.5)
   }
 });

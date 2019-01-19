@@ -8,12 +8,12 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
 import { Card } from '../Card';
+// import { GridRow } from '../common/Grid';
 import GroupLineCard from './GroupLineCard';
-
-//import BoroMap from '../maps/BoroMap';
 import Logo from '../Header/Logo';
-//import BoroSummary from '../Header/BoroSummary';
 import { DateDisplay } from '../Header/DateDisplay';
+//import BoroMap from '../maps/BoroMap';
+//import BoroSummary from '../Header/BoroSummary';
 
 type SummaryProps = {
   events: [],

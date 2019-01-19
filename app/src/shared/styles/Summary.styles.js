@@ -23,5 +23,21 @@ export default StyleSheet.create({
     paddingLeft: remCalc(.5),
     paddingRight: remCalc(.5),
     fontWeight: "200"
+  },
+  lines: {
+    fontWeight: "200",
+  	color: "#777"
+  },
+  weight1: {
+    color: colorPalette.unplanned
+  },
+  weight2: {
+    color: colorPalette.planned
+  },
+  weight4: {
+    color: colorPalette.minor
+  },
+  weight5: {
+    color: colorPalette.minor
   }
 });
