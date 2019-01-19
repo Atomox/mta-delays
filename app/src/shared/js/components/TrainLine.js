@@ -40,23 +40,30 @@ export default class TrainLine extends Component <TrainLineProps> {
 
 	render() {
 
+		let s = this.getStyleBase();
+
 		let classes = 'line';
+		let stylesBase = [];
+		let stylesText = [];
 		if (this.props.disabled) {
 			classes = classes + ' ' + 'disabled';
+			stylesBase.push(s.disabledBase);
+			stylesBase.push(s.outline);
+			stylesText.push(s.disabledText);
 		}
 		if (this.props.outline) {
 			classes = classes + ' ' + 'outline';
+			stylesBase.push(s.outline);
 		}
 
-		let s = this.getStyleBase();
 		let container = (this.props.styleType === 'large')
 			? s.container
 			: s.containerSmall;
 
 		return (
 			<View className={classes} style={container}>
-				<View style={s.base}>
-					<Txt styles={s.text}>
+				<View style={[s.base, ...stylesBase]}>
+					<Txt styles={[s.text, ...stylesText]}>
 						{ this.getLine() }
 					</Txt>
 				</View>
