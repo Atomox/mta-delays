@@ -44,11 +44,14 @@ export default class GroupLineCard extends React.Component /** <GroupLineCardPro
 		let myGlColor = {
 			borderLeftColor: color
 		};
+    let myGLHeaderColor = {
+      backgroundColor: "#DDD" // @TODO color
+    };
 
 		return(
 			<View style={ [glStyle.groupLineCard, myGlColor]}>
-				<GridRow>
-					<GridRow h3="true" style={ glStyle.h3 }>
+				<GridRow styles={ [ myGLHeaderColor, glStyle.groupLineCardHeader ]}>
+					<GridRow h3="true" styles={ glStyle.h3 }>
 						{ assembleLines(lines, this.props.affectedLines) }
 					</GridRow>
 					<View>

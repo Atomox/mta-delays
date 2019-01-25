@@ -15,6 +15,11 @@ export default StyleSheet.create({
     paddingBottom: remCalc(.05),
     paddingLeft: remCalc(.5)
   },
+  groupLineCardHeader: {
+    padding: remCalc(.3),
+    marginTop: remCalc(-0.4),
+    marginLeft: remCalc(-0.5)
+  },
   h3: {
     margin: 0,
     marginRight: remCalc(.5)
