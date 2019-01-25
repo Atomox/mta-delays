@@ -41,19 +41,19 @@ export default class GroupLineEvent extends React.Component /** <GroupLineCardPr
       <GridRow>
         <RowCell cols={ 3 }>
           <Txt styles={ glStyle.lines }>
-            { (this.props.event.lines && Array.isArray(this.props.event.lines)) ? this.props.event.lines.join('/') : '' }
+            { (this.props.event.lines && Array.isArray(this.props.event.lines)) ? this.props.event.lines.join(' / ') : '' }
           </Txt>
         </RowCell>
 
-        <RowCell cols={ 4 }>
-          <Txt>
-            {	(this.props.event.boro) ? assembleBoros(this.props.event.boro, true, false) : null }
-          </Txt>
-        </RowCell>
-
-        <RowCell>
+        <RowCell cols={ 5 }>
           <Txt styles={ glStyle[tagStyleName] }>
             {	(mainTag.tag) ? mainTag.tag : 'UNKNOWN' }
+          </Txt>
+        </RowCell>
+
+        <RowCell styles={ [{marginLeft: 'auto'}] }>
+          <Txt>
+            {	(this.props.event.boro) ? assembleBoros(this.props.event.boro, true, false) : null }
           </Txt>
         </RowCell>
       </GridRow>
