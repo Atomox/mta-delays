@@ -9,19 +9,20 @@ export default StyleSheet.create({
 
   },
   logoH1: {
-    fontSize: remCalc(4.2)
+    fontSize: remCalc(2.5),
+    fontWeight: "400",
+    color: "#777"
+  },
+  logoH1Thin: {
+    fontSize: remCalc(2.5),
+    color: "#999",
+    fontWeight: "300"
   },
   logoH2: {
-    fontSize: remCalc(2.1),
+    fontSize: remCalc(1.5),
     color: "#999",
-    marginTop: remCalc(-1.05),
-    fontWeight: "200"
-  },
-  logoH3: {
-    fontSize: remCalc(2.1),
-    color: "#999",
-    marginTop: remCalc(-0.5),
-    fontWeight: "bold"
+    marginTop: remCalc(-0.25),
+    fontWeight: "300"
   },
   dateContainer: {
     marginBottom: remCalc(3),

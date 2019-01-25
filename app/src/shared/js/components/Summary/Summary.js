@@ -43,10 +43,10 @@ export default class Summary extends Component<SummaryProps> {
 				<View>
           {/** Summary */ }
 
-          <Logo />
-
-					<DateDisplay
+          <DateDisplay
 						age={this.props.age} />
+
+          <Logo />
 
           {
             Object.keys(lines).map(l => (<GroupLineCard

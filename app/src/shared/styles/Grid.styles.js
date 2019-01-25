@@ -3,9 +3,7 @@ import { AppRegistry, StyleSheet } from 'react-native';
 
 import { remCalc, emCalc, colorPalette } from './Common.styles';
 
-const cardHeaderHeight = remCalc(1);
-
-// Card
+// Grid
 export default StyleSheet.create({
   row: {
     flex: 1,
@@ -20,5 +18,14 @@ export default StyleSheet.create({
   rowCell: {
     paddingLeft: remCalc(.5),
     paddingRight: remCalc(.5)
+  },
+  row2: {
+    width: remCalc(3)
+  },
+  row3: {
+    width: remCalc(4.5)
+  },
+  row4: {
+    width: remCalc(6)
   }
 });
