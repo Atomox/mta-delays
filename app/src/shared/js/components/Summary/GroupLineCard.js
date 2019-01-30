@@ -27,10 +27,11 @@ export default class GroupLineCard extends React.Component /** <GroupLineCardPro
       return null;
     }
 
-		return events.map( e => (
+		return events.map( (e, index) => (
       <GroupLineEvent
         event={ e }
-        key={_.uniqueId('sum-event')} />));
+        key={_.uniqueId('sum-event')}
+        first={ (index === 0) ? true : false }/>));
 	}
 
 	render() {

@@ -20,6 +20,14 @@ export default StyleSheet.create({
     marginTop: remCalc(-0.4),
     marginLeft: remCalc(-0.5)
   },
+  groupLineRow: {
+    paddingTop: remCalc(.4),
+    paddingBottom: remCalc(.4)
+  },
+  groupLineRowLine: {
+    borderTopWidth: 1,
+    borderTopColor: "#EFEFEF"
+  },
   h3: {
     margin: 0,
     marginRight: remCalc(.5)
@@ -27,7 +35,8 @@ export default StyleSheet.create({
   boro: {
     paddingLeft: remCalc(.5),
     paddingRight: remCalc(.5),
-    fontWeight: "200"
+    fontWeight: "200",
+    color: "#555"
   },
   lines: {
     fontWeight: "200",
