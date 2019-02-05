@@ -12,8 +12,9 @@ import { Card } from '../Card';
 import GroupLineCard from './GroupLineCard';
 import Logo from '../Header/Logo';
 import { DateDisplay } from '../Header/DateDisplay';
-//import BoroMap from '../maps/BoroMap';
+import BoroMap from '../Maps/BoroMap';
 //import BoroSummary from '../Header/BoroSummary';
+import SvgExample from '../Maps/TestSvg';
 
 type SummaryProps = {
   events: [],
@@ -45,6 +46,17 @@ export default class Summary extends Component<SummaryProps> {
 
           <DateDisplay
 						age={this.props.age} />
+
+          <BoroMap
+            manhattan={boro_severity['Mn']}
+            brooklyn={boro_severity['Bk']}
+            queens={boro_severity['Qs']}
+            bronx={boro_severity['Bx']}
+            statenIsland={boro_severity['SI']} />
+
+            {/**
+          <SvgExample />
+          */ }
 
           <Logo />
 
