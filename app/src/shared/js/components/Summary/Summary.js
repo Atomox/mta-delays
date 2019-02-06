@@ -14,7 +14,6 @@ import Logo from '../Header/Logo';
 import { DateDisplay } from '../Header/DateDisplay';
 import BoroMap from '../Maps/BoroMap';
 //import BoroSummary from '../Header/BoroSummary';
-import SvgExample from '../Maps/TestSvg';
 
 type SummaryProps = {
   events: [],
