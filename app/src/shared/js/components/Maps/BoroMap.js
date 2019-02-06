@@ -1,19 +1,16 @@
+import * as _ from 'lodash';
+
 import React from 'react';
 import { View, Text } from 'react-native';
 import Svg,{
-    Circle,
-    Ellipse,
     G,
-//    Text,
     TSpan,
-    TextPath,
     Path,
     Polygon,
     Polyline,
     Line,
     Rect,
     Use,
-    Image,
     Symbol,
     Defs,
     LinearGradient,
@@ -30,54 +27,90 @@ import PathBronx from './PathBronx';
 import PathBrooklyn from './PathBrooklyn';
 import PathStatenIsland from './PathStatenIsland';
 
-// import manhattan_svg from '../../../includes/svg/manhattan.svg';
-const manhattan_url = '/src/shared/svg/manhattan.svg';
+import mStyles from '../../../styles/Map.styles';
 
 const BoroMap = function(props) {
 
-  let classes = {
-    manhattan: "manhattan" + " " + 'severity-' + props.manhattan,
-    queens: "queens" + " " + 'severity-' + props.queens,
-    brooklyn: "brooklyn" + " " + 'severity-' + props.brooklyn,
-    bronx: "bronx" + " " + 'severity-' + props.bronx,
-    staten_island: "staten_island" + " " + 'severity-' + props.statenIsland
+  function getStyle(boro) {
+    let key = _.get(props, boro, 1);
+    if (key > 5) { key = 5; }
+    if (!key || key < 0) { key = 0; }
+
+    return {
+      fill: mStyles['severity' + key].fill
+    };
+  }
+
+  let manhattan = {
+    style: getStyle('manhattan'),
+    position: {
+      x: 19,
+      y: 114
+    }
+  };
+  let queens = {
+    style: getStyle('queens'),
+    position: {
+      x: 101,
+      y: 156
+    }
+  };
+  let bronx = {
+    style: getStyle('bronx'),
+    position: {
+      x: 10,
+      y: 0
+    }
+  };
+  let brooklyn = {
+    style: getStyle('brooklyn'),
+    position: {
+      x: 81,
+      y: 381
+    }
+  };
+  let statenIsland = {
+    style: getStyle('statenIsland'),
+    position: {
+      x: -140,
+      y: 650
+    }
   };
 
   return (
     <View>
       <Svg height="350" width="300" viewBox="0 0 350 768">
 
-        /**
-         * @TODO
-         *   PATHs are loading fine, but when wrapped in Symbol, they are not showing up. Do they render at all? Do they render off the map?
-         */
-        <Symbol
-          x="0"
-          y="0"
-          id="hidad"
-          fill="yellow">
-
-        </Symbol>
-        <G
-          id="symbol_manhattan"
-          fill="#333"
-          x="19"
-          y="114">
+        <G id="symbol_manhattan"
+          fill={ manhattan.style.fill }
+          x={ manhattan.position.x}
+          y={ manhattan.position.y}>
           { PathManhattan }
         </G>
-        <G
-          id="symbol_queens" x="101" y="156">
+        <G id="symbol_queens"
+          fill={ queens.style.fill }
+          x={ queens.position.x }
+          y={ queens.position.y}>
           { PathQueens }
         </G>
-        <G id="symbol_bronx" x="10" y="0">
+        <G id="symbol_bronx"
+          fill={ bronx.style.fill }
+          x={ bronx.position.x }
+          y={ bronx.position.y }>
           { PathBronx }
         </G>
 
-        <G id="symbol_brooklyn" x="81" y="381">
+        <G id="symbol_brooklyn"
+          fill={ brooklyn.style.fill }
+          x={ brooklyn.position.x }
+          y={ brooklyn.position.y }>
           { PathBrooklyn }
         </G>
 
-        <G id="symbol_staten_island" x="-140" y="650">
+        <G id="symbol_staten_island"
+          fill={ statenIsland.style.fill }
+          x={ statenIsland.position.x }
+          y={ statenIsland.position.y }>
           { PathStatenIsland }
         </G>
 
