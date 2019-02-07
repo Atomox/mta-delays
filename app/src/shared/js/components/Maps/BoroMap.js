@@ -32,9 +32,9 @@ import mStyles from '../../../styles/Map.styles';
 const BoroMap = function(props) {
 
   function getStyle(boro) {
-    let key = _.get(props, boro, 1);
+    let key = _.get(props, boro, 0);
     if (key > 5) { key = 5; }
-    if (!key || key < 0) { key = 0; }
+    if (key < 0) { key = 0; }
 
     return {
       fill: mStyles['severity' + key].fill
@@ -76,10 +76,12 @@ const BoroMap = function(props) {
       y: 650
     }
   };
+  let viewOffset = 140;
 
   return (
     <View>
-      <Svg height="350" width="300" viewBox="0 0 350 768">
+      { /* Viewport should start 30 units from the left, since SI's object justs out past the left edge. */ }
+      <Svg height="400" width="350" viewBox="30 0 350 768" border="1">
 
         <G id="symbol_manhattan"
           fill={ manhattan.style.fill }
@@ -107,24 +109,26 @@ const BoroMap = function(props) {
           { PathBrooklyn }
         </G>
 
+        <Defs>
+          <ClipPath id="siClip">
+            { /* Clip SI 30 units from the left of the object. */}
+            <Rect x="30" y="0" width="300" height="200" />
+          </ClipPath>
+        </Defs>
+
         <G id="symbol_staten_island"
+
+          clipPath="url(#siClip)"
           fill={ statenIsland.style.fill }
           x={ statenIsland.position.x }
           y={ statenIsland.position.y }>
+
           { PathStatenIsland }
         </G>
-
 
       </Svg>
     </View>
   );
-  /**
-    {Object.keys(classes).map(i => (
-      <svg key={i}>
-        <use className={classes[i]} xlinkHref={`${manhattan_url}#symbol_${i}`} />
-      </svg>
-    ))}
-  */
 };
 
 export default BoroMap;
