@@ -54,6 +54,8 @@ const taxonomy = {
 		'train_breaks': [
 			'train\'s brakes',
 			'train brakes',
+			'brakes activated',
+			'emergency brakes',
 		],
 		'rail_condition': [
 			'rail condition',
