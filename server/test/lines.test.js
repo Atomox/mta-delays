@@ -31,8 +31,9 @@ describe ('Detect Train Lines', () => {
 		});
 	});
 
-	describe('MTAD-002 -- Running Local / Express', () => {
+	describe('MTAD-002/159 -- Running Local / Express', () => {
 		tests.routeTestByTag(m,c,'[Running Express/Local] Should Map', ['MTAD-002']);
+		tests.routeTestByTag(m,c,'[Running on the Express/Local Track] Should Map', ['MTAD-159']);
 	});
 
 	describe('MTAD-003 -- Map Stations from Route Change', () => {

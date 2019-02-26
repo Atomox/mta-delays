@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha",
     "stations": "node scripts/build_stations.js",
+    "archive_latest": "node scripts/archive_latest_data.js  $MESSAGE",
     "parse_message": "node scripts/station_parse_message.js  $MESSAGE"
   },
   "author": "Ben Helmer <Atomox@gmail.com> (http://www.benhelmer.com)",

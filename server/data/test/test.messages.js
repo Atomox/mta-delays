@@ -5500,6 +5500,43 @@ let event_messages = {
 								{line: "MTA NYCT_D",dir: "0"},
 							],
 						},
+
+						{
+							tag: ['MTAD-159'],
+							type_detail: [
+								'running_local',
+								'route_change'
+							],
+							message: "There are service changes and delays in [C] and [E] train service while we get medical assistance for someone at W 4 St-Washington Sq . 168 St-bound [C] trains are running on the express track from Canal St  to 59 St-Columbus Circle . Jamaica-bound [E] trains are running on the express track from Canal St  to 42 St-Port Authority Bus Terminal . Expect delays in [A][C] and [E] train service.",
+							route_change: {
+								message: "There are service changes and delays in [C] and [E] train service while we get medical assistance for someone at [Mn167-A32] . [Mn605-A09]-bound [C] trains are running on the express track from [Mn169-A34]  to [Mn614-A24] . Jamaica-bound [E] trains are running on the express track from [Mn169-A34]  to [Mn611-A27] .",
+								trains: ["A"],
+								route: [
+									{
+										allTrains: true,
+										dir: '[mn605-a09]-bound',
+										exp_lcl: 'express',
+										lines: ['C'],
+										along: null,
+										from: 'Mn169-A34',
+										to: 'Mn614-A24',
+									},
+									{
+										allTrains: true,
+										dir: 'jamaica-bound',
+										exp_lcl: 'express',
+										lines: ['E'],
+										along: null,
+										from: 'Mn169-A34',
+										to: 'Mn611-A27',
+									}
+								],
+							},
+							line: [
+								{line: "MTA NYCT_C",dir: "0"},
+								{line: "MTA NYCT_E",dir: "0"},
+							],
+						},
 		],
 
 		complex: [
