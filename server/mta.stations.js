@@ -150,7 +150,7 @@ function getTrainRouteBasic(line) {
  * Get and assemble a train route of stations, optionally modified
  * depending upon passed tags, such as running_local or late_night.
  *
- * @param  {strign} line
+ * @param  {string} line
  *   The line in question.
  * @param  {boolean} include_stats
  *   Include the entire station object, or just key => name.

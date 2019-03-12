@@ -867,6 +867,39 @@ let stations = {
 				],
 			},
 			{
+				ticket: 'MTAD-166',
+				source: { id: '', archive: 189 },
+				message: 'Southbound [D], [N] and [R] trains are running with delays because of signal problems at 36 St (Brooklyn). Some southbound [N] trains are running on the [D] line from 36 St (Brooklyn) to Coney Island-Stillwell Av. Some southbound [N] trains are making local stops between Atlantic Av-Barclays Ctr to 36 St (Brooklyn).',
+				stations: {
+					'MTA NYCT_D': {
+						stations: {
+							'Bk32-R36': "36 St (Brooklyn)",
+							'Bk617-R31': "",
+							'Bk58-D43': "",
+							'Bk617-235': "Atlantic Av-Barclays Ctr",
+						}
+					},
+					'MTA NYCT_N': {
+						stations: {
+							'Bk32-R36': "36 St (Brooklyn)",
+							'Bk617-R31': '',
+							'Bk58-D43': '',
+						}
+					},
+					'MTA NYCT_R': {
+						stations: {
+							'Bk32-R36': "36 St (Brooklyn)",
+							'Bk617-235': "Atlantic Av-Barclays Ctr"
+						}
+					}
+				},
+				line: [
+					{ line: 'MTA NYCT_D' },
+					{ line: 'MTA NYCT_N' },
+					{ line: 'MTA NYCT_R' },
+				],
+			},
+			{
 				source: { id: '', archive: 0 },
 				message: 'No [R] trains between Bay Ridge-95 St and 36 St, Brooklyn, due to track maintenance. Take free shuttle buses and the [N]. [R] service operates between 71 Av and 36 St, and via the [D] to/from 9 Av, the last stop.',
 				stations: {

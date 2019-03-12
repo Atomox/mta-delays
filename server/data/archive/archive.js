@@ -182,6 +182,8 @@ let archive_status = {
 		'mta_status.185.Weekend',
 		'mta_status.186.2019-02-15_-_weekend_Planned_Work',
 		'mta_status.187.02-25_-_Monday_Morning_Delays',
+		'mta_status.188.03-02_-_Weekend_Sat_Morning',
+		'mta_status.189.03-05_-_Tues_Morning_Delays',
 	],
 	path: './data/archive/',
 };

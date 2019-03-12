@@ -5502,6 +5502,7 @@ let event_messages = {
 						},
 
 						{
+							archive: 181,
 							tag: ['MTAD-159'],
 							type_detail: [
 								'running_local',
@@ -5537,7 +5538,48 @@ let event_messages = {
 								{line: "MTA NYCT_E",dir: "0"},
 							],
 						},
+
+						{
+							archive: 189,
+							tag: ['MTAD-166', 'MTAD-098'],
+							type_detail: [
+								'running_local',
+								'route_change'
+							],
+							message: "Southbound [D], [N] and [R] trains are running with delays because of signal problems at 36 St (Brooklyn). Some southbound [N] trains are running on the [D] line from 36 St (Brooklyn) to Coney Island-Stillwell Av. Some southbound [N] trains are making local stops between Atlantic Av-Barclays Ctr to 36 St (Brooklyn).",
+							route_change: {
+								message: "",
+								trains: ["N"],
+								route: [
+									{
+										allTrains: true,
+										dir: 1,
+										lines: ['N'],
+										along: ['D'],
+										from: 'Bk32-R36',
+										to: 'Bk58-D43',
+									},
+									{
+										allTrains: true,
+										dir: 1,
+										exp_lcl: 'local',
+										lines: ['N'],
+										along: null,
+										from: 'Bk617-R31',
+										to: 'Bk32-R36',
+									}
+								],
+							},
+							line: [
+								{line: "MTA NYCT_N",dir: "0"},
+							],
+						},
+
 		],
+
+
+
+
 
 		complex: [
 			{

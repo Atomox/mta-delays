@@ -15,97 +15,77 @@ const mtaRouteChange = require('../mta.route_change');
 // Test Data
 const tests = require('./mta.test');
 const stations = require('../data/test/test.stations').stations.names;
-const r_train_msg = require('../data/test/test.messages').train_line.R;
+const rMsg = require('../data/test/test.messages').train_line.R;
 const event_messages = require('../data/test/test.messages').event_messages.structured;
 
 
-describe('Parse Stations', function() {
+const msg = event_messages.normal;
+const s = stations;
 
+describe('Parse Stations', function() {
 	describe('General Station Tests', () => {
 
 		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Basic Stations Check', [], ['MTAD-026']);
 
-
 		describe('Special Character Names', () => {
+			tests.basicTest(s.simple, checkStationWithSpecialChar, 'Should match [simple names]');
+			tests.basicTest(s.hyphen, checkStationWithSpecialChar, 'Should match [names] with [mismatched-whitespace]');
+			tests.basicTest(s.mistaken_identity, checkStationWithSpecialCharNegative, 'Should *not* match [shorter names] with [longer ones].');
+		});
+		describe('Station Spelling + Alternate Naming', () => {
+			tests.stationMessageTestByTag(msg, CheckStationsParseMessageForExpected, 'Multiple Spellings for a Station (MTAD-24)', ['MTAD-024']);
+			tests.stationTestByTag(s.nomDePlume, CheckStationsListForExpected, 'Map Alternate/Alias Names to Original (MTAD-27)');
 
-			tests.basicTest(stations.simple, checkStationWithSpecialChar, 'Should match [simple names]');
-
-			tests.basicTest(stations.hyphen, checkStationWithSpecialChar, 'Should match [names] with [mismatched-whitespace]');
-
-			tests.basicTest(stations.mistaken_identity, checkStationWithSpecialCharNegative, 'Should *not* match [shorter names] with [longer ones].');
+			describe('MTAD-040 -- 34, 42, 50, 59 and 66 Sts', () => {
+				tests.stationTestByTag(msg, CheckStationsListForExpected, 'Basic Bunched Stations Check', ['MTAD-040']);
+				tests.stationTestByTag(msg, CheckStationPrep, 'Basic Bunched Stations Prep', ['MTAD-040']);
+			});
+			describe('MTAD-056 -- Do not match only the second half on a hyphen-ed station', () => {
+				tests.stationTestByTag(s.false_positive, CheckStationsListForExpected, ' [-,/] 57 St-7 Av, Lexington Av/59 St');
+			});
+			describe('MTAD-098 -- Stations Followed by Boro Names should Provide Context', () => {
+				tests.stationTestByTag(s['MTAD-098'], CheckStationsListForExpected, 'Detect Direction-Bound Stations');
+			});
+		});
+		describe('Shared Stations + Lines', () => {
+			tests.stationTestByTag(s.sharedStation, CheckStationsListForExpected, 'Lines share Station (MTAD-026)');
+		});
+		describe('Shared Station Names', () => {
+			describe('MTAD-013 -- Multiple Lines cause Station Misidentification', () => {
+				tests.stationTestByTag(msg, CheckStationsListForExpected, 'Common roots cause mistaken station identity.', ['MTAD-013']);
+			});
+			describe('MTAD-033 -- [Qs101-A22|Bk37-R49|Bx22-B342]', () => {
+				tests.multiStationTokenTestByTag(msg, checkMultiStationTokenForSingle, 'Choose [single station] from multi-station token', ['MTAD-033']);
+				tests.multiStationTokenTestByTag(msg, checkMultiStationTokenForExpected, 'Choose [correct station] from multi-station token', ['MTAD-033']);
+			});
 		});
 	});
-	describe('MTAD-005 -- Test Individual Lines', () => {
 
-		tests.stationTestByTag(r_train_msg, checkIndividualLine, 'R Line -- General', [], ['MTAD-004']);
-
+	describe('Station Check by Line', () => {
+		describe('MTAD-005 -- Test Individual Lines', () => {
+			tests.stationTestByTag(rMsg, checkIndividualLine, 'R Line -- General', [], ['MTAD-004']);
+		});
+		describe('MTAD-057 -- Parse Express Lines, like 6D, 7D', () => {
+			tests.stationTestByTag(msg, CheckStationsListForExpected, 'Parse Stations on 6D, 7D', ['MTAD-057']);
+		});
 	});
 
-	describe('MTAD-013 -- Multiple Lines Mistaken Identity Occurs', () => {
 
-		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Common roots cause mistaken station identity.', ['MTAD-013']);
-
-	});
-
-	describe('MTAD-024 -- Multiple Spellings for a Station', () => {
-
-		tests.stationMessageTestByTag(event_messages.normal, CheckStationsParseMessageForExpected, 'Multiple Spellings Check', ['MTAD-024']);
-	});
-
-	describe('MTAD-026 -- Stations for Multiple Lines', () => {
-
-		tests.stationTestByTag(stations.sharedStation, CheckStationsListForExpected, 'Lines share Station');
-	});
-
-	describe('MTAD-027 -- Match Abreviations with Original Stations', () => {
-
-		tests.stationTestByTag(stations.nomDePlume, CheckStationsListForExpected, 'Alternate/Alias Names');
-	});
-
-	describe('MTAD-033 -- [Qs101-A22|Bk37-R49|Bx22-B342]', () => {
-		tests.multiStationTokenTestByTag(event_messages.normal, checkMultiStationTokenForSingle, 'Choose [single station] from multi-station token', ['MTAD-033']);
-
-		tests.multiStationTokenTestByTag(event_messages.normal, checkMultiStationTokenForExpected, 'Choose [correct station] from multi-station token', ['MTAD-033']);
-	});
-
-	describe('MTAD-040 -- 34, 42, 50, 59 and 66 Sts', () => {
-
-		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Basic Bunched Stations Check', ['MTAD-040']);
-
-		tests.stationTestByTag(event_messages.normal, CheckStationPrep, 'Basic Bunched Stations Prep', ['MTAD-040']);
-	});
 
 	describe('MTAD-046 -- Affected Boro', () => {
-
-		tests.affectedBoroTestByTag(event_messages.normal, CheckAffectedBoroListForExpected, 'Detect Affected Boro using Stations', ['MTAD-046']);
-	});
-
-	describe('MTAD-056 -- Do not match only the second half on a hyphen-ed station', () => {
-
-		tests.stationTestByTag(stations.false_positive, CheckStationsListForExpected, ' [-,/] 57 St-7 Av, Lexington Av/59 St');
-	});
-
-	describe('MTAD-057 -- Parse Express Lines, like 6D, 7D', () => {
-
-		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Parse Stations on 6D, 7D', ['MTAD-057']);
+		tests.affectedBoroTestByTag(msg, CheckAffectedBoroListForExpected, 'Detect Affected Boro using Stations', ['MTAD-046']);
 	});
 
 	describe('MTAD-060 -- Direction-bound stations should be added to a separate array.', () => {
-
-		tests.boundStationTestByTag(event_messages.normal, CheckBoundStationsListForExpected, 'Detect Direction-Bound Stations', ['MTAD-060']);
+		tests.boundStationTestByTag(msg, CheckBoundStationsListForExpected, 'Detect Direction-Bound Stations', ['MTAD-060']);
 	});
 
 	describe('MTAD-064 -- Express Running Local Catches Local Stations', () => {
-
-		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Parse Local Stations on an Express Line', ['MTAD-064']);
+		tests.stationTestByTag(msg, CheckStationsListForExpected, 'Parse Local Stations on an Express Line', ['MTAD-064']);
 	});
 
 	describe('MTAD-090 -- Stations exclude Turtiary Copy', () => {
-		tests.stationTestByTag(event_messages.normal, CheckStationsListExcludeAltInstructions, 'Detect only Stations in Main Message.', ['MTAD-090']);
-	});
-
-	describe('MTAD-098 -- Stations Followed by Boro Names should Provide Context', () => {
-		tests.stationTestByTag(stations['MTAD-098'], CheckStationsListForExpected, 'Detect Direction-Bound Stations');
+		tests.stationTestByTag(msg, CheckStationsListExcludeAltInstructions, 'Detect only Stations in Main Message.', ['MTAD-090']);
 	});
 
 	describe.skip('MTAD-004 -- Identify Multiple Stations with the same name.', () => {
@@ -133,7 +113,7 @@ describe('Parse Stations', function() {
 	});
 
 	describe.skip('MTAD-032 -- Split Destination Stations', () => {
-		tests.stationTestByTag(stations.splitDestinations, CheckStationsListForExpected, 'Alternate/Alias Names');
+		tests.stationTestByTag(s.splitDestinations, CheckStationsListForExpected, 'Alternate/Alias Names');
 	});
 });
 
@@ -148,12 +128,6 @@ function checkStationWithSpecialCharNegative(i, data) {
 	let res = mtaRegEx.matchStringsWithSpecialChars(i, data[i]);
 	expect(res).to.not.equal(data[i]);
 }
-
-
-// Object.keys(stations.hyphen).map( i => {
-// 	let res = mtaRegEx.matchStringsWithSpecialChars(i, stations.hyphen[i]);
-// 	expect(res).to.equal(stations.hyphen[i]);
-// });
 
 
 function checkIndividualLine(event) {

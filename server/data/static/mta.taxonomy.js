@@ -7,13 +7,14 @@ const taxonomy = {
 			'resumed making stops',
 			'service has resumed',
 			'following an earlier incident',
-			'resumed service',
+			/resumed\s*(?:express|local)?\s*service/i,
 			'service resumed',
 		],
 		'illness': [
 			'sick passenger',
 			'medical attention',
 			'medical assistance',
+			'EMS',
 		],
 		'injury': [
 			'person struck by a train',
@@ -38,6 +39,7 @@ const taxonomy = {
 			'NYPD request',
 		],
 		'police_activity': [
+			'NYPD',
 			'NYPD activity',
 			'police activity',
 			'investigation',
@@ -56,6 +58,11 @@ const taxonomy = {
 			'train brakes',
 			'brakes activated',
 			'emergency brakes',
+			'brakes automatically activated',
+		],
+		'removed_train': [
+			'moved a train',
+			'removed a train',
 		],
 		'rail_condition': [
 			'rail condition',
@@ -143,6 +150,10 @@ const taxonomy = {
 			'running express',
 			'trains run express',
 		],
+		'reduced_service': [
+			'modified schedule',
+			/trains\s*run\s*every\s*[0-9]+\s*minutes/i
+		],
 		'running_slow': [
 			'running with slower speeds',
 			'run at reduced speed',
@@ -219,6 +230,9 @@ const taxonomy = {
 			'Long-Term Flood Protection',
 			'FLOOD PROTECTION'
 		],
+		'work_train': [
+			'WORK TRAIN STAGING',
+		]
 	},
 
 	date_tags: {

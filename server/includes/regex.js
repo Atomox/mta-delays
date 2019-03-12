@@ -156,7 +156,7 @@ function matchRegexStation(pattern, haystack, return_all, greedy, include_boro) 
 		return false;
 	}
 
-	pattern = '(?:' + pattern + ')' + '(?:\\b\\s*(?:[,]|in)?\\s*(Manhattan|Brooklyn|Queens|(?:the\\s*)?Bronx|Staten\\s*Island)+\\b)?';
+	pattern = '(?:' + pattern + ')' + '(?:\\s*(?:[,]|in|\\()?\\s*\\b(Manhattan|Brooklyn|Queens|(?:the\\s*)?Bronx|Staten\\s*Island)+\\b\\)?)?';
 
 	let flags = 'i';
 	if (greedy === true) {
