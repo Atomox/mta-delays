@@ -582,7 +582,9 @@ let event_messages = {
 				type: 'PlannedWork',
 				type_detail: [
 					'skip_stations',
+					'route_change'
 				],
+				tag: ['MTAD-040', 'MTAD-047', 'MTAD-060', 'MTAD-001'],
 				time: null,
 				expect: {
 					durration: {
@@ -597,7 +599,7 @@ let event_messages = {
 					}
 				},
 				durration: 'Weekend , Saturday, Dec 23',
-				tag: ['MTAD-040', 'MTAD-047', 'MTAD-060'],
+
 				message: 'TRACK MAINTENANCE [C] 168 St-bound trains skip Spring St, 23 St and 50 St. Weekend , Saturday, Dec 23 For service to Spring and 23 Sts, take the [C] to W 4 or 34 St-Penn Station and transfer to a downtown [C] or [E]. For service to 50 St, transfer to the [E] at 42 St/Port Authority. For service from these stations, take the [C] or [E] to 42 St/Port Authority, 14 or Canal Sts and transfer to a 168 St-bound [C].',
 				parsed_message: 'TRACK MAINTENANCE [C] [Mn605-A09]-bound trains skip [Mn168-A33], [Mn165-A30] and [Mn162-A25]. Weekend , Saturday, Dec 23 For service to [Mn168-A33], [Mn165-A30], take the [C] to [Mn167-A32] or [Mn164-A28] and transfer to a downtown [C] or [E]. For service to [Mn162-A25], transfer to the [E] at [Mn611-A27]. For service from these stations, take the [C] or [E] to [Mn611-A27], 14 or [Mn169-A34]s and transfer to a [Mn605-A09]-bound [C].',
 				station_prep: 'TRACK MAINTENANCE [C] 168 St-bound trains skip Spring St, 23 St and 50 St. Weekend , Saturday, Dec 23 For service to Spring St, 23 St, take the [C] to W 4 or 34 St-Penn Station and transfer to a downtown [C] or [E]. For service to 50 St, transfer to the [E] at 42 St/Port Authority. For service from these stations, take the [C] or [E] to 42 St/Port Authority, 14 St, Canal St and transfer to a 168 St-bound [C].',
@@ -1362,10 +1364,105 @@ let event_messages = {
 					"shuttle_bus",
 					"no_trains_partial"
 				],
-				time: null,
-				durration: null,
+				tag: ['MTAD-035'],
 				message: '[5] There is no service between Eastchester-Dyre Av and E 180 St in both directions because of ongoing signal problems at Eastchester-Dyre Av.Our crews are on scene working to fix it, we will follow up soon. There are free [SB] shuttle buses at the following bus stops:Toward Eastchester-Dyre Av:On Morris Park Av at E180 St - Bx21 StopOn Morris Park Av at Hone Av - Bx21 StopOn Williamsbridge Rd at Lydig AvOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn E Gunhill Rd at Knapp St - Bx28 StopOn Boston Rd at Baychester Av - Bx30 StopOn Dyre Av at Light St - Bx18 StopToward E 180 St:On Dyre Av at Light St - Bx18 StopOn Boston Rd at Baychester Av - Bx30 StopOn E Gunhill Rd at DeWitt Pl - Bx28 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Lydig AvOn Morris Park Av at Hone Av - Bx21 StopOn Morris Park Av at E180 St - Bx21 Stop',
-				alt_instructions: null,
+				route_change: {
+					message: "[5] There is no service between [Bx442-501] and [Bx426-213] in both directions",
+					trains: ["5"],
+					route: [
+						{
+							allTrains: true,
+							noTrains: true,
+							dir: null,
+							lines: ["5"],
+							along: null,
+							from: "Bx442-501",
+							to: "Bx426-213",
+							action: "no"
+						},
+					],
+				},
+				line: [
+					{line: "MTA NYCT_5",dir: "0"},
+					{line: "MTA NYCT_5",dir: "1"},
+				]
+			},
+			{
+				id: "MTA NYCT_bf28ea2c-e0b5-4c50-b0d5-2acce9956aa2",
+				archive: 178,
+				tag: ['MTAD-168'],
+				date: {
+					fetched: "2019-01-26T09:31:51.553-05:00",
+					start: "2019-01-26T07:55:00-05:00",
+				},
+				type_detail: [
+					"delays",
+					"route_change",
+					"no_trains_partial"
+				],
+				message: "Southbound [D] and [F] trains are rerouted because of a broken rail at 34 St-Herald Sq. Southbound [D] trains are running on the [A] line from 59 St-Columbus Circle to W 4 St-Wash Sq. After  W 4 St-Wash Sq, some [D] trains will run along the [F] line to Coney Island-Stillwell Av . Some northbound [D] trains end at 36 St (Brooklyn) or W 4 St-Wash Sq. Southbound [F] trains are running on the [E] line from 5 Av-53 St to W 4 St-Wash Sq, some southbound [F] trains are running on the [G] line from Court Sq to Bergen St. After Bergen St, those trains will make regular stops to Coney Island-Stillwell Av. Expect delays on [A], [D], [E], [F] and [G] trains. If your travel is interrupted by these service changes, please see a station agent for a courtesy pass to continue your trip on the bus or subway.",
+					route_change: {
+						message: "Southbound [D] and [F] trains are rerouted ``` Southbound [D] trains are running on the [A] line from [Mn614-A24] to [Mn167-A32]. After  [Mn167-A32], some [D] trains will run along the [F] line to [Bk58-D43] . Some northbound [D] trains end at [Bk32-R36] or [Mn167-A32]. Southbound [F] trains are running on the [E] line from [Mn276-F12] to [Mn167-A32], some southbound [F] trains are running on the [G] line from [Qs606-F09] to [Bk236-F20]. After [Bk236-F20],",
+						tag: ['After1-A-overC'],
+						message_mod: "Southbound [D] and [F] trains are rerouted ``` [-- route-match 0 --] [-- route-match 1 --] [-- route-match 0 --] [-- route-match 1 --] Some northbound [D] trains end at [Bk32-R36] or [Mn167-A32]. [-- route-match 0 --] [-- route-match 1 --] [-- route-match 0 --] [-- route-match 1 --] After [Bk236-F20],",
+						trains: ["D","F"],
+						route: [
+							{
+								allTrains: true,
+								dir: "southbound",
+								lines: ["D"],
+								along: "A",
+								from: "Mn614-A24",
+								to: "Mn167-A32",
+								process: "RouteChangeStandard",
+								parsed: "Southbound [D] trains arerunning on the [A] line from [Mn614-A24] to [Mn167-A32].",
+								action: "on"
+							},
+							{
+								allTrains: false,
+								lines: ["D"],
+								along: "F",
+								from: "Mn167-A32",
+								to: "Bk58-D43",
+								process: "RouteChangeStandard",
+								parsed: "After  [Mn167-A32], some [D] trains willrun along the [F] line to [Bk58-D43] .",
+								action: "along"
+							},
+							{
+								allTrains: true,
+								dir: "southbound",
+								lines: ["F"],
+								along: "E",
+								from: "Mn276-F12",
+								to: "Mn167-A32",
+								process: "RouteChangeStandard",
+								parsed: "Southbound [F] trains arerunning on the [E] line from [Mn276-F12] to [Mn167-A32],",
+								action: "on"
+							},
+							{
+								allTrains: false,
+								dir: "southbound",
+								lines: ["F"],
+								along: "G",
+								from: "Qs606-F09",
+								to: "Bk236-F20",
+								process: "RouteChangeStandard",
+								parsed: "some southbound [F] trains arerunning on the [G] line from [Qs606-F09] to [Bk236-F20].",
+								action: "on"
+							}
+						],
+				},
+				line: [
+					{line: "MTA NYCT_A",dir: "1"},
+					{line: "MTA NYCT_D",dir: "0"},
+					{line: "MTA NYCT_D",dir: "1"},
+					{line: "MTA NYCT_E",dir: "0"},
+					{line: "MTA NYCT_E",dir: "1"},
+					{line: "MTA NYCT_F",dir: "1"},
+					{line: "MTA NYCT_F",dir: "0"},
+					{line: "MTA NYCT_G",dir: "1"},
+					{line: "MTA NYCT_G", dir: "0" }
+				],
 			},
 			{
 				type: null,
@@ -1393,7 +1490,7 @@ let event_messages = {
 				alt_instructions: "Travel Alternatives [TP] For JFK Airport , take the Far Rockaway-bound [A] to Howard Beach-JFK Airport. For LaGuardia Airport , take the [7] or [E] (from 6 Av) to 74 St-Roosevelt Av, for the LaGuardia Link Q70 SBS . For Port Authority Bus Terminal , all 8 Av [E] stations and overnight service between W 4 St and World Trade Center , take the [A] or [C]. For 53 St [E] stations , use the nearby 51 St [6] or 7 Av [B] [D] Stations. For [M] stations , take the [E] [F] [R] and/or [J]. Take the [7] for Court Sq-23 St [G] , and the [R] ( days/evenings ) for Queens Plaza or free overnight shuttle buses. Click here for details about this Subway Action Plan. *9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29 [E] trains run to/from 2 Av [F] station after W 4 St.",
 				ad_message: "[ad] This service change affects one or more ADA accessible stations. Please call 511 for help with planning your trip. If you are deaf or hard of hearing, use your preferred relay service provider or the free 711 relay.",
 				route_change: {
-					tag: ['A-overC'],
+					tag: ['A-overC', 'After1-A-overC'],
 					message_raw: "[E] trains are rerouted in both directions via the [F] between Jackson Hts-Roosevelt Av and West 4 St",
 					message: "[E] No service between [Qs616-G14] and [Mn167-A32] [M] ``` [E] trains are rerouted in both directions via the [F] between [Qs616-G14] and [Mn167-A32] * [E] trains run local between [Qs261-G08] and [Qs221-B04] ``` [M] Shuttle trains operate all times between [Qs108-M01] and [Bk630-M08] . [M] trains operate weekend service between [Bk621-J27|Bk621-A51] [J] and [Mn625-M18] . ``` [7] stopping ``` [E] trains run to/from [Mn232-F14] [F] station after [Mn167-A32].",
 					trains: ["E"],
@@ -2109,8 +2206,8 @@ let event_messages = {
 				durration: null,
 				message: "[1] [2] [3] [N] [Q] [R] [W] and [7] trains are bypassing Times Sq-42 St in both directions.[A] [C] and [E] trains are bypassing 42 St/Port Authority-Bus Terminal in both directions.There is no [S] 42 St shuttle service in both directions.[A] and [C] trains are stopping along the [D] line between W 4 St-Washington Sq and 59 St-Columbus Circle in both directions.There is no [B] train service between Bedford Park Blvd and Brighton Beach in both directions.[E] Trains are stopping along the [F] line between Jackson Hts-Roosevelt Av and W 4 St-Washington Sq in both directions.No [L] train service between 8 Av and 6 Av in both directions.[M] Trains are running between Delancey-Essex St and Forest Hills-71 Av.These service changes are because of an NYPD investigation at 42 St/Port Authority-Bus Terminal.",
 				route_change: {
-					tag: ['AB-overC-D-overE'],
-					message: "[1] [2] [3] [N] [Q] [R] [W] and [7] trains are bypassing [Mn611-127|Mn611-725|Mn611-R16|Mn611-902] in both directions.[A] [C] and [E] trains are bypassing [Mn611-A27] in both directions. ``` [A] and [C] trains are stopping along the [D] line between [Mn167-A32] and [Mn614-125|Mn614-A24] in both directions. ``` no [B] train service between [Bx211-D03] and [Bk55-D40] in both directions.[E] Trains are stopping along the [F] line between [Qs616-G14] and [Mn167-A32] in both directions.No [L] train service between [Bk71-N02] and [Mn601-L02] in both directions.[M] Trains are running between [Mn625-F15|Mn625-M18] and [Qs261-G08].",
+					tag: ['AB-overC-D-overE', 'AB-overC', 'A-overC'],
+					message: "[1] [2] [3] [N] [Q] [R] [W] and [7] trains are bypassing [Mn611-127|Mn611-725|Mn611-R16|Mn611-902] in both directions.[A] [C] and [E] trains are bypassing [Mn611-A27] in both directions. ``` [A] and [C] trains are stopping along the [D] line between [Mn167-A32] and [Mn614-125|Mn614-A24] in both directions.There is no [B] train service between [Bx211-D03] and [Bk55-D40] in both directions.[E] Trains are stopping along the [F] line between [Qs616-G14] and [Mn167-A32] in both directions.No [L] train service between [Bk71-N02] and [Mn601-L02] in both directions.[M] Trains are running between [Mn625-F15|Mn625-M18] and [Qs261-G08].",
 					trains: ['F'],
 					route: [
 						{
@@ -2165,6 +2262,7 @@ let event_messages = {
 							along: "F",
 							from: 'Qs616-G14',
 							to: 'Mn167-A32',
+							parsed: '[E] Trains are stopping along the [F] line between [Qs616-G14] and [Mn167-A32]'
 						},
 						{
 							allTrains: true,
@@ -3595,13 +3693,15 @@ let event_messages = {
 						summary: "TRACK MAINTENANCE [E]",
 						type_detail: [
 							"no_trains_partial",
-							"track_maintenance"
+							"track_maintenance",
+							"route_change"
 						],
 						tag: ['MTAD-035', 'MTAD-168'],
 						durration: "Late Nights, 9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29",
 						message: "TRACK MAINTENANCE [E] No trains between W 4 St and World Trade Center [A] [C] trains provide alternate service Late Nights, 9:45 PM to 5 AM, Tue to Fri, Dec 26 - 29 After W 4 St, [E] trains run to/from the 2 Av [F] Station. For Spring St*, Canal St and World Trade Center (Chambers St), take the [A] or [C] instead. Transfer between trains at W 4 St. *Please review [A] [C] advisories for additional information that may affect your trip.",
 						route_change: {
 							message: '[E] No trains between [Mn167-A32] and [Mn624-E01] [A] [C] ``` After [Mn167-A32], [E] trains run to/from the [Mn232-F14] [F] Station.',
+							tag: ['After1-A-overC'],
 							trains: [ 'E' ],
 							route:
 							 [
@@ -5094,7 +5194,7 @@ let event_messages = {
 								archive: 169,
 								id: "MTA NYCT_193549",
 								date: {fetched: "2018-07-09T00:00:00-04:00",},
-								tags: ['MTAD-064', 'MTAD-073', 'MTAD-118'],
+								tag: ['MTAD-064', 'MTAD-073', 'MTAD-118'],
 								type_detail: [
 									"running_local",
 									"track_maintenance",
@@ -5626,6 +5726,7 @@ let event_messages = {
 				type_detail: null,
 				time: null,
 				durration: null,
+				tag: ['MTAD-035'],
 				message: '[5] There is no service between Eastchester-Dyre Av and E 180 St in both directions because of ongoing signal problems at Eastchester-Dyre Av.Our crews are on scene working to fix it, we will follow up soon. There are free [SB] shuttle buses at the following bus stops:Toward Eastchester-Dyre Av:On Morris Park Av at E180 St - Bx21 StopOn Morris Park Av at Hone Av - Bx21 StopOn Williamsbridge Rd at Lydig AvOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn E Gunhill Rd at Knapp St - Bx28 StopOn Boston Rd at Baychester Av - Bx30 StopOn Dyre Av at Light St - Bx18 StopToward E 180 St:On Dyre Av at Light St - Bx18 StopOn Boston Rd at Baychester Av - Bx30 StopOn E Gunhill Rd at DeWitt Pl - Bx28 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Lydig AvOn Morris Park Av at Hone Av - Bx21 StopOn Morris Park Av at E180 St - Bx21 Stop',
 				alt_instructions: 'There are free [SB] shuttle buses at the following bus stops:Toward Eastchester-Dyre Av:On Morris Park Av at E180 St - Bx21 StopOn Morris Park Av at Hone Av - Bx21 StopOn Williamsbridge Rd at Lydig AvOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn E Gunhill Rd at Knapp St - Bx28 StopOn Boston Rd at Baychester Av - Bx30 StopOn Dyre Av at Light St - Bx18 StopToward E 180 St:On Dyre Av at Light St - Bx18 StopOn Boston Rd at Baychester Av - Bx30 StopOn E Gunhill Rd at DeWitt Pl - Bx28 StopOn Williamsbridge Rd at Pelham Pkwy N - Bx8 StopOn Williamsbridge Rd at Pelham Pkwy S - Bx8 StopOn Williamsbridge Rd at Lydig AvOn Morris Park Av at Hone Av - Bx21 StopOn Morris Park Av at E180 St - Bx21 Stop',
 			},

@@ -18,7 +18,7 @@ describe ('Detect Train Lines', () => {
 
 	describe('MTAD-001 -- Line Changes', () => {
 
-		tests.routeTestByTag(m,c,'[Basic Route Changes] Should Map', ['MTAD-001'], ['MTAD-004', 'MTAD-006', 'MTAD-009', 'MTAD-011', "MTAD-014"]);
+		tests.routeTestByTag(m,c,'[Basic Route Changes] Should Map', ['MTAD-001'], ['MTAD-004', 'MTAD-006', 'MTAD-009', 'MTAD-011', 'MTAD-014']);
 
 		describe('Route Patterns', () => {
 			tests.routeTestByTag(m,c,'A-overC', ['MTAD-001'], null, ['A-overC']);
@@ -26,6 +26,7 @@ describe ('Detect Train Lines', () => {
 			tests.routeTestByTag(m,c,'AB-overC', ['MTAD-001'], null, ['AB-overC']);
 			tests.routeTestByTag(m,c,'A-overC-D-overE', ['MTAD-001'], null, ['A-overC-D-overE']);
 			tests.routeTestByTag(m,c,'AB-overC-D-overE', ['MTAD-001'], null, ['AB-overC-D-overE']);
+			tests.routeTestByTag(m,c,'After1-A-over-C', ['MTAD-168'], null, ['After1-A-overC'])
 //		tests.routeTestByTag(m,c,'Multiple Patterns', ['MTAD-001'], null, '#any-two');
 
 		});

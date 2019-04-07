@@ -296,6 +296,7 @@ function filterTest(event, type, tags, omit) {
 
 	// If filters by tag, we must have a non-empty tags property.
 	if (typeof tags == 'object' && tags && tags.length > 0 && !event.tag) {
+    console.log("\n\n", '<!> Test Message Data Integrity ERROR -- Event missing <tag> property.', "\n\n", event.message, "\n\n");
 			return false;
 	}
 
