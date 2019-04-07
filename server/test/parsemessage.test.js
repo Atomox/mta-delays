@@ -42,7 +42,7 @@ describe('Parse Service Messages', function() {
 		tests.basicTest(s.updated_2018.simple, testParseDate, 'MTAD-072 -- Should find 2018 updated dates, by Month/Day');
 	});
 
-	describe('MTAD-118 -- Tag messages by Date Tag', () => {
+	describe.skip('MTAD-118 -- Tag messages by Date Tag', () => {
 		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Weekends]', ['MTAD-118'], null, ['weekend']);
 		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Weekdays]', ['MTAD-118'], null, ['week_day']);
 		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [All Times]', ['MTAD-118'], null, ['all_times']);
@@ -55,7 +55,7 @@ describe('Parse Service Messages', function() {
 		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Nights]', ['MTAD-118'], null, ['night']);
 	});
 
-	describe('MTAD-073 -- Understand message Dates', () => {
+	describe.skip('MTAD-073 -- Understand message Dates', () => {
 		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Single Date', ['MTAD-118'], null, null, ['date-single']);
 		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Date Range', ['MTAD-118'], null, null, ['date-range']);
 		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Dates Range (multiple)', ['MTAD-118'], null, null, ['date-range-multi']);
