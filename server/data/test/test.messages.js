@@ -1390,7 +1390,7 @@ let event_messages = {
 			{
 				id: "MTA NYCT_bf28ea2c-e0b5-4c50-b0d5-2acce9956aa2",
 				archive: 178,
-				tag: ['MTAD-168'],
+				tag: ['MTAD-010', 'MTAD-168'],
 				date: {
 					fetched: "2019-01-26T09:31:51.553-05:00",
 					start: "2019-01-26T07:55:00-05:00",
@@ -1403,10 +1403,21 @@ let event_messages = {
 				message: "Southbound [D] and [F] trains are rerouted because of a broken rail at 34 St-Herald Sq. Southbound [D] trains are running on the [A] line from 59 St-Columbus Circle to W 4 St-Wash Sq. After  W 4 St-Wash Sq, some [D] trains will run along the [F] line to Coney Island-Stillwell Av . Some northbound [D] trains end at 36 St (Brooklyn) or W 4 St-Wash Sq. Southbound [F] trains are running on the [E] line from 5 Av-53 St to W 4 St-Wash Sq, some southbound [F] trains are running on the [G] line from Court Sq to Bergen St. After Bergen St, those trains will make regular stops to Coney Island-Stillwell Av. Expect delays on [A], [D], [E], [F] and [G] trains. If your travel is interrupted by these service changes, please see a station agent for a courtesy pass to continue your trip on the bus or subway.",
 					route_change: {
 						message: "Southbound [D] and [F] trains are rerouted ``` Southbound [D] trains are running on the [A] line from [Mn614-A24] to [Mn167-A32]. After  [Mn167-A32], some [D] trains will run along the [F] line to [Bk58-D43] . Some northbound [D] trains end at [Bk32-R36] or [Mn167-A32]. Southbound [F] trains are running on the [E] line from [Mn276-F12] to [Mn167-A32], some southbound [F] trains are running on the [G] line from [Qs606-F09] to [Bk236-F20]. After [Bk236-F20],",
-						tag: ['After1-A-overC'],
+						tag: ['After1-A-overC', 'A-endAt-1-or-2'],
 						message_mod: "Southbound [D] and [F] trains are rerouted ``` [-- route-match 0 --] [-- route-match 1 --] [-- route-match 0 --] [-- route-match 1 --] Some northbound [D] trains end at [Bk32-R36] or [Mn167-A32]. [-- route-match 0 --] [-- route-match 1 --] [-- route-match 0 --] [-- route-match 1 --] After [Bk236-F20],",
 						trains: ["D","F"],
 						route: [
+							{
+								allTrains: false,
+								dir: 'northbound',
+								lines: [ 'D' ],
+								along: null,
+								bypass: [],
+								endAt: [ 'Bk32-R36', 'Mn167-A32' ],
+								action: 'endAt',
+								parsed: 'Some northbound [D] trains end at [Bk32-R36] or [Mn167-A32]',
+								process: 'RouteChangeBypass'
+							},
 							{
 								allTrains: true,
 								dir: "southbound",

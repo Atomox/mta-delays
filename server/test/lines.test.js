@@ -54,6 +54,7 @@ describe ('Detect Train Lines', () => {
 	describe('MTAD-010 -- Route Change, then end.', () => {
 		tests.routeTestByTag(m,c,'AB-overC-end', ['MTAD-001'], null, ['AB-overC-end']);
 		tests.routeTestByTag(m,c,'A-overC-thenD-end', ['MTAD-001'], null, ['A-overC-thenD-end']);
+		tests.routeTestByTag(m,c,'A-endAt-1-or-2', ['MTAD-010'], null, ['A-endAt-1-or-2']);
 	});
 
 
