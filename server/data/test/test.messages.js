@@ -182,7 +182,7 @@ let event_messages = {
 					"route_change",
 					"no_trains_partial"
 				],
-				tag: ["MTAD-006", "MTAD-001", "MTAD-046"],
+				tag: ["MTAD-006", "MTAD-001", "MTAD-046", "MTAD-010"],
 				time: null,
 				durration: null,
 				boro: {
@@ -199,15 +199,28 @@ let event_messages = {
 				alt_instructions: null,
 				ad_message: null,
 				route_change: {
-					tag: ['AB-overC-end'],
+					tag: ['AB-overC-end', 'AB-endAt-1-or-2'],
 					message: "Some southbound [2] and [3] trains end at [Mn327-137] or [Mn333-230]. Some southbound [2] and [3] trains are stopping along the [1] line from [Mn327-137] to [Mn635-142] then end. Southbound [4] and [5] trains end at [Mn414-420] or [Mn622-640].",
 					trains: ['2','3'],
 					route: [
+						{
+							allTrains: false,
+							lines: ['2','3'],
+							along: null,
+							endAt: ['Mn327-137', 'Mn333-230'],
+						},
+						{
+							allTrains: true,
+							lines: ['4','5'],
+							along: null,
+							endAt: ['Mn414-420', 'Mn622-640'],
+						},
 						{
 							lines: ["2","3"],
 							along: "1",
 							from: "Mn327-137",
 							to: "Mn635-142",
+							endAt: ["Mn635-142"],
 						},
 					],
 				new_stations: [ ],
@@ -301,7 +314,7 @@ let event_messages = {
 				type_detail: [
 					'route_change',
 				],
-				tag: ["MTAD-001", "MTAD-004", 'MTAD-046'],
+				tag: ["MTAD-001", "MTAD-004", 'MTAD-046', 'MTAD-010'],
 				time: "Posted: 11/25/2017 7:12PM",
 				durration: null,
 				message: "Some northbound [N] trains are stopping on the [Q] line from 57 St-7 Av and end at 96 St. Some northbound [R] trains are stopping on the [Q] line from 57 St-7 Av to Lexington Av-63 St, then over the [F] line from Lexington Av-63 St to Jackson Heights-Roosevelt Av. This service change is because of a train with mechanical problems at 5 Av-59 St. Expect delays in [F][N][Q][R] train service.",
@@ -315,10 +328,13 @@ let event_messages = {
 					trains: ['N', 'R'],
 					route: [
 						{
+							allTrains: false,
+							dir: 'northbound',
 							lines: ['N'],
 							along: "Q",
 							from: 'Mn9-R14',
 							to: 'Mn475-Q05',
+							endAt: [ 'Mn475-Q05' ],
 						},
 						{
 							lines: ['R'],
@@ -1770,7 +1786,7 @@ let event_messages = {
 					"no_trains_partial",
 					'route_change',
 				],
-				tag: ['MTAD-001'],
+				tag: ['MTAD-001', 'MTAD-010'],
 				message: "Southbound [2] trains will end at Chambers St.Southbound [3] trains are running along the [1] line from Chambers St to South Ferry.These service changes are because of a sick passenger at Clark St.Expect delays in [1], [2] and [3] train service.",
 				message_station_parse: "Southbound [2] trains will end at [Mn327-137].Southbound [3] trains are running along the [1] line from [Mn327-137] to [Mn635-142].These service changes are because of a sick passenger at [Bk334-231].Expect delays in [1], [2] and [3] train service.",
 				line: [
@@ -1778,15 +1794,23 @@ let event_messages = {
 					{ line: "MTA NYCT_3" }
 				],
 				route_change: {
-					tag: ['A-overC'],
-					message: "Southbound [3] trains are running along the [1] line from [Mn327-137] to [Mn635-142].",
+					tag: ['A-overC', 'A-endAt-1'],
+					message: "Southbound [2] trains will end at [Mn327-137].Southbound [3] trains are running along the [1] line from [Mn327-137] to [Mn635-142].",
 					trains: ['3'],
 					route: [
+						{
+							allTrains: true,
+							lines: ['2'],
+							along: null,
+							endAt: ['Mn327-137'],
+							parsed: 'Southbound [2] trains will end at [Mn327-137]',
+						},
 						{
 							lines: ['3'],
 							along: "1",
 							from: 'Mn327-137',
 							to: 'Mn635-142',
+							parsed: 'Southbound [3] trains arerunning along the [1] line from [Mn327-137] to [Mn635-142].',
 						},
 					],
 				},
@@ -2186,6 +2210,7 @@ let event_messages = {
 							along: "F",
 							from: "Mn607-D17",
 							to: "Mn232-F14",
+							endAt: ["Mn232-F14"],
 							test: {
 								expected: {
 									from: 'Mn607-D17', // [Mn607-D17|Mn607-R17]
@@ -2592,7 +2617,7 @@ let event_messages = {
 					"route_change",
 					"no_trains_partial"
 				],
-				tag: ['MTAD-001', "MTAD-033"],
+				tag: ['MTAD-001', 'MTAD-010', 'MTAD-033'],
 				time: null,
 				durration: null,
 				message: "Southbound [2] trains are stopping along the [5] line from 149 St-Grand Concourse to Nevins St. Some northbound [3] trains are stopping along the [1] line from 96 St to 137 St-City College then end. Some northbound [3] trains end at Times Sq-42 St. Some southbound [3] trains end at Central Park North (110 St). Expect delays to [1], [2], [3], [4] and [5] train service. These service changes are because of a train with mechanical problems at 96 St.",
@@ -2604,13 +2629,35 @@ let event_messages = {
 					"MTA NYCT_5",
 				],
 				route_change: {
-					tag: ['A-overC-D-overE'],
+					tag: ['A-overC-D-overE', 'A-endAt-1', 'A-overC-end'],
 					message: "Southbound [2] trains are stopping along the [5] line from [Bx603-222|Bx603-415] to [Bk337-234]. Some northbound [3] trains are stopping along the [1] line from [Mn310-120] to [Mn305-115] then end. Some northbound [3] trains end at [Mn611-127]. Some southbound [3] trains end at [Mn441-227].",
 					trains: [
 						"2",
 						"3"
 					],
 					route: [
+						{
+							allTrains: false,
+							dir: 'northbound',
+							lines: ['3'],
+							along: null,
+							bypass: [],
+							endAt: ['Mn611-127'],
+							action: 'endAt',
+							parsed: 'Some northbound [3] trains end at [Mn611-127]',
+							process: 'RouteChangeBypass'
+						},
+						{
+							allTrains: false,
+							dir: 'southbound',
+							lines: ['3'],
+							along: null,
+							bypass: [],
+							endAt: ['Mn441-227'],
+							action: 'endAt',
+							parsed: 'Some southbound [3] trains end at [Mn441-227]',
+							process: 'RouteChangeBypass'
+						},
 						{
 							allTrains: true,
 							dir: 'southbound',
@@ -5323,9 +5370,10 @@ let event_messages = {
 							},
 
 							{
-								tag: ['MTAD-057', 'MTAD-064'],
+								tag: ['MTAD-057', 'MTAD-064', 'MTAD-010'],
 								type_detail: [
 									"running_local",
+									"route_change",
 								],
 								message: "[7D] express trains are running local from 33 St-Rawson St to Flushing-Main St as a result of an earlier gap in service caused by an investigation at Times Sq-42 St . Some [7] and [7D] express trains will end at Mets-Willets Point or 111 St . Expect delays in [7] train service in both",
 								stations: {
@@ -5338,6 +5386,45 @@ let event_messages = {
 											'Mn611-725': 'Times Sq-42 St',
 										}
 									}
+								},
+								route_change: {
+									message: '[7D] express trains are running local from [Qs460-716] to [Qs447-701] ``` Some [7] and [7D] express trains will end at [Qs448-702] or [Qs449-705] .',
+									tag: ['AB-endAt-1-or-2'],
+									trains: [ '7D' ],
+									route: [
+										{
+											allTrains: true,
+											exp_lcl: 'express',
+											lines: ['7D'],
+											from: 'Qs460-716',
+											to: 'Qs447-701',
+											process: 'RouteChangeStandard',
+											parsed: '[7D] express trains are running local from [Qs460-716] to [Qs447-701]'
+										},
+										/**
+										 *
+										 *
+										 *
+										 *
+										 * @TODO
+										 *
+										 *   This is parsing in the wrong pattern!
+										 *
+										 *   Should be bypass.
+										 *
+										 *
+										 *
+										 *
+										 */
+										{
+											allTrains: false,
+											exp_lcl: 'express',
+											lines: ['7', '7D'],
+											from: 'Qs448-702',
+											to: 'Qs449-705',
+											endAt: ['Qs448-702', 'Qs449-705'],
+											parsed: 'Some [7] and [7D]express trains will end at [Qs448-702] or [Qs449-705] .' }
+		 							],
 								},
 
 								line: [

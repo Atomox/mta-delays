@@ -1,5 +1,6 @@
 const _union = require('lodash').union;
 const _uniq = require('lodash').uniq;
+const _get = require('lodash').get;
 
 const mtaStations = require('./mta.stations');
 const mtaTags = require('./mta.taxonomy');
@@ -110,7 +111,7 @@ async function getRouteChange(text, lines, id) {
 			operate_sections = false,
 			reroute_pattern = /((?:after\s*(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*,?\s*)?(Some)?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b[^\[\]\`]*\b[\s-]bound)?\s*\[([A-Z0-9]{1,2})\](?:\*|\s)*(?:(?:\s|and)*\[([A-Z0-9]{1,2})\])?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*(?:bound)?|\b[^\[\]\`]*\b[\s-]bound)?\s*(?:(?:([^`\[\]]*\b(?:No|service|trains)\s*(?:service|operates?|run)\s*b\s*etween\b|\[__operates-section-[0-9]__\]\s*(?:between)?)\s*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])[^\[\]`]*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])\,?)|(?:trains)?\s*(?:are\s*rerouted)?)?[^\[\]`]*?)((?:\s*(?:(?:and|then|run(?:ning)?|make|making|stopping)?\s*)+(?:(?:(on|via|a?long|over|replace)+\s*(?:the)?\s*\[((?!\3\4)[A-Z0-9])\]|(?:on\s*the\s*)?(express|local)(?:\s*track)?)[^\/\[\]`]*(express|local|to\s*\/\s*from|to|in|\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])[^\[\]`]*(Manhattan|Queens|Brooklyn|the\s* Bronx|\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])|to\s*\/\s*from\s*(?:the)?\s*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])\s*\[([A-Z0-9]{1,2})\]\s*(?:station)?\s*(?:after\s*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\]))?))\s*(?:\s*\(skipping.*\)\s*|\,\s*the\s*last\s*stop|\,\s*then\s*end)?[\.,\s]*)((?:(?:(?:and|then)?\s*(?:trains\s*(?:run)\s*)?(?:stopping|run|operat(?:e|ing))?\s*(via|along|over|replace|on)+ the)\s*(\[(?!\3\4)[A-Z0-9]\])?[^\[\]`]*?((?:and\s*)?end(?:ing)?\s*at|to\s*\/\s*from|\bto\b|\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])(?:[^\[\]`]*?(?:(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])[\.]?))?)?)/i,
 			no_trains_between_pattern = /(?:Service\s*is\s*(suspended)\s*(?:in\s*both\s*directions\s*)(?:on\s*the\s*)|(No)\s*)?\[([A-Z0-9]{1,2})\](?:\*|\s)*(?:(?:\s|and|or)*\[([A-Z0-9]{1,2})\])?\s*(?:train[s]?\s*(?:service)?\s*)?(?:(?:There\s*(?:is|will\s*be)\s*)?(No)?\s*(?:trains|service)\s*between|(?:line\s*)?between)\s*(?:(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])\s*(?:and)?\s*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\]))/i,
-			bypass_pattern = /((Some)?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b[^\[\[\`]*\b[\s-]bound)?\s*\[([A-Z0-9]{1,2})\](?:\*|\s)*(?:(?:\s|and)*\[([A-Z0-9]{1,2})\])?\s*(Some)?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b[^\[\]\`]\b[\s-]bound)?\s*(?:(?:trains|service)\s*(?:are|is)?\s*(skip(?:ping|s)?|bypass(?:ing|es)?|end\s*(?:at|after))|(No\s*(?:trains|service))\s*at)\s*((?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\]\s*(?:,|and|or)*\s*)+))\s*((?:(?:trains|service)\s*(?:are|is)?\s*(skip(?:ping|s)?|bypass(?:ing|es)?)|(No\s*(?:trains|service))\s*at)\s*((?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\]\s*(?:,|and)*\s*)+))?/i,
+			bypass_pattern = /((Some)?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b[^\[\[\`]*\b[\s-]bound)?\s*\[([A-Z0-9]{1,2})\](?:\*|\s)*(?:(?:\s|and)*\[([A-Z0-9]{1,2})\])?\s*(Some)?\s*(Northbound|Southbound|Uptown|Downtown|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound|\b[^\[\]\`]\b[\s-]bound)?\s*(?:(?:trains|service)\s*(?:are|is|will)?\s*(skip(?:ping|s)?|bypass(?:ing|es)?|end\s*(?:at|after))|(No\s*(?:trains|service))\s*at)\s*((?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\]\s*(?:,|and|or)*\s*)+))\s*((?:(?:trains|service)\s*(?:are|is)?\s*(skip(?:ping|s)?|bypass(?:ing|es)?)|(No\s*(?:trains|service))\s*at)\s*((?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\]\s*(?:,|and)*\s*)+))?/i,
 			operate_sections_pattern = /\[([A-Z0-9])\](?:(?:\s|and|\*)*\[([A-Z0-9])\])?\s*(?:(?:(?:\[__operates-section-([0-9])__\]|(?:(?:shuttle)?\s*(?:service|trains))\s*(?:operate(?:s)?|(?:are)?\s*run(?:ning)?))\s*(?:(?:(?:at)?\s*all\s*times)|weekend(?:s)?\s*(?:service)?)?\s*(?:(?:in)?\s*(?:Manhattan|Brooklyn|Queens|(?:the\s*)?Bronx))?\s*(?:between)?)\s*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\])(?:[^\[\]`]|\[[a-z0-9]\])*(\[(?:[A-Z]{2}[A-Z0-9]{1,4}\-[A-Z0-9]{2,5}[|]?)+\]))+/i,
 			module = [
 				{
@@ -346,12 +347,21 @@ async function processRouteChangeResults(regex_match, message_mod) {
 				case 1:
 				case 10:
 				case 19:
-					/**
-					 * @TODO
-					 *   If 10, and afterStationPrefix exists, append to the front of 10.
-					 */
+
 					// Full pattern route matches.
 					route_pair.route[j].parsed = item.trim();
+
+					// A run via B from 1 to 2, then end.
+					// A run via B from 1 and end at 2.
+					// A run via B from 1 to 2, the last stop.
+					let endAtPattern = /((?:then|and)\s*end\s*(?:at)?|\,\s*the\s*last\s*stop|\,\s*then\s*end)+/ig
+
+					// If endAt exists, then this pair's 'to' station
+					// is the terminus station. Place the property stub there,
+					// and we'll know to fill it when we detect the station.
+					if (mtaRegEx.matchRegexString(endAtPattern, item, false) !== false) {
+						route_pair.route[j].endAt = [];
+					}
 
 					// Since this pattern is parsed outside of the initial match,
 					// we can't account for it as one of the matches in i.
@@ -520,6 +530,13 @@ async function processRouteChangeResults(regex_match, message_mod) {
 					results.message_mod = results.message_mod.replace(route_pair.route[t-1].parsed,'[-- route-match ' + (t-1) + ' --]');
 
 					res.parsed = route_pair.route[t-1].parsed + res.parsed;
+				}
+
+				// endAt for A over C, then end.
+				// We detected this pair contained an "endAt",
+				// we still need to populate it with the "to" station.
+				if (_get(res,'endAt', false) !== false && Array.isArray(res.endAt)) {
+					res.endAt.push(res.to);
 				}
 
 				results.route.push(res);
@@ -902,7 +919,7 @@ async function getMessageRouteChange(text) {
 	// Get stations in each line, as a giant regex.
 	let stations = await mtaStations.getStationLinesRegex();
 
-	let routeChangePattern = /((?:(?:(?:(?:Some|northbound|southbound|(?:down|up)town|and|\b.*\b[\s-]bound|(?:(?:after\s*)?\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[,\s-]\s*(?:bound)?)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|6D|7D|HS|FS|H|FS|[1-7]|SB|TP)\][\*\s]*(?:(?:Some|northbound|southbound|(?:down|up)town|and|\b.*\b[\s-]bound|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*(?:bound)?)\s*)*)*(?:(?:express|local|shuttle)?\s*(?:trains)?\s*(?:(?:(?:There\s*(?:is|will\s*be)\s*)?No\s*(?:\[[A-Z0-9]{1,2}\]\s*)?\s*(?:service|train[s]?(?:\s*service)?)|\bService\b\s*is\s*suspended\s*(?:in\s*both\s*directions\s*)?\s*(?:on\s*the\s*)?(?:\[[A-Z0-9]{1,2}\])?\s*line|are\s*making\s*(?:express|local|shuttle)\s*stops)\s*(?:(?:in)?\s*(?:Manhattan|Brooklyn|Queens|(?:the\s*)?Bronx)\s*)?(?:between|at)\s*(?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\](?:(?:,\s*)?(?:Manhattan|Brooklyn|Queens|(?:The\s*)?Bronx)|\s*|\,|and|or)*)+|(?:(?:make|run)\s*local(?:\s*stops)?\s*and)?(?:\s*(?:are|will))?\s*(?:reroute[d]?(?:(?:\s*in\s*both\s*directions)?)?|\breplace\b|stopping|operate\s*(?:weekday|weekend|evening|overnight)\s*(?:service)?|run(?:ning)?\s*(?:(?:via|along|on)\s*(?:the)?\s*(?:(?:express|local)\s*track)?|traveling|express|local|between))|(?:(?:(?:\[SB\]\s*)?\wbus(?:es)?\w|service operates|operate(?:s)?|\btrains\s*run\b)\s*(?:(?:at\s*)?all\s*times)?(?:\s*in\s*two\s*sections[\s0-9\:\.]*|\s*b\s*etween)?)|(?:are\s*)?(?:skip(?:ping)?|bypass(?:ing)?)\s*(?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\](?:\s*|\,|and)*)+)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*the|(?:then|trains)\s*end\s*(?:at)?))(?:(?:\s*|[1-9]\.)*(?:(?:and)?\s*is\s*rerouted|both\s*directions|(?:express|local)?\s*in\s*(?:Manhattan|Brooklyn|Queens|the Bronx|staten Island)?|as follows\:|line[s]?|travel(?:ing)?|are|(?:and\s*)?(?:on|in|b\s*etween|along|long|from|to(?:\s*\/\s*from)?|via|\breplace\b)\s*(?:the)?|then(?:\s*end)?|end\s*(?:at)|\,|\.|\(\s*skipping[^\(\)]*\))*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|6D|7D|HS|FS|H|FS|[1-7]|SB|TP)\])*(?:station|[\*\s]*)*(?:(?:(?:[\*\s]*|between|and|\/|or|until|to(?:\s*\/\s*from\s*)?|end\s(?:at)?|express|local|in\s*both\s*directions|train(s)?|station|after)*\s*(?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\])(?:(?:,\s*)?(?:Manhattan|Brooklyn|Queens|(?:The\s*)?Bronx)|\,?\s*the last stop|\,|\s*days(?:\s*(?:and|\/)\s*)?evenings|\*?)*\.?)*)*)*)+/;
+	let routeChangePattern = /((?:(?:(?:(?:Some|northbound|southbound|(?:down|up)town|and|\b.*\b[\s-]bound|(?:(?:after\s*)?\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[,\s-]\s*(?:bound)?)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|6D|7D|HS|FS|H|FS|[1-7]|SB|TP)\][\*\s]*(?:(?:Some|northbound|southbound|(?:down|up)town|and|\b.*\b[\s-]bound|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*(?:bound)?)\s*)*)*(?:(?:express|local|shuttle)?\s*(?:trains)?\s*(?:(?:(?:There\s*(?:is|will\s*be)\s*)?No\s*(?:\[[A-Z0-9]{1,2}\]\s*)?\s*(?:service|train[s]?(?:\s*service)?)|\bService\b\s*is\s*suspended\s*(?:in\s*both\s*directions\s*)?\s*(?:on\s*the\s*)?(?:\[[A-Z0-9]{1,2}\])?\s*line|are\s*making\s*(?:express|local|shuttle)\s*stops)\s*(?:(?:in)?\s*(?:Manhattan|Brooklyn|Queens|(?:the\s*)?Bronx)\s*)?(?:between|at)\s*(?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\](?:(?:,\s*)?(?:Manhattan|Brooklyn|Queens|(?:The\s*)?Bronx)|\s*|\,|and|or)*)+|(?:(?:make|run)\s*local(?:\s*stops)?\s*and)?(?:\s*(?:are|will))?\s*(?:reroute[d]?(?:(?:\s*in\s*both\s*directions)?)?|\breplace\b|stopping|operate\s*(?:weekday|weekend|evening|overnight)\s*(?:service)?|run(?:ning)?\s*(?:(?:via|along|on)\s*(?:the)?\s*(?:(?:express|local)\s*track)?|traveling|express|local|between))|(?:(?:(?:\[SB\]\s*)?\wbus(?:es)?\w|service operates|operate(?:s)?|\btrains\s*run\b)\s*(?:(?:at\s*)?all\s*times)?(?:\s*in\s*two\s*sections[\s0-9\:\.]*|\s*b\s*etween)?)|(?:are\s*)?(?:skip(?:ping)?|bypass(?:ing)?)\s*(?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\](?:\s*|\,|and)*)+|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*the|(?:then|trains)\s*(?:will\s*)?end\s*(?:at)?)))(?:(?:\s*|[1-9]\.)*(?:(?:and)?\s*is\s*rerouted|both\s*directions|(?:express|local)?\s*in\s*(?:Manhattan|Brooklyn|Queens|the Bronx|staten Island)?|as follows\:|line[s]?|travel(?:ing)?|are|(?:and\s*)?(?:on|in|b\s*etween|along|long|from|to(?:\s*\/\s*from)?|via|\breplace\b)\s*(?:the)?|then(?:\s*end)?|end\s*(?:at)|\,|\.|\(\s*skipping[^\(\)]*\))*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|6D|7D|HS|FS|H|FS|[1-7]|SB|TP)\])*(?:station|[\*\s]*)*(?:(?:(?:[\*\s]*|between|and|\/|or|until|to(?:\s*\/\s*from\s*)?|end\s(?:at)?|express|local|in\s*both\s*directions|train(s)?|station|after)*\s*(?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\])(?:(?:,\s*)?(?:Manhattan|Brooklyn|Queens|(?:The\s*)?Bronx)|\,?\s*the last stop|\,|\s*days(?:\s*(?:and|\/)\s*)?evenings|\*?)*\.?)*)*)*)+/;
 /**
 	 /((?:(?:(?:(?:Some|northbound|southbound|(?:down|up)town|and|\b.*\b[\s-]bound|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\][\*\s]*(?:(?:Some|northbound|southbound|(?:down|up)town|and|\b.*\b[\s-]bound|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*bound)\s*)*)*(?:(?:express|local|shuttle)?\s*(?:trains)?\s*(?:(?:(?:make|run)\s*local(?:\s*stops)?\s*and)?(?:\s*are)?\s*(?:reroute[d]?(?:(?:\s*in\s*both\s*directions)?)?|replace|stopping|operate\s*(?:weekday|weekend|evening|overnight)\s*(?:service)?|run(?:ning)?\s*(?:(?:via|along)\s*(?:the)?|traveling|express|local|between))|(?:(?:(?:\[SB\]\s*)?\wbus(?:es)?\w|service operates|operate(?:s)?)\s*(?:(?:at\s*)?all\s*times)?(?:\s*in\s*two\s*sections[\s0-9\:\.]*|\s*b\s*etween)?)|(?:are\s*)?(?:skip(?:ping)?|bypass(?:ing)?)\s*(?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\](?:\s*|\,|and)*)+)|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*the|(?:then|trains)\s*end\s*(?:at)?))(?:(?:\s*|[1-9]\.)*(?:(?:and)?\s*is\s*rerouted|both\s*directions|(express|local)?\s*in\s*(?:Manhattan|Brooklyn|Queens|the Bronx|staten Island)?|as follows\:|line[s]?|travel(?:ing)?|are|(?:and\s*)?(?:on|in|b\s*etween|along|long|from|to|via|replace)\s*(?:the)?|then(?:\s*end)?|end\s*(?:at)|\,|\.|\(\s*skipping[^\(\)]*\))*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\])*(?:[\*\s]*)(?:(?:(?:[\*\s]*|between|and|\/|or|until|to(?:\s*\/from\s*)?|end\s(?:at)?|express|local|in\s*both\s*directions|train(s)?)*\s*(?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\])(?:\,?\s*the last stop|\,|\s*days(?:\s*(?:and|\/)\s*)?evenings|\*?)*\.?)*)*)*)+/;
 */
