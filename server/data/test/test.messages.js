@@ -2119,7 +2119,7 @@ let event_messages = {
 							'Mn618-A31': '14 St',
 							'Mn167-A32': 'W 4 St',
 							'Mn168-A33': 'Spring St', // local
-							'Mn169-A34': 'Canal St // last E stop',
+							'Mn169-A34': 'Canal St', // last E stop
 							'Mn624-A36': 'Chambers',
 							'Mn628-A38': 'Fulton St',
 							'Bk173-A40': 'High St',
@@ -5369,6 +5369,57 @@ let event_messages = {
 								],
 							},
 
+
+							{
+								id: "MTA NYCT_af01a11e-4836-4603-a414-a8c83557bb38",
+								type: "Delays",
+								planned: false,
+								date: {
+									fetched: "2019-04-09T18:27:53.89-04:00",
+									start: "2019-04-09T17:30:00-04:00",
+								},
+								detail: {
+									type: {tag: "signal_problems",weight: 1},
+									type_detail: [
+										"signal_problems",
+										"delays"
+									],
+									message: "There are service changes and delays [7] and [7D] train service because of signal problems at Hunters Point Av . Main St-bound [7D] trains are running local from Queensboro Plaza to Flushing-Main St . Some 34 St-bound [7] trains are ending at 74 St-Broadway . Expect significant delays in [7] and [7D] train service. LIRR is accommodating NYCT MetroCard holders at the following stations: Main St, Woodside and Penn Station .",
+								},
+								route_change: {
+									message: '[Qs447-701]-bound [7D] trains are running local from [Qs461-718] to Flushing-[Qs447-701] . ``` Some [Mn471-726]-bound [7] trains are ending at [Qs616-710] .',
+									tag: ['A-endAt-1'],
+									trains: [ '7', '7D' ],
+									route: [
+										{
+											allTrains: true,
+											dir: '[qs447-701]-bound',
+											exp_lcl: 'local',
+											lines: ['7D'],
+											along: null,
+											from: 'Qs461-718',
+											to: 'Qs447-701',
+											section: null,
+											process: 'RouteChangeStandard',
+											parsed: '[Qs447-701]-bound [7D] trains arerunning local from [Qs461-718] to [Qs447-701] .'
+										},
+										{
+											allTrains: false,
+											dir: '[Mn471-726]-bound',
+											lines: ['7'],
+											along: null,
+											endAt: ['Qs616-710'],
+											action: 'endAt',
+											parsed: 'Some [Mn471-726]-bound [7] trains are ending at [Qs616-710] ',
+											process: 'RouteChangeBypass'
+		 								}
+									],
+								},
+								line: [
+									{line: "MTA NYCT_7",dir: "0"},
+									{line: "MTA NYCT_7",dir: "1"}
+								],
+							},
 							{
 								tag: ['MTAD-057', 'MTAD-064', 'MTAD-010'],
 								type_detail: [

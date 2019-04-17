@@ -166,6 +166,7 @@ function stationCommonName(name, boro) {
 			// 34
 			'34 St - Herald Sq': '34 St',
 			'34 St - Penn Station': '34 St',
+			'34 St - 11 Av': '34 St',
 
 			// 14
 			'14 St - Union Sq': '14 St',
@@ -337,8 +338,10 @@ function stationAliases(name, boro) {
 			'34 St - 11 Av': [
 				'34 St-Hudson Yards',
 				'Hudson Yards',
+				'34 St'
 			],
 			'34 St - Herald Sq': [
+				"34 St-Herald Sq.",
 				'Herald Square',
 				'Herald Sq',
 				'34 St',

@@ -23,6 +23,9 @@ const msg = event_messages.normal;
 const s = stations;
 
 describe('Parse Stations', function() {
+
+	console.warn('\n\n<!> CAUTION <!> -- Event missing -durration- or -type_detail- may cause limited station parsing due to not detecting alternate service time/routes.');
+	
 	describe('General Station Tests', () => {
 
 		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Basic Stations Check', [], ['MTAD-026']);
@@ -206,6 +209,8 @@ function CheckStationsListForExpected (event, data_path) {
 	if (e_stations === false) {
 		expect(event, 'TEST MESSING path:' + data_path + '--' + event.message).to.not.equal(false);
 	}
+
+	expect(event, 'Stations Tests can be affected by missing *type_detail* property' + '--' + event.message).to.haveOwnProperty('type_detail');
 
 	// In order to determine weekend / late night / etc routes,
 	// we need tags from the durration object.

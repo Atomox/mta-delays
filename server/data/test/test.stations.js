@@ -30,6 +30,51 @@ let stations = {
 		},
 		false_positive: [
 			{
+				archive: { id: "MTA NYCT_176407", archive: 38},
+				type_detail: [
+					'running_local',
+					'late_night',
+					'route_change'
+				],
+				message: "FASTRACK PROGRAM [A] Trains run local and are rerouted between 59 St-Columbus Circle and Jay St-MetroTech [C] Service ends early - Take the [A] instead [E] Trains are rerouted in Manhattan Late Nights, 9:30 PM to 5 AM, Mon to Fri, Jan 15 - 19 Jan 22 - 26 [A] Trains make local stops and are rerouted in both directions as follows: Via the [D] between 59 St-Columbus Circle and 34 St-Herald Sq. Via the [F] between 34 St-Herald Sq and Jay St-MetroTech. [E] Trains are rerouted in both directions in Manhattan as follows: Via the [M] between 5 Av/53 St and 34 St-Herald Sq. Via the [F] between 34 St-Herald Sq and 2 Av, the last stop.",
+				stations: {
+					"MTA NYCT_A": {
+						'stations': {
+							'Mn614-A24': '59 St - Columbus Circle',
+							'Mn164-A28': '34 St - Penn Station',
+							'Bk636-A41': 'Jay St - Metro Tech',
+						},
+					},
+					"MTA NYCT_C": {
+						stations: {
+							'Mn614-A24': '59 St - Columbus Circle',
+							'Bk636-A41': 'Jay St - Metro Tech',
+							'Mn164-A28': '34 St - Penn Station',
+						},
+					},
+					"MTA NYCT_E":{
+						stations: {
+							'Mn276-F12': '5 Av/53 St',
+							'Mn164-A28': '34 St - Penn Station',
+						},
+					},
+				},
+				line: [
+					{ line: "MTA NYCT_A", dir: "0"},
+					{	line: "MTA NYCT_A",	dir: "1"},
+					{	line: "MTA NYCT_C",	dir: "0"},
+					{	line: "MTA NYCT_C", dir: "1"},
+					{	line: "MTA NYCT_E",	dir: "1"},
+					{	line: "MTA NYCT_E",	dir: "0"},
+					{	line: "MTA NYCT_D",	dir: "1"},
+					{	line: "MTA NYCT_F",	dir: "0"}
+				],
+			},
+			{
+				type_detail: [
+					'no_trains_partial',
+					'route_change'
+				],
 				message: 'TRACK MAINTENANCE [W] No trains between 57 St-7 Av and Ditmars Blvd - Take the',
 				stations: {
 					'MTA NYCT_W': {
@@ -44,6 +89,9 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [
+					'route_change'
+				],
 				message: "Some northbound [N] trains are stopping on the [Q] line from 57 St-7 Av and end at 96 St. Some northbound [R] trains are stopping on the [Q] line from 57 St-7 Av to Lexington Av-63 St, then over the [F] line from Lexington Av-63 St to Jackson Heights-Roosevelt Av. This service change is because of a train with mechanical problems at 5 Av-59 St. Expect delays in [F][N][Q][R] train service.",
 				stations: {
 					'MTA NYCT_F': {
@@ -88,6 +136,9 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [
+					'running_local'
+				],
 				message: '[D] trains are running local from 145 St to 59 St-Columbus Circle in both directions.[N] trains are stopping along the [R] line from DeKalb Av to Lexington Av/59 St.',
 				message_station_parse: "[D] trains are running local from [Mn151-A12] to [Mn614-A24] in both directions.[N] trains are stopping along the [R] line from [Bk26-R30] to [Mn613-R11].",
 				stations: {
@@ -117,8 +168,11 @@ let stations = {
 					{line: 'MTA NYCT_R'}
 				],
 			},
-
 			{
+				type_detail: [
+					'bypass_stations',
+					'route_change'
+				],
 				message: '[N] [Q] [R] [W] Some Bay Ridge-bound trains skip Queens Plaza, Lexington Av/59 St and 5 Av/59 St',
 				message_station_parse: '[N] [Q] [R] [W] Some Bay Ridge-bound trains skip [Qs273-G21], [Mn613-R11] and [Mn8-R13]',
 				stations: {
@@ -155,6 +209,9 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [
+					'delays'
+				],
 				message: '[E] [M] [R] trains are experiencing delays because of ... at Lexington Av/53 St.',
 				stations: {
 					'MTA NYCT_E': {
@@ -182,6 +239,7 @@ let stations = {
 		],
 		nomDePlume: [
 			{
+				type_detail: [],
 				message: 'Jackson Heights-Roosevelt Av',
 				stations: {
 					'MTA NYCT_F': {
@@ -195,6 +253,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				message: 'Roosevelt Av',
 				stations: {
 					'MTA NYCT_E': {
@@ -208,6 +267,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				message: '241 St',
 				stations: {
 					'MTA NYCT_2': {
@@ -221,6 +281,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: ['running_local'],
 				message: '[E] trains run local between 71 Av and',
 				stations: {
 					'MTA NYCT_E': {
@@ -234,6 +295,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				message: 'No [F] service at 47-50 Sts',
 				stations: {
 					'MTA NYCT_F': {
@@ -247,6 +309,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				message: '[E] service operates between Jamaica Center',
 				stations: {
 					'MTA NYCT_E': {
@@ -260,6 +323,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				message: 'B\'way-Lafayette St',
 				stations: {
 					'MTA NYCT_D': {
@@ -273,6 +337,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				message: 'and via the [F] to/from Stillwell Av',
 				stations: {
 					'MTA NYCT_F': {
@@ -286,6 +351,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				message: '[5] service operates between Dyre Av and E 180 St.',
 				stations: {
 					'MTA NYCT_5': {
@@ -300,6 +366,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_173402', archive: 0 },
 				message: 'take the [6] to [Mn602-635] or Brooklyn Bridge and transfer to an uptown [4] local or [6].',
 				stations: {
@@ -314,6 +381,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_174579', archive: 0 },
 				message: '[L] service operates between Rockaway Pkwy and Myrtle-Wyckoff Avs.',
 				stations: {
@@ -329,6 +397,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_173257', archive: 0 },
 				message: '[M] shuttle service operates between Metropolitan Av and Myrtle Wyckoff Avs.',
 				stations: {
@@ -344,6 +413,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_fdb2c0f8-5931-4f1a-983f-a15fd69a93e1', archive: 1 },
 				message: 'signal problems at 61 St-Woodside.',
 				stations: {
@@ -358,6 +428,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_d0283bcc-95e1-47e8-9e44-e2628314fdcd', archive: 2 },
 				message: '[A] [C] and [E] trains are bypassing 42 St/Port Authority-Bus Terminal in both directions.',
 				stations: {
@@ -372,6 +443,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_173983', archive: 3 },
 				message: 'E 143 St, Westchester Sq - E Tremont Av',
 				stations: {
@@ -387,6 +459,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_173363', archive: 3 },
 				message: 'For service to these stations, take the [7] to Willets Point and transfer to',
 				stations: {
@@ -401,6 +474,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_174679', archive: 3 },
 				message: '[A] service operates between 207 St ... and via the [S] to/from Beach 116 St',
 				stations: {
@@ -416,6 +490,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_173350', archive: 4 },
 				message: 'TRACK MAINTENANCE [2] Flatbush Av-bound trains skip',
 				stations: {
@@ -430,6 +505,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_173333', archive: 6 },
 				message: 'trains skip 66 St, 59 St and 50 St Late Nights',
 				stations: {
@@ -446,6 +522,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_173336', archive: 6 },
 				message: 'TRACK MAINTENANCE [3] Service operates between 148 St and 34 St-Penn Station.',
 				stations: {
@@ -461,6 +538,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_174565', archive: 6 },
 				message: 'TRACK MAINTENANCE [A] Inwood-bound trains run express from Broadway Junction to Hoyt-Schermerhorn',
 				stations: {
@@ -477,6 +555,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_175372', archive: 6 },
 				message: 'Jamaica-bound trains skip Fort Hamilton Pkwy , 15 St-Prospect Park and 4 Av-9 St',
 				stations: {
@@ -493,6 +572,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_173660', archive: 6 },
 				message: 'Buses make all stops in Brooklyn, between ... and 95 St-Bay Ridge.',
 				stations: {
@@ -507,6 +587,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_175347', archive: 51 },
 				message: 'free shuttle buses operate between Myrtle-Wyckoff Av and Myrtle Av',
 				stations: {
@@ -522,6 +603,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_177077', archive: 51 },
 				message: 'For service to 67 Av, 63 Dr, Woodhaven Blvd, Grand Av and Elmhurst Av, take the [R] to Roosevelt Av and transfer to a Forest Hills-bound [R].',
 				stations: {
@@ -541,6 +623,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: '', archive: 'test_messages' },
 				message: '[2] service operates between 241 St and Franklin Av, and via the [4] to/from Utica Av.',
 				stations: {
@@ -563,6 +646,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				message: '[1] Downtown trains skip 59 St',
 				stations: {
 					'MTA NYCT_1': {
@@ -594,6 +678,7 @@ let stations = {
 		],
 		splitDestinations: [
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_173239', archive: 0 },
 				message: 'TRACK MAINTENANCE [A] Ozone Park/Far Rockaway-bound trains skip',
 				stations: {
@@ -611,6 +696,7 @@ let stations = {
 		],
 		sharedStation: [
 			{
+				type_detail: [],
 				message: 'Jackson Heights-Roosevelt Av',
 				stations: {
 					'MTA NYCT_F': {
@@ -642,6 +728,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: 'MTA NYCT_d0283bcc-95e1-47e8-9e44-e2628314fdcd', archive: 2 },
 				message: '[A] [C] and [E] trains are bypassing 42 St/Port Authority-Bus Terminal in both directions.',
 				stations: {
@@ -668,6 +755,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: '', archive: 0 },
 				message: '[1] [2] [3] [N] [R] [Q] [W] and [7] trains are bypassing Times Sq-42 St in both directions, [A] [C] and [E] trains are bypassing 42 St/Port Authotiy.',
 				stations: {
@@ -738,6 +826,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: null, archive: null },
 				message: 'Because of some candy on the tracks at Broadway Junction',
 				stations: {
@@ -776,6 +865,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				source: { id: '', archive: 0 },
 				message: '[2],[4],[5] No trains between 149 St-Grand Concourse',
 				stations: {
@@ -802,6 +892,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: [],
 				message: 'Delancey St/Essex St',
 				stations: {
 					'MTA NYCT_F': {
@@ -845,6 +936,7 @@ let stations = {
 		],
 		'MTAD-098': [
 			{
+				type_detail: ['no_trains_partial'],
 				source: { id: 'MTA NYCT_184927', archive: 125 },
 				message: 'TRACK REPLACEMENT | No [2] trains between Chambers St, Manhattan and Atlantic Av-Barclays Ctr, Brooklyn.',
 				stations: {
@@ -867,6 +959,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: ['running_local'],
 				ticket: 'MTAD-166',
 				source: { id: '', archive: 189 },
 				message: 'Southbound [D], [N] and [R] trains are running with delays because of signal problems at 36 St (Brooklyn). Some southbound [N] trains are running on the [D] line from 36 St (Brooklyn) to Coney Island-Stillwell Av. Some southbound [N] trains are making local stops between Atlantic Av-Barclays Ctr to 36 St (Brooklyn).',
@@ -884,6 +977,7 @@ let stations = {
 							'Bk32-R36': "36 St (Brooklyn)",
 							'Bk617-R31': '',
 							'Bk58-D43': '',
+							'Bk617-235': '',
 						}
 					},
 					'MTA NYCT_R': {
@@ -900,6 +994,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: ['route_change'],
 				source: { id: '', archive: 0 },
 				message: 'No [R] trains between Bay Ridge-95 St and 36 St, Brooklyn, due to track maintenance. Take free shuttle buses and the [N]. [R] service operates between 71 Av and 36 St, and via the [D] to/from 9 Av, the last stop.',
 				stations: {
@@ -916,6 +1011,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: ['no_trains_partial'],
 				source: { id: 'MTA NYCT_185458', archive: 126 },
 				message: 'No [1] trains between 137 St, Manhattan and 242 St, Bronx [A] [C] trains, M3, M100 and [SB] free shuttle buses provide alternate service [1] Service operates in Manhattan between South Ferry and 137 St .',
 				stations: {
@@ -932,6 +1028,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: ['no_trains_partial'],
 				source: { id: '', archive: 126 },
 				message: 'No [7] trains between Queensboro Plaza, Queens and 34 St-Hudson Yards, Manhattan',
 				stations: {
@@ -947,6 +1044,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: ['route_change'],
 				source: { id: '', archive: 126 },
 				message: 'Inwood-bound [A] trains run via the [F] from Jay St-MetroTech, Brooklyn to W 4 St, Manhattan',
 				stations: {
@@ -969,6 +1067,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: ['route_change'],
 				source: { id: '', archive: 126 },
 				message: '[F] Brooklyn-bound trains run via the [E] from Roosevelt Av, Queens to Canal St, Manhattan and via the [A] to Jay St-MetroTech, Brooklyn',
 				stations: {
@@ -998,6 +1097,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: ['route_change'],
 				source: { id: '', archive: 126 },
 				message: '[N] Astoria-bound trains run via the [Q] from DeKalb Av, Brooklyn to Canal St, Manhattan',
 				stations: {
@@ -1020,6 +1120,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: ['no_trains_partial'],
 				source: { id: '', archive: 127 },
 				message: 'No [D] trains between 59 St-Columbus Circle, Manhattan and 161 St-Yankee Stadium, Bronx',
 				stations: {
@@ -1035,6 +1136,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: ['route_change'],
 				source: { id: '', archive: 127 },
 				message: 'Jamaica-bound [F] trains are rerouted via the [E] after 47-50 Sts in Manhattan to Roosevelt Av in Queens',
 				stations: {
@@ -1056,6 +1158,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: ['route_change'],
 				source: { id: '', archive: 127 },
 				message: 'Astoria-bound [N] trains run via the [Q] from DeKalb Av in Brooklyn to Canal St in Manhattan',
 				stations: {
@@ -1081,7 +1184,7 @@ let stations = {
 		'36st': [
 			{
 				source: { id: '', archive: 0 },
-
+				type_detail: ['no_trains_partial', 'route_change'],
 				// Should replace 36 St, Brooklyn AND 36 St
 				message: 'No [R] trains between ... 36 St, Brooklyn, due to track maintenance. [R] service operates between 71 Av and 36 St, and via the [D] ...',
 				stations: {
@@ -1097,7 +1200,7 @@ let stations = {
 			},
 			{
 				source: { id: 'MTA NYCT_a3749ab2-cb3e-48c6-a58a-f74726aa2936', archive: 6 },
-
+				type_detail: ['delays'],
 				// Should replace 36 St, Brooklyn AND 36 St
 				message: 'Southbound [E] and [F] trains are running with delays because of a rail condition at 36 St (Queens).',
 				stations: {
@@ -1113,6 +1216,7 @@ let stations = {
 			},
 			{
 				source: { id: 'MTA NYCT_380e324e-31ab-4890-aa90-47f7e7e60677', archive: 15 },
+				type_detail: ['route_change'],
 
 				// Should replace 36 St, Brooklyn AND 36 St
 				message: 'Some southbound [R] trains are stopping along the [F] line from 36 St (Qns) to ...',
@@ -1129,6 +1233,7 @@ let stations = {
 			},
 			{
 				source: { id: 'MTA NYCT_3a382636-b7c8-435d-8ca3-2ae51393268d', archive: 17 },
+				type_detail: ['delays'],
 				message: 'Northbound [D] and [N] trains are running with delays because of a sick passenger at 36 St (BKLYN).',
 				stations: {
 					'MTA NYCT_D': {
@@ -1149,6 +1254,7 @@ let stations = {
 			},
 			{
 				source: { id: 'MTA NYCT_175195', archive: 22 },
+				type_detail: ['running_local'],
 				message: '[F] trains run local in Queens, Manhattan-bound [E] [F] trains make local stops at ... 36 St.',
 				stations: {
 					'MTA NYCT_E': {
@@ -1168,6 +1274,7 @@ let stations = {
 				],
 			},
 			{
+				type_detail: ['running_local'],
 				source: { id: 'MTA NYCT_9d5e8bb2-fff8-403a-85f5-917eb80c0d76', archive: 24 },
 				message: 'Northbound [N] trains are running local from 59 St (Bklyn) to 36 St (Bklyn) because of the weather conditions.',
 				stations: {
@@ -1184,6 +1291,7 @@ let stations = {
 			},
 			{
 				source: { id: 'MTA NYCT_78c4ecec-1ca7-43d4-9cea-1edb9c7c2c29', archive: 28 },
+				type_detail: ['route_change'],
 				message: 'Broadway Junction bound [M] trains are stopping along the [F] line from 36 St (QNS) to ... ',
 				stations: {
 					'MTA NYCT_M': {
@@ -1198,6 +1306,7 @@ let stations = {
 			},
 			{
 				source: { id: 'MTA NYCT_176107', archive: 31 },
+				type_detail: ['running_express'],
 				message: 'SIGNAL MAINTENANCE [R] Bay Ridge-bound trains run express from ... to 59 St, Brooklyn ... Trains stop at 36 St. For service to ..., take the [R] to 36 St and transfer to ... For service from these stations, take the [N] or [R] to 36 St and transfer to a Bay Ridge-bound [R].',
 				stations: {
 					'MTA NYCT_R': {
@@ -1213,6 +1322,7 @@ let stations = {
 			},
 			{
 				source: { id: 'MTA NYCT_f665b032-fca1-4121-8032-616da357047d', archive: 32 },
+				type_detail: ['no_trains_partial'],
 				message: 'There is no [B] train service between Coney Island-Stillwell Av and Bedford Park Blvd in both directions.There is no [D] train service between ... and 36 St (Bklyn) in both directions.',
 				stations: {
 					'MTA NYCT_D': {
@@ -1227,6 +1337,7 @@ let stations = {
 			},
 			{
 				source: { id: 'MTA NYCT_178432', archive: 36 },
+				type_detail: ['route_change'],
 				message: 'PRIORITY REPAIRS [D] Coney Island-bound trains are rerouted in Manhattan and Brooklyn. Travel Alternatives [TP] For ... For service to ... , transfer at 36 St to a Manhattan-bound [D] [N] or [R].',
 				stations: {
 					'MTA NYCT_D': {
@@ -1241,6 +1352,7 @@ let stations = {
 			},
 			{
 				source: { id: 'MTA NYCT_176101', archive: 36 },
+				type_detail: ['running_express'],
 				message: 'SIGNAL MAINTENANCE [N] Coney Island-bound trains run express from ... to 59 St, Brooklyn. Trains stop at 36 St.',
 				stations: {
 					'MTA NYCT_N': {
@@ -1263,6 +1375,7 @@ let stations = {
 			},
 			{
 				source: { id: 'MTA NYCT_176626', archive: 39 },
+				type_detail: ['running_express'],
 				message: 'STATION IMPROVEMENTS [R] Forest Hills-bound trains run express from 59 St, Brooklyn to Canal St via the Manhattan Bridge. Trains stop at 36 St and Atlantic Av-Barclays Ctr.',
 				stations: {
 					'MTA NYCT_': {
@@ -1280,6 +1393,7 @@ let stations = {
 			},
 			{
 				source: { id: 'MTA NYCT_176800', archive: 40 },
+				type_detail: ['running_local'],
 				message: 'TRACK MAINTENANCE [E] ...-bound trains run local from Roosevelt Av to Queens Plaza Trains stop at ... 36 Sts.',
 				stations: {
 					'MTA NYCT_E': {
@@ -1303,6 +1417,7 @@ let stations = {
 			},
 			{
 				source: { id: '', archive: 45 },
+				type_detail: ['Late_Night', 'route_change'],
 				message: 'TRACK MAINTENANCE [R] No trains between 36 St, Brooklyn and 95 St [R] service operates between 71 Av and 36 St , Brooklyn and via the [D] to/from 9 Av, evenings . For late night service between Whitehall St and 59 St , Brooklyn',
 				stations: {
 					'MTA NYCT_': {

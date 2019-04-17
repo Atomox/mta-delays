@@ -393,6 +393,13 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 		let line_id = line;
 		line = getTrainById(line_id);
 
+		let testForA = (line === 'A'); //  && [].indexOf(stations[s].cid) !== -1);
+		let testFor7 = false; // ([7, '7D'].indexOf(line) !== -1 && stations[s].cid === 471);
+
+//  	if (testForA || testFor7) {
+//				console.log(' [tags] ', tags);
+//		}
+
 		// Get all stations for this line.
 		let stations = await getRouteStationsArray(line, true, true, tags);
 
@@ -409,12 +416,26 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 
 			// Check station name regex against the message.
 			// let res_re = mtaRegEx.matchRegexString(stations[s].regex, message, true, true);
+
+
+//			if (testForA || testFor7) {
+//				console.log(' --> ', stations[s]);
+//			}
+
 			let res_re = mtaRegEx.matchRegexStation(stations[s].regex, message, true, true, true);
 
 			// If there were no results, move on.
-			if (res_re === false ) { continue; }
+			if (res_re === false ) {
+//				if (testForA || testFor7) {
+//					console.log(' . . . --> ', line, '<!> No Match, ', stations[s].name, '(', stations[s].cid, ')');
+//				}
+				continue; }
 
 			res_re.map( m => {
+
+//				if (testForA || testFor7) {
+//					console.log(' . . . --> ', line, '', m);
+//				}
 
 				let name = (typeof m === 'object') ? m.station : m;
 
@@ -604,10 +625,10 @@ function processProblemStations (problem_results, results, message, bound) {
 
 	if (Object.keys(problem_results).length > 0 ) {
 
-//		console.log(
-//			'\n\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~',
-//			'\n', problem_results, '\n',
-//			'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n');
+	//	console.log(
+	//		'\n\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~',
+	//		'\n', problem_results, '\n',
+	//		'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n');
 
 		Object.keys(problem_results).map( (key, i) => {
 
@@ -636,6 +657,8 @@ function processProblemStations (problem_results, results, message, bound) {
 			if (st_obj.length > 0) {
 				let lines_found = {};
 
+//				console.log('>>>', st_obj);
+
 				// Loop through in reverse order.
 				Object.keys(st_obj).reverse().map( i => {
 
@@ -643,6 +666,14 @@ function processProblemStations (problem_results, results, message, bound) {
 					if (!Array.isArray(st_obj[i]) || st_obj[i].length <= 0) {
 						console.log(i, ' <!> COULD BE EMPTY.');
 						return; }
+
+
+					let isTargetMatch = ['34 St - Penn Station', '34 St - Herald Sq'].indexOf(st_obj[i][0].name) !== -1;
+
+					if (isTargetMatch){
+//						console.log('~~~ ', '[' + i + ']', st_obj[i]);
+					}
+
 
 					let length_found_stations = [],
 						length_token_found = '';
@@ -695,6 +726,9 @@ function processProblemStations (problem_results, results, message, bound) {
 						 * Is that possible?
 						 */
 						length_token_found = stObj.found;
+						if (isTargetMatch) {
+//							console.log('(' + i + ') ...', length_token_found);
+						}
 
 						// Mark this line as found.
 						lines_found[stObj.line] = stObj;
@@ -702,10 +736,19 @@ function processProblemStations (problem_results, results, message, bound) {
 
 					if (length_found_stations.length > 0) {
 						// Did we have one or more results?
+						// Assemble a token to replace the found station.
 						let length_token = '[' + _.uniq(length_found_stations).join('|') + ']';
+
+//						if (isTargetMatch) {
+//							console.log('(' + i + ') Replace...', length_token_found, ' ... with', length_token);
+//						}
 
 						// Add station tokens to the already parsed message.
 						message = message.split(length_token_found).join(length_token);
+
+//						if (isTargetMatch) {
+//							console.log('(' + i + ') Replace...', length_token_found, ' ... with', length_token, '\n\n', message);
+//						}
 					}
 
 				});
