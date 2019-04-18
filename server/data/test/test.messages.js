@@ -5443,36 +5443,25 @@ let event_messages = {
 									tag: ['AB-endAt-1-or-2'],
 									trains: [ '7D' ],
 									route: [
+
 										{
 											allTrains: true,
-											exp_lcl: 'express',
+											dir: null,
+											exp_lcl: 'local',
 											lines: ['7D'],
+											along: null,
 											from: 'Qs460-716',
 											to: 'Qs447-701',
 											process: 'RouteChangeStandard',
 											parsed: '[7D] express trains are running local from [Qs460-716] to [Qs447-701]'
 										},
-										/**
-										 *
-										 *
-										 *
-										 *
-										 * @TODO
-										 *
-										 *   This is parsing in the wrong pattern!
-										 *
-										 *   Should be bypass.
-										 *
-										 *
-										 *
-										 *
-										 */
 										{
 											allTrains: false,
+											dir: null,
 											exp_lcl: 'express',
 											lines: ['7', '7D'],
-											from: 'Qs448-702',
-											to: 'Qs449-705',
+											along: null,
+											bypass: [],
 											endAt: ['Qs448-702', 'Qs449-705'],
 											parsed: 'Some [7] and [7D]express trains will end at [Qs448-702] or [Qs449-705] .' }
 		 							],
