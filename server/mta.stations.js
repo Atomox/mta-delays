@@ -393,7 +393,7 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 		let line_id = line;
 		line = getTrainById(line_id);
 
-		let testForA = (line === 'A'); //  && [].indexOf(stations[s].cid) !== -1);
+		let testForA = (line === 'Q'); //  && [].indexOf(stations[s].cid) !== -1);
 		let testFor7 = false; // ([7, '7D'].indexOf(line) !== -1 && stations[s].cid === 471);
 
 //  	if (testForA || testFor7) {
@@ -422,6 +422,10 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 //				console.log(' --> ', stations[s]);
 //			}
 
+//			if (testForA && stations[s].cid == 617) {
+//				console.log('\n\n\n', ' . . . --> (Regex) ', stations[s].regex, '\n\n\n');
+//			}
+
 			let res_re = mtaRegEx.matchRegexStation(stations[s].regex, message, true, true, true);
 
 			// If there were no results, move on.
@@ -430,6 +434,20 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 //					console.log(' . . . --> ', line, '<!> No Match, ', stations[s].name, '(', stations[s].cid, ')');
 //				}
 				continue; }
+
+//			if (testForA || testFor7) {
+//				console.log(' . . . --> ', line, '', res_re);
+//			}
+
+			// Order the matches with the longest matches first.
+			// If we match 36 st, Brooklyn, and 36 St, we should replace Brooklyn first,
+			// or we might replace part of the match, and have artifacts remaning,
+			// causing mis-parsing.
+			res_re = res_re.map( m => {
+				m.length = m.station.length;
+				return m;
+			});
+			res_re = _.orderBy(res_re, 'length', 'desc');
 
 			res_re.map( m => {
 
@@ -467,10 +485,22 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 						? bound[s] = name
 						: results[s] = name;
 
+//					if (testForA && stations[s].cid == 617) {
+//						console.log(' . . . --> (BEFORE) ', result_message);
+//					}
+
 					result_message = mtaRegEx.replaceRegexString(stations[s].regex, name, result_message, s);
+
+//					if (testForA && stations[s].cid == 617) {
+//						console.log(' . . . --> (AFTER) ', result_message, '\n\n');
+//					}
 				}
 			});
 		}
+
+//		if (testForA || testFor7) {
+//			console.log('\n\n <FINAL> ', result_message, '\n\n\n');
+//		}
 
 		return {
 			processed_message: result_message,

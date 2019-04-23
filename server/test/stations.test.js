@@ -25,7 +25,7 @@ const s = stations;
 describe('Parse Stations', function() {
 
 	console.warn('\n\n<!> CAUTION <!> -- Event missing -durration- or -type_detail- may cause limited station parsing due to not detecting alternate service time/routes.');
-	
+
 	describe('General Station Tests', () => {
 
 		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Basic Stations Check', [], ['MTAD-026']);

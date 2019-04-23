@@ -936,6 +936,25 @@ let stations = {
 		],
 		'MTAD-098': [
 			{
+				type_detail: [''],
+				message: 'TRACK MAINTENANCE [Q] Service in Brooklyn between Kings Hwy and Atlantic Av-Barclays Ctr is replaced by free shuttle buses [Q] trains run in two sections: 1. Between 96 St , Manhattan and Atlantic Av-Barclays Ctr , Brooklyn and via the [D] to/from Stillwell Av (skipping DeKalb Av days/evenings ) 2. Shuttle trains run between Kings Hwy and Stillwell Av Local [SB] buses run between Kings Hwy and Atlantic Av-Barclays Ctr making all stops .',
+				stations: {
+					'MTA NYCT_Q': {
+						stations: {
+							'Mn475-Q05': '96 St , Manhattan',
+							'Bk26-R30': 'DeKalb Av',
+							'Bk617-D24': 'Atlantic Av-Barclays Ctr , Brooklyn',
+							'Bk51-D35': 'Kings Hwy',
+							'Bk58-D43': 'Stillwell Av'
+						}
+					},
+				},
+				line: [
+					{ line: 'MTA NYCT_Q' },
+					{ line: 'MTA NYCT_D' }
+				],
+			},
+			{
 				type_detail: ['no_trains_partial'],
 				source: { id: 'MTA NYCT_184927', archive: 125 },
 				message: 'TRACK REPLACEMENT | No [2] trains between Chambers St, Manhattan and Atlantic Av-Barclays Ctr, Brooklyn.',
@@ -1018,8 +1037,8 @@ let stations = {
 					'MTA NYCT_1': {
 						stations: {
 							'Bx293-101': '242 St, Bronx',
-	        		'Mn305-115': '137 St',
-	        		'Mn635-142': 'South Ferry'
+							'Mn305-115': '137 St',
+							'Mn635-142': 'South Ferry'
 						}
 					}
 				},
@@ -1077,16 +1096,16 @@ let stations = {
         			'Bk636-A41': 'Jay St-MetroTech, Brooklyn'
 						}
 					},
-  				'MTA NYCT_E': {
+					'MTA NYCT_E': {
 						stations: {
 							'Qs616-G14': 'Roosevelt Av, Queens',
-        			'Mn169-A34': 'Canal St, Manhattan'
+							'Mn169-A34': 'Canal St, Manhattan'
 						}
 					},
 					'MTA NYCT_A': {
 						stations: {
 							'Bk636-A41': 'Jay St-MetroTech, Brooklyn',
-        			'Mn169-A34': 'Canal St, Manhattan'
+							'Mn169-A34': 'Canal St, Manhattan'
 						}
 					}
 				},
