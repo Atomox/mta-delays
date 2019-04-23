@@ -52,23 +52,6 @@ describe ('Detect Train Lines', () => {
 		tests.routeTestByTag(m,c,'A-1-operates-2-operates-then-viaC', ['MTAD-009'], ['MTAD-032'], ['A-1-operates-2-operates-then-viaC']);
 	});
 	describe('MTAD-010 -- Route Change, then end.', () => {
-
-		/**
-		 *
-		 *
-		 * @TODO
-		 *
-		 *
-		 *   TESTING, uncomment these tests when complete.
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 */
 		tests.routeTestByTag(m,c,'A-overC-end', ['MTAD-010'], null, ['A-overC-end']);
 		tests.routeTestByTag(m,c,'AB-overC-end', ['MTAD-001'], null, ['AB-overC-end']);
 		tests.routeTestByTag(m,c,'A-overC-thenD-end', ['MTAD-001'], null, ['A-overC-thenD-end']);

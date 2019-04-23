@@ -1645,9 +1645,18 @@ let event_messages = {
 				],
 			},
 /**
+ *
+ *
+ * @TODO
+ *    Awaiting split stations:
+ *
+ *      Between [Bk345-250]/[Bk352-257]
+ *
+ *
 			{
 				type: null,
 				type_detail: [
+					"operate_sections",
 					"shuttle_bus",
 					"no_trains_partial",
 					"electrical_improvements",
@@ -1670,8 +1679,8 @@ let event_messages = {
 							lines: [ '4' ],
 							along: null,
 							noTrains: true,
-							from: 'Bx603-222|Bx603-415',
-							to: 'Mn439-225|Mn392-621',
+							from: 'Bx603-415', //'Bx603-222|Bx603-415',
+							to: 'Mn392-621', //'Mn439-225|Mn392-621',
 							section: null,
 							action: 'No',
 							parsed: '[4] No trains between [Bx603-222|Bx603-415] and [Mn439-225|Mn392-621]',
@@ -1689,7 +1698,7 @@ let event_messages = {
 							along: null,
 							from: "Bx603-415",
 							to: "Bx378-401",
-							section: '1'
+							section: '1',
 							test: {
 								expected: {
 									from: 'Bx603-415', // [Bx603-222|Bx603-415]
@@ -1712,7 +1721,6 @@ let event_messages = {
 									to: 'Mn392-621', // [Mn439-225|Mn392-621]
 								}
 							}
-
 						},
 						{
 							allTrains: true,
@@ -1732,7 +1740,13 @@ let event_messages = {
 						}
 					]
 				},
-			}, */
+				lines: [
+					{line: "MTA NYCT_4", dir: "0"},
+					{line: "MTA NYCT_4", dir: "1"},
+					{line: "MTA NYCT_6", dir: "0"},
+				],
+			},
+*/
 			{
 				id: "MTA NYCT_181020",
 				type: "Planned Work",
@@ -2996,6 +3010,63 @@ let event_messages = {
 							],
 					},
 					line: [	{line: "MTA NYCT_C",dir: "1"} ],
+				},
+				{
+					type_detail: [
+						"operate_sections",
+						"route_change"
+					],
+					tag: ['MTAD-001', 'MTAD-009', 'MTAD-164'],
+					message: "TRACK MAINTENANCE [Q] Service in Brooklyn between Kings Hwy and Atlantic Av-Barclays Ctr is replaced by free shuttle buses [Q] trains run in two sections: 1. Between 96 St , Manhattan and Atlantic Av-Barclays Ctr , Brooklyn and via the [D] to/from Stillwell Av (skipping DeKalb Av days/evenings ) 2. Shuttle trains run between Kings Hwy and Stillwell Av Local [SB] buses run between Kings Hwy and Atlantic Av-Barclays Ctr making all stops .",
+					route_change: {
+						tag: ['A-1-operates-2-operates'],
+						message: '[Q] [__operates-section-1__] Between [Mn475-Q05] and [Bk617-D24] and via the [D] to/from [Bk58-D43] (skipping [Bk26-R30] days/evenings ) ```[Q] [__operates-section-2__] Shuttle trains run between [Bk51-D35] and [Bk58-D43] ``` run between [Bk51-D35] and [Bk617-D24]',
+						trains: [ 'Q' ],
+						route:
+						[
+	 						{
+								allTrains: true,
+								dir: null,
+								exp_lcl: null,
+								lines: ['Q'],
+								along: null,
+								from: 'Mn475-Q05',
+								to: 'Bk617-D24',
+								section: '1',
+								process: 'RouteChangeStandard',
+								parsed: '[Q] [__operates-section-1__] Between [Mn475-Q05] and [Bk617-D24]'
+		 					},
+							{
+								allTrains: true,
+								dir: null,
+								exp_lcl: null,
+								lines: ['Q'],
+								along: 'D',
+								from: 'Bk617-D24',
+								to: 'Bk58-D43',
+								section: '1',
+								process: 'RouteChangeStandard',
+								parsed: 'and via the [D] to/from [Bk58-D43] (skipping [Bk26-R30] days/evenings )',
+								action: 'via'
+		 					},
+			 				{
+								allTrains: true,
+								dir: null,
+								exp_lcl: null,
+								lines: ['Q'],
+								along: null,
+								from: 'Bk51-D35',
+								to: 'Bk58-D43',
+								section: null,
+								parsed: '[Q] [__operates-section-2__] Shuttle trains run between [Bk51-D35] and [Bk58-D43]',
+								process: 'RouteChangeSections'
+		 					}
+						],
+					},
+					line: [
+						{line: "MTA NYCT_Q", dir: "0"},
+						{line: "MTA NYCT_Q", dir: "1"},
+					],
 				},
 				{
 					id: "MTA NYCT_173647",
