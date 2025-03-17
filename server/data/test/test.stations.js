@@ -1,4 +1,4 @@
-let stations = {
+export const stations = {
 	names: {
 		hyphen: {
 			'Times Sq-42 St': 'Times Sq - 42 St',
@@ -1509,8 +1509,3 @@ All examples up to archive #55.
 
  */
 
-
-
-module.exports = {
-	stations,
-};

@@ -1,4 +1,4 @@
-let taxonomy = {
+export let taxonomy = {
 		text: [
       {
         txt: 'signal problems',
@@ -60,9 +60,4 @@ let taxonomy = {
       }
     },
   },
-};
-
-
-module.exports = {
-	taxonomy
 };

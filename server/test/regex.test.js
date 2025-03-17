@@ -1,11 +1,7 @@
-let assert = require('assert');
-let expect = require('chai').expect;
-
-let mtaStatus = require('../mta.event');
-let mtaStations = require('../mta.stations');
-
-const mtaRegEx = require('../includes/regex');
-
+import assert from 'assert';
+import { expect } from 'chai';
+import { getStationLinesRegex } from '../src/utils/mta.stations.js';
+import { matchRegexString, convertRegExpToString, convertArrayToRegexOr } from '../src/utils/regex.js';
 
 describe ('Test Regex Functions', function() {
 	
@@ -20,7 +16,7 @@ describe ('Test Regex Functions', function() {
 
 
 		for (let x in str_ptns) {
-			let result = mtaRegEx.matchRegexString(str_ptns[x].re, str_ptns[x].expect);
+			let result = matchRegexString(str_ptns[x].re, str_ptns[x].expect);
 
 			expect(result).to.equal(str_ptns[x].expect);
 		}
@@ -100,9 +96,9 @@ describe ('Test Regex Functions', function() {
 			},
 		};
 
-		let stations_e = mtaRegEx.convertArrayToRegexOr(lines.E.stations);
-		let stations_m = mtaRegEx.convertArrayToRegexOr(lines.M.stations);
-		let joined_em = mtaRegEx.convertArrayToRegexOr([stations_e,stations_m]);
+		let stations_e = convertArrayToRegexOr(lines.E.stations);
+		let stations_m = convertArrayToRegexOr(lines.M.stations);
+		let joined_em = convertArrayToRegexOr([stations_e,stations_m]);
 
 		expect(stations_e).to.equal(lines.E.expected);
 		expect(stations_m).to.equal(lines.M.expected);
@@ -121,9 +117,9 @@ describe ('Test Regex Functions', function() {
 		];
 
 		let promises = line_tests.map( line => {
-			return mtaStations.getStationLinesRegex(line.lines)
+			return getStationLinesRegex(line.lines)
 				.then( station_regex => station_regex + '+')
-				.then( station_regex => mtaRegEx.matchRegexString(station_regex, line.message) )
+				.then( station_regex => matchRegexString(station_regex, line.message) )
 				.then( data => data.trim() )
 				.then( station_regex => expect(station_regex).to.equal(line.expect))
 				.catch( err => console.log(err) );
@@ -145,7 +141,7 @@ describe ('Test Regex Functions', function() {
 
 
 		for (let x in str_ptns) {
-			let exp = mtaRegEx.convertRegExpToString(str_ptns[x].re);
+			let exp = convertRegExpToString(str_ptns[x].re);
 
 			expect(exp).to.equal(str_ptns[x].escaped_re);
 		}
@@ -165,8 +161,8 @@ describe ('Test Regex Functions', function() {
 
 		for (let x in str_ptns) {
 
-			let exp = mtaRegEx.convertRegExpToString(str_ptns[x].re);
-			let result = mtaRegEx.matchRegexString(exp, str_ptns[x].string);
+			let exp = convertRegExpToString(str_ptns[x].re);
+			let result = matchRegexString(exp, str_ptns[x].string);
 
 			expect(result.trim()).to.equal(str_ptns[x].expect);
 		}

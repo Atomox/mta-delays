@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 const _union = _.union;
 import moment from 'moment';
 
-import mtaRegEx from './regex.js';
+import { matchRegexString } from './regex.js';
 import mtaTaxonomy from '../../data/static/mta.taxonomy.js';
 
 
@@ -347,7 +347,7 @@ function analyzeTokenizedTimes(txt) {
 	let result = [];
 
 	for (let i = 0; i < 6; i++) {
-		let results = mtaRegEx.matchRegexString(time_pattern, txt, true);
+		let results = matchRegexString(time_pattern, txt, true);
 
 		if (!results[0]) {
 			break;
@@ -511,7 +511,7 @@ function analyzeTokenizedDates(txt) {
 	let day_range_pattern = /(UNTIL)?\s*(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\]\s*(?:(-|TO|UNTIL)\s*(?:\[T--[0-9]{1,2}\:[0-9]{1,2}\]\s*)*\[D--([0-9]{4}\-[0-9]{2}\-[0-9]{1,2})--([a-z]{3})\])?/gi;
 
 	for (let i = 0; i < 6; i++) {
-		let results = mtaRegEx.matchRegexString(day_range_pattern, txt, true);
+		let results = matchRegexString(day_range_pattern, txt, true);
 		let pushed_result = false;
 //		console.log(' [', i, ']', txt);
 

@@ -5,8 +5,7 @@ const _get = _.get;
 
 import { getTrainRouteBasic, getStationLinesRegex } from './mta.stations.js';
 import * as mtaTags from './mta.taxonomy.js';
-import mtaStatus from './mta.event.js';
-import mtaRegEx from '../utils/regex.js';
+import { matchRegexString, convertRegExpToString } from '../utils/regex.js';
 
 
 function unwrapTrain(train) {
@@ -53,7 +52,7 @@ function prepareRouteOperatesSections(text) {
 				continue;
 		}
 
-		let t = mtaRegEx.matchRegexString(/\[([A-Z0-9])\]/i, msg[i], false);
+		let t = matchRegexString(/\[([A-Z0-9])\]/i, msg[i], false);
 
 		let one, two, tmp;
 
@@ -198,7 +197,7 @@ export async function getRouteChange(text, lines, id) {
 				if (!module[p]) {
 					break;	}
 
-				c.results = mtaRegEx.matchRegexString(module[p].pattern, c.message_mod, true);
+				c.results = matchRegexString(module[p].pattern, c.message_mod, true);
 
 				// Operate In Section Mode -- Only after we've exhausted normal matches.
 				if (c.results !== false) {
@@ -273,7 +272,7 @@ async function processRouteChangeResults(regex_match, message_mod) {
 	if (regex_match[1]) {
 		// Check for match of after (station) at start.
 		let afterStationPattern = /(?:after\s*(\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*,?\s*)?/gi;
-		let myMatch = mtaRegEx.matchRegexString(afterStationPattern, regex_match[1], true);
+		let myMatch = matchRegexString(afterStationPattern, regex_match[1], true);
 
 		if (myMatch[1]) {
 			afterStationPrefix = unwrapTrain(myMatch[1]);
@@ -369,7 +368,7 @@ async function processRouteChangeResults(regex_match, message_mod) {
 					// If endAt exists, then this pair's 'to' station
 					// is the terminus station. Place the property stub there,
 					// and we'll know to fill it when we detect the station.
-					if (mtaRegEx.matchRegexString(endAtPattern, item, false) !== false) {
+					if (matchRegexString(endAtPattern, item, false) !== false) {
 						route_pair.route[j].endAt = [];
 					}
 
@@ -942,14 +941,14 @@ export async function getMessageRouteChange(text) {
 	// Convert the main regex, then remove the suffix, insert the stations,
 	// and reapply the suffix. This should compelte the regex as a string,
 	// ready to be passed the RegEx String Match function.
-	routeChangePattern = mtaRegEx.convertRegExpToString(routeChangePattern);
+	routeChangePattern = convertRegExpToString(routeChangePattern);
 	routeChangePattern = routeChangePattern.slice(0, -(suffix_wrapper.length));
 	routeChangePattern += stations + '*' + suffix_wrapper;
 
 	let results = [];
 	let message_raw = text;
 	for (let i = 0; i < 12; i++) {
-		let match = mtaRegEx.matchRegexString(routeChangePattern, text);
+		let match = matchRegexString(routeChangePattern, text);
 		if (!match) {	break; }
 
 		results.push(match);

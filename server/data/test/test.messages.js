@@ -1,5 +1,5 @@
 
-let event_messages = {
+export let event_messages = {
 
 	"structured": {
 		"normal": [
@@ -5289,8 +5289,8 @@ let event_messages = {
 									}],
 									date: [
 										{
-											start: 2018-07-05,
-											end: 2018-07-05
+											start: '2018-07-05',
+											end: '2018-07-05'
 										}
 									]
 								},
@@ -6114,7 +6114,7 @@ let event_messages = {
 	},
 };
 
-let train_line = {
+export let train_line = {
 	"R": [
 
 		{
@@ -6176,10 +6176,3 @@ let train_line = {
 		},
 	],
 }
-
-
-
-module.exports = {
-	event_messages,
-	train_line,
-};

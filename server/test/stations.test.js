@@ -1,26 +1,23 @@
 'use strict';
-
-const _ = require('lodash');
-
-// Chai
-const assert = require('assert');
-const expect = require('chai').expect;
+import * as _ from 'lodash';
+import assert from 'assert';
+import { expect } from 'chai';
 
 // App Files
-const mtaStatus = require('../mta.event');
-const mtaStations = require('../mta.stations');
-const mtaRegEx = require('../includes/regex');
-const mtaRouteChange = require('../mta.route_change');
+import { getMessageAlternateInstructions, getMessageTrainLines, getStationsInEventMessage } from '../src/utils/mta.event.js';
+import { matchAllLinesRouteStationsMessage, prepareBunchedStationNames, getBorosFromStations } from '../src/utils/mta.stations.js';
+import { matchStringsWithSpecialChars } from'../src/utils/regex.js';
+import { getRouteChange, analyzeStationArray } from '../src/utils/mta.route_change.js';
 
 // Test Data
-const tests = require('./mta.test');
-const stations = require('../data/test/test.stations').stations.names;
-const rMsg = require('../data/test/test.messages').train_line.R;
-const event_messages = require('../data/test/test.messages').event_messages.structured;
+import { stationTestByTag, basicTest, stationMessageTestByTag, multiStationTokenTestByTag, affectedBoroTestByTag, boundStationTestByTag } from './mta.test.js';
+import { stations } from '../data/test/test.stations.js';
+import { train_line } from '../data/test/test.messages.js';
+import { event_messages } from '../data/test/test.messages.js';
 
-
-const msg = event_messages.normal;
-const s = stations;
+const rMsg = train_line.R;
+const msg = event_messages.structured.normal;
+const s = stations.names;
 
 describe('Parse Stations', function() {
 
@@ -28,67 +25,67 @@ describe('Parse Stations', function() {
 
 	describe('General Station Tests', () => {
 
-		tests.stationTestByTag(event_messages.normal, CheckStationsListForExpected, 'Basic Stations Check', [], ['MTAD-026']);
+		stationTestByTag(event_messages.structured.normal, CheckStationsListForExpected, 'Basic Stations Check', [], ['MTAD-026']);
 
 		describe('Special Character Names', () => {
-			tests.basicTest(s.simple, checkStationWithSpecialChar, 'Should match [simple names]');
-			tests.basicTest(s.hyphen, checkStationWithSpecialChar, 'Should match [names] with [mismatched-whitespace]');
-			tests.basicTest(s.mistaken_identity, checkStationWithSpecialCharNegative, 'Should *not* match [shorter names] with [longer ones].');
+			basicTest(s.simple, checkStationWithSpecialChar, 'Should match [simple names]');
+			basicTest(s.hyphen, checkStationWithSpecialChar, 'Should match [names] with [mismatched-whitespace]');
+			basicTest(s.mistaken_identity, checkStationWithSpecialCharNegative, 'Should *not* match [shorter names] with [longer ones].');
 		});
 		describe('Station Spelling + Alternate Naming', () => {
-			tests.stationMessageTestByTag(msg, CheckStationsParseMessageForExpected, 'Multiple Spellings for a Station (MTAD-24)', ['MTAD-024']);
-			tests.stationTestByTag(s.nomDePlume, CheckStationsListForExpected, 'Map Alternate/Alias Names to Original (MTAD-27)');
+			stationMessageTestByTag(msg, CheckStationsParseMessageForExpected, 'Multiple Spellings for a Station (MTAD-24)', ['MTAD-024']);
+			stationTestByTag(s.nomDePlume, CheckStationsListForExpected, 'Map Alternate/Alias Names to Original (MTAD-27)');
 
 			describe('MTAD-040 -- 34, 42, 50, 59 and 66 Sts', () => {
-				tests.stationTestByTag(msg, CheckStationsListForExpected, 'Basic Bunched Stations Check', ['MTAD-040']);
-				tests.stationTestByTag(msg, CheckStationPrep, 'Basic Bunched Stations Prep', ['MTAD-040']);
+				stationTestByTag(msg, CheckStationsListForExpected, 'Basic Bunched Stations Check', ['MTAD-040']);
+				stationTestByTag(msg, CheckStationPrep, 'Basic Bunched Stations Prep', ['MTAD-040']);
 			});
 			describe('MTAD-056 -- Do not match only the second half on a hyphen-ed station', () => {
-				tests.stationTestByTag(s.false_positive, CheckStationsListForExpected, ' [-,/] 57 St-7 Av, Lexington Av/59 St');
+				stationTestByTag(s.false_positive, CheckStationsListForExpected, ' [-,/] 57 St-7 Av, Lexington Av/59 St');
 			});
 			describe('MTAD-098 -- Stations Followed by Boro Names should Provide Context', () => {
-				tests.stationTestByTag(s['MTAD-098'], CheckStationsListForExpected, 'Detect Direction-Bound Stations');
+				stationTestByTag(s['MTAD-098'], CheckStationsListForExpected, 'Detect Direction-Bound Stations');
 			});
 		});
 		describe('Shared Stations + Lines', () => {
-			tests.stationTestByTag(s.sharedStation, CheckStationsListForExpected, 'Lines share Station (MTAD-026)');
+			stationTestByTag(s.sharedStation, CheckStationsListForExpected, 'Lines share Station (MTAD-026)');
 		});
 		describe('Shared Station Names', () => {
 			describe('MTAD-013 -- Multiple Lines cause Station Misidentification', () => {
-				tests.stationTestByTag(msg, CheckStationsListForExpected, 'Common roots cause mistaken station identity.', ['MTAD-013']);
+				stationTestByTag(msg, CheckStationsListForExpected, 'Common roots cause mistaken station identity.', ['MTAD-013']);
 			});
 			describe('MTAD-033 -- [Qs101-A22|Bk37-R49|Bx22-B342]', () => {
-				tests.multiStationTokenTestByTag(msg, checkMultiStationTokenForSingle, 'Choose [single station] from multi-station token', ['MTAD-033']);
-				tests.multiStationTokenTestByTag(msg, checkMultiStationTokenForExpected, 'Choose [correct station] from multi-station token', ['MTAD-033']);
+				multiStationTokenTestByTag(msg, checkMultiStationTokenForSingle, 'Choose [single station] from multi-station token', ['MTAD-033']);
+				multiStationTokenTestByTag(msg, checkMultiStationTokenForExpected, 'Choose [correct station] from multi-station token', ['MTAD-033']);
 			});
 		});
 	});
 
 	describe('Station Check by Line', () => {
 		describe('MTAD-005 -- Test Individual Lines', () => {
-			tests.stationTestByTag(rMsg, checkIndividualLine, 'R Line -- General', [], ['MTAD-004']);
+			stationTestByTag(rMsg, checkIndividualLine, 'R Line -- General', [], ['MTAD-004']);
 		});
 		describe('MTAD-057 -- Parse Express Lines, like 6D, 7D', () => {
-			tests.stationTestByTag(msg, CheckStationsListForExpected, 'Parse Stations on 6D, 7D', ['MTAD-057']);
+			stationTestByTag(msg, CheckStationsListForExpected, 'Parse Stations on 6D, 7D', ['MTAD-057']);
 		});
 	});
 
 
 
 	describe('MTAD-046 -- Affected Boro', () => {
-		tests.affectedBoroTestByTag(msg, CheckAffectedBoroListForExpected, 'Detect Affected Boro using Stations', ['MTAD-046']);
+		affectedBoroTestByTag(msg, CheckAffectedBoroListForExpected, 'Detect Affected Boro using Stations', ['MTAD-046']);
 	});
 
 	describe('MTAD-060 -- Direction-bound stations should be added to a separate array.', () => {
-		tests.boundStationTestByTag(msg, CheckBoundStationsListForExpected, 'Detect Direction-Bound Stations', ['MTAD-060']);
+		boundStationTestByTag(msg, CheckBoundStationsListForExpected, 'Detect Direction-Bound Stations', ['MTAD-060']);
 	});
 
 	describe('MTAD-064 -- Express Running Local Catches Local Stations', () => {
-		tests.stationTestByTag(msg, CheckStationsListForExpected, 'Parse Local Stations on an Express Line', ['MTAD-064']);
+		stationTestByTag(msg, CheckStationsListForExpected, 'Parse Local Stations on an Express Line', ['MTAD-064']);
 	});
 
 	describe('MTAD-090 -- Stations exclude Turtiary Copy', () => {
-		tests.stationTestByTag(msg, CheckStationsListExcludeAltInstructions, 'Detect only Stations in Main Message.', ['MTAD-090']);
+		stationTestByTag(msg, CheckStationsListExcludeAltInstructions, 'Detect only Stations in Main Message.', ['MTAD-090']);
 	});
 
 	describe.skip('MTAD-004 -- Identify Multiple Stations with the same name.', () => {
@@ -112,29 +109,30 @@ describe('Parse Stations', function() {
 		 *
 		 *
 		 */
-		tests.basicTest(stations['36st'], checkStationWithSpecialChar, 'Should match proper 36 St.');
+
+		basicTest(stations.names['36st'], checkStationWithSpecialChar, 'Should match proper 36 St.');
 	});
 
 	describe.skip('MTAD-032 -- Split Destination Stations', () => {
-		tests.stationTestByTag(s.splitDestinations, CheckStationsListForExpected, 'Alternate/Alias Names');
+		stationTestByTag(s.splitDestinations, CheckStationsListForExpected, 'Alternate/Alias Names');
 	});
 });
 
 
 function checkStationWithSpecialChar(i, data) {
-	let res = mtaRegEx.matchStringsWithSpecialChars(i, data[i]);
+	let res = matchStringsWithSpecialChars(i, data[i]);
 	expect(res).to.equal(data[i]);
 }
 
 
 function checkStationWithSpecialCharNegative(i, data) {
-	let res = mtaRegEx.matchStringsWithSpecialChars(i, data[i]);
+	let res = matchStringsWithSpecialChars(i, data[i]);
 	expect(res).to.not.equal(data[i]);
 }
 
 
 function checkIndividualLine(event) {
-	return mtaStations.matchAllLinesRouteStationsMessage(['R'], event.message)
+	return matchAllLinesRouteStationsMessage(['R'], event.message)
 		.then( stations => {
 			expect(Object.values(stations.stations['R'].stations)).to.have.members(event.stations);
 		});
@@ -142,8 +140,7 @@ function checkIndividualLine(event) {
 
 
 function CheckStationsParseMessageForExpected (event) {
-	return mtaStations.
-		matchAllLinesRouteStationsMessage(event.line, event.message)
+	return matchAllLinesRouteStationsMessage(event.line, event.message)
 		.then( data => {
 
 			let results = false;
@@ -161,7 +158,7 @@ function CheckStationsParseMessageForExpected (event) {
 
 
 function CheckStationPrep (event) {
-		let data = mtaStations.prepareBunchedStationNames(event.message);
+		let data = prepareBunchedStationNames(event.message);
 
 		let results = false;
 		let mocha_msg = event.message;
@@ -189,7 +186,7 @@ function CheckStationsListExcludeAltInstructions (event) {
 		}
 
 		// Break out any alternate route information from the body.
-		event.alt_instructions.raw = mtaStatus.getMessageAlternateInstructions(event.message);
+		event.alt_instructions.raw = getMessageAlternateInstructions(event.message);
 
 		event.message = (event.alt_instructions.raw !== null)
 			? event.message.replace(event.alt_instructions.raw, '[-ALT-INSTRUCT-]')
@@ -220,8 +217,7 @@ function CheckStationsListForExpected (event, data_path) {
 
 //	console.log(' >>> ', data_path, ' | tags:', type_detail, '\n -> [S]', e_stations, '\n -> [E]', event, '\n\n');
 
-	return mtaStations.
-		matchAllLinesRouteStationsMessage(event.line, event.message, null, type_detail)
+	return matchAllLinesRouteStationsMessage(event.line, event.message, null, type_detail)
 		.then( data => {
 
 			let results = false;
@@ -260,11 +256,10 @@ function CheckStationsListForExpected (event, data_path) {
 
 
 function CheckAffectedBoroListForExpected (event) {
-	return mtaStations.
-		matchAllLinesRouteStationsMessage(event.line, event.message)
+	return matchAllLinesRouteStationsMessage(event.line, event.message)
 		.then( data => {
 
-			let boros = mtaStations.getBorosFromStations(data.stations);
+			let boros = getBorosFromStations(data.stations);
 
 			let results = false;
 			let mocha_msg = event.message;
@@ -302,8 +297,7 @@ function CheckAffectedBoroListForExpected (event) {
 
 
 function CheckBoundStationsListForExpected (event) {
-	return mtaStations.
-		matchAllLinesRouteStationsMessage(event.line, event.message)
+	return matchAllLinesRouteStationsMessage(event.line, event.message)
 		.then( data => {
 
 			let results = false;
@@ -351,12 +345,12 @@ function checkMultiStationTokenForExpected(event) {
 
 	// Get a train lines in main message.
 	// Add them to the lines set for station parsing.
-	let lines = mtaStatus.getMessageTrainLines(event.message);
+	let lines = getMessageTrainLines(event.message);
 	lines = _.union(event.line,lines);
 
-	return mtaStatus.getStationsInEventMessage(lines, event.message)
+	return getStationsInEventMessage(lines, event.message)
 		.then( data => {
-			let m = mtaRouteChange.getRouteChange(data.parsed_message, event.line, true);
+			let m = getRouteChange(data.parsed_message, event.line, true);
 			m.original_data = data;
 			return m;
 		})
@@ -418,7 +412,7 @@ function checkMultiStationTokenForSingle(event) {
 	// Make sure the event is properly formatted.
 	multistationPrep(event);
 
-	let all_promises = event.route_change.route.map(r => mtaRouteChange.analyzeStationArray(r));
+	let all_promises = event.route_change.route.map(r => analyzeStationArray(r));
 
 	return Promise.all(all_promises)
 		.then( data => {

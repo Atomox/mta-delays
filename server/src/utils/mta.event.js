@@ -22,7 +22,7 @@ const GLOBAL_DEBUG_ID = config.get("global_debug_id");
 /**
  * Verify valid payload from MTA, and prepare events to be parsed.
  */
-function checkReports(response) {
+export function checkReports(response) {
 
 	let timestamp = response.header.timestamp; // response.Siri.ServiceDelivery[0].ResponseTimestamp[0];
 	let situations = response.entity // response.Siri.ServiceDelivery[0].SituationExchangeDelivery[0].Situations;
@@ -43,7 +43,7 @@ function checkReports(response) {
 /**
  * Process events.
  */
-async function parseStatusFeed(feedObject) {
+export async function parseStatusFeed(feedObject) {
 
 	let my_body = {
 		status: true,
@@ -315,7 +315,7 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
  *   [stations] contains all the station results
  *   [parsed_message] contains the original message, with all stations matches replaced by their ID, wrapped in [].
  */
-async function getStationsInEventMessage(lines, message, parsed_message, tags) {
+export async function getStationsInEventMessage(lines, message, parsed_message, tags) {
 	return await matchAllLinesRouteStationsMessage(lines, message, parsed_message, tags);
 }
 
@@ -323,7 +323,7 @@ async function getStationsInEventMessage(lines, message, parsed_message, tags) {
  * Find all train lines in passed text,
  * and return a distinct list of results, in train key format (MTA NYCT_2)
  */
-function getMessageTrainLines(text) {
+export function getMessageTrainLines(text) {
 
 	let train_pattern = /\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SI|SIR|[1-7]|6D|7D|SH|SF)\]/ig;
 
@@ -374,7 +374,7 @@ function prepareEventMessage(message, status, use_placeholder, summary) {
  * @return [string|null]
  *   A matched [TP]/Travel Alternative string. Otherwise, [null].
  */
-function getMessageAlternateInstructions(text) {
+export function getMessageAlternateInstructions(text) {
 	let alternateInstructionPattern = /(((?:--\s*)?\[(?:TP|AS)\]|Show\s*Alternate\s*Service|(\b(For\s*service\s*(to|from)|use\s*(nearby)?|take\s*the|Transfer\s*(to|between)?|Travel\s*Alternatives|As\s*an\s*alternative\s*(?:customers\s*may\s*)take\s*the)\b))+((\s*((stations|these stations|trains|transfer\s*to)?(\s|,|and|or|instead|at|\;|\|)?)*|((\s*[a-zA-Z0-9\-\'\.\/\:\;&\(\)\*]*)*)?)*(\s*\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|[1-7]|SB|TP)\]|(\[(ad)\]))*\s*)*)+/i;
 
 	// We must remove the Ad note suppliment before we can perform a TP match.
@@ -401,21 +401,11 @@ function getMessageAlternateInstructions(text) {
  * @return [string|null]
  *   A matched [AD] string. Otherwise, [null].
  */
-function getMessageADNote(text) {
+export function getMessageADNote(text) {
 	let adPattern = /\[ad[0-9]?\]\s*(?:(?:This|These)\s*service\s*change[s]*\s*affect[s]?|For\s*an accessible\s*connection)\s*(\s*(?:[\'\|a-zA-Z0-9\-\.\/\:\;&\(\)\*\,]+|\[(S[a-z]?|[a-z0-9]{1,2})\]))+/i;
 	let results = text.match(adPattern);
 
 	return (results && results[0])
  		? results[0].trim()
 		: null;
-}
-
-
-export default {
-	checkReports,
-	parseStatusFeed,
-	getMessageAlternateInstructions,
-	getMessageADNote,
-	getMessageTrainLines,
-	getStationsInEventMessage,
 }

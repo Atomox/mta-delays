@@ -1,4 +1,4 @@
-let dateMessages = {
+export let dateMessages = {
 	weekend: {
 		simple: [
 			'Weekend, 9:45 PM Fri to 5 AM Mon, Nov 24 - 27',
@@ -85,9 +85,4 @@ let dateMessages = {
 	spellingErrors: [
 		'Late Evenng, 9:45 PM to 11 PM, Friday, Dec 22',
 	],
-};
-
-
-module.exports = {
-	dateMessages
 };

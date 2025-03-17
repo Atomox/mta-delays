@@ -8,7 +8,7 @@ import drop from 'lodash';
 import orderBy from 'lodash'; 
 import uniq from 'lodash';
 import mtaApi from '../svc/mta/subway/mta.api.js';
-import mtaRegEx from '../utils/regex.js';
+import { matchRegexString, matchRegexStation, replaceRegexString, convertArrayToRegexOr } from '../utils/regex.js';
 
 // Data files.
 import { routes as trainRoutes } from '../../data/static/mta.stations.train.js';
@@ -235,7 +235,7 @@ export function prepareBunchedStationNames(txt) {
 
 	for (let i = 0; i < 6; i++) {
 
-		let matches = mtaRegEx.matchRegexString(bunch_pattern, replace_holder, true),
+		let matches = matchRegexString(bunch_pattern, replace_holder, true),
 			original_match = matches[0],
 			target = (matches[1]) ? matches[1] : null,
 			found_conjunction = false;
@@ -424,7 +424,7 @@ export async function matchRouteStationsMessage(line, message, processed_message
 		for (let s in stations) {
 
 			// Check station name regex against the message.
-			// let res_re = mtaRegEx.matchRegexString(stations[s].regex, message, true, true);
+			// let res_re = matchRegexString(stations[s].regex, message, true, true);
 
 
 //			if (testForA || testFor7) {
@@ -435,7 +435,7 @@ export async function matchRouteStationsMessage(line, message, processed_message
 //				console.log('\n\n\n', ' . . . --> (Regex) ', stations[s].regex, '\n\n\n');
 //			}
 
-			let res_re = mtaRegEx.matchRegexStation(stations[s].regex, message, true, true, true);
+			let res_re = matchRegexStation(stations[s].regex, message, true, true, true);
 
 			// If there were no results, move on.
 			if (res_re === false ) {
@@ -498,7 +498,7 @@ export async function matchRouteStationsMessage(line, message, processed_message
 //						console.log(' . . . --> (BEFORE) ', result_message);
 //					}
 
-					result_message = mtaRegEx.replaceRegexString(stations[s].regex, name, result_message, s);
+					result_message = replaceRegexString(stations[s].regex, name, result_message, s);
 
 //					if (testForA && stations[s].cid == 617) {
 //						console.log(' . . . --> (AFTER) ', result_message, '\n\n');
@@ -834,7 +834,7 @@ export async function getStationLinesRegex(lines) {
 	let stationregex = [];
 	let boros = ['Qs', 'Mn', 'Bx', 'Bk', 'SI'];
 	let station_id_regex = '(\\['
-		+ mtaRegEx.convertArrayToRegexOr(boros)
+		+ convertArrayToRegexOr(boros)
 		+ '[0-9]{1,5}\\-[A-z0-9]{1,5}\\])(?:\\,?\\sthe\\slast\\sstop)?\\.?';
 
 	// (?:(?:(?:\s|between|and|until|to(?:\s*\/from\s*)?|end\s(?:at)?|express)*\s*(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])(?:\,?\sthe last stop)?\.?)*)*
@@ -855,7 +855,7 @@ export async function getStationLinesRegex(lines) {
 
 				// Assemble line
 				stationregex.push(
-					mtaRegEx.convertArrayToRegexOr(stations[n]));
+					convertArrayToRegexOr(stations[n]));
 			}
 			catch (err) {
 				console.warn('[', n, '] line info unavailable.','--', err);
@@ -864,8 +864,8 @@ export async function getStationLinesRegex(lines) {
 		}
 	}
 
-	let results = mtaRegEx.convertArrayToRegexOr(stationregex);
-	conjunctions = mtaRegEx.convertArrayToRegexOr(conjunctions) + '*';
+	let results = convertArrayToRegexOr(stationregex);
+	conjunctions = convertArrayToRegexOr(conjunctions) + '*';
 	return '(' + regexSpace + conjunctions + regexSpace + results + '+)';
 }
 

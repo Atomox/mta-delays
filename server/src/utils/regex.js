@@ -1,20 +1,18 @@
 import stationSuppliment from '../../data/static/mta.stations.suppliment.js';
 
-
-
-function replaceSpace(word) {
+export function replaceSpace(word) {
 	return word.replace(/(?:\s)+/gi, (match, offset, string) => {
   	return '\\s*';
   });
 }
 
-function wrapNumberBounds(word) {
+export function wrapNumberBounds(word) {
   return word.replace(/\s*[0-9]+\s*/gi, (match, offset, string) => {
   	return '\\s*\\b' + match.trim() + '\\b\\s*';
   });
 }
 
-function wrapSeperatorBounds(word) {
+export function wrapSeperatorBounds(word) {
   return word.replace(/(?:\s)*[-/]+(?:\s)*/gi, (match, offset, string) => {
   	return '\\s*' + '[-/]{0,2}' + '\\s*';
   });
@@ -37,11 +35,11 @@ function wrapWrappers(word) {
 	return word;
 }
 
-function convertArrayToRegexOr(list) {
+export function convertArrayToRegexOr(list) {
 	return '(' + list.join('|') + ')';
 }
 
-function convertRegExpToString(exp) {
+export function convertRegExpToString(exp) {
 	exp = exp.toString();
 
 	// Trip leading and trailing '/', so new string can be run through new RegExp().
@@ -51,7 +49,7 @@ function convertRegExpToString(exp) {
 	return exp;
 }
 
-function prepareRegExpString(exp) {
+export function prepareRegExpString(exp) {
 	console.log(exp);
 //	return exp.replace(/[\\\-\/\{\}\?\.\^\$\|]/g, "\\\$&");
 	return exp.replace(/[\\\-\/\{\}\?\.\^\$\|]/g, (match) => {
@@ -62,7 +60,7 @@ function prepareRegExpString(exp) {
 }
 
 
-function prepareRegexStationString(name) {
+export function prepareRegexStationString(name) {
 
 		let v = prepareRexExNameString(name);
 
@@ -73,7 +71,7 @@ function prepareRegexStationString(name) {
 }
 
 
-function prepareRexExNameString(name) {
+export function prepareRexExNameString(name) {
 	let v = name;
 
 	// Wrap text/word parens () -- DO THIS FIRST!
@@ -92,7 +90,7 @@ function prepareRexExNameString(name) {
 }
 
 
-function matchStringsWithSpecialChars(needle, haystack) {
+export function matchStringsWithSpecialChars(needle, haystack) {
 	let v = needle;
 
 	// Detect numbers.
@@ -107,7 +105,7 @@ function matchStringsWithSpecialChars(needle, haystack) {
 	return matchRegexString(v, haystack);
 }
 
-function replaceRegexString(pattern, match, haystack, token) {
+export function replaceRegexString(pattern, match, haystack, token) {
 
 		if (!haystack) {
 			return false;
@@ -128,7 +126,7 @@ function replaceRegexString(pattern, match, haystack, token) {
 		return haystack.split(re).join('[' + token +']')
 }
 
-function matchRegexString(pattern, haystack, return_all, greedy) {
+export function matchRegexString(pattern, haystack, return_all, greedy) {
 
 	if (!haystack) {
 		return false;
@@ -151,7 +149,7 @@ function matchRegexString(pattern, haystack, return_all, greedy) {
 		: false;
 }
 
-function matchRegexStation(pattern, haystack, return_all, greedy, include_boro) {
+export function matchRegexStation(pattern, haystack, return_all, greedy, include_boro) {
 	if (!haystack) {
 		return false;
 	}
@@ -264,19 +262,3 @@ function matchRegexStation(pattern, haystack, return_all, greedy, include_boro) 
 		? results[0].trim()
 		: false;
 }
-
-
-export default {
-	replaceSpace,
-	wrapNumberBounds,
-	wrapSeperatorBounds,
-	matchStringsWithSpecialChars,
-	matchRegexString,
-	matchRegexStation,
-	replaceRegexString,
-	prepareRegExpString,
-	convertRegExpToString,
-	convertArrayToRegexOr,
-	prepareRexExNameString,
-	prepareRegexStationString,
-};

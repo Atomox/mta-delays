@@ -1,9 +1,9 @@
-let assert = require('assert');
-let expect = require('chai').expect;
-let _get = require('lodash').get;
-let _isEqual = require('lodash').isEqual;
+import assert from 'assert';
+import { expect } from 'chai';
+import get from 'lodash';
+import isEqual from 'lodash';
 
-function basicTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
+export function basicTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
   let counter = 0;
 	let total = repository.length;
 	let m = [];
@@ -21,7 +21,7 @@ function basicTestByTag(repository, callback, description, main_tags, omit_tags,
   return setupTest(description, counter, total, m, callback);
 }
 
-function adMessageTestByTag(repository, callback, description, main_tags, omit_tags, date_tags) {
+export function adMessageTestByTag(repository, callback, description, main_tags, omit_tags, date_tags) {
   let counter = 0;
 	let total = repository.length;
 	let m = [];
@@ -39,7 +39,7 @@ function adMessageTestByTag(repository, callback, description, main_tags, omit_t
   return setupTest(description, counter, total, m, callback);
 }
 
-function altInstrTestByTag(repository, callback, description, main_tags, omit_tags, date_tags) {
+export function altInstrTestByTag(repository, callback, description, main_tags, omit_tags, date_tags) {
   let counter = 0;
 	let total = repository.length;
 	let m = [];
@@ -57,7 +57,7 @@ function altInstrTestByTag(repository, callback, description, main_tags, omit_ta
   return setupTest(description, counter, total, m, callback);
 }
 
-function plannedWorkDurrationTestByTag(repository, callback, description, main_tags, omit_tags, tags) {
+export function plannedWorkDurrationTestByTag(repository, callback, description, main_tags, omit_tags, tags) {
   let counter = 0;
 	let total = repository.length;
 	let m = [];
@@ -75,7 +75,7 @@ function plannedWorkDurrationTestByTag(repository, callback, description, main_t
   return setupTest(description, counter, total, m, callback);
 }
 
-function dateTestByTag(repository, callback, description, main_tags, omit_tags, date_tags, expect_date_tag) {
+export function dateTestByTag(repository, callback, description, main_tags, omit_tags, date_tags, expect_date_tag) {
   let counter = 0;
 	let total = repository.length;
 	let m = [];
@@ -102,7 +102,7 @@ function dateTestByTag(repository, callback, description, main_tags, omit_tags, 
   return setupTest(description, counter, total, m, callback);
 }
 
-function routeTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
+export function routeTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
 	let counter = 0;
 	let total = repository.length;
 	let m = [];
@@ -121,7 +121,7 @@ function routeTestByTag(repository, callback, description, main_tags, omit_tags,
 }
 
 
-function bypassTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
+export function bypassTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
 	let counter = 0;
 	let total = repository.length;
 	let m = [];
@@ -140,7 +140,7 @@ function bypassTestByTag(repository, callback, description, main_tags, omit_tags
 }
 
 
-function multiStationTokenTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
+export function multiStationTokenTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
 	let counter = 0;
 	let total = repository.length;
 	let m = [];
@@ -159,7 +159,7 @@ function multiStationTokenTestByTag(repository, callback, description, main_tags
 }
 
 
-function stationMessageTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
+export function stationMessageTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
   let counter = 0;
 	let total = repository.length;
 	let m = [];
@@ -177,7 +177,7 @@ function stationMessageTestByTag(repository, callback, description, main_tags, o
   return setupTest(description, counter, total, m, callback);
 }
 
-function boundStationTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
+export function boundStationTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
   let counter = 0;
 	let total = repository.length;
 	let m = [];
@@ -195,7 +195,7 @@ function boundStationTestByTag(repository, callback, description, main_tags, omi
   return setupTest(description, counter, total, m, callback);
 }
 
-function affectedBoroTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
+export function affectedBoroTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
   let counter = 0;
 	let total = repository.length;
 	let m = [];
@@ -213,7 +213,7 @@ function affectedBoroTestByTag(repository, callback, description, main_tags, omi
   return setupTest(description, counter, total, m, callback);
 }
 
-function stationTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
+export function stationTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
   let counter = 0;
 	let total = repository.length;
 	let m = [];
@@ -231,8 +231,12 @@ function stationTestByTag(repository, callback, description, main_tags, omit_tag
   return setupTest(description, counter, total, m, callback);
 }
 
-
-function basicTest(repository, callback, description) {
+/**
+ * 
+ * @todo
+ *   Breaking due to missing repository as undefined. 
+ */
+export function basicTest(repository, callback, description) {
   let count = Array.isArray(repository)
     ? repository.length
     : Object.keys(repository).length;
@@ -256,16 +260,16 @@ function setupTest(description, num_tests, total, data, callback) {
 
 
 function filterTestSubsection(obj, property, tags, omit, tag_extend = true) {
-  if (!_get(obj, property, false)) {
+  if (!get(obj, property, false)) {
     return false;
   }
-  if (tag_extend && !_get(obj,property, {}).hasOwnProperty('tag')) {
+  if (tag_extend && !get(obj,property, {}).hasOwnProperty('tag')) {
     return false;
   }
 
   return (tag_extend)
-		? filterTags(_get(obj, property, {}).tag, tags, omit)
-		: filterTags(_get(obj, property, {}), tags, omit);
+		? filterTags(get(obj, property, {}).tag, tags, omit)
+		: filterTags(get(obj, property, {}), tags, omit);
 }
 
 function filterTags(tags, include, exclude) {
@@ -388,7 +392,7 @@ function filterTest(event, type, tags, omit) {
  * @param  {[type]} priority [description]
  * @return {[type]}          [description]
  */
- function diffObjectsLeft(a,b) {
+export function diffObjectsLeft(a,b) {
  		let missed = [],
  			missed_match = [];
 
@@ -397,7 +401,7 @@ function filterTest(event, type, tags, omit) {
  				missed.push(k);
  			}
        else if (typeof a[k] == 'object' && a[k]) {
-       	if (_isEqual(a[k], b[k])) {
+       	if (isEqual(a[k], b[k])) {
            missed_match.push(k);
        	}
        }
@@ -415,21 +419,3 @@ function filterTest(event, type, tags, omit) {
 
  		return true;
  }
-
-
-module.exports = {
-	basicTestByTag,
-  dateTestByTag,
-  altInstrTestByTag,
-  adMessageTestByTag,
-  plannedWorkDurrationTestByTag,
-  routeTestByTag,
-	bypassTestByTag,
-  stationTestByTag,
-	affectedBoroTestByTag,
-	boundStationTestByTag,
-	stationMessageTestByTag,
-	multiStationTokenTestByTag,
-  basicTest,
-	diffObjectsLeft,
-};

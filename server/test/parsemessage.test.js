@@ -1,19 +1,19 @@
-let assert = require('assert');
-let expect = require('chai').expect;
+import assert from 'assert';
+import { expect } from 'chai';
 
-let tests = require('./mta.test');
-let mtaStatus = require('../mta.event');
-let mtaDates = require('../mta.dates');
-let mtaTags = require ('../mta.taxonomy');
+import { plannedWorkDurrationTestByTag, basicTest, dateTestByTag, altInstrTestByTag, adMessageTestByTag } from './mta.test.js';
+import { getMessageAlternateInstructions, getMessageADNote } from '../src/utils/mta.event.js';
+import { getMessagePlannedWorkDate, getMessageDates } from '../src/utils/mta.dates.js';
+import { getMessageAction } from '../src/utils/mta.taxonomy.js';
 
 // Test data.
-let status_dates = require('../data/test/test.dates').dateMessages;
-let event_messages = require('../data/test/test.messages').event_messages.structured;
-let taxonomy = require('../data/test/test.taxonomy').taxonomy;
+import { dateMessages as status_dates } from '../data/test/test.dates.js';
+import { event_messages } from '../data/test/test.messages.js';
+import { taxonomy } from '../data/test/test.taxonomy.js';
 
 let s = status_dates;
-let f = mtaDates.getMessagePlannedWorkDate;
-let e = event_messages;
+let f = getMessagePlannedWorkDate;
+let e = event_messages.structured;
 let t = taxonomy;
 
 
@@ -21,63 +21,63 @@ describe('Parse Service Messages', function() {
 
 	describe('Parse Planned Work Dates inside messages.', function() {
 
-		tests.plannedWorkDurrationTestByTag(e.normal, testParsePlannedWorkDates, 'Should Parse [basic] Planned Work Posted dates from messages.');
+		plannedWorkDurrationTestByTag(e.normal, testParsePlannedWorkDates, 'Should Parse [basic] Planned Work Posted dates from messages.');
 
 /**
  * @TODO
  */
-//		tests.plannedWorkTestByTag(e.complex, testParsePlannedWorkDates, 'Should Parse [complex] Planned Work Posted dates from messages.');
+//		plannedWorkTestByTag(e.complex, testParsePlannedWorkDates, 'Should Parse [complex] Planned Work Posted dates from messages.');
 	});
 
 
 	describe('Parse Planned Work Dates', () => {
 
-		tests.basicTest(s.weekdays.simple, testParseDate, 'Should find basic [weekdays] planned work dates.');
-		tests.basicTest(s.weekend.simple, testParseDate, 'Should find basic [weekend] planned work dates.');
-		tests.basicTest(s.weekend.multiweekend, testParseDate, 'Should find [multi-weekend] planned work dates.');
-		tests.basicTest(s.weekend.complex, testParseDate, 'Should find [complex] planned work dates.');
-		tests.basicTest(s.weekdays.multiweek, testParseDate, 'Should find [multi-weekday] planned work dates.');
-		tests.basicTest(s.longterm.simple, testParseDate, 'Should find [long-term] planned work dates.');
-		tests.basicTest(s.weekend.unique, testParseDate, 'Should find [unique] planned work dates, like Holidays.');
-		tests.basicTest(s.updated_2018.simple, testParseDate, 'MTAD-072 -- Should find 2018 updated dates, by Month/Day');
+		basicTest(s.weekdays.simple, testParseDate, 'Should find basic [weekdays] planned work dates.');
+		basicTest(s.weekend.simple, testParseDate, 'Should find basic [weekend] planned work dates.');
+		basicTest(s.weekend.multiweekend, testParseDate, 'Should find [multi-weekend] planned work dates.');
+		basicTest(s.weekend.complex, testParseDate, 'Should find [complex] planned work dates.');
+		basicTest(s.weekdays.multiweek, testParseDate, 'Should find [multi-weekday] planned work dates.');
+		basicTest(s.longterm.simple, testParseDate, 'Should find [long-term] planned work dates.');
+		basicTest(s.weekend.unique, testParseDate, 'Should find [unique] planned work dates, like Holidays.');
+		basicTest(s.updated_2018.simple, testParseDate, 'MTAD-072 -- Should find 2018 updated dates, by Month/Day');
 	});
 
 	describe.skip('MTAD-118 -- Tag messages by Date Tag', () => {
-		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Weekends]', ['MTAD-118'], null, ['weekend']);
-		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Weekdays]', ['MTAD-118'], null, ['week_day']);
-		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [All Times]', ['MTAD-118'], null, ['all_times']);
-		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Late Nights]', ['MTAD-118'], null, ['late_night']);
-		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Days]', ['MTAD-118'], null, ['day']);
-		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Mornings]', ['MTAD-118'], null, ['morning']);
-		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Early Mornings]', ['MTAD-118'], null, ['early_morning']);
-		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Evening]', ['MTAD-118'], null, ['evening']);
-		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Late Evening]', ['MTAD-118'], null, ['late_evening']);
-		tests.dateTestByTag(e.normal, testTimeTag, 'Should Parse [Nights]', ['MTAD-118'], null, ['night']);
+		dateTestByTag(e.normal, testTimeTag, 'Should Parse [Weekends]', ['MTAD-118'], null, ['weekend']);
+		dateTestByTag(e.normal, testTimeTag, 'Should Parse [Weekdays]', ['MTAD-118'], null, ['week_day']);
+		dateTestByTag(e.normal, testTimeTag, 'Should Parse [All Times]', ['MTAD-118'], null, ['all_times']);
+		dateTestByTag(e.normal, testTimeTag, 'Should Parse [Late Nights]', ['MTAD-118'], null, ['late_night']);
+		dateTestByTag(e.normal, testTimeTag, 'Should Parse [Days]', ['MTAD-118'], null, ['day']);
+		dateTestByTag(e.normal, testTimeTag, 'Should Parse [Mornings]', ['MTAD-118'], null, ['morning']);
+		dateTestByTag(e.normal, testTimeTag, 'Should Parse [Early Mornings]', ['MTAD-118'], null, ['early_morning']);
+		dateTestByTag(e.normal, testTimeTag, 'Should Parse [Evening]', ['MTAD-118'], null, ['evening']);
+		dateTestByTag(e.normal, testTimeTag, 'Should Parse [Late Evening]', ['MTAD-118'], null, ['late_evening']);
+		dateTestByTag(e.normal, testTimeTag, 'Should Parse [Nights]', ['MTAD-118'], null, ['night']);
 	});
 
 	describe.skip('MTAD-073 -- Understand message Dates', () => {
-		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Single Date', ['MTAD-118'], null, null, ['date-single']);
-		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Date Range', ['MTAD-118'], null, null, ['date-range']);
-		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Dates Range (multiple)', ['MTAD-118'], null, null, ['date-range-multi']);
-		tests.dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Dates UNTIL', ['MTAD-118'], null, null, ['date-until']);
+		dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Single Date', ['MTAD-118'], null, null, ['date-single']);
+		dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Date Range', ['MTAD-118'], null, null, ['date-range']);
+		dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Dates Range (multiple)', ['MTAD-118'], null, null, ['date-range-multi']);
+		dateTestByTag(e.normal, testDateEval, 'Should Parse and Evaluate Dates UNTIL', ['MTAD-118'], null, null, ['date-until']);
 	});
 
 	describe('MTAD-073 -- Understand message Times', () => {
-		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Time Range (all)', ['MTAD-118'], null, null, ['time-all']);
-		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Time Range (single)', ['MTAD-118'], null, null, ['time-single']);
-		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Time Range (range)', ['MTAD-118'], null, null, ['time-range']);
-		tests.dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Time Range (range/multiple)', ['MTAD-118'], null, null, ['time-range-multi']);
+		dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Time Range (all)', ['MTAD-118'], null, null, ['time-all']);
+		dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Time Range (single)', ['MTAD-118'], null, null, ['time-single']);
+		dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Time Range (range)', ['MTAD-118'], null, null, ['time-range']);
+		dateTestByTag(e.normal, testTimeEval, 'Should Parse and Evaluate Time Range (range/multiple)', ['MTAD-118'], null, null, ['time-range-multi']);
 	});
 
 
 
 	describe('Should Separate messages', () => {
 
-		tests.altInstrTestByTag(e.normal, testAltInstructions, 'Should split simple message [alternate travel]');
+		altInstrTestByTag(e.normal, testAltInstructions, 'Should split simple message [alternate travel]');
 
-		tests.adMessageTestByTag(e.normal, testAdMessage, 'MTAD-012 -- Should split simple acessability messages [AD]', ['MTAD-012']);
+		adMessageTestByTag(e.normal, testAdMessage, 'MTAD-012 -- Should split simple acessability messages [AD]', ['MTAD-012']);
 
-//		tests.altInstrTestByTag(e.complex, testAltInstructions, 'Should split complex messages [alternate travel].');
+//		altInstrTestByTag(e.complex, testAltInstructions, 'Should split complex messages [alternate travel].');
 	});
 
 
@@ -97,7 +97,7 @@ describe('Parse Service Messages', function() {
 	 */
 	function testParsePlannedWorkDates(event) {
 
-		let result = mtaDates.getMessagePlannedWorkDate(event.message);
+		let result = getMessagePlannedWorkDate(event.message);
 
 		// @TODO
 		//   Until we convert all old date to an object,
@@ -124,7 +124,7 @@ describe('Parse Service Messages', function() {
 	function testTimeTag(event) {
 
 		let txt = (event.message_raw) ? event.message_raw : event.message;
-		let date = mtaDates.getMessageDates(txt);
+		let date = getMessageDates(txt);
 
 //		console.log(' --- ', event.message);
 
@@ -151,7 +151,7 @@ describe('Parse Service Messages', function() {
 	function testDateEval(event) {
 
 		let txt = (event.message_raw) ? event.message_raw : event.message;
-		let date = mtaDates.getMessageDates(txt);
+		let date = getMessageDates(txt);
 
 //		console.log(' --- ', date);
 
@@ -187,7 +187,7 @@ describe('Parse Service Messages', function() {
 	function testTimeEval(event) {
 
 		let txt = (event.message_raw) ? event.message_raw : event.message;
-		let date = mtaDates.getMessageDates(txt);
+		let date = getMessageDates(txt);
 
 		expect(event, event.message).to.have.property('expect');
 
@@ -222,7 +222,7 @@ describe('Parse Service Messages', function() {
 	function testAltInstructions(event) {
 
 		if (!event.alt_instructions) { return; }
-		let result = mtaStatus.getMessageAlternateInstructions(event.message);
+		let result = getMessageAlternateInstructions(event.message);
 
 		expect(result).to.equal(event.alt_instructions);
 	}
@@ -233,7 +233,7 @@ describe('Parse Service Messages', function() {
 	 */
 	function testAdMessage(event) {
 
-		let result = mtaStatus.getMessageADNote(event.message);
+		let result = getMessageADNote(event.message);
 		expect(result, event.message).to.equal(event.ad_message);
 	}
 
@@ -251,7 +251,7 @@ describe('Parse Service Messages', function() {
 		it (desc, function() {
 			Object.keys(library).map( (l) => {
 				text.map( o => {
-					let tmp = mtaTags.getMessageAction(o.txt, null, library[l]),
+					let tmp = getMessageAction(o.txt, null, library[l]),
 						msg = o.txt + ' should contain ' + o.expect + ', but found ' + tmp;
 
 					expect(tmp, l + ' (type) : ' + msg).to.be.an('array');
