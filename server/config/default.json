@@ -1,0 +1,21 @@
+{
+    "port": 8100,
+    "cache": {
+        "minutes": 1
+    },
+    "global_debug_id": "MTA NYCT_176407",
+    "api": {
+        "mta": {
+            "subway_alerts": "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Fsubway-alerts.json",
+            "subway_alerts_gtfs": "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Fsubway-alerts",
+            "sub_alerts__xml_2017": "http://web.mta.info/status/ServiceStatusSubway.xml",
+            "subway_alerts_txt_2017": "http://web.mta.info/status/serviceStatus.txt"
+        }
+    },
+    "storage": {
+        "current_storage_path": "./data/generated/mta_status.cache",
+        "cached_parse_path": "./data/generated/mta_status.final.cache",
+        "root_json_path": "./data/root_response",
+        "archive_path": "./data/archive/archive"
+    }
+}

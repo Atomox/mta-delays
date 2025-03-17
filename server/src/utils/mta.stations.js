@@ -1,24 +1,27 @@
 'use strict';
+import * as _ from 'lodash';
+import get from 'lodash';
+import union from 'lodash';
+import first from 'lodash';
+import last from 'lodash';
+import drop from 'lodash';
+import orderBy from 'lodash'; 
+import uniq from 'lodash';
+import mtaApi from '../svc/mta/subway/mta.api.js';
+import mtaRegEx from '../utils/regex.js';
 
-const _ = require('lodash');
-
-const mtaApi = require('./svc/mta/subway/mta.api');
-const mtaRegEx = require('./includes/regex');
-
-// Date files.
-const trainRoutes = require('./data/static/mta.stations.train').routes;
-const trainRoutesAlternate = require('./data/static/mta.stations.train').alternate_routes;
-const trainRoutesLocal = require('./data/static/mta.stations.train').local_routes;
-const trainRoutesExpress = require('./data/static/mta.stations.train').express_routes;
-const trainRoutesNight = require('./data/static/mta.stations.train').night_routes;
-const trainRoutesWeekend = require('./data/static/mta.stations.train').weekend_routes;
-
-
+// Data files.
+import { routes as trainRoutes } from '../../data/static/mta.stations.train.js';
+import { alternate_routes as trainRoutesAlternate } from '../../data/static/mta.stations.train.js';
+import { local_routes as trainRoutesLocal } from '../../data/static/mta.stations.train.js';
+import { express_routes as trainRoutesExpress } from '../../data/static/mta.stations.train.js';
+import { night_routes as trainRoutesNight } from '../../data/static/mta.stations.train.js';
+import { weekend_routes as trainRoutesWeekend } from '../../data/static/mta.stations.train.js';
+import { name_problems as problem_stations } from '../../data/static/mta.stations.suppliment.js';
+import stationSuppliment from '../../data/static/mta.stations.suppliment.js';
 const mta_stations_file_path = './data/generated/mta.stations.compiled';
-const problem_stations = require('./data/static/mta.stations.suppliment').name_problems;
-const stationSuppliment = require('./data/static/mta.stations.suppliment');
 
-async function getStations(ids) {
+export async function getStations(ids) {
 	try {
 		let data = await mtaApi.getSubwayStations(mta_stations_file_path);
 		if (!data || data.length <= 0) {
@@ -32,7 +35,6 @@ async function getStations(ids) {
 	}
 }
 
-
 /**
  * Filter a list of stations by passed station IDs, preserving order of the passed IDs.
  *
@@ -44,7 +46,7 @@ async function getStations(ids) {
  * @return {array(objects)}
  *   All station data, in order, from the passed array, if found.
  */
-function filterStations(data, ids) {
+export function filterStations(data, ids) {
 	if (data.stations) {	data = data.stations;	}
 
 	if (data.length <= 0 || typeof data !== 'object') { return false; }
@@ -61,7 +63,7 @@ function filterStations(data, ids) {
 }
 
 
-async function getStationLines(boro, train, omitStations) {
+export async function getStationLines(boro, train, omitStations) {
 	try {
 		let data = await mtaApi.getSubwayStations(mta_stations_file_path);
 
@@ -95,7 +97,7 @@ async function getStationLines(boro, train, omitStations) {
 	}
 }
 
-async function getStationsByLine() {
+export async function getStationsByLine() {
 	try {
 		let data = await mtaApi.getSubwayStations(mta_stations_file_path);
 
@@ -111,16 +113,16 @@ async function getStationsByLine() {
 }
 
 
-function getTrainRoute(line, include_all_times, tags) {
+export function getTrainRoute(line, include_all_times, tags) {
 	if (!trainRoutes[line]) {	return Promise.reject(line + ' Line unavailable'); }
 
 	let routeList = {
-		day: _.get(trainRoutes, line, []),
-		night: _.get(trainRoutesNight, line + '-LN', []),
-		weekend: _.get(trainRoutesWeekend, line + '-WKND', []),
-		alternate: _.get(trainRoutesAlternate, line, []),
-		express: _.get(trainRoutesExpress, line + '-EXP', []),
-		local: _.get(trainRoutesLocal, line + '-LCL', []),
+		day: get(trainRoutes, line, []),
+		night: get(trainRoutesNight, line + '-LN', []),
+		weekend: get(trainRoutesWeekend, line + '-WKND', []),
+		alternate: get(trainRoutesAlternate, line, []),
+		express: get(trainRoutesExpress, line + '-EXP', []),
+		local: get(trainRoutesLocal, line + '-LCL', []),
 	};
 
 	return new Promise( (resolve, reject) => {
@@ -140,9 +142,9 @@ function getTrainRoute(line, include_all_times, tags) {
 }
 
 
-function getTrainRouteBasic(line) {
+export function getTrainRouteBasic(line) {
 	return getTrainRoute(line)
-		.then(data => _.union(data['day'], data['alternate']));
+		.then(data => union(data['day'], data['alternate']).value());
 }
 
 
@@ -164,7 +166,7 @@ function getTrainRouteBasic(line) {
  *   A list of stations associated with this line,
  *   dependant upon the passed params.
  */
-async function getRouteStationsArray(line, include_stats, include_late_night, tags) {
+export async function getRouteStationsArray(line, include_stats, include_late_night, tags) {
 	try {
 		if (!tags || typeof tags !== 'object') {
 			tags = [];
@@ -175,26 +177,26 @@ async function getRouteStationsArray(line, include_stats, include_late_night, ta
 		// If all lines are to be included,
 		// then merge in any found alternate time routes for this line.
 		// Include alternate route (MTAD-030), trains run past normal line.
-		let data = _.union(routes['day'], routes['alternate']);
+		let data = union(routes['day'], routes['alternate']).value();
 
 		if (include_late_night === true || tags.indexOf('late_night') !== -1) {
 //			console.log(' <route|late_night>');
-			data = _.union(data, routes['night']);
+			data = union(data, routes['night']).value();
 		}
 
 		if (tags.indexOf('weekend') !== -1) {
 //			console.log(' <route|weekend>');
-			data = _.union(data, routes['weekend']);
+			data = union(data, routes['weekend']).value();
 		}
 
 		if (tags.indexOf('running_local') !== -1) {
 //			console.log(' <route|running_local>');
-			data = _.union(data, routes['local']);
+			data = union(data, routes['local']).value();
 		}
 
 		if (tags.indexOf('running_express') !== -1) {
 //			console.log(' <route|running_express>');
-			data = _.union(data, routes['express']);
+			data = union(data, routes['express']).value();
 		}
 
 		let my_result = {};
@@ -221,7 +223,7 @@ async function getRouteStationsArray(line, include_stats, include_late_night, ta
  * @return {String}
  *   The passed string, with any patterns of streets normalized.
  */
-function prepareBunchedStationNames(txt) {
+export function prepareBunchedStationNames(txt) {
 	if (!txt || typeof txt !== 'string'
 	|| (txt.indexOf('Sts') === -1 && txt.indexOf('Avs') === -1)) {
 		return txt;
@@ -265,7 +267,12 @@ function prepareBunchedStationNames(txt) {
 			found_match = false;
 
 		function getLastWord(txt) {
-			return _.last(txt.trim().split(' ')).toLowerCase().trim();
+			txt = txt.trim().split(' ');
+			let result = txt.pop();
+			if (result !== undefined) {
+				result = result.toLowerCase();
+			}
+			return result;
 		}
 
 		// Determine if we have multiple street types, and which order the appear in.
@@ -318,10 +325,10 @@ function prepareBunchedStationNames(txt) {
 			else {
 				if (!first_match) {
 					// Get our next match.
-					if (order && order.length > 0 && _.first(order)) {
-//						console.log(' >> <!> New Target: ', _.first(order), 'old: ', target);
-						target = _.first(order);
-						order = _.drop(order, 1);
+					if (order && order.length > 0 && first(order)) {
+//						console.log(' >> <!> New Target: ', first(order), 'old: ', target);
+						target = first(order);
+						order = drop(order, 1);
 					}
 				}
 				// Flag that we've found a match.
@@ -330,8 +337,10 @@ function prepareBunchedStationNames(txt) {
 				// Flag at least one match in message.
 				found_match = true;
 
-				if (target.toLowerCase() === 'sts') { s = s + ' ' + 'St'; }
-				if (target.toLowerCase() === 'avs') { s = s + ' ' + 'Av'; }
+				if (typeof target === "string") {
+					if (target.toLowerCase() === 'sts') { s = s + ' ' + 'St'; }
+					if (target.toLowerCase() === 'avs') { s = s + ' ' + 'Av'; }
+				}
 
 				if (s.toLowerCase().indexOf(target) !== -1) {
 //					console.log(' >> <!> Reached Target:', target, 'in:', s);
@@ -388,7 +397,7 @@ function prepareBunchedStationNames(txt) {
  *   List of found stations, a list of found problems (including any passed in),
  *   and a parsed message with matches replaced with station tokens.
  */
-async function matchRouteStationsMessage(line, message, processed_message, problems, tags) {
+export async function matchRouteStationsMessage(line, message, processed_message, problems, tags) {
 	try {
 		let line_id = line;
 		line = getTrainById(line_id);
@@ -447,7 +456,7 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
 				m.length = m.station.length;
 				return m;
 			});
-			res_re = _.orderBy(res_re, 'length', 'desc');
+			res_re = orderBy(res_re, 'length', 'desc');
 
 			res_re.map( m => {
 
@@ -534,7 +543,7 @@ async function matchRouteStationsMessage(line, message, processed_message, probl
  *   A list of stations, keyed by line, that we found. Also, a parsed message
  *   with station tolkens replacing the names of any we could find.
  */
-async function matchAllLinesRouteStationsMessage(lines, message, processed_message, tags) {
+export async function matchAllLinesRouteStationsMessage(lines, message, processed_message, tags) {
 
 	if (!tags) {
 		tags = [];
@@ -623,7 +632,8 @@ async function matchAllLinesRouteStationsMessage(lines, message, processed_messa
  *
  * E.G. {line: 'MTA NYCT_6', dir: 0} becomes 'MTA NYCT_6'.
  */
-function unwrapLineObject (line, translate_ids) {
+export function unwrapLineObject (line, translate_ids) {
+
 	line = (line.line) ? line.line : line;
 	if (line.indexOf('MTA NYCT' !== -1) && translate_ids == true) {
 		line = getTrainById(line);
@@ -651,7 +661,7 @@ function unwrapLineObject (line, translate_ids) {
  *   All resulting winning stations (including passed in non-problem results),
  *   along with the parsed messages.
  */
-function processProblemStations (problem_results, results, message, bound) {
+export function processProblemStations (problem_results, results, message, bound) {
 
 	if (Object.keys(problem_results).length > 0 ) {
 
@@ -767,7 +777,7 @@ function processProblemStations (problem_results, results, message, bound) {
 					if (length_found_stations.length > 0) {
 						// Did we have one or more results?
 						// Assemble a token to replace the found station.
-						let length_token = '[' + _.uniq(length_found_stations).join('|') + ']';
+						let length_token = '[' + uniq(length_found_stations).join('|') + ']';
 
 //						if (isTargetMatch) {
 //							console.log('(' + i + ') Replace...', length_token_found, ' ... with', length_token);
@@ -816,7 +826,7 @@ function processProblemStations (problem_results, results, message, bound) {
  *   A regex with station token matching, (optional) station names,
  *   and some supplimentary search regex to go along with station tokens.
  */
-async function getStationLinesRegex(lines) {
+export async function getStationLinesRegex(lines) {
 	let regexSpace = '\\s*';
 	let stations = {};
 						// (\s*( |between|and|until|to|end (at)?)*\s)
@@ -860,7 +870,7 @@ async function getStationLinesRegex(lines) {
 }
 
 
-function groupStationsByLocation(line, stations) {
+export function groupStationsByLocation(line, stations) {
 
 	let results = [];
 
@@ -889,17 +899,17 @@ function groupStationsByLocation(line, stations) {
 }
 
 
-function getBorosFromStationsArray(stations) {
-	return (_.isArray(stations))
-		? _.uniq(stations.map(s => (s) ? s.substring(0,2) : null))
-		: _.uniq(Object.keys(stations).map((j) => (j) ? j.substring(0,2): null ));
+export function getBorosFromStationsArray(stations) {
+	return (Array.isArray(stations))
+		? uniq(stations.map(s => (s) ? s.substring(0,2) : null))
+		: uniq(Object.keys(stations).map((j) => (j) ? j.substring(0,2): null ));
 }
 
 
 /**
  * Given a stations array, determine the affected boros for each line, and for the entire set.
  */
-function getBorosFromStations (stations) {
+export function getBorosFromStations (stations) {
 
 	try {
 		if (!stations) {
@@ -912,7 +922,7 @@ function getBorosFromStations (stations) {
 			if (stations[i].stations) {
 
 				lines[i] = getBorosFromStationsArray(stations[i].stations);
-				lines['global'] = _.union(lines['global'],lines[i]);
+				lines['global'] = union(lines['global'],lines[i]).value();
 			}
 		});
 
@@ -927,7 +937,7 @@ function getBorosFromStations (stations) {
 
 
 
-function getTrainById (id) {
+export function getTrainById (id) {
 
 	// Allow both raw line {line, direction}
 	// -or- string formats.
@@ -1006,23 +1016,6 @@ function getTrainById (id) {
 			return id;
 	}
 }
-
-
-module.exports = {
-	getStations,
-	getStationLines,
-	getStationsByLine,
-	getTrainRoute,
-	getTrainRouteBasic,
-	getTrainById,
-	getRouteStationsArray,
-	prepareBunchedStationNames,
-	matchAllLinesRouteStationsMessage,
-	matchRouteStationsMessage,
-	groupStationsByLocation,
-	getStationLinesRegex,
-	getBorosFromStations,
-};
 
 // Branch
 

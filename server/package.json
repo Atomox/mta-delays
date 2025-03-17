@@ -2,10 +2,12 @@
   "name": "mta-node",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "type": "module",
+  "main": "./src/server.js",
   "scripts": {
+    "start": "node ./src/server.js",
     "test": "mocha",
-    "stations": "node scripts/build_stations.js",
+    "stations": "node ./scripts/build_stations.js",
     "archive_latest": "node scripts/archive_latest_data.js  $MESSAGE",
     "parse_message": "node scripts/station_parse_message.js  $MESSAGE"
   },
@@ -16,10 +18,11 @@
     "url": "https://github.com/Atomox/mta-delays.git"
   },
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^1.8.3",
+    "config": "^3.3.12",
     "deep-object-diff": "^1.1.0",
-    "express": "^4.16.2",
-    "lodash": "^4.17.4",
+    "express": "^4.21.2",
+    "lodash": "^4.17.21",
     "moment": "^2.22.1",
     "striptags": "^3.1.0",
     "unescape": "^1.0.1",

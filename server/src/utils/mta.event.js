@@ -8,25 +8,24 @@
  *
  * This is a cleaner API, which requires less cleanup.
  */
-const striptags = require('striptags');
-const decode = require('unescape');
-const _union = require('lodash').union;
-const _uniq = require('lodash').uniq;
-const moment = require('moment');
+import striptags from 'striptags';
+import decode from 'unescape';
+import union from 'lodash';
+import config from 'config';
+import { getBorosFromStations, matchAllLinesRouteStationsMessage } from './mta.stations.js';
+import { getMessageDates } from './mta.dates.js';
+import { getRouteChange } from './mta.route_change.js';
+import { getWeightedMessageTaxonomy, getPrimaryTag } from './mta.taxonomy.js';
 
-const mtaStations = require('./mta.stations');
-const mtaRegEx = require('./includes/regex');
-const mtaDates = require('./mta.dates');
-const mtaRouteChange = require('./mta.route_change');
-const mtaTags = require('./mta.taxonomy');
+const GLOBAL_DEBUG_ID = config.get("global_debug_id");
 
-const GLOBAL_DEBUG_ID = 'MTA NYCT_176407';
-
-
+/**
+ * Verify valid payload from MTA, and prepare events to be parsed.
+ */
 function checkReports(response) {
 
-	let timestamp = response.Siri.ServiceDelivery[0].ResponseTimestamp[0];
-	let situations = response.Siri.ServiceDelivery[0].SituationExchangeDelivery[0].Situations;
+	let timestamp = response.header.timestamp; // response.Siri.ServiceDelivery[0].ResponseTimestamp[0];
+	let situations = response.entity // response.Siri.ServiceDelivery[0].SituationExchangeDelivery[0].Situations;
 
 	let data = {
 		status: true,
@@ -35,14 +34,15 @@ function checkReports(response) {
 	}
 
 	if (situations && situations[0] && typeof situations[0] == 'object') {
-		if (situations[0].PtSituationElement && typeof situations[0].PtSituationElement == 'object') {
-			data.events = situations[0].PtSituationElement;
-		}
+		data.events = situations;
 	}
 
 	return data;
 }
 
+/**
+ * Process events.
+ */
 async function parseStatusFeed(feedObject) {
 
 	let my_body = {
@@ -90,32 +90,46 @@ async function parseSingleEvent(event) {
 		summary: null,
 		detail: null,
 		line: [],
+		station: [],
 		effects: null,
 		severity: null,
 		source: null,
 	};
 	try {
-		e.id = event.SituationNumber[0].trim();
-		e.type = event.ReasonName[0].trim();
-		e.planned = (event.Planned[0] === 'true') ? true : false;
-		e.summary = event.Summary[0]._;
-		e.detail = cleanStatusText(event.LongDescription[0]);
-		e.type_detail = event.Consequences[0].Consequence[0].Condition[0];
-		e.severity = event.Consequences[0].Consequence[0].Severity[0];
+		e.id = event.id.trim();
+		e.type = event.alert["transit_realtime.mercury_alert"].alert_type;
+		e.planned = (e.type !== "Delays") ? true : false;
 
-		e.date.fetched = event.CreationTime[0];
-		e.date.start = event.PublicationWindow[0].StartTime[0];
-		e.date.end = (event.PublicationWindow[0].EndTime) ? event.PublicationWindow[0].EndTime[0] : null;
-
-		// Parse out lines.
-		let k = event.Affects[0].VehicleJourneys[0].AffectedVehicleJourney;
-		for (let j in k) {
-			e.line.push({ line: k[j].LineRef[0].trim(), dir: k[j].DirectionRef[0].trim()});
+		if (!event.alert.header_text && !event.alert.description_text) {
+			console.warn(event.alert);
+			throw new Error("Event ID# " + event.id + " missing Header & Description Text. Skipping.");
 		}
 
-		if (event.Source[0].SourceType[0] != 'directReport') {
-			e.source = event.Source[0].SourceType[0];
-			console.warn('NEW SOURCE TYPE:', event.Source[0].SourceType[0]);
+		let title = (event.alert.header_text) ? event.alert.header_text.translation[0].text : "";
+		let description = (event.alert.description_text) ? event.alert.description_text.translation[0].text : "";
+
+		e.summary = event.alert.header_text.translation[0].text;
+		e.detail = title + " " + description;
+		e.type_detail = null;
+		e.severity = null;
+
+		e.date.fetched = event.alert.active_period.start;
+		e.date.start =event.alert.active_period.start;
+		e.date.end = (event.alert.active_period.end) ? event.alert.active_period.end : null;
+
+		// Parse out lines.
+		let k = event.alert.informed_entity; // event.Affects[0].VehicleJourneys[0].AffectedVehicleJourney;
+		for (let j in k) {
+			if (k[j].route_id){
+				e.line.push({ line: k[j].route_id.trim(), dir: null, entity: k[j]["transit_realtime.mercury_entity_selector"].sort_order});
+			}
+			else if (k[j].stop_id) {
+				e.station.push({ station: k[j].stop_id })
+			}
+			else {
+				console.warn("New type of informed_entity: ");
+				console.warn(k[j]);
+			}
 		}
 
 		e.detail = await parseDetailMessage(e.detail, e.summary, e.line, e.id);
@@ -151,6 +165,7 @@ function cleanStatusText(text) {
 
 	if (!text) {
 		console.error('\n\n', '<!> Expecting text to clean.');
+		return text;
 	}
 
 	// Clean up the tags and newlines.
@@ -164,10 +179,7 @@ function cleanStatusText(text) {
 	// Strip tags (minus strong and spans)
 	let allowed_tags = [];
 	text = striptags(text, allowed_tags, ' ');
-
-	for (t in text) {
-		text[t] = text[t].trim();
-	}
+	text = text.trim();
 
 	return text;
 }
@@ -216,13 +228,13 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 			};
 
 			// Determine if the event type has more detail.
-			let tags = mtaTags.getWeightedMessageTaxonomy(event);
-			e.type = mtaTags.getPrimaryTag(tags['tags_detailed']);
+			let tags = getWeightedMessageTaxonomy(event);
+			e.type = getPrimaryTag(tags['tags_detailed']);
 			e.type_detail = tags['tags'];
 			e.tags = tags['tags_detailed'];
 
 			// Get a scheduled time from the body. (Planned Work)
-			e.durration = mtaDates.getMessageDates(event);
+			e.durration = getMessageDates(event);
 
 			// Get AD note (always at the bottom).
 			// <!> Must run before Travel Alt, which WILL match this.
@@ -236,10 +248,11 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 			e.train_context = getMessageTrainLines(event);
 
 			// Get all line names, then filter a distinct set.
-			e.trains = _union(lines
+			e.trains = union(lines
 				.map((val) => val.line)
-				.filter((value, index, self) => self.indexOf(value) === index));
-			e.train_context = _union(e.trains,e.train_context);
+				.filter((value, index, self) => self.indexOf(value) === index))
+				.value();
+			e.train_context = union(e.trains,e.train_context).value();
 
 			// Remove alt instructions before gathering affected stations,
 			// for accuracy of event over unaffected stations listed only for
@@ -250,24 +263,24 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 
 			// Get all stations per line. Also get a formatted message, with station names
 			// substituted with their IDs, for easier parsing of line and route changes.
-			let station_result = await getStationsInEventMessage(e.train_context, trim_message, null, _union(e.type_detail, e.durration.tags));
+			let station_result = await getStationsInEventMessage(e.train_context, trim_message, null, union(e.type_detail, e.durration.tags).value());
 			e.stations = station_result.stations;
 			e.stations_bound = station_result.bound;
 			e.message_station_parse = station_result.parsed_message;
 
 			// Get a formatted alt instructions message, with station names
 			// substituted with their IDs.
-			let station_result_alt = await getStationsInEventMessage(e.train_context, e.alt_instructions.raw, null, _union(e.type_detail, e.durration.tags));
+			let station_result_alt = await getStationsInEventMessage(e.train_context, e.alt_instructions.raw, null, union(e.type_detail, e.durration.tags).value());
 
 			e.alt_instructions.stations = station_result_alt.stations;
 			e.alt_instructions.stations_bound = station_result_alt.bound;
 			e.alt_instructions.parsed = station_result_alt.parsed_message;
 
 			// Determine affected boros using affected station list.
-			e.boros = mtaStations.getBorosFromStations(e.stations);
+			e.boros = getBorosFromStations(e.stations);
 
 			// Route Change Processing.
-			e.route_change = await mtaRouteChange.getRouteChange(e.message_station_parse, e.trains, id);
+			e.route_change = await getRouteChange(e.message_station_parse, e.trains, id);
 
 			// Debug Message.
 			if (id == GLOBAL_DEBUG_ID) {
@@ -303,9 +316,8 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
  *   [parsed_message] contains the original message, with all stations matches replaced by their ID, wrapped in [].
  */
 async function getStationsInEventMessage(lines, message, parsed_message, tags) {
-	return await mtaStations.matchAllLinesRouteStationsMessage(lines, message, parsed_message, tags);
+	return await matchAllLinesRouteStationsMessage(lines, message, parsed_message, tags);
 }
-
 
 /**
  * Find all train lines in passed text,
@@ -316,9 +328,10 @@ function getMessageTrainLines(text) {
 	let train_pattern = /\[(A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SI|SIR|[1-7]|6D|7D|SH|SF)\]/ig;
 
 	let results = {};
+	let m;
 	do {
-    m = train_pattern.exec(text);
-    if (m) {	results[m[1]] = m[1]; }
+    	m = train_pattern.exec(text);
+    	if (m) {	results[m[1]] = m[1]; }
 	} while (m);
 
 	return Object.keys(results).map( i => 'MTA NYCT_' + results[i] );
@@ -398,7 +411,7 @@ function getMessageADNote(text) {
 }
 
 
-module.exports = {
+export default {
 	checkReports,
 	parseStatusFeed,
 	getMessageAlternateInstructions,

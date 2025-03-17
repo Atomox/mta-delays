@@ -1,6 +1,7 @@
-let _union = require('lodash/union');
+import union from 'lodash';
 
-let routes = {
+
+export const routes = {
 	1: [
 		// "Broadway - 7Av" -- "Bx", "Mn"
 		'Bx293-101',  // "Van Cortlandt Park - 242 St"
@@ -291,6 +292,42 @@ let routes = {
 		'Mn622-640',  // "Brooklyn Bridge - City Hall"
 
 	],
+	'6X': [
+			// "Pelham" -- "Bx"
+			'Bx360-601',  // "Pelham Bay Park",
+			'Bx361-602',  // "Buhre Av"
+			'Bx362-603',  // "Middletown Rd"
+			'Bx363-604',  // "Westchester Sq - E Tremont Av"
+			'Bx364-606',  // "Zerega Av"
+			'Bx365-607',  // "Castle Hill Av"
+			'Bx366-608',  // "Parkchester"
+			// Express Skips Stations
+			'Bx371-613',  // "Hunts Point Av"
+			// Express Skips Stations
+			'Bx377-619',  // "3 Av - 138 St"
+
+			// "Lexington - Shuttle" -- "Mn"
+			'Mn392-621',  // "125 St"
+			'Mn393-622',  // "116 St"
+			'Mn394-623',  // "110 St"
+			'Mn395-624',  // "103 St"
+			'Mn396-625',  // "96 St"
+			'Mn397-626',  // "86 St"
+			'Mn398-627',  // "77 St"
+			'Mn399-628',  // "68 St - Hunter College"
+			'Mn613-629',  // "59 St"
+			'Mn612-630',  // "51 St"
+			'Mn610-631',  // "Grand Central - 42 St"
+			'Mn403-632',  // "33 St"
+			'Mn404-633',  // "28 St"
+			'Mn405-634',  // "23 St"
+			'Mn602-635',  // "14 St - Union Sq"
+			'Mn407-636',  // "Astor Pl"
+			'Mn619-637',  // "Bleecker St"
+			'Mn409-638',  // "Spring St"
+			'Mn623-639',  // "Canal St"
+			'Mn622-640',  // "Brooklyn Bridge - City Hall"		
+	],
 	'6D': [
 			// "Pelham" -- "Bx"
 			'Bx360-601',  // "Pelham Bay Park",
@@ -326,6 +363,22 @@ let routes = {
 			'Mn409-638',  // "Spring St"
 			'Mn623-639',  // "Canal St"
 			'Mn622-640',  // "Brooklyn Bridge - City Hall"
+	],
+	'7X': [
+		// "Flushing" -- "Qs", "Mn"
+		'Qs447-701',  // "Flushing - Main St"
+		'Qs448-702',  // "Mets - Willets Point"
+		'Qs451-707',  // "Junction Blvd"
+		'Qs456-712',  // "Woodside - 61 St"
+
+		'Qs461-718',  // "Queensboro Plaza"
+		'Qs606-719',  // "Court Sq"
+		'Qs463-720',  // "Hunters Point Av"
+		'Qs464-721',  // "Vernon Blvd - Jackson Av"
+		'Mn610-723',  // "Grand Central - 42 St"
+		'Mn609-724',  // "5 Av"
+		'Mn611-725',  // "Times Sq - 42 St"
+		'Mn471-726',  // "34 St - 11 Av"
 	],
 	'7D': [
 		// "Flushing" -- "Qs", "Mn"
@@ -1053,6 +1106,25 @@ let routes = {
 		'Mn107-M23',  // "Broad St"
 
 	],
+	GS: [
+		// "Lexington - Shuttle" -- "Mn"
+		'Mn611-902',  // "Times Sq - 42 St"
+		'Mn610-901',  // "Grand Central - 42 St"
+	],
+	H: [
+		// "Rockaway" -- "Qs"
+		'Qs199-H04',  // "Broad Channel"
+		'Qs200-H12',  // "Beach 90 St"
+		'Qs201-H13',  // "Beach 98 St"
+		'Qs202-H14',  // "Beach 105 St"
+		'Qs203-H15',  // "Rockaway Park - Beach 116 St"
+	],
+	FS: [
+		// "Franklin Shuttle" -- "Bk"
+		'Bk627-S01',  // "Franklin Av"
+		'Bk141-S03',  // "Park Pl"
+		'Bk626-S04',  // "Botanic Garden"
+	],
 	S: [
 		// "Lexington - Shuttle" -- "Mn"
 		'Mn611-902',  // "Times Sq - 42 St"
@@ -1092,17 +1164,40 @@ let routes = {
 		'SI519-S13', // "Richmond Valley"
 		'SI523-S11', // "Arthur Kill", Replaces Nasseau & Atlantic
 		'SI522-S09', // "Tottenville"
-
+	],
+	SI: [
+		'SI501-S31', // "St George"
+		'SI502-S30', // "Tompkinsville"
+		'SI503-S29', // "Stapleton"
+		'SI504-S28', // "Clifton"
+		'SI505-S27', // "Grasmere"
+		'SI506-S26', // "Old Town"
+		'SI507-S25', // "Dongan Hills"
+		'SI508-S24', // "Jefferson Av"
+		'SI509-S23', // "Grant City"
+		'SI510-S22', // "New Dorp"
+		'SI511-S21', // "Oakwood Heights"
+		'SI512-S20', // "Bay Terrace"
+		'SI513-S19', // "Great Kills"
+		'SI514-S18', // "Eltingville"
+		'SI515-S17', // "Annadale"
+		'SI516-S16', // "Huguenot"
+		'SI517-S15', // "Prince's Bay"
+		'SI518-S14', // "Pleasant Plains"
+		'SI519-S13', // "Richmond Valley"
+		'SI523-S11', // "Arthur Kill", Replaces Nasseau & Atlantic
+		'SI522-S09', // "Tottenville"
 	],
 };
 
-let express_routes = {
+export const express_routes = {
 	'6-EXP': routes['6D'],
+	'6X': routes['6D'],
 	'7-EXP': routes['7D']
 };
 
-let local_routes = {
-	'2-LCL': _union(routes[2], [
+export const local_routes = {
+	'2-LCL': union(routes[2], [
 		// "Broadway - 7Av" -- "Bx", "Mn"
 		'Mn311-121',  // "86 St"
 		'Mn312-122',  // "79 St"
@@ -1122,7 +1217,7 @@ let local_routes = {
 		'Mn326-136',  // "Franklin St"
 		//'Mn327-137',  // "Chambers St"
 	]),
-	'3-LCL': _union(routes[3], [
+	'3-LCL': union(routes[3], [
 		// "Broadway - 7Av" -- "Bx", "Mn"
 		'Mn311-121',  // "86 St"
 		'Mn312-122',  // "79 St"
@@ -1267,8 +1362,8 @@ let local_routes = {
 	],
 	'6D-LCL': routes[6],
 	'7D-LCL': routes[7],
-	'A-LCL': _union(routes['C'], routes['A']),
-	'B-LCL': _union(routes['B'], [
+	'A-LCL': union(routes['C'], routes['A']),
+	'B-LCL': union(routes['B'], [
 
 		'Mn228-D18', // "6th Av - Culver"
 		'Mn601-D19', // "14 St"
@@ -1292,7 +1387,7 @@ let local_routes = {
 		'Bk54-D39', // "Sheepshead Bay"
 		'Bk55-D40', // "Brighton Beach"
 	]),
-	'D-LCL': _union(routes['D'], [
+	'D-LCL': union(routes['D'], [
 		//'Broadway - Brighton':
 		'Bk26-R30', 	// DeKalb Av
 
@@ -1309,7 +1404,7 @@ let local_routes = {
 	 * @TODO
 	 *   We should merge these in order.
 	 */
-	'E-LCL': _union(routes['E'], [
+	'E-LCL': union(routes['E'], [
 		'Qs258-F05',
 		'Qs260-F07',
 
@@ -1328,7 +1423,7 @@ let local_routes = {
 		'Qs272-G20',
 		'Qs273-G21', // Queens Plaza
 	]),
-	'F-LCL': _union(routes['F'], [
+	'F-LCL': union(routes['F'], [
 		// 'Queens - Archer': -- "Qs", "Mn"
 		'Qs261-G08', // Forest Hills 71st Ave
 		'Qs262-G09',
@@ -1343,7 +1438,7 @@ let local_routes = {
 		'Qs271-G19', // Steinway
 		'Qs272-G20',
 	]),
-	'N-LCL': _union(routes['N'] ,[
+	'N-LCL': union(routes['N'] ,[
 		// Queens Stations...
 
 		// 'Broadway - Brighton':
@@ -1376,7 +1471,7 @@ let local_routes = {
 
 		// N branch in Brooklyn...
 	]),
-	'Q-LCL': _union(routes['Q'], [
+	'Q-LCL': union(routes['Q'], [
 		// 'Broadway - Brighton':
 		'Mn9-R14',
 		'Mn10-R15',
@@ -1394,7 +1489,7 @@ let local_routes = {
 	'Z-LCL': routes['J'],
 };
 
-let night_routes = {
+export const night_routes = {
 	'2-LN': local_routes['2-LCL'],
 	'3-LN': [
 		// "Lenox - White Plains Rd" -- "Bx", "Mn"
@@ -1464,7 +1559,7 @@ let night_routes = {
 	],
 };
 
-let alternate_routes = {
+export const alternate_routes = {
 	2: [
 		// Along 1, downtown
 		'Mn328-138',  // "Cortlandt St"
@@ -1517,7 +1612,7 @@ let alternate_routes = {
 	],
 };
 
-let weekend_routes = {
+export const weekend_routes = {
 	'5-WKND': [
 		// "Dyre Av" -- "Bx"
 		'Bx442-501',  // "Eastchester - Dyre Av"
@@ -1623,7 +1718,7 @@ let weekend_routes = {
 };
 
 
-module.exports = {
+export default {
 	routes,
 	express_routes,
 	local_routes,

@@ -1,5 +1,4 @@
-const taxonomy = {
-
+export default {
 
 	// Incidents
 	incident_unplanned: {
@@ -273,5 +272,3 @@ const taxonomy = {
 		// 9:30 PM Fri, Jun 8 to 5 AM Mon, Jun 11
 	},
 };
-
-module.exports = taxonomy;

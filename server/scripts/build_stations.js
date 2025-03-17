@@ -1,5 +1,5 @@
 // These should be relative to this directory.
-const mtaApi = require('../svc/mta/subway/mta.api');
+const mtaApi = require('../src/svc/mta/subway/mta.api');
 const mtaRegEx = require('../includes/regex');
 
 // File where we'll store things. No extension, please.
@@ -19,8 +19,6 @@ const stations_generated_filename = 'data/generated/mta.stations.compiled.json';
 //  'GTFS Latitude': 40.775036,
 //  'GTFS Longitude': -73.912034
 //}
-
-
 
 console.log('Compile Stations List...');
 

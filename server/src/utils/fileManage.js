@@ -1,11 +1,10 @@
 // Require FileStream library for read/write.
-const fs = require('fs');
-
+import fs from 'fs';
 
 /**
  * Write data to a file. If one exists, we'll overwrite this.
  */
-function saveStatusToFile(data, filename) {
+export function saveStatusToFile(data, filename) {
 
 	return new Promise((resolve, reject) => {
 		fs.writeFile(filename, data, (err) => {
@@ -17,11 +16,11 @@ function saveStatusToFile(data, filename) {
 }
 
 
-function loadStatusFromFile(filename, type) {
+export function loadStatusFromFile(filename, type) {
 	return new Promise((resolve, reject) => {
 		fs.readFile(filename, 'utf8', (err, contents) => {
 			if (err) {
-        console.log(' <!> -- Error Loading File: ', err);
+        		console.log(' <!> -- Error Loading File: ', err);
 				reject(err);
 			}
 			else if (contents.length <= 0) {
@@ -43,25 +42,15 @@ function loadStatusFromFile(filename, type) {
 	});
 }
 
-function makeJsonFromXml(data) {
-	return new Promise((resolve, reject) => {
-
-		var parseString = require('xml2js').parseString;
-		parseString(data, function (err, result) {
-	    	if (err) {
-	    		reject('Error parsing to JSON. Error:' + err);
-	    	}
-	    	resolve(prepJsonForFile(result));
-		});
-	});
-}
-
 function prepJsonForFile(data) {
   return JSON.stringify(data);
 }
 
-
-function checkFreshnessDate(packed_date, expires) {
+/**
+ * 
+ * @returns true if data is still within freshness.
+ */
+export function checkFreshnessDate(packed_date, expires) {
 
 	if (expires === false) {
 		console.log(' -- [', 'Cached timing disabled. Using cached data.', '] --');
@@ -94,7 +83,7 @@ function checkFreshnessDate(packed_date, expires) {
 	return true;
 }
 
-function cacheJsonResponse(data, file) {
+export async function cacheJsonResponse(data, file) {
   let status = null;
 
   try {
@@ -102,26 +91,15 @@ function cacheJsonResponse(data, file) {
       throw new Error('Expected non-empty data for cache.');
     }
 
-    let finalData = prepJsonForFile(data);
+    let finalData = await prepJsonForFile(data);
 
-    status = saveStatusToFile(finalData, file)
-      .then(data => console.log(' -!- Data cache complete.') );
+    status = await saveStatusToFile(finalData, file);
+    console.log(' -!- Data cache complete.');
   }
   catch (err) {
     console.warn(' <!> -- Error while caching Response: ', err);
   }
 
   // Return data, so this can be a step in the file serve.
-  return {
-    data: data,
-    saveStatus: status
-  };
+  return status;
 }
-
-module.exports = {
-  checkFreshnessDate,
-  loadStatusFromFile,
-  saveStatusToFile,
-  makeJsonFromXml,
-  cacheJsonResponse,
-};

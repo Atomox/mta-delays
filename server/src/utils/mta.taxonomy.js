@@ -1,4 +1,4 @@
-const mtaTaxonomy = require('./data/static/mta.taxonomy');
+import mtaTaxonomy from '../../data/static/mta.taxonomy.js';
 
 /**
  * Parse the event message for any keywords we can use to tag the event.
@@ -14,7 +14,7 @@ const mtaTaxonomy = require('./data/static/mta.taxonomy');
  * @return [array|null]
  *   An array of matched tags (DISTINCT). Otherwise, [null].
  */
-function getMessageAction(text, action, external_library) {
+export function getMessageAction(text, action, external_library) {
 
 	let my_status = getWeightedMessageTaxonomy(text, action, external_library);
 
@@ -22,7 +22,7 @@ function getMessageAction(text, action, external_library) {
 }
 
 
-function getWeightedMessageTaxonomy(text, action, external_library) {
+export function getWeightedMessageTaxonomy(text, action, external_library) {
 
 		let my_status = [],
 			my_status_detailed = {},
@@ -101,7 +101,7 @@ function getTagWeight(tag, tag_group) {
 	}
 }
 
-function getPrimaryTag(weighted_tags) {
+export function getPrimaryTag(weighted_tags) {
 	let first_key = Object.keys(weighted_tags)[0],
 		first = weighted_tags[first_key],
 		tag = (first && first.length > 0) ? first[0] : null,
@@ -112,9 +112,3 @@ function getPrimaryTag(weighted_tags) {
 		weight: weight
 	}
 }
-
-module.exports = {
-  getMessageAction,
-  getWeightedMessageTaxonomy,
-  getPrimaryTag,
-};

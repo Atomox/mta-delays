@@ -1,4 +1,4 @@
-const stationSuppliment = require('../data/static/mta.stations.suppliment');
+import stationSuppliment from '../../data/static/mta.stations.suppliment.js';
 
 
 
@@ -266,7 +266,7 @@ function matchRegexStation(pattern, haystack, return_all, greedy, include_boro) 
 }
 
 
-module.exports = {
+export default {
 	replaceSpace,
 	wrapNumberBounds,
 	wrapSeperatorBounds,

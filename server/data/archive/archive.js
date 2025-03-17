@@ -1,4 +1,4 @@
-let archive_status = {
+export const archive_status = {
 	files: [
 		'mta_status.07.Begins_XML_feed',
 		'mta_status.08',
@@ -188,7 +188,10 @@ let archive_status = {
 	path: './data/archive/',
 };
 
-function build_archive_object () {
+/**
+ * Build Archive List
+ */
+export function get_archive_list () {
 	let assembled = [];
 	for (let i in archive_status.files) {
 		let ex = archive_status.files[i].split('.');
@@ -211,10 +214,4 @@ function build_archive_object () {
 	archive_status.list = assembled;
 
 	return archive_status;
-}
-
-
-module.exports = {
-	archive_status,
-	get_archive_list: build_archive_object,
 }

@@ -1,4 +1,4 @@
-const name_problems = {
+export const name_problems = {
 
 	'36 St': [
 		'Qs272-G20',
@@ -149,7 +149,7 @@ const road_abbreviations = [
 	'st', 'sq', 'av', 'pl', 'pkwy', 'blvd', 'authority'
 ];
 
-module.exports = {
+export default {
 	name_problems,
 	hyphen_station_suffix,
 	hyphen_station_avs,

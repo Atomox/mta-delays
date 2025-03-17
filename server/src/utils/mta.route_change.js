@@ -1,11 +1,12 @@
-const _union = require('lodash').union;
-const _uniq = require('lodash').uniq;
-const _get = require('lodash').get;
+import * as _ from 'lodash';
+const _union = _.union;
+const _uniq = _.uniq;
+const _get = _.get;
 
-const mtaStations = require('./mta.stations');
-const mtaTags = require('./mta.taxonomy');
-const mtaStatus = require('./mta.event');
-const mtaRegEx = require('./includes/regex');
+import { getTrainRouteBasic, getStationLinesRegex } from './mta.stations.js';
+import * as mtaTags from './mta.taxonomy.js';
+import mtaStatus from './mta.event.js';
+import mtaRegEx from '../utils/regex.js';
 
 
 function unwrapTrain(train) {
@@ -102,7 +103,7 @@ function prepareRouteOperatesSections(text) {
  * @return [object]
  *   A route change object, including parsed message, lines and rotue objects.
  */
-async function getRouteChange(text, lines, id) {
+export async function getRouteChange(text, lines, id) {
 
 	if (!text) { console.error('\n\n\n <!> NO TEXT PASSED TO ROUTE CHANGE!!!\n\n\n');}
 
@@ -863,7 +864,7 @@ async function processRouteChangeSectionsResult(regex_results, message_mod) {
  * @return {object}
  *   The updated route change object.
  */
-async function analyzeStationArray(r) {
+export async function analyzeStationArray(r) {
 	try {
 
 		let keys = ['from', 'to', 'bypass'],
@@ -877,7 +878,7 @@ async function analyzeStationArray(r) {
 			throw new Error('Analyze station expects a line ID on either -lines- or -along-, but found none.');
 		}
 
-		let line = await mtaStations.getTrainRouteBasic(along);
+		let line = await getTrainRouteBasic(along);
 
 		for (let i in keys) {
 			if (!r[keys[i]]) {	continue; }
@@ -923,10 +924,10 @@ async function analyzeStationArray(r) {
  * @return {text | false}
  *   If found, we return the matched rout change message.
  */
-async function getMessageRouteChange(text) {
+export async function getMessageRouteChange(text) {
 
 	// Get stations in each line, as a giant regex.
-	let stations = await mtaStations.getStationLinesRegex();
+	let stations = await getStationLinesRegex();
 
 	let routeChangePattern = /((?:(?:(?:(?:Some|northbound|southbound|(?:down|up)town|and|\b.*\b[\s-]bound|(?:(?:after\s*)?\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[,\s-]\s*(?:bound)?)\s*)*\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|6D|7D|HS|FS|H|FS|[1-7]|SB|TP)\][\*\s]*(?:(?:Some|northbound|southbound|(?:down|up)town|and|\b.*\b[\s-]bound|(?:\[(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}\])\s*[\s-]\s*(?:bound)?)\s*)*)*(?:(?:express|local|shuttle)?\s*(?:trains)?\s*(?:(?:(?:There\s*(?:is|will\s*be)\s*)?No\s*(?:\[[A-Z0-9]{1,2}\]\s*)?\s*(?:service|train[s]?(?:\s*service)?)|\bService\b\s*is\s*suspended\s*(?:in\s*both\s*directions\s*)?\s*(?:on\s*the\s*)?(?:\[[A-Z0-9]{1,2}\])?\s*line|are\s*making\s*(?:express|local|shuttle)\s*stops)\s*(?:(?:in)?\s*(?:Manhattan|Brooklyn|Queens|(?:the\s*)?Bronx)\s*)?(?:between|at)\s*(?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\](?:(?:,\s*)?(?:Manhattan|Brooklyn|Queens|(?:The\s*)?Bronx)|\s*|\,|and|or)*)+|(?:(?:make|run)\s*local(?:\s*stops)?\s*and)?(?:\s*(?:are|will))?\s*(?:reroute[d]?(?:(?:\s*in\s*both\s*directions)?)?|\breplace\b|stopping|operate\s*(?:weekday|weekend|evening|overnight)\s*(?:service)?|run(?:ning)?\s*(?:(?:via|along|on)\s*(?:the)?\s*(?:(?:express|local)\s*track)?|traveling|express|local|between))|(?:(?:(?:\[SB\]\s*)?\wbus(?:es)?\w|service operates|operate(?:s)?|\btrains\s*run\b)\s*(?:(?:at\s*)?all\s*times)?(?:\s*in\s*two\s*sections[\s0-9\:\.]*|\s*b\s*etween)?)|(?:are\s*)?(?:skip(?:ping)?|bypass(?:ing)?)\s*(?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\](?:\s*|\,|and)*)+|(?:then)?\s*(?:stopping)?\s*\b(?:over|along)\b\s*the|(?:then|trains)\s*(?:will|are)?\s*end(?:ing)?\s*(?:at)?)))(?:(?:\s*|[1-9]\.)*(?:(?:and)?\s*is\s*rerouted|both\s*directions|(?:express|local)?\s*in\s*(?:Manhattan|Brooklyn|Queens|the Bronx|staten Island)?|as follows\:|line[s]?|travel(?:ing)?|are|(?:and\s*)?(?:on|in|b\s*etween|along|long|from|to(?:\s*\/\s*from)?|via|\breplace\b)\s*(?:the)?|then(?:\s*end)?|end\s*(?:at)|\,|\.|\(\s*skipping[^\(\)]*\))*\s*(?:\[(?:A|B|C|D|E|F|G|M|L|J|Z|N|Q|R|W|S|SIR|6D|7D|HS|FS|H|FS|[1-7]|SB|TP)\])*(?:station|[\*\s]*)*(?:(?:(?:[\*\s]*|between|and|\/|or|until|to(?:\s*\/\s*from\s*)?|end\s(?:at)?|express|local|in\s*both\s*directions|train(s)?|station|after)*\s*(?:\[(?:(?:Qs|Mn|Bx|Bk|SI)[0-9]{1,5}\-[A-z0-9]{1,5}[|]?)+\])(?:(?:,\s*)?(?:Manhattan|Brooklyn|Queens|(?:The\s*)?Bronx)|\,?\s*the last stop|\,|\s*days(?:\s*(?:and|\/)\s*)?evenings|\*?)*\.?)*)*)*)+/;
 /**
@@ -979,10 +980,3 @@ function replaceSimpleMessagePattern(message, replace_text, token) {
 
 	return message;
 }
-
-
-module.exports = {
-  analyzeStationArray,
-	getRouteChange,
-  getMessageRouteChange,
-};

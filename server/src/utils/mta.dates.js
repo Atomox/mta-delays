@@ -1,8 +1,9 @@
-const _union = require('lodash').union;
-const moment = require('moment');
+import * as _ from 'lodash';
+const _union = _.union;
+import moment from 'moment';
 
-const mtaRegEx = require('./includes/regex');
-const mtaTaxonomy = require('./data/static/mta.taxonomy');
+import mtaRegEx from './regex.js';
+import mtaTaxonomy from '../../data/static/mta.taxonomy.js';
 
 
 /**
@@ -14,7 +15,7 @@ const mtaTaxonomy = require('./data/static/mta.taxonomy');
  * @return [string|null]
  *   A work-date string. Otherwise, [null].
  */
-function getMessagePlannedWorkDate(text) {
+export function getMessagePlannedWorkDate(text) {
 	let workDatePattern = /(?:\b(?:(?:Weekend[s]?|Late\s*Night[s]?|Night[s]?|Day[s]?|Late\s*Evening[s]?|Evening[s]?|Rush\s*Hour[s]?|All\s*times|Until|Except|(?:Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sept|September|Oct|October|Nov|November|Dec|December)\s*[0-9]*(?:to|until)*\s*|(?:\b[0-9]{1,2}(?:\:[0-9]{1,2})?\s*(?:AM|PM)\s*\b))\b\s*[-,\(\)\|]*\s*)+(?:\s*(?:(?:(?:[0-9]{1,2}|[0-9]{1,2}:[0-9]{1,2})\s*(?:AM|PM)\s*)|(?:[0-9]{1,2}\s*(?:-\s*[0-9]{1,2})?\s*(?:20[0-9]{2})?)?|(?:20[0-9]{2}))?\s*[-,\(\)]?\s*(?:(?:Saturdays?|Sundays?|Mondays?|Tuesdays?|Wednesdays?|Thursdays?|Fridays?|Sat|Sun|Mon|Tue|Wed|Thur|Thu|Fri|to|until|from|beginning(?:\s*at)?|further\s*notice|and|including|each)|(?:Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sept|September|Oct|October|Nov|November|Dec|December|Spring|Summer|Fall|Winter|Holiday[s]?))?\s*(?:\,|&bull\;|&|\*|\;)?\s*)*\s*)+/i;
 
 	let dateResults = text.match(workDatePattern);
@@ -38,7 +39,7 @@ function getMessagePlannedWorkDate(text) {
  *   A durration object, including original parsed text, tokanized versions,
  *   and classification tags.
  */
-function getMessageDates(text) {
+export function getMessageDates(text) {
 	let result = {
 		parsed: null,
 		tokenized: null,
@@ -182,6 +183,7 @@ function markDates(txt, year) {
 		// Do this before normal dates, so we don't have false positives.
 		txt = txt.replace(/\b(Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sep|Sept|September|Oct|October|Nov|November|Dec|December)\b\s*([0-9]+)\s*-\s*(?:\b(Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sep|Sept|September|Oct|October|Nov|November|Dec|December)?\b)\s*([0-9]+)/gi,
 			(x) => {
+
 				let month_split = x.split(/\b(Jan|January|Feb|February|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|August|Sep|Sept|September|Oct|October|Nov|November|Dec|December)\b/i),
 					dates = [],
 					month = [];
@@ -313,10 +315,17 @@ function makeDateStamp(year, month, day) {
 		: day;
 	month = month.trim();
 
-	let dateObj = moment(year + '-' + month + '-' + day);
-	let date = dateObj.format('YYYY-MM-DD');
-	let dayOfWeek = dateObj.format('ddd');
-	return '[D--' + date + '--' + dayOfWeek + ']';
+	if (year && month && day) {
+		let dateObj = moment(year + '-' + month + '-' + day);
+		let date = dateObj.format('YYYY-MM-DD');
+		let dayOfWeek = dateObj.format('ddd');
+		return '[D--' + date + '--' + dayOfWeek + ']';
+	}
+	else {
+		console.warn(" > Could not format Date: " + year + '-' + month + '-' + day);
+	}
+
+	return year + '-' + month + '-' + day;
 }
 
 
@@ -589,9 +598,3 @@ function analyzeTokenizedDates(txt) {
 	return result;
 }
 
-
-
-module.exports = {
-	getMessagePlannedWorkDate,
-	getMessageDates,
-}

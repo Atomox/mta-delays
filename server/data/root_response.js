@@ -1,6 +1,6 @@
 'use strict';
 
-let root_resp = {
+export default {
 		title: 'Ladies and Gentleman, after an earlier incident...',
 		author: {
 			name: 'Ben Helmer',
@@ -61,5 +61,3 @@ let root_resp = {
 			'Mn', 'Qs', 'Bk', 'Bx', 'SI'
 		],
 	};
-
-module.exports = root_resp;
