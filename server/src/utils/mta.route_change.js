@@ -1,12 +1,7 @@
-import * as _ from 'lodash';
-const _union = _.union;
-const _uniq = _.uniq;
-const _get = _.get;
-
+import { uniqArray as uniq, getObjPath as get }  from '../utils/arrays.js';
 import { getTrainRouteBasic, getStationLinesRegex } from './mta.stations.js';
 import * as mtaTags from './mta.taxonomy.js';
 import { matchRegexString, convertRegExpToString } from '../utils/regex.js';
-
 
 function unwrapTrain(train) {
 	if (!train) { return train; };
@@ -208,7 +203,7 @@ export async function getRouteChange(text, lines, id) {
 					// If we had results, process them.
 					if (my_results.route && my_results.route.length > 0) {
 						my_results.route.map(m => c.route.push(m) );
-						c.trains = _uniq(c.trains.concat(my_results.trains));
+						c.trains = uniq(c.trains.concat(my_results.trains));
 					}
 
 					// Normal Route Change Pattern only does this if there is a match. (inside the above if)
@@ -544,7 +539,7 @@ async function processRouteChangeResults(regex_match, message_mod) {
 				// endAt for A over C, then end.
 				// We detected this pair contained an "endAt",
 				// we still need to populate it with the "to" station.
-				if (_get(res,'endAt', false) !== false && Array.isArray(res.endAt)) {
+				if (get(res,'endAt', false) !== false && Array.isArray(res.endAt)) {
 					res.endAt.push(res.to);
 				}
 

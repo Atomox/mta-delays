@@ -1,4 +1,4 @@
-import union from 'lodash';
+import { unionArrays as union } from '../../src/utils/arrays.js';
 
 
 export const routes = {
@@ -1715,16 +1715,6 @@ export const weekend_routes = {
 	'W-WKND': [
 		// No Weekend Service
 	],
-};
-
-
-export default {
-	routes,
-	express_routes,
-	local_routes,
-	night_routes,
-	weekend_routes,
-	alternate_routes
 };
 
 

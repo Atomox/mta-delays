@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { expect } from 'chai';
-import get from 'lodash';
-import isEqual from 'lodash';
+import { getObjPath as get } from '../src/utils/arrays.js';
+import { isEqual } from 'lodash-es';
 
 export function basicTestByTag(repository, callback, description, main_tags, omit_tags, route_tags) {
   let counter = 0;
@@ -299,8 +299,8 @@ function filterTest(event, type, tags, omit) {
 	if (!event) {	return false;	}
 
 	// If filters by tag, we must have a non-empty tags property.
-	if (typeof tags == 'object' && tags && tags.length > 0 && !event.tag) {
-    console.log("\n\n", '<!> Test Message Data Integrity ERROR -- Event missing <tag> property.', "\n\n", event.message, "\n\n");
+	if (Array.isArray(tags) && tags.length > 0 && !event.tag) {
+    	console.log("\n\n", '<!> Test Filter ERROR -- Test Message Data Integrity ERROR -- Event missing <tag> property, and will be omitted.', "\n Event: ", event.message, "\n");
 			return false;
 	}
 

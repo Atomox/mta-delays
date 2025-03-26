@@ -1,7 +1,7 @@
 import assert from 'assert';
+import { isEqual } from 'lodash-es';
 import { expect } from 'chai';
-import union from 'lodash';
-import isEqual from 'lodash';
+import { unionArrays as union } from '../src/utils/arrays.js';
 
 // Project files & test data.
 import { routeTestByTag, bypassTestByTag, diffObjectsLeft } from './mta.test.js';

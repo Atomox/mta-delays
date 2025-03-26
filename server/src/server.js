@@ -2,8 +2,6 @@ import express from 'express';
 import http from 'http';
 import router from './routes/index.js';
 import config from 'config'; 
-import _ from 'lodash';
-import moment from 'moment';
 
 const app = express();
 const server = http.createServer(app);

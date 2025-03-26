@@ -10,7 +10,7 @@
  */
 import striptags from 'striptags';
 import decode from 'unescape';
-import union from 'lodash';
+import { unionArrays as union } from './arrays.js';
 import config from 'config';
 import { getBorosFromStations, matchAllLinesRouteStationsMessage } from './mta.stations.js';
 import { getMessageDates } from './mta.dates.js';
@@ -250,9 +250,8 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 			// Get all line names, then filter a distinct set.
 			e.trains = union(lines
 				.map((val) => val.line)
-				.filter((value, index, self) => self.indexOf(value) === index))
-				.value();
-			e.train_context = union(e.trains,e.train_context).value();
+				.filter((value, index, self) => self.indexOf(value) === index));
+			e.train_context = union(e.trains,e.train_context);
 
 			// Remove alt instructions before gathering affected stations,
 			// for accuracy of event over unaffected stations listed only for
@@ -263,14 +262,14 @@ async function formatSingleStatusEvent(event, lines, summary, id) {
 
 			// Get all stations per line. Also get a formatted message, with station names
 			// substituted with their IDs, for easier parsing of line and route changes.
-			let station_result = await getStationsInEventMessage(e.train_context, trim_message, null, union(e.type_detail, e.durration.tags).value());
+			let station_result = await getStationsInEventMessage(e.train_context, trim_message, null, union(e.type_detail, e.durration.tags));
 			e.stations = station_result.stations;
 			e.stations_bound = station_result.bound;
 			e.message_station_parse = station_result.parsed_message;
 
 			// Get a formatted alt instructions message, with station names
 			// substituted with their IDs.
-			let station_result_alt = await getStationsInEventMessage(e.train_context, e.alt_instructions.raw, null, union(e.type_detail, e.durration.tags).value());
+			let station_result_alt = await getStationsInEventMessage(e.train_context, e.alt_instructions.raw, null, union(e.type_detail, e.durration.tags));
 
 			e.alt_instructions.stations = station_result_alt.stations;
 			e.alt_instructions.stations_bound = station_result_alt.bound;

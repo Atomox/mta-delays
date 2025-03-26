@@ -4,12 +4,11 @@ const mta_status_file = './data/generated/mta_status.cache';
 const cached_parse_file = './data/generated/mta_status.final.cache';
 import { archive_status } from '../../data/archive/archive.js';
 import config from 'config';
-import uniq from 'lodash';
-import union from 'lodash';
+import { uniqArray as uniq, unionArrays as union } from '../utils/arrays.js';
 import moment from 'moment';
 
 import mtaApi from '../svc/mta/subway/mta.api.js';
-import mtaStatus from '../utils/mta.event.js';
+import { checkReports, parseStatusFeed } from '../utils/mta.event.js';
 import { loadStatusFromFile, checkFreshnessDate, cacheJsonResponse } from '../utils/fileManage.js';
 import { getTrainById } from "../utils/mta.stations.js";
 
@@ -55,7 +54,7 @@ export default () => {
                     throw new Error('No data loaded from file or endpoint.');
                 }
 
-                response = mtaStatus.checkReports(response);
+                response = checkReports(response);
                 
                 console.log(" > parseStatusFeed()...");
 
@@ -64,7 +63,7 @@ export default () => {
                  *   Check for async missing
                  */
                 // Parse feed into array of events.
-                response = await mtaStatus.parseStatusFeed(response);
+                response = await parseStatusFeed(response);
 
                 console.log(" > addResponseInfo()...");
 

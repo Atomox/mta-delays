@@ -1,12 +1,12 @@
 'use strict';
-import * as _ from 'lodash';
-import get from 'lodash';
-import union from 'lodash';
-import first from 'lodash';
-import last from 'lodash';
-import drop from 'lodash';
-import orderBy from 'lodash'; 
-import uniq from 'lodash';
+import { 
+	getObjPath as get, 
+	unionArrays as union, 
+	uniqArray as uniq, 
+	firstArray as first,
+	dropArray as drop 
+}  from '../utils/arrays.js';
+import { orderBy } from 'lodash-es';
 import mtaApi from '../svc/mta/subway/mta.api.js';
 import { matchRegexString, matchRegexStation, replaceRegexString, convertArrayToRegexOr } from '../utils/regex.js';
 
@@ -50,12 +50,34 @@ export function filterStations(data, ids) {
 	if (data.stations) {	data = data.stations;	}
 
 	if (data.length <= 0 || typeof data !== 'object') { return false; }
-
 	let results = [];
 
 	for (let i in ids) {
-		if (Object.keys(data).indexOf(ids[i]) !== -1) {
+
+		/**
+		 * 
+		 * 
+		 * @todo
+		 *
+		 * ALERT!
+		 * 
+		 *    This was not a nested loop before the refactor and Node 22 upgrade!
+		 * 
+		 *    This innner loop might be correcting for symptoms upstream of passing in a nested station array.
+		 * 
+		 * 
+		 */
+		if (Array.isArray(ids[i])) {
+			for (let j in ids[i]) {
+				if (Object.keys(data).indexOf(ids[i][j]) !== -1) {
+					results.push(data[ids[i][j]]);
+				}
+			}
+		} else if (Object.keys(data).indexOf(ids[i]) !== -1) {
 			results.push(data[ids[i]]);
+		}
+		else {
+			// console.log(" <!> ---- <filterStations> Problem getting results...");
 		}
 	}
 
@@ -130,7 +152,7 @@ export function getTrainRoute(line, include_all_times, tags) {
 		.then(data => {
 			let results = {};
 			Object.keys(routeList).map( key => {
-				results[key] = (routeList[key].length > 0)
+				results[key] = (Object.keys(routeList[key]).length > 0)
 					? filterStations(data, routeList[key])
 					: [];
 			});
@@ -144,7 +166,7 @@ export function getTrainRoute(line, include_all_times, tags) {
 
 export function getTrainRouteBasic(line) {
 	return getTrainRoute(line)
-		.then(data => union(data['day'], data['alternate']).value());
+		.then(data => union(data['day'], data['alternate']));
 }
 
 
@@ -177,26 +199,30 @@ export async function getRouteStationsArray(line, include_stats, include_late_ni
 		// If all lines are to be included,
 		// then merge in any found alternate time routes for this line.
 		// Include alternate route (MTAD-030), trains run past normal line.
-		let data = union(routes['day'], routes['alternate']).value();
+		let data = union(routes['day'], routes['alternate']);
+
+		let my_data_log = [];
+		data.map(e => {
+			my_data_log.push({
+				key: e.key,
+				name: e.name
+			});
+		});
 
 		if (include_late_night === true || tags.indexOf('late_night') !== -1) {
-//			console.log(' <route|late_night>');
-			data = union(data, routes['night']).value();
+			data = union(data, routes['night']);
 		}
 
 		if (tags.indexOf('weekend') !== -1) {
-//			console.log(' <route|weekend>');
-			data = union(data, routes['weekend']).value();
+			data = union(data, routes['weekend']);
 		}
 
 		if (tags.indexOf('running_local') !== -1) {
-//			console.log(' <route|running_local>');
-			data = union(data, routes['local']).value();
+			data = union(data, routes['local']);
 		}
 
 		if (tags.indexOf('running_express') !== -1) {
-//			console.log(' <route|running_express>');
-			data = union(data, routes['express']).value();
+			data = union(data, routes['express']);
 		}
 
 		let my_result = {};
@@ -405,10 +431,6 @@ export async function matchRouteStationsMessage(line, message, processed_message
 		let testForA = (line === 'Q'); //  && [].indexOf(stations[s].cid) !== -1);
 		let testFor7 = false; // ([7, '7D'].indexOf(line) !== -1 && stations[s].cid === 471);
 
-//  	if (testForA || testFor7) {
-//				console.log(' [tags] ', tags);
-//		}
-
 		// Get all stations for this line.
 		let stations = await getRouteStationsArray(line, true, true, tags);
 
@@ -592,9 +614,6 @@ export async function matchAllLinesRouteStationsMessage(lines, message, processe
 	 * 		5 -> 2, 6
 	 */
 
-//	console.log(' [Parse Stations|msg]', processed_message);
-//	console.log(' [Parse Stations|line]', lines);
-
 	for (let l in lines) {
 		try {
 			let line = unwrapLineObject(lines[l], false);
@@ -614,7 +633,6 @@ export async function matchAllLinesRouteStationsMessage(lines, message, processe
 			result.stations[line] = {stations: rs.stations};
 			result.bound[line] = {stations: rs.bound};
 
-//			console.log(' [Parse Stations|', lines[l]['line'], '] --> ', rs);
 		}
 		catch (err) {
 			console.warn('\n\n', '<!> Error while fetching stations in event msg: ', err, '\n\n');
@@ -796,15 +814,15 @@ export function processProblemStations (problem_results, results, message, bound
 		});
 	}
 
-	// Filter out any lines without stations.
-	results = filterObj(results);
-	bound = filterObj(bound);
-
 	function filterObj(Obj) {
 		return Object.keys(Obj)
 			.filter(s => (Object.keys(Obj[s].stations).length > 0))
 			.reduce((res, key) => (res[key] = Obj[key], res), {});
 	}
+
+	// Filter out any lines without stations.
+	results = filterObj(results);
+	bound = filterObj(bound);
 
 	return {
 		stations: results,
@@ -922,7 +940,7 @@ export function getBorosFromStations (stations) {
 			if (stations[i].stations) {
 
 				lines[i] = getBorosFromStationsArray(stations[i].stations);
-				lines['global'] = union(lines['global'],lines[i]).value();
+				lines['global'] = union(lines['global'],lines[i]);
 			}
 		});
 

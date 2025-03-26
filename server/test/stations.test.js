@@ -1,5 +1,6 @@
 'use strict';
-import * as _ from 'lodash';
+import { getObjPath as get, unionArrays as union } from '../src/utils/arrays.js';
+import { isEqual } from 'lodash-es';
 import assert from 'assert';
 import { expect } from 'chai';
 
@@ -23,7 +24,21 @@ describe('Parse Stations', function() {
 
 	console.warn('\n\n<!> CAUTION <!> -- Event missing -durration- or -type_detail- may cause limited station parsing due to not detecting alternate service time/routes.');
 
-	describe('General Station Tests', () => {
+	describe.only('General Station Tests', () => {
+
+		/**
+		 * 
+		 * 
+		 * 
+		 * 
+		 * @todo
+		 * 
+		 *   Testing HERE
+		 * 
+		 * 		Remove: .slice(1, 2) from event_messages.structured.normal to return to normal test state. This narrows down the scope of tested messages.
+		 * 
+		 */
+
 
 		stationTestByTag(event_messages.structured.normal, CheckStationsListForExpected, 'Basic Stations Check', [], ['MTAD-026']);
 
@@ -197,14 +212,12 @@ function CheckStationsListExcludeAltInstructions (event) {
 
 
 function CheckStationsListForExpected (event, data_path) {
+	data_path = (!data_path) ? 'stations' : data_path;
 
-	data_path = (!data_path)
-		? 'stations' : data_path;
-
-	let e_stations = _.get(event, data_path, false);
-
+	let e_stations = get(event, data_path, false);
+	
 	if (e_stations === false) {
-		expect(event, 'TEST MESSING path:' + data_path + '--' + event.message).to.not.equal(false);
+		expect(event, 'TEST MISSING expected stations path:' + data_path + '--' + event.message).to.not.equal(false);
 	}
 
 	expect(event, 'Stations Tests can be affected by missing *type_detail* property' + '--' + event.message).to.haveOwnProperty('type_detail');
@@ -212,10 +225,9 @@ function CheckStationsListForExpected (event, data_path) {
 	// In order to determine weekend / late night / etc routes,
 	// we need tags from the durration object.
 	let type_detail = (event.durration)
-		? _.union(event.durration.tags, event.type_detail)
+		? union(event.durration.tags, event.type_detail)
 		: event.type_detail;
 
-//	console.log(' >>> ', data_path, ' | tags:', type_detail, '\n -> [S]', e_stations, '\n -> [E]', event, '\n\n');
 
 	return matchAllLinesRouteStationsMessage(event.line, event.message, null, type_detail)
 		.then( data => {
@@ -223,14 +235,12 @@ function CheckStationsListForExpected (event, data_path) {
 			let results = false;
 			let mocha_msg = event.message;
 
-//			console.log('\n\n V)', event.message);
-
+			// For each expected line, 
+			// check for the stations on that line in our results.
 			for (let l in e_stations) {
 				results = true;
 
 				if (Object.keys(e_stations[l].stations).length > 0) {
-//					console.log(' >>> ', event.stations[l]);
-//					console.log(' >>> . . . ', data.stations);
 					// Make sure our results had an entry for this line before
 					// we access that property, and a general error is thrown.
 					expect(e_stations, event.message).to.have.property(l);
@@ -241,8 +251,8 @@ function CheckStationsListForExpected (event, data_path) {
 				}
 
 				let msg = '[' + l + '] -- ' + event.message;
-				let stations_expected = Object.keys(_.get(event, data_path, {})[l].stations);
-				let stations_found = Object.keys(_.get(data, 'stations.' + l + '.stations', []));
+				let stations_expected = Object.keys(get(event, data_path, {})[l].stations);
+				let stations_found = Object.keys(get(data, 'stations.' + l + '.stations', []));
 
 				// Message to help find data culprate.
 				msg = '[' +stations_found.join(',') + '] <--> [' + stations_expected.join(',') + '] -- ' + msg;
@@ -346,7 +356,7 @@ function checkMultiStationTokenForExpected(event) {
 	// Get a train lines in main message.
 	// Add them to the lines set for station parsing.
 	let lines = getMessageTrainLines(event.message);
-	lines = _.union(event.line,lines);
+	lines = union(event.line,lines);
 
 	return getStationsInEventMessage(lines, event.message)
 		.then( data => {
@@ -376,9 +386,9 @@ function checkMultiStationTokenForExpected(event) {
 
 				data.route.map( (e, i) => {
 
-					if (_.isEqual(e.lines, change.lines)
-						&& _.isEqual(e.along, change.along)
-						&& _.isEqual(e.parsed, change.parsed)) {
+					if (isEqual(e.lines, change.lines)
+						&& isEqual(e.along, change.along)
+						&& isEqual(e.parsed, change.parsed)) {
 
 						Object.keys(exp).map(ex => {
 

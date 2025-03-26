@@ -1,5 +1,4 @@
-import * as _ from 'lodash';
-const _union = _.union;
+import { unionArrays as union } from './arrays.js';
 import moment from 'moment';
 
 import { matchRegexString } from './regex.js';
@@ -63,7 +62,7 @@ export function getMessageDates(text) {
 				? [ t.tags ]
 				: t.tags;
 
-			result.tags = _union(result.tags, t.tags);
+			result.tags = union(result.tags, t.tags);
 
 			if (t.start || t.end) {
 				result.date.push({
@@ -75,7 +74,7 @@ export function getMessageDates(text) {
 
 
 		analyzeTokenizedTimes(result.tokenized).map(t => {
-			result.tags = _union(result.tags, t.tags);
+			result.tags = union(result.tags, t.tags);
 			if (t.start && t.end) {
 				result.time.push({
 					start: t.start.time,
